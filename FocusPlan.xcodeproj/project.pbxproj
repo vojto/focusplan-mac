@@ -67,6 +67,7 @@
 		997FFBC81EAF7DA900ABEA01 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/Mac/Result.framework; sourceTree = "<group>"; };
 		997FFBC91EAF7DA900ABEA01 /* SugarRecordCoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SugarRecordCoreData.framework; path = Carthage/Build/Mac/SugarRecordCoreData.framework; sourceTree = "<group>"; };
 		99EEDE371EAF854200662DED /* NiceData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NiceData.framework; path = Carthage/Build/Mac/NiceData.framework; sourceTree = "<group>"; };
+		99EEDE591EAF866A00662DED /* FocusPlan.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FocusPlan.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +108,7 @@
 		99078BF31EAF1CD000C3B789 /* FocusPlan */ = {
 			isa = PBXGroup;
 			children = (
+				99EEDE591EAF866A00662DED /* FocusPlan.entitlements */,
 				99078BF41EAF1CD000C3B789 /* AppDelegate.swift */,
 				990A18051EAF3C5A00DCE839 /* MainMenu.xib */,
 				990A180B1EAF3D9700DCE839 /* MainWindow.swift */,
@@ -176,6 +178,11 @@
 						CreatedOnToolsVersion = 8.3;
 						DevelopmentTeam = Q4C48EKH9Z;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -321,6 +328,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = FocusPlan/FocusPlan.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = Q4C48EKH9Z;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -339,6 +347,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = FocusPlan/FocusPlan.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = Q4C48EKH9Z;
 				FRAMEWORK_SEARCH_PATHS = (
