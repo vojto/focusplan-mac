@@ -8,20 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		99078BF51EAF1CD000C3B789 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99078BF41EAF1CD000C3B789 /* AppDelegate.swift */; };
-		99078BF71EAF1CD000C3B789 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99078BF61EAF1CD000C3B789 /* ViewController.swift */; };
 		99078BFA1EAF1CD000C3B789 /* FocusPlan.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 99078BF81EAF1CD000C3B789 /* FocusPlan.xcdatamodeld */; };
 		99078BFC1EAF1CD000C3B789 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99078BFB1EAF1CD000C3B789 /* Assets.xcassets */; };
-		99078BFF1EAF1CD000C3B789 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99078BFD1EAF1CD000C3B789 /* Main.storyboard */; };
+		990A18061EAF3C5A00DCE839 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 990A18051EAF3C5A00DCE839 /* MainMenu.xib */; };
+		990A18091EAF3D2300DCE839 /* ProjectsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990A18071EAF3D2300DCE839 /* ProjectsViewController.swift */; };
+		990A180A1EAF3D2300DCE839 /* ProjectsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 990A18081EAF3D2300DCE839 /* ProjectsViewController.xib */; };
+		990A180C1EAF3D9700DCE839 /* MainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990A180B1EAF3D9700DCE839 /* MainWindow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		99078BF11EAF1CD000C3B789 /* FocusPlan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FocusPlan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99078BF41EAF1CD000C3B789 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		99078BF61EAF1CD000C3B789 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		99078BF91EAF1CD000C3B789 /* FocusPlan.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FocusPlan.xcdatamodel; sourceTree = "<group>"; };
 		99078BFB1EAF1CD000C3B789 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		99078BFE1EAF1CD000C3B789 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		99078C001EAF1CD000C3B789 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		990A18051EAF3C5A00DCE839 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
+		990A18071EAF3D2300DCE839 /* ProjectsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectsViewController.swift; sourceTree = "<group>"; };
+		990A18081EAF3D2300DCE839 /* ProjectsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProjectsViewController.xib; sourceTree = "<group>"; };
+		990A180B1EAF3D9700DCE839 /* MainWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainWindow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,9 +59,11 @@
 			isa = PBXGroup;
 			children = (
 				99078BF41EAF1CD000C3B789 /* AppDelegate.swift */,
-				99078BF61EAF1CD000C3B789 /* ViewController.swift */,
+				990A18051EAF3C5A00DCE839 /* MainMenu.xib */,
+				990A180B1EAF3D9700DCE839 /* MainWindow.swift */,
+				990A18071EAF3D2300DCE839 /* ProjectsViewController.swift */,
+				990A18081EAF3D2300DCE839 /* ProjectsViewController.xib */,
 				99078BFB1EAF1CD000C3B789 /* Assets.xcassets */,
-				99078BFD1EAF1CD000C3B789 /* Main.storyboard */,
 				99078C001EAF1CD000C3B789 /* Info.plist */,
 				99078BF81EAF1CD000C3B789 /* FocusPlan.xcdatamodeld */,
 			);
@@ -125,7 +131,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				99078BFC1EAF1CD000C3B789 /* Assets.xcassets in Resources */,
-				99078BFF1EAF1CD000C3B789 /* Main.storyboard in Resources */,
+				990A180A1EAF3D2300DCE839 /* ProjectsViewController.xib in Resources */,
+				990A18061EAF3C5A00DCE839 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,24 +143,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				99078BF71EAF1CD000C3B789 /* ViewController.swift in Sources */,
+				990A180C1EAF3D9700DCE839 /* MainWindow.swift in Sources */,
+				990A18091EAF3D2300DCE839 /* ProjectsViewController.swift in Sources */,
 				99078BF51EAF1CD000C3B789 /* AppDelegate.swift in Sources */,
 				99078BFA1EAF1CD000C3B789 /* FocusPlan.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		99078BFD1EAF1CD000C3B789 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				99078BFE1EAF1CD000C3B789 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		99078C011EAF1CD000C3B789 /* Debug */ = {
@@ -295,6 +292,7 @@
 				99078C051EAF1CD000C3B789 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
