@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import NiceKit
 
 class MainWindow: NSWindow {
     @IBOutlet weak var secondaryView: NSView!
@@ -15,7 +16,8 @@ class MainWindow: NSWindow {
     let projectsController = ProjectsViewController(nibName: "ProjectsViewController", bundle: nil)!
     
     override func awakeFromNib() {
-        Swift.print("Main window just woke up!")
+
+        secondaryView.include(projectsController.view)
         
     }
 }

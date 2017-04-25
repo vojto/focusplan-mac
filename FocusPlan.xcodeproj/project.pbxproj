@@ -14,7 +14,41 @@
 		990A18091EAF3D2300DCE839 /* ProjectsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990A18071EAF3D2300DCE839 /* ProjectsViewController.swift */; };
 		990A180A1EAF3D2300DCE839 /* ProjectsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 990A18081EAF3D2300DCE839 /* ProjectsViewController.xib */; };
 		990A180C1EAF3D9700DCE839 /* MainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990A180B1EAF3D9700DCE839 /* MainWindow.swift */; };
+		997FFBCE1EAF7DB200ABEA01 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 997FFBC61EAF7DA900ABEA01 /* ReactiveCocoa.framework */; };
+		997FFBCF1EAF7DB200ABEA01 /* ReactiveCocoa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 997FFBC61EAF7DA900ABEA01 /* ReactiveCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		997FFBD01EAF7DB200ABEA01 /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 997FFBC71EAF7DA900ABEA01 /* ReactiveSwift.framework */; };
+		997FFBD11EAF7DB200ABEA01 /* ReactiveSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 997FFBC71EAF7DA900ABEA01 /* ReactiveSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		997FFBD21EAF7DB200ABEA01 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 997FFBC81EAF7DA900ABEA01 /* Result.framework */; };
+		997FFBD31EAF7DB200ABEA01 /* Result.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 997FFBC81EAF7DA900ABEA01 /* Result.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		997FFBD41EAF7DB200ABEA01 /* SugarRecordCoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 997FFBC91EAF7DA900ABEA01 /* SugarRecordCoreData.framework */; };
+		997FFBD51EAF7DB200ABEA01 /* SugarRecordCoreData.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 997FFBC91EAF7DA900ABEA01 /* SugarRecordCoreData.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		997FFBD61EAF7DB200ABEA01 /* Cartography.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9922F1191EAF656000BFA01F /* Cartography.framework */; };
+		997FFBD71EAF7DB200ABEA01 /* Cartography.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9922F1191EAF656000BFA01F /* Cartography.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		997FFBD81EAF7DB200ABEA01 /* NiceKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9922F11A1EAF656000BFA01F /* NiceKit.framework */; };
+		997FFBD91EAF7DB200ABEA01 /* NiceKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9922F11A1EAF656000BFA01F /* NiceKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		99EEDE391EAF855400662DED /* NiceData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99EEDE371EAF854200662DED /* NiceData.framework */; };
+		99EEDE3A1EAF855400662DED /* NiceData.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 99EEDE371EAF854200662DED /* NiceData.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		997FFBDA1EAF7DB300ABEA01 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				997FFBD31EAF7DB200ABEA01 /* Result.framework in Embed Frameworks */,
+				997FFBD51EAF7DB200ABEA01 /* SugarRecordCoreData.framework in Embed Frameworks */,
+				997FFBD71EAF7DB200ABEA01 /* Cartography.framework in Embed Frameworks */,
+				997FFBCF1EAF7DB200ABEA01 /* ReactiveCocoa.framework in Embed Frameworks */,
+				99EEDE3A1EAF855400662DED /* NiceData.framework in Embed Frameworks */,
+				997FFBD91EAF7DB200ABEA01 /* NiceKit.framework in Embed Frameworks */,
+				997FFBD11EAF7DB200ABEA01 /* ReactiveSwift.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		99078BF11EAF1CD000C3B789 /* FocusPlan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FocusPlan.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -26,6 +60,13 @@
 		990A18071EAF3D2300DCE839 /* ProjectsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectsViewController.swift; sourceTree = "<group>"; };
 		990A18081EAF3D2300DCE839 /* ProjectsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProjectsViewController.xib; sourceTree = "<group>"; };
 		990A180B1EAF3D9700DCE839 /* MainWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainWindow.swift; sourceTree = "<group>"; };
+		9922F1191EAF656000BFA01F /* Cartography.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cartography.framework; path = Carthage/Build/Mac/Cartography.framework; sourceTree = "<group>"; };
+		9922F11A1EAF656000BFA01F /* NiceKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NiceKit.framework; path = Carthage/Build/Mac/NiceKit.framework; sourceTree = "<group>"; };
+		997FFBC61EAF7DA900ABEA01 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/Mac/ReactiveCocoa.framework; sourceTree = "<group>"; };
+		997FFBC71EAF7DA900ABEA01 /* ReactiveSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveSwift.framework; path = Carthage/Build/Mac/ReactiveSwift.framework; sourceTree = "<group>"; };
+		997FFBC81EAF7DA900ABEA01 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/Mac/Result.framework; sourceTree = "<group>"; };
+		997FFBC91EAF7DA900ABEA01 /* SugarRecordCoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SugarRecordCoreData.framework; path = Carthage/Build/Mac/SugarRecordCoreData.framework; sourceTree = "<group>"; };
+		99EEDE371EAF854200662DED /* NiceData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NiceData.framework; path = Carthage/Build/Mac/NiceData.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +74,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				997FFBD21EAF7DB200ABEA01 /* Result.framework in Frameworks */,
+				997FFBD41EAF7DB200ABEA01 /* SugarRecordCoreData.framework in Frameworks */,
+				997FFBD61EAF7DB200ABEA01 /* Cartography.framework in Frameworks */,
+				997FFBCE1EAF7DB200ABEA01 /* ReactiveCocoa.framework in Frameworks */,
+				997FFBD81EAF7DB200ABEA01 /* NiceKit.framework in Frameworks */,
+				997FFBD01EAF7DB200ABEA01 /* ReactiveSwift.framework in Frameworks */,
+				99EEDE391EAF855400662DED /* NiceData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +92,7 @@
 			children = (
 				99078BF31EAF1CD000C3B789 /* FocusPlan */,
 				99078BF21EAF1CD000C3B789 /* Products */,
+				9922F1181EAF654800BFA01F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -63,11 +112,33 @@
 				990A180B1EAF3D9700DCE839 /* MainWindow.swift */,
 				990A18071EAF3D2300DCE839 /* ProjectsViewController.swift */,
 				990A18081EAF3D2300DCE839 /* ProjectsViewController.xib */,
+				997FFBC31EAF699A00ABEA01 /* Models */,
 				99078BFB1EAF1CD000C3B789 /* Assets.xcassets */,
 				99078C001EAF1CD000C3B789 /* Info.plist */,
-				99078BF81EAF1CD000C3B789 /* FocusPlan.xcdatamodeld */,
 			);
 			path = FocusPlan;
+			sourceTree = "<group>";
+		};
+		9922F1181EAF654800BFA01F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				99EEDE371EAF854200662DED /* NiceData.framework */,
+				997FFBC61EAF7DA900ABEA01 /* ReactiveCocoa.framework */,
+				997FFBC71EAF7DA900ABEA01 /* ReactiveSwift.framework */,
+				997FFBC81EAF7DA900ABEA01 /* Result.framework */,
+				997FFBC91EAF7DA900ABEA01 /* SugarRecordCoreData.framework */,
+				9922F1191EAF656000BFA01F /* Cartography.framework */,
+				9922F11A1EAF656000BFA01F /* NiceKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		997FFBC31EAF699A00ABEA01 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				99078BF81EAF1CD000C3B789 /* FocusPlan.xcdatamodeld */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -80,6 +151,7 @@
 				99078BED1EAF1CD000C3B789 /* Sources */,
 				99078BEE1EAF1CD000C3B789 /* Frameworks */,
 				99078BEF1EAF1CD000C3B789 /* Resources */,
+				997FFBDA1EAF7DB300ABEA01 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -251,6 +323,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = Q4C48EKH9Z;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = FocusPlan/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tech.median.FocusPlan;
@@ -265,6 +341,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = Q4C48EKH9Z;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = FocusPlan/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tech.median.FocusPlan;
