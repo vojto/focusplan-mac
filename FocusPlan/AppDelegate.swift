@@ -13,15 +13,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Insert code here to initialize your application
+
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
+        
     }
     
     
     // MARK: - Core Data stack
+    // ------------------------------------------------------------------------
     
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "FocusPlan")
@@ -34,6 +35,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }()
     
     // MARK: Core Data Saving and Undo support
+    
     
     @IBAction func saveAction(_ sender: AnyObject?) {
         let context = persistentContainer.viewContext
@@ -51,6 +53,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 NSApplication.shared().presentError(nserror)
             }
         }
+    }
+    
+    public static var viewContext: NSManagedObjectContext {
+        let delegate = NSApplication.shared().delegate as! AppDelegate
+        return delegate.persistentContainer.viewContext
     }
     
     func windowWillReturnUndoManager(window: NSWindow) -> UndoManager? {

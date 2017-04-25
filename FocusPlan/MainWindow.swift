@@ -13,7 +13,10 @@ class MainWindow: NSWindow {
     @IBOutlet weak var secondaryView: NSView!
     @IBOutlet weak var mainView: NSView!
     
-    let projectsController = ProjectsViewController(nibName: "ProjectsViewController", bundle: nil)!
+    lazy var projectsController = {
+        return ProjectsViewController(nibName: "ProjectsViewController", bundle: nil)!
+    }()
+    
     
     override func awakeFromNib() {
 
