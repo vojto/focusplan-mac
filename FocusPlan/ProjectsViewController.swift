@@ -10,7 +10,7 @@ import Cocoa
 import NiceData
 import ReactiveSwift
 
-class ProjectsViewController: NSViewController, NSTextFieldDelegate {
+class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutlineViewDelegate, NSTextFieldDelegate {
     
     lazy var observer: ReactiveObserver<Project> = {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Project")
@@ -59,6 +59,8 @@ class ProjectsViewController: NSViewController, NSTextFieldDelegate {
     // ------------------------------------------------------------------------
     
     func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
+        Swift.print("Getting number of children items for item: \(item)")
+        
         if item == nil {
             return 1
         } else if item is RootItem {
