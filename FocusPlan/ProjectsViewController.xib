@@ -8,6 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="ProjectsViewController" customModule="FocusPlan" customModuleProvider="target">
             <connections>
+                <outlet property="contextMenu" destination="VzZ-ji-yID" id="pap-3i-jII"/>
                 <outlet property="outlineView" destination="Tx9-BQ-pkP" id="pvB-DC-4uw"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
@@ -94,6 +95,7 @@
                                 <connections>
                                     <outlet property="dataSource" destination="-2" id="Inp-ow-DkR"/>
                                     <outlet property="delegate" destination="-2" id="G14-dH-OOZ"/>
+                                    <outlet property="menu" destination="VzZ-ji-yID" id="96l-E4-Pdv"/>
                                 </connections>
                             </outlineView>
                         </subviews>
@@ -108,14 +110,50 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
+                <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="hu2-vg-f8C">
+                    <rect key="frame" x="0.0" y="22" width="259" height="5"/>
+                </box>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="Rzm-Wn-fdg">
+                    <rect key="frame" x="8" y="4" width="16" height="16"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="16" id="Vjk-77-xB8"/>
+                        <constraint firstAttribute="width" constant="16" id="xDi-a7-p7s"/>
+                    </constraints>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSAddTemplate" imagePosition="only" alignment="center" inset="2" id="eJo-6r-tMg">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="addProject:" target="-2" id="rak-Vd-R5Y"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
+                <constraint firstAttribute="bottom" secondItem="Rzm-Wn-fdg" secondAttribute="bottom" constant="4" id="7TZ-AO-Lel"/>
+                <constraint firstAttribute="trailing" secondItem="hu2-vg-f8C" secondAttribute="trailing" id="8SA-p5-7Y8"/>
+                <constraint firstAttribute="bottom" secondItem="hu2-vg-f8C" secondAttribute="bottom" constant="24" id="9uo-7p-EMS"/>
                 <constraint firstItem="wnS-oV-gKD" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="RkA-sA-4GR"/>
+                <constraint firstItem="Rzm-Wn-fdg" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="8" id="Ufk-wK-eCI"/>
                 <constraint firstItem="wnS-oV-gKD" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="erb-hn-ymG"/>
                 <constraint firstAttribute="bottom" secondItem="wnS-oV-gKD" secondAttribute="bottom" id="ukD-Rg-b38"/>
                 <constraint firstAttribute="trailing" secondItem="wnS-oV-gKD" secondAttribute="trailing" id="vQx-N6-4zp"/>
+                <constraint firstItem="hu2-vg-f8C" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="xff-LR-KPi"/>
             </constraints>
             <point key="canvasLocation" x="-60.5" y="73.5"/>
         </customView>
+        <menu id="VzZ-ji-yID">
+            <items>
+                <menuItem title="Item 3" id="P8P-F4-a3P">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+            </items>
+            <connections>
+                <outlet property="delegate" destination="-2" id="QtT-ei-V6l"/>
+            </connections>
+            <point key="canvasLocation" x="151" y="591"/>
+        </menu>
     </objects>
+    <resources>
+        <image name="NSAddTemplate" width="11" height="11"/>
+    </resources>
 </document>

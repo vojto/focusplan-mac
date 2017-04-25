@@ -10,7 +10,7 @@ import Cocoa
 import NiceData
 import ReactiveSwift
 
-class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutlineViewDelegate, NSTextFieldDelegate {
+class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutlineViewDelegate, NSTextFieldDelegate, NSMenuDelegate {
     
     lazy var observer: ReactiveObserver<Project> = {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Project")
@@ -49,6 +49,8 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
         outlineView.expandItem(nil, expandChildren: true)
         
         outlineView.register(forDraggedTypes: [draggedType])
+        
+        menuNeedsUpdate(contextMenu)
     }
     
     deinit {
@@ -59,8 +61,6 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     // ------------------------------------------------------------------------
     
     func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
-        Swift.print("Getting number of children items for item: \(item)")
-        
         if item == nil {
             return 1
         } else if item is RootItem {
@@ -96,7 +96,16 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
             
 //            view.page.value = page
             
-            view.textField?.stringValue = project.name ?? ""
+            var name = project.name ?? ""
+            
+            if name == "" {
+                name = "untitled"
+                view.textField?.alpha = 0.5
+            } else {
+                view.textField?.alpha = 1
+            }
+            
+            view.textField?.stringValue = name
             view.textField?.delegate = self
             
             return view
@@ -157,6 +166,11 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     
     // MARK: - NSTextFieldDelegate
     
+    override func controlTextDidBeginEditing(_ obj: Notification) {
+        guard let field = obj.object as? NSTextField else { return }
+        field.alpha = 1
+    }
+    
     override func controlTextDidEndEditing(_ obj: Notification) {
         guard let field = obj.object as? NSTextField else { return }
         field.isEditable = false
@@ -181,29 +195,31 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     //        }
     //    }
     
-    /*n
-    func addPage() {
-        let page = CanvasPageModel.mr_createEntity()!
-        page.name = "New page"
-        page.weight = pages.count + 1
+    
+    @IBAction func addProject(_ sender: Any) {
+        let context = AppDelegate.viewContext
         
-        SuiteDefaults.instance.mainContext!.mr_saveToPersistentStoreAndWait()
+        let project = NSEntityDescription.insertNewObject(forEntityName: "Project", into: context) as! Project
+        project.name = ""
+        project.weight = Int32(projects.count + 1)
         
-        select(page: page)
+        try! context.save()
+        
+        select(project: project)
         
         DispatchQueue.main.async {
-            self.edit(page: page)
+            self.edit(project: project)
         }
     }
-    */
+    
     
     func edit(project: Project) {
-        
         let row = outlineView.row(forItem: project)
         guard let view = outlineView.view(atColumn: 0, row: row, makeIfNecessary: false) as? NSTableCellView else { return assertionFailure() }
         guard let textField = view.textField else { return assertionFailure() }
         
         textField.isEditable = true
+        
         outlineView.window!.makeFirstResponder(textField)
     }
     
@@ -313,7 +329,7 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
         projects.insert(projects.remove(at: pageIndex), at: newIndex)
         
         let context = AppDelegate.viewContext
-        let undoManager = context.undoManager!
+        let undoManager = AppDelegate.undoManager
         
         context.processPendingChanges()
         undoManager.beginUndoGrouping()

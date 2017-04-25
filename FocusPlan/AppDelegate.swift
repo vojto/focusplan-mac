@@ -31,6 +31,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 fatalError("Unresolved error \(error)")
             }
         })
+        
+        container.viewContext.undoManager = UndoManager()
+        
         return container
     }()
     
@@ -58,6 +61,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     public static var viewContext: NSManagedObjectContext {
         let delegate = NSApplication.shared().delegate as! AppDelegate
         return delegate.persistentContainer.viewContext
+    }
+    
+    public static var undoManager: UndoManager {
+        return viewContext.undoManager!
     }
     
     func windowWillReturnUndoManager(window: NSWindow) -> UndoManager? {

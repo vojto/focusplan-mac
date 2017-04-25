@@ -10,6 +10,8 @@ import Foundation
 import AppKit
 
 class ProjectsOutlineView: NSOutlineView {
+    
+    
     override open func mouseDown(with event: NSEvent) {
         super.mouseDown(with: event)
         
