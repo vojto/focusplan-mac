@@ -22,4 +22,9 @@ public extension Reactive where Base: Project {
         return self.producer(forKeyPath: #keyPath(Project.color))
             .map(asString)
     }
+    
+    var tasks: SignalProducer<NSSet?, NoError> {
+        return self.producer(forKeyPath: #keyPath(Project.tasks))
+            .map(asNSSet)
+    }
 }

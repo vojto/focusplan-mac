@@ -17,10 +17,20 @@ class MainWindow: NSWindow {
         return ProjectsViewController(nibName: "ProjectsViewController", bundle: nil)!
     }()
     
+    lazy var tasksController = {
+        return TasksViewController(nibName: "TasksViewController", bundle: nil)!
+    }()
+    
     
     override func awakeFromNib() {
 
         secondaryView.include(projectsController.view)
+        
+        mainView.include(tasksController.view)
+        
+        projectsController.onSelect = { project in
+            self.tasksController.project.value = project
+        }
         
     }
 }
