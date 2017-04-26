@@ -91,6 +91,8 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
     // MARK: - Making views for outline view
     // ------------------------------------------------------------------------
     
+    var titleCellViews = [Task: TaskTitleTableCellView]()
+    
     func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
         if item is RootItem {
             return createHeaderView(outlineView, column: tableColumn)
@@ -115,6 +117,9 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
             let view = outlineView.make(withIdentifier: "TaskCell", owner: self) as? TaskTitleTableCellView
             
             view?.task.value = task
+            
+            titleCellViews[task] = view
+            view?.controller = self
             
             return view
         }
@@ -280,5 +285,44 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
         return true
     }
     
+    // MARK: - Calculating the height
+    // -----------------------------------------------------------------------
     
+    var dummyTitleCellView: TaskTitleTableCellView!
+    
+    func outlineView(_ outlineView: NSOutlineView, heightOfRowByItem item: Any) -> CGFloat {
+        if let task = item as? Task {
+            if dummyTitleCellView == nil {
+                dummyTitleCellView = outlineView.make(withIdentifier: "TaskCell", owner: self) as! TaskTitleTableCellView
+            }
+            
+            
+            dummyTitleCellView.task.value = task
+            
+            // If there is a view for this project already, copy title from
+            // there, as it may have changed
+            if let view = titleCellViews[task] {
+                dummyTitleCellView.textField?.stringValue = view.textField?.stringValue ?? ""
+            }
+            
+            dummyTitleCellView.bounds.size.width = taskColumn.width
+            
+            dummyTitleCellView.needsLayout = true
+            dummyTitleCellView.layoutSubtreeIfNeeded()
+            
+            return dummyTitleCellView.fittingSize.height
+        }
+        
+        return 32
+    }
+    
+    func updateHeight(cellView: TaskTitleTableCellView) {
+        let row = outlineView.row(for: cellView)
+        
+        NSAnimationContext.runAnimationGroup({ (context) in
+            context.duration = 0
+            outlineView.noteHeightOfRows(withIndexesChanged: IndexSet([row]))
+        }, completionHandler: nil)
+        
+    }
 }

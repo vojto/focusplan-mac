@@ -55,16 +55,21 @@
                                                 <rect key="frame" x="5" y="103" width="398" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ecr-hF-tNw">
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ecr-hF-tNw">
                                                         <rect key="frame" x="0.0" y="0.0" width="398" height="17"/>
-                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" placeholderString="untitled task" id="LWe-eC-ewQ">
+                                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Table View Cell" placeholderString="untitled task" id="LWe-eC-ewQ">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
                                                 </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="ecr-hF-tNw" secondAttribute="trailing" constant="2" id="Xni-9E-CDm"/>
+                                                    <constraint firstItem="ecr-hF-tNw" firstAttribute="top" secondItem="J4t-Kv-rM7" secondAttribute="top" id="mL4-rS-dSw"/>
+                                                    <constraint firstItem="ecr-hF-tNw" firstAttribute="leading" secondItem="J4t-Kv-rM7" secondAttribute="leading" constant="2" id="pjV-yH-P3Z"/>
+                                                    <constraint firstAttribute="bottom" secondItem="ecr-hF-tNw" secondAttribute="bottom" id="tUc-QI-lel"/>
+                                                </constraints>
                                                 <connections>
                                                     <outlet property="textField" destination="ecr-hF-tNw" id="rgI-8B-sV4"/>
                                                 </connections>

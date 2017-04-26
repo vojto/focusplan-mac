@@ -13,10 +13,16 @@ import ReactiveSwift
 class TaskTitleTableCellView: NSTableCellView, NSTextFieldDelegate {
     var task = MutableProperty<Task?>(nil)
     
+    var controller: TasksViewController?
+    
+    static let font = NSFont.systemFont(ofSize: 14)
+    
     override func awakeFromNib() {
         if let field = textField {
             field.reactive.stringValue <~ task.producer.pick({ $0.reactive.title.producer }).map { $0 ?? "" }
             field.delegate = self
+            
+            field.font = TaskTitleTableCellView.font
         }
     }
     
@@ -26,5 +32,9 @@ class TaskTitleTableCellView: NSTableCellView, NSTextFieldDelegate {
         let value = field.stringValue
         
         task.value?.title = value
+    }
+    
+    override func controlTextDidChange(_ obj: Notification) {
+        controller?.updateHeight(cellView: self)
     }
 }

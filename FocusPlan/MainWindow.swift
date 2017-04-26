@@ -31,6 +31,10 @@ class MainWindow: NSWindow {
         projectsController.onSelect = { project in
             self.tasksController.project.value = project
         }
-        
+    }
+    
+    
+    @IBAction func createTask(_ sender: Any) {
+        tasksController.createTask(sender)
     }
 }
