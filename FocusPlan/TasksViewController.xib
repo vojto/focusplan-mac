@@ -96,7 +96,7 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hkb-IY-Noq">
-                                                        <rect key="frame" x="0.0" y="6" width="398" height="18"/>
+                                                        <rect key="frame" x="6" y="6" width="386" height="18"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="Y3t-i9-z5i">
                                                             <font key="font" metaFont="systemMedium" size="14"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -106,8 +106,8 @@
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstItem="hkb-IY-Noq" firstAttribute="centerY" secondItem="KKM-4d-l54" secondAttribute="centerY" id="3y7-zE-om3"/>
-                                                    <constraint firstItem="hkb-IY-Noq" firstAttribute="leading" secondItem="KKM-4d-l54" secondAttribute="leading" constant="2" id="KqN-of-WKx"/>
-                                                    <constraint firstAttribute="trailing" secondItem="hkb-IY-Noq" secondAttribute="trailing" constant="2" id="wBp-Kb-d6h"/>
+                                                    <constraint firstItem="hkb-IY-Noq" firstAttribute="leading" secondItem="KKM-4d-l54" secondAttribute="leading" constant="8" id="KqN-of-WKx"/>
+                                                    <constraint firstAttribute="trailing" secondItem="hkb-IY-Noq" secondAttribute="trailing" constant="8" id="wBp-Kb-d6h"/>
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="textField" destination="hkb-IY-Noq" id="2Ve-Fd-I78"/>
@@ -133,7 +133,7 @@
                                                 <subviews>
                                                     <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TOn-YK-4ZL">
                                                         <rect key="frame" x="2" y="0.0" width="58" height="17"/>
-                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" focusRingType="none" placeholderString="estimate" id="eZd-Jo-mI6">
+                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" focusRingType="none" placeholderString="est" id="eZd-Jo-mI6">
                                                             <font key="font" metaFont="systemMedium" size="13"/>
                                                             <color key="textColor" red="0.50980392156862742" green="0.53725490196078429" blue="0.56862745098039214" alpha="1" colorSpace="calibratedRGB"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
