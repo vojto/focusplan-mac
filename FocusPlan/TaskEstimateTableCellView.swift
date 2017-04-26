@@ -21,10 +21,22 @@ class TaskEstimateTableCellView: NSTableCellView, NSTextFieldDelegate {
         
         let minutesLabel = task.producer.pick({ $0.reactive.estimatedMinutes })
             .map { minutes -> String in
-                if let minutes = minutes, minutes > 0 {
-                    return "\(minutes)m"
-                } else {
+                
+                guard let minutes = minutes, minutes > 0 else {
                     return ""
+                }
+                
+                let hours = minutes / 60
+                let extraMinutes = minutes - (hours*60)
+                
+                if hours > 0 {
+                    if extraMinutes > 0 {
+                        return "\(hours)h \(extraMinutes)m"
+                    } else {
+                        return "\(hours)h"
+                    }
+                } else {
+                    return "\(minutes)m"
                 }
         }
         
