@@ -97,6 +97,11 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
     }
     
     func createHeaderView(_ outlineView: NSOutlineView, column: NSTableColumn?) -> NSView? {
+        if column === taskColumn {
+            let view = outlineView.make(withIdentifier: "HeaderCell", owner: self) as? NSTableCellView
+            view?.textField?.stringValue = self.project.value?.name ?? ""
+            return view
+        }
         return nil // no header view for now
     }
     

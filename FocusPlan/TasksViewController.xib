@@ -4,6 +4,7 @@
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12118"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+        <capability name="system font weights other than Regular or Bold" minToolsVersion="7.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TasksViewController" customModule="FocusPlan" customModuleProvider="target">
@@ -20,16 +21,16 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k2S-Ko-gCv">
+                <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="22" horizontalPageScroll="10" verticalLineScroll="22" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k2S-Ko-gCv">
                     <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
                     <clipView key="contentView" id="Z6I-Dz-4Qu">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" outlineTableColumn="7fd-1L-BeA" id="g5R-kG-AVj">
-                                <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+                                <rect key="frame" x="0.0" y="0.0" width="494" height="272"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <size key="intercellSpacing" width="3" height="2"/>
+                                <size key="intercellSpacing" width="10" height="5"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
@@ -47,7 +48,7 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView identifier="TaskCell" id="J4t-Kv-rM7">
-                                                <rect key="frame" x="1" y="1" width="339" height="17"/>
+                                                <rect key="frame" x="5" y="2" width="339" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ecr-hF-tNw">
@@ -62,6 +63,28 @@
                                                 </subviews>
                                                 <connections>
                                                     <outlet property="textField" destination="ecr-hF-tNw" id="rgI-8B-sV4"/>
+                                                </connections>
+                                            </tableCellView>
+                                            <tableCellView identifier="HeaderCell" id="KKM-4d-l54">
+                                                <rect key="frame" x="5" y="24" width="339" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <subviews>
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hkb-IY-Noq">
+                                                        <rect key="frame" x="0.0" y="6" width="339" height="18"/>
+                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="Y3t-i9-z5i">
+                                                            <font key="font" metaFont="systemMedium" size="14"/>
+                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="hkb-IY-Noq" firstAttribute="centerY" secondItem="KKM-4d-l54" secondAttribute="centerY" id="3y7-zE-om3"/>
+                                                    <constraint firstItem="hkb-IY-Noq" firstAttribute="leading" secondItem="KKM-4d-l54" secondAttribute="leading" constant="2" id="KqN-of-WKx"/>
+                                                    <constraint firstAttribute="trailing" secondItem="hkb-IY-Noq" secondAttribute="trailing" constant="2" id="wBp-Kb-d6h"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outlet property="textField" destination="hkb-IY-Noq" id="2Ve-Fd-I78"/>
                                                 </connections>
                                             </tableCellView>
                                         </prototypeCellViews>
@@ -80,7 +103,7 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView identifier="EstimateCell" id="3Bc-We-Hgt">
-                                                <rect key="frame" x="343" y="1" width="135" height="17"/>
+                                                <rect key="frame" x="354" y="2" width="135" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TOn-YK-4ZL">
@@ -107,7 +130,7 @@
                             </outlineView>
                         </subviews>
                     </clipView>
-                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="9T6-Zg-jTy">
+                    <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="9T6-Zg-jTy">
                         <rect key="frame" x="0.0" y="256" width="480" height="16"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
