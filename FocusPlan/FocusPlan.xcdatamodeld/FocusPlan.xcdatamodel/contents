@@ -8,6 +8,7 @@
     </entity>
     <entity name="Task" representedClassName="Task" syncable="YES" codeGenerationType="class">
         <attribute name="estimatedMinutes" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="isFinished" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="weight" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -15,6 +16,6 @@
     </entity>
     <elements>
         <element name="Project" positionX="-63" positionY="-18" width="128" height="105"/>
-        <element name="Task" positionX="-63" positionY="9" width="128" height="120"/>
+        <element name="Task" positionX="-63" positionY="9" width="128" height="135"/>
     </elements>
 </model>

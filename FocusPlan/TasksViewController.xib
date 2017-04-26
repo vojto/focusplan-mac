@@ -73,6 +73,9 @@
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
+                                                        <connections>
+                                                            <action selector="toggleFinished:" target="J4t-Kv-rM7" id="M9f-t6-DYV"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -84,6 +87,7 @@
                                                     <constraint firstAttribute="bottom" secondItem="ecr-hF-tNw" secondAttribute="bottom" constant="8" id="tUc-QI-lel"/>
                                                 </constraints>
                                                 <connections>
+                                                    <outlet property="finishedButton" destination="a5J-Ue-YtU" id="Ufb-Lu-ito"/>
                                                     <outlet property="textField" destination="ecr-hF-tNw" id="rgI-8B-sV4"/>
                                                 </connections>
                                             </tableCellView>
