@@ -92,9 +92,11 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
             return outlineView.make(withIdentifier: "HeaderCell", owner: self) as? NSTableCellView
         } else if let project = item as? Project {
             
-            let view = outlineView.make(withIdentifier: "ProjectCell", owner: self) as! NSTableCellView
+            let view = outlineView.make(withIdentifier: "ProjectCell", owner: self) as! ProjectTableCellView
             
 //            view.page.value = page
+            
+            view.project.value = project
             
             var name = project.name ?? ""
             

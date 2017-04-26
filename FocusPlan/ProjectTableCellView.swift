@@ -10,6 +10,8 @@ import Foundation
 import AppKit
 import NiceKit
 import NiceUI
+import ReactiveSwift
+import NiceReactive
 
 enum ColorName: String {
     case blue
@@ -36,9 +38,26 @@ let colors: [Color] = [
 ]
 
 class ProjectTableCellView: NSTableCellView {
+    let project = MutableProperty<Project?>(nil)
+    
     @IBOutlet var colorPicker: ColorPicker!
     
     override func awakeFromNib() {
         colorPicker.colors = colors.map { NSColor(hexString: $0.area0)! }
+        colorPicker.selectedColor = colorPicker.colors.first
+        colorPicker.wantsAuto = false
+        colorPicker.onChange = { nsColor in
+            guard let color = colors.filter({ NSColor(hexString: $0.area0)! == nsColor }).first else { return }
+            self.project.value?.color = color.name.rawValue
+        }
+        
+        let color = project.producer.pick { $0.reactive.color }
+        color.startWithValues { colorName in
+            guard let color = colors.filter({ $0.name.rawValue == colorName }).first else { return }
+            let nsColor = NSColor(hexString: color.area0)
+            self.colorPicker.selectedColor = nsColor
+        }
+        
+    
     }
 }

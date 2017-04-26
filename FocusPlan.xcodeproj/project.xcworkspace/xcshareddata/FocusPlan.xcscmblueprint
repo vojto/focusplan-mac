@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "E24E9104E9584AF9E49EE92697CDC6532E5BD50E",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "E24E9104E9584AF9E49EE92697CDC6532E5BD50E" : 9223372036854775807,
+    "597B4C08FB84F317E79FC6B8D632D37AF2176B54" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "CC712A19-E971-43AC-AC29-EB5520284961",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "E24E9104E9584AF9E49EE92697CDC6532E5BD50E" : "focusplan\/",
+    "597B4C08FB84F317E79FC6B8D632D37AF2176B54" : "NiceUI\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "FocusPlan",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "FocusPlan.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:vojto\/NiceUI.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "597B4C08FB84F317E79FC6B8D632D37AF2176B54"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:vojto\/focusplan-mac.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "E24E9104E9584AF9E49EE92697CDC6532E5BD50E"
+    }
+  ]
+}
