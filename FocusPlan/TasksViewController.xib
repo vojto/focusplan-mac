@@ -51,23 +51,36 @@
                                                 <rect key="frame" x="5" y="2" width="398" height="96"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             </customView>
-                                            <tableCellView identifier="TaskCell" id="J4t-Kv-rM7" customClass="TaskTitleTableCellView" customModule="FocusPlan" customModuleProvider="target">
+                                            <tableCellView identifier="TaskCell" misplaced="YES" id="J4t-Kv-rM7" customClass="TaskTitleTableCellView" customModule="FocusPlan" customModuleProvider="target">
                                                 <rect key="frame" x="5" y="103" width="398" height="33"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ecr-hF-tNw">
-                                                        <rect key="frame" x="6" y="8" width="386" height="17"/>
+                                                        <rect key="frame" x="32" y="8" width="360" height="18"/>
                                                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" focusRingType="none" title="Table View Cell" placeholderString="untitled task" id="LWe-eC-ewQ">
-                                                            <font key="font" metaFont="system"/>
+                                                            <font key="font" metaFont="system" size="14"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
+                                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="a5J-Ue-YtU">
+                                                        <rect key="frame" x="8" y="6" width="18" height="18"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="18" id="Pfb-mD-aQ5"/>
+                                                            <constraint firstAttribute="width" constant="18" id="oZr-vV-nsg"/>
+                                                        </constraints>
+                                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="TaskUnchecked" imagePosition="overlaps" alignment="center" inset="2" id="pCw-tw-Q2C">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                    </button>
                                                 </subviews>
                                                 <constraints>
+                                                    <constraint firstItem="a5J-Ue-YtU" firstAttribute="centerY" secondItem="J4t-Kv-rM7" secondAttribute="centerY" constant="2" id="RcV-xe-l2O"/>
                                                     <constraint firstAttribute="trailing" secondItem="ecr-hF-tNw" secondAttribute="trailing" constant="8" id="Xni-9E-CDm"/>
+                                                    <constraint firstItem="ecr-hF-tNw" firstAttribute="leading" secondItem="a5J-Ue-YtU" secondAttribute="trailing" constant="8" id="ffp-NB-Q72"/>
+                                                    <constraint firstItem="a5J-Ue-YtU" firstAttribute="leading" secondItem="J4t-Kv-rM7" secondAttribute="leading" constant="8" id="j5w-ga-5dp"/>
                                                     <constraint firstItem="ecr-hF-tNw" firstAttribute="top" secondItem="J4t-Kv-rM7" secondAttribute="top" constant="8" id="mL4-rS-dSw"/>
-                                                    <constraint firstItem="ecr-hF-tNw" firstAttribute="leading" secondItem="J4t-Kv-rM7" secondAttribute="leading" constant="8" id="pjV-yH-P3Z"/>
                                                     <constraint firstAttribute="bottom" secondItem="ecr-hF-tNw" secondAttribute="bottom" constant="8" id="tUc-QI-lel"/>
                                                 </constraints>
                                                 <connections>
@@ -117,8 +130,8 @@
                                                     <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TOn-YK-4ZL">
                                                         <rect key="frame" x="2" y="0.0" width="58" height="17"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" focusRingType="none" placeholderString="estimate" id="eZd-Jo-mI6">
-                                                            <font key="font" metaFont="system"/>
-                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                            <font key="font" metaFont="systemMedium" size="13"/>
+                                                            <color key="textColor" red="0.50980392156862742" green="0.53725490196078429" blue="0.56862745098039214" alpha="1" colorSpace="calibratedRGB"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
@@ -198,5 +211,6 @@
     </objects>
     <resources>
         <image name="NSAddTemplate" width="11" height="11"/>
+        <image name="TaskUnchecked" width="18" height="18"/>
     </resources>
 </document>

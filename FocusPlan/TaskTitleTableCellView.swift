@@ -15,16 +15,11 @@ class TaskTitleTableCellView: EditableTableCellView {
     
     var controller: TasksViewController?
     
-    static let font = NSFont.systemFont(ofSize: 14)
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         
         if let field = textField {
             field.reactive.stringValue <~ task.producer.pick({ $0.reactive.title.producer }).map { $0 ?? "" }
-            
-            
-            field.font = TaskTitleTableCellView.font
         }
     }
 
