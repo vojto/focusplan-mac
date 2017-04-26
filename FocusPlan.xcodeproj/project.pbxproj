@@ -21,6 +21,7 @@
 		991E7B1F1EB06A380086A9D9 /* NiceReactive.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 991E7B1D1EB06A340086A9D9 /* NiceReactive.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		991E7B231EB071C20086A9D9 /* TasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991E7B211EB071C20086A9D9 /* TasksViewController.swift */; };
 		991E7B241EB071C20086A9D9 /* TasksViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 991E7B221EB071C20086A9D9 /* TasksViewController.xib */; };
+		991E7B271EB07E3F0086A9D9 /* TasksBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991E7B261EB07E3F0086A9D9 /* TasksBackgroundView.swift */; };
 		997FFBCE1EAF7DB200ABEA01 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 997FFBC61EAF7DA900ABEA01 /* ReactiveCocoa.framework */; };
 		997FFBCF1EAF7DB200ABEA01 /* ReactiveCocoa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 997FFBC61EAF7DA900ABEA01 /* ReactiveCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		997FFBD01EAF7DB200ABEA01 /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 997FFBC71EAF7DA900ABEA01 /* ReactiveSwift.framework */; };
@@ -92,6 +93,7 @@
 		991E7B1D1EB06A340086A9D9 /* NiceReactive.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NiceReactive.framework; path = Carthage/Build/Mac/NiceReactive.framework; sourceTree = "<group>"; };
 		991E7B211EB071C20086A9D9 /* TasksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksViewController.swift; sourceTree = "<group>"; };
 		991E7B221EB071C20086A9D9 /* TasksViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TasksViewController.xib; sourceTree = "<group>"; };
+		991E7B261EB07E3F0086A9D9 /* TasksBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksBackgroundView.swift; sourceTree = "<group>"; };
 		9922F1191EAF656000BFA01F /* Cartography.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cartography.framework; path = Carthage/Build/Mac/Cartography.framework; sourceTree = "<group>"; };
 		9922F11A1EAF656000BFA01F /* NiceKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NiceKit.framework; path = Carthage/Build/Mac/NiceKit.framework; sourceTree = "<group>"; };
 		997D2B511EB062E0003C8679 /* NiceUI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = NiceUI.xcodeproj; path = ../NiceUI/NiceUI.xcodeproj; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 			children = (
 				991E7B211EB071C20086A9D9 /* TasksViewController.swift */,
 				991E7B221EB071C20086A9D9 /* TasksViewController.xib */,
+				991E7B261EB07E3F0086A9D9 /* TasksBackgroundView.swift */,
 			);
 			name = Tasks;
 			sourceTree = "<group>";
@@ -309,6 +312,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				99EEDE5D1EAF931500662DED /* ProjectsOutlineView.swift in Sources */,
+				991E7B271EB07E3F0086A9D9 /* TasksBackgroundView.swift in Sources */,
 				991E7B231EB071C20086A9D9 /* TasksViewController.swift in Sources */,
 				990A180C1EAF3D9700DCE839 /* MainWindow.swift in Sources */,
 				990A18091EAF3D2300DCE839 /* ProjectsViewController.swift in Sources */,

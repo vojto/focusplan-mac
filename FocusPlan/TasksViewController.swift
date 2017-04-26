@@ -134,5 +134,21 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
         }
     }
     
+    // MARK: - Adding a task
+    // ------------------------------------------------------------------------
+    
+    @IBAction func createTask(_ sender: Any) {
+        guard let project = self.project.value else { return }
+        
+        
+  
+        let context = AppDelegate.viewContext
+        let task = Task(entity: Task.entity(), insertInto: context)
+        
+        task.title = "new task"
+        task.project = project
+        task.text = "boobs"
+    }
+    
     
 }
