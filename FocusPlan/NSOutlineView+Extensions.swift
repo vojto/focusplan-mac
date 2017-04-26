@@ -11,6 +11,10 @@ import AppKit
 
 extension NSOutlineView {
     func edit(at row: Int) {
+        if row == -1 {
+            return
+        }
+        
         guard let view = self.view(atColumn: 0, row: row, makeIfNecessary: false) as? NSTableCellView else { return }
         guard let textField = view.textField else { return }
         

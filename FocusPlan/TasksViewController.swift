@@ -38,7 +38,9 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
         
         project.producer.pick({ $0.reactive.tasks.producer }).startWithValues { tasks in
             if let tasks = tasks as? Set<Task> {
-                self.tasks = Array(tasks)
+                self.tasks = Array(tasks).sorted(by: { (task1, task2) -> Bool in
+                    task1.weight < task2.weight
+                })
             } else {
                 self.tasks = []
             }
@@ -143,9 +145,11 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
         let context = AppDelegate.viewContext
         let task = Task(entity: Task.entity(), insertInto: context)
         
+        let nextWeight = (tasks.map({ $0.weight }).max() ?? 0) + 1
+        
         task.title = ""
+        task.weight = nextWeight
         task.project = project
-        task.text = "boobs"
         
         DispatchQueue.main.async {
             self.edit(task: task)
