@@ -10,7 +10,7 @@ import Cocoa
 import NiceData
 import ReactiveSwift
 
-class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineViewDelegate {
+class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineViewDelegate, NSTextFieldDelegate {
     
     class RootItem {
     }
@@ -107,11 +107,9 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
     
     func createTaskView(_ outlineView: NSOutlineView, column: NSTableColumn?, task: Task) -> NSView? {
         if column === taskColumn {
-            let view = outlineView.make(withIdentifier: "TaskCell", owner: self) as? NSTableCellView
+            let view = outlineView.make(withIdentifier: "TaskCell", owner: self) as? TaskTitleTableCellView
             
-            view?.textField?.stringValue = task.title ?? "untitled"
-            
-            // TODO: setup the view, assign task to it, etc.
+            view?.task.value = task
             
             return view
         }
@@ -145,9 +143,25 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
         let context = AppDelegate.viewContext
         let task = Task(entity: Task.entity(), insertInto: context)
         
-        task.title = "new task"
+        task.title = ""
         task.project = project
         task.text = "boobs"
+        
+        DispatchQueue.main.async {
+            self.edit(task: task)
+        }
+    }
+    
+    func edit(task: Task) {
+        let row = outlineView.row(forItem: task)
+        
+        guard let columnIndex = outlineView.tableColumns.index(of: taskColumn) else { return assertionFailure() }
+        guard let view = outlineView.view(atColumn: columnIndex, row: row, makeIfNecessary: false) as? NSTableCellView else { return assertionFailure() }
+        guard let textField = view.textField else { return assertionFailure() }
+        
+        textField.isEditable = true
+        
+        outlineView.window!.makeFirstResponder(textField)
     }
     
     

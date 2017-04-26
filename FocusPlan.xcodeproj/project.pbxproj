@@ -22,6 +22,8 @@
 		991E7B231EB071C20086A9D9 /* TasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991E7B211EB071C20086A9D9 /* TasksViewController.swift */; };
 		991E7B241EB071C20086A9D9 /* TasksViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 991E7B221EB071C20086A9D9 /* TasksViewController.xib */; };
 		991E7B271EB07E3F0086A9D9 /* TasksBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991E7B261EB07E3F0086A9D9 /* TasksBackgroundView.swift */; };
+		991E7B291EB082C60086A9D9 /* TaskTitleTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991E7B281EB082C60086A9D9 /* TaskTitleTableCellView.swift */; };
+		991E7B2B1EB082FE0086A9D9 /* Task+Reactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991E7B2A1EB082FE0086A9D9 /* Task+Reactive.swift */; };
 		997FFBCE1EAF7DB200ABEA01 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 997FFBC61EAF7DA900ABEA01 /* ReactiveCocoa.framework */; };
 		997FFBCF1EAF7DB200ABEA01 /* ReactiveCocoa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 997FFBC61EAF7DA900ABEA01 /* ReactiveCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		997FFBD01EAF7DB200ABEA01 /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 997FFBC71EAF7DA900ABEA01 /* ReactiveSwift.framework */; };
@@ -94,6 +96,8 @@
 		991E7B211EB071C20086A9D9 /* TasksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksViewController.swift; sourceTree = "<group>"; };
 		991E7B221EB071C20086A9D9 /* TasksViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TasksViewController.xib; sourceTree = "<group>"; };
 		991E7B261EB07E3F0086A9D9 /* TasksBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksBackgroundView.swift; sourceTree = "<group>"; };
+		991E7B281EB082C60086A9D9 /* TaskTitleTableCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskTitleTableCellView.swift; sourceTree = "<group>"; };
+		991E7B2A1EB082FE0086A9D9 /* Task+Reactive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Task+Reactive.swift"; sourceTree = "<group>"; };
 		9922F1191EAF656000BFA01F /* Cartography.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cartography.framework; path = Carthage/Build/Mac/Cartography.framework; sourceTree = "<group>"; };
 		9922F11A1EAF656000BFA01F /* NiceKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NiceKit.framework; path = Carthage/Build/Mac/NiceKit.framework; sourceTree = "<group>"; };
 		997D2B511EB062E0003C8679 /* NiceUI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = NiceUI.xcodeproj; path = ../NiceUI/NiceUI.xcodeproj; sourceTree = "<group>"; };
@@ -178,6 +182,7 @@
 				991E7B211EB071C20086A9D9 /* TasksViewController.swift */,
 				991E7B221EB071C20086A9D9 /* TasksViewController.xib */,
 				991E7B261EB07E3F0086A9D9 /* TasksBackgroundView.swift */,
+				991E7B281EB082C60086A9D9 /* TaskTitleTableCellView.swift */,
 			);
 			name = Tasks;
 			sourceTree = "<group>";
@@ -210,6 +215,7 @@
 			children = (
 				99078BF81EAF1CD000C3B789 /* FocusPlan.xcdatamodeld */,
 				991E7AF91EB064FE0086A9D9 /* Project+Reactive.swift */,
+				991E7B2A1EB082FE0086A9D9 /* Task+Reactive.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -316,9 +322,11 @@
 				991E7B231EB071C20086A9D9 /* TasksViewController.swift in Sources */,
 				990A180C1EAF3D9700DCE839 /* MainWindow.swift in Sources */,
 				990A18091EAF3D2300DCE839 /* ProjectsViewController.swift in Sources */,
+				991E7B291EB082C60086A9D9 /* TaskTitleTableCellView.swift in Sources */,
 				991E7AFA1EB064FE0086A9D9 /* Project+Reactive.swift in Sources */,
 				99B610161EB0602A0098F69C /* ProjectTableCellView.swift in Sources */,
 				99078BF51EAF1CD000C3B789 /* AppDelegate.swift in Sources */,
+				991E7B2B1EB082FE0086A9D9 /* Task+Reactive.swift in Sources */,
 				99078BFA1EAF1CD000C3B789 /* FocusPlan.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

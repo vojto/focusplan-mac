@@ -14,17 +14,17 @@ import enum Result.NoError
 
 public extension Reactive where Base: Project {
     var name: SignalProducer<String?, NoError> {
-        return self.producer(forKeyPath: #keyPath(Project.name))
+        return producer(forKeyPath: #keyPath(Project.name))
             .map(asString)
     }
     
     var color: SignalProducer<String?, NoError> {
-        return self.producer(forKeyPath: #keyPath(Project.color))
+        return producer(forKeyPath: #keyPath(Project.color))
             .map(asString)
     }
     
     var tasks: SignalProducer<NSSet?, NoError> {
-        return self.producer(forKeyPath: #keyPath(Project.tasks))
+        return producer(forKeyPath: #keyPath(Project.tasks))
             .map(asNSSet)
     }
 }
