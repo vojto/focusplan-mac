@@ -120,7 +120,8 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
         }
         
         if column === estimateColumn {
-            return nil // todo: return estimate view
+            let view = outlineView.make(withIdentifier: "EstimateCell", owner: self) as? NSTableCellView
+            return view
         }
         
         return nil

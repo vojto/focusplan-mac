@@ -10,10 +10,15 @@ import Foundation
 import AppKit
 
 class TasksOutlineView: NSOutlineView {
+    override func awakeFromNib() {
+        self.columnAutoresizingStyle = .firstColumnOnlyAutoresizingStyle
+    }
+    
     override func mouseDown(with event: NSEvent) {
         
         let point    = convert(event.locationInWindow, from: nil)
         let rowIndex = row(at: point)
+        let columnIndex = column(at: point)
         let selectedIndex = selectedRow
 
         super.mouseDown(with: event)
@@ -25,7 +30,7 @@ class TasksOutlineView: NSOutlineView {
         let deltaY = abs(finalPoint.y - point.y)
         
         if deltaX < 2, deltaY < 2, rowIndex == selectedIndex {
-            edit(at: rowIndex)
+            edit(at: rowIndex, column: columnIndex)
         }
     }
     

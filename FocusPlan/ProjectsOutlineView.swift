@@ -28,7 +28,7 @@ class ProjectsOutlineView: NSOutlineView {
         
         if event.clickCount == 2 {
             if rowIndex >= 1 {
-                edit(at: rowIndex)
+                edit(at: rowIndex, column: 0)
             }
         }
     }

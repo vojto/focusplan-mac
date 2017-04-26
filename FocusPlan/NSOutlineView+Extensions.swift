@@ -10,12 +10,12 @@ import Foundation
 import AppKit
 
 extension NSOutlineView {
-    func edit(at row: Int) {
+    func edit(at row: Int, column: Int) {
         if row == -1 {
             return
         }
         
-        guard let view = self.view(atColumn: 0, row: row, makeIfNecessary: false) as? NSTableCellView else { return }
+        guard let view = self.view(atColumn: column, row: row, makeIfNecessary: false) as? NSTableCellView else { return }
         guard let textField = view.textField else { return }
         
         textField.isEditable = true
