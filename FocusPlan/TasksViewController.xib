@@ -21,13 +21,13 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="22" horizontalPageScroll="10" verticalLineScroll="22" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k2S-Ko-gCv">
+                <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="101" horizontalPageScroll="10" verticalLineScroll="101" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k2S-Ko-gCv">
                     <rect key="frame" x="0.0" y="25" width="480" height="247"/>
                     <clipView key="contentView" id="Z6I-Dz-4Qu">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="247"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" outlineTableColumn="7fd-1L-BeA" id="g5R-kG-AVj" customClass="TasksOutlineView" customModule="FocusPlan" customModuleProvider="target">
+                            <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowHeight="96" rowSizeStyle="automatic" viewBased="YES" outlineTableColumn="7fd-1L-BeA" id="g5R-kG-AVj" customClass="TasksOutlineView" customModule="FocusPlan" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="247"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="10" height="5"/>
@@ -52,12 +52,12 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             </customView>
                                             <tableCellView identifier="TaskCell" id="J4t-Kv-rM7" customClass="TaskTitleTableCellView" customModule="FocusPlan" customModuleProvider="target">
-                                                <rect key="frame" x="5" y="103" width="398" height="17"/>
+                                                <rect key="frame" x="5" y="103" width="398" height="33"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ecr-hF-tNw">
-                                                        <rect key="frame" x="0.0" y="0.0" width="398" height="17"/>
-                                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Table View Cell" placeholderString="untitled task" id="LWe-eC-ewQ">
+                                                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ecr-hF-tNw">
+                                                        <rect key="frame" x="6" y="8" width="386" height="17"/>
+                                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" focusRingType="none" title="Table View Cell" placeholderString="untitled task" id="LWe-eC-ewQ">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -65,17 +65,17 @@
                                                     </textField>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="ecr-hF-tNw" secondAttribute="trailing" constant="2" id="Xni-9E-CDm"/>
-                                                    <constraint firstItem="ecr-hF-tNw" firstAttribute="top" secondItem="J4t-Kv-rM7" secondAttribute="top" id="mL4-rS-dSw"/>
-                                                    <constraint firstItem="ecr-hF-tNw" firstAttribute="leading" secondItem="J4t-Kv-rM7" secondAttribute="leading" constant="2" id="pjV-yH-P3Z"/>
-                                                    <constraint firstAttribute="bottom" secondItem="ecr-hF-tNw" secondAttribute="bottom" id="tUc-QI-lel"/>
+                                                    <constraint firstAttribute="trailing" secondItem="ecr-hF-tNw" secondAttribute="trailing" constant="8" id="Xni-9E-CDm"/>
+                                                    <constraint firstItem="ecr-hF-tNw" firstAttribute="top" secondItem="J4t-Kv-rM7" secondAttribute="top" constant="8" id="mL4-rS-dSw"/>
+                                                    <constraint firstItem="ecr-hF-tNw" firstAttribute="leading" secondItem="J4t-Kv-rM7" secondAttribute="leading" constant="8" id="pjV-yH-P3Z"/>
+                                                    <constraint firstAttribute="bottom" secondItem="ecr-hF-tNw" secondAttribute="bottom" constant="8" id="tUc-QI-lel"/>
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="textField" destination="ecr-hF-tNw" id="rgI-8B-sV4"/>
                                                 </connections>
                                             </tableCellView>
                                             <tableCellView identifier="HeaderCell" id="KKM-4d-l54">
-                                                <rect key="frame" x="5" y="125" width="398" height="30"/>
+                                                <rect key="frame" x="5" y="141" width="398" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hkb-IY-Noq">
@@ -114,16 +114,20 @@
                                                 <rect key="frame" x="413" y="2" width="62" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TOn-YK-4ZL">
-                                                        <rect key="frame" x="0.0" y="0.0" width="62" height="17"/>
-                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" placeholderString="estimate" id="eZd-Jo-mI6">
+                                                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TOn-YK-4ZL">
+                                                        <rect key="frame" x="2" y="0.0" width="58" height="17"/>
+                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" focusRingType="none" placeholderString="estimate" id="eZd-Jo-mI6">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
                                                 </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="TOn-YK-4ZL" secondAttribute="trailing" constant="4" id="Rsy-w7-TJU"/>
+                                                    <constraint firstItem="TOn-YK-4ZL" firstAttribute="leading" secondItem="3Bc-We-Hgt" secondAttribute="leading" constant="4" id="gmV-PG-GcG"/>
+                                                    <constraint firstItem="TOn-YK-4ZL" firstAttribute="centerY" secondItem="3Bc-We-Hgt" secondAttribute="centerY" id="gqK-7Z-haA"/>
+                                                </constraints>
                                                 <connections>
                                                     <outlet property="textField" destination="TOn-YK-4ZL" id="7M0-Qu-JLO"/>
                                                 </connections>

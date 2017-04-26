@@ -15,10 +15,7 @@ extension NSOutlineView {
             return
         }
         
-        guard let view = self.view(atColumn: column, row: row, makeIfNecessary: false) as? NSTableCellView else { return }
-        guard let textField = view.textField else { return }
-        
-        textField.isEditable = true
-        view.window!.makeFirstResponder(textField)
+        guard let view = self.view(atColumn: column, row: row, makeIfNecessary: false) as? EditableTableCellView else { return }
+        view.startEditing()
     }
 }

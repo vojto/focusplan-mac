@@ -11,13 +11,13 @@ import AppKit
 import ReactiveSwift
 import ReactiveCocoa
 
-class TaskEstimateTableCellView: NSTableCellView, NSTextFieldDelegate {
+class TaskEstimateTableCellView: EditableTableCellView {
     var task = MutableProperty<Task?>(nil)
     
     override func awakeFromNib() {
-        guard let field = textField else { return }
+        super.awakeFromNib()
         
-        field.delegate = self
+        guard let field = textField else { return }
         
         let minutesLabel = task.producer.pick({ $0.reactive.estimatedMinutes })
             .map { minutes -> String in
@@ -44,6 +44,8 @@ class TaskEstimateTableCellView: NSTableCellView, NSTextFieldDelegate {
     }
     
     override func controlTextDidEndEditing(_ obj: Notification) {
+        super.controlTextDidEndEditing(obj)
+        
         let minutes: Int?
         let value = textField?.stringValue ?? ""
         

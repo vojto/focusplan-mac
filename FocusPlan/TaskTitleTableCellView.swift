@@ -10,7 +10,7 @@ import Foundation
 import AppKit
 import ReactiveSwift
 
-class TaskTitleTableCellView: NSTableCellView, NSTextFieldDelegate {
+class TaskTitleTableCellView: EditableTableCellView {
     var task = MutableProperty<Task?>(nil)
     
     var controller: TasksViewController?
@@ -18,23 +18,29 @@ class TaskTitleTableCellView: NSTableCellView, NSTextFieldDelegate {
     static let font = NSFont.systemFont(ofSize: 14)
     
     override func awakeFromNib() {
+        super.awakeFromNib()
+        
         if let field = textField {
             field.reactive.stringValue <~ task.producer.pick({ $0.reactive.title.producer }).map { $0 ?? "" }
-            field.delegate = self
+            
             
             field.font = TaskTitleTableCellView.font
         }
     }
+
     
     override func controlTextDidEndEditing(_ obj: Notification) {
+        super.controlTextDidEndEditing(obj)
+        
         guard let field = obj.object as? NSTextField else { return }
-        field.isEditable = false
         let value = field.stringValue
         
         task.value?.title = value
     }
     
     override func controlTextDidChange(_ obj: Notification) {
+        super.controlTextDidChange(obj)
+        
         controller?.updateHeight(cellView: self)
     }
 }
