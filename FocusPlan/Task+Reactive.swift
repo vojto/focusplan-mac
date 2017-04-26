@@ -17,4 +17,9 @@ public extension Reactive where Base: Task {
         return producer(forKeyPath: #keyPath(Task.title))
             .map(asString)
     }
+    
+    var estimatedMinutes: SignalProducer<Int?, NoError> {
+        return producer(forKeyPath: #keyPath(Task.estimatedMinutes))
+            .map(asInt)
+    }
 }

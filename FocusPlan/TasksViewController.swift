@@ -120,7 +120,8 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
         }
         
         if column === estimateColumn {
-            let view = outlineView.make(withIdentifier: "EstimateCell", owner: self) as? NSTableCellView
+            let view = outlineView.make(withIdentifier: "EstimateCell", owner: self) as! TaskEstimateTableCellView
+            view.task.value = task
             return view
         }
         

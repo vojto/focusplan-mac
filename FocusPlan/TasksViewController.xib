@@ -105,7 +105,7 @@
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                         <prototypeCellViews>
-                                            <tableCellView identifier="EstimateCell" id="3Bc-We-Hgt">
+                                            <tableCellView identifier="EstimateCell" id="3Bc-We-Hgt" customClass="TaskEstimateTableCellView" customModule="FocusPlan" customModuleProvider="target">
                                                 <rect key="frame" x="413" y="2" width="62" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -134,7 +134,7 @@
                             </outlineView>
                         </subviews>
                     </clipView>
-                    <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="9T6-Zg-jTy">
+                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="9T6-Zg-jTy">
                         <rect key="frame" x="0.0" y="231" width="480" height="16"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
