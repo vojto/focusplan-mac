@@ -126,6 +126,10 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
         return nil
     }
     
+    // MARK: Row view
+    
+
+    
     // MARK: - Outline view selection
     // ------------------------------------------------------------------------
     
@@ -168,6 +172,38 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
         
         outlineView.window!.makeFirstResponder(textField)
     }
+    
+    // MARK: - Removing
+    // -----------------------------------------------------------------------
+    
+    @IBAction func removeTask(_ sender: Any) {
+        let context = AppDelegate.viewContext
+        let undo = context.undoManager
+        
+        context.processPendingChanges()
+        undo?.beginUndoGrouping()
+        
+        for task in selectedTasks {
+            context.delete(task)
+        }
+        
+        context.processPendingChanges()
+        undo?.endUndoGrouping()
+    }
+    
+    var selectedTasks: Set<Task> {
+        var tasks = Set<Task>()
+        
+        for index in outlineView.selectedRowIndexes {
+            if let task = outlineView.item(atRow: index) as? Task {
+                tasks.insert(task)
+            }
+        }
+        
+        return tasks
+    }
+    
+    
     
     // MARK: - Reordering
     // -----------------------------------------------------------------------

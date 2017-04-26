@@ -27,7 +27,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="247"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" outlineTableColumn="7fd-1L-BeA" id="g5R-kG-AVj" customClass="TasksOutlineView" customModule="FocusPlan" customModuleProvider="target">
+                            <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" outlineTableColumn="7fd-1L-BeA" id="g5R-kG-AVj" customClass="TasksOutlineView" customModule="FocusPlan" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="247"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="10" height="5"/>
@@ -47,8 +47,12 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
+                                            <customView identifier="NSTableViewRowViewKey" id="pr7-lc-sQQ" customClass="TasksRowView" customModule="FocusPlan" customModuleProvider="target">
+                                                <rect key="frame" x="5" y="2" width="339" height="96"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            </customView>
                                             <tableCellView identifier="TaskCell" id="J4t-Kv-rM7" customClass="TaskTitleTableCellView" customModule="FocusPlan" customModuleProvider="target">
-                                                <rect key="frame" x="5" y="2" width="339" height="17"/>
+                                                <rect key="frame" x="5" y="103" width="339" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ecr-hF-tNw">
@@ -66,7 +70,7 @@
                                                 </connections>
                                             </tableCellView>
                                             <tableCellView identifier="HeaderCell" id="KKM-4d-l54">
-                                                <rect key="frame" x="5" y="24" width="339" height="30"/>
+                                                <rect key="frame" x="5" y="125" width="339" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hkb-IY-Noq">
@@ -126,6 +130,7 @@
                                 <connections>
                                     <outlet property="dataSource" destination="-2" id="mH7-t2-lyf"/>
                                     <outlet property="delegate" destination="-2" id="CXJ-28-LD8"/>
+                                    <outlet property="menu" destination="pJY-Sp-yTU" id="8tp-A9-JT9"/>
                                 </connections>
                             </outlineView>
                         </subviews>
@@ -171,6 +176,17 @@
                 <constraint firstItem="vX7-PR-bek" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="8" id="tJu-W6-Ai6"/>
             </constraints>
         </customView>
+        <menu id="pJY-Sp-yTU">
+            <items>
+                <menuItem title="Remove" id="Ona-eO-BYG">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="removeTask:" target="-2" id="XJV-NK-Aa7"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <point key="canvasLocation" x="144" y="518"/>
+        </menu>
     </objects>
     <resources>
         <image name="NSAddTemplate" width="11" height="11"/>

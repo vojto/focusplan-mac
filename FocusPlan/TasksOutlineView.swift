@@ -28,4 +28,22 @@ class TasksOutlineView: NSOutlineView {
             edit(at: rowIndex)
         }
     }
+    
+    override func rightMouseDown(with event: NSEvent) {
+        let point    = convert(event.locationInWindow, from: nil)
+        let rowIndex = row(at: point)
+        
+        if !selectedRowIndexes.contains(rowIndex) {
+            select(row: rowIndex)
+        }
+        
+//        super.rightMouseDown(with: event)
+        
+        NSMenu.popUpContextMenu(menu!, with: event, for: self)
+    }
+    
+    override func menu(for event: NSEvent) -> NSMenu? {
+        return nil
+    }
+    
 }

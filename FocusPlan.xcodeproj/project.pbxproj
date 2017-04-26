@@ -26,6 +26,7 @@
 		991E7B2B1EB082FE0086A9D9 /* Task+Reactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991E7B2A1EB082FE0086A9D9 /* Task+Reactive.swift */; };
 		991E7B2D1EB085EF0086A9D9 /* TasksOutlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991E7B2C1EB085EF0086A9D9 /* TasksOutlineView.swift */; };
 		991E7B301EB0865F0086A9D9 /* NSOutlineView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991E7B2F1EB0865F0086A9D9 /* NSOutlineView+Extensions.swift */; };
+		991E7B341EB093690086A9D9 /* TasksRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991E7B331EB093690086A9D9 /* TasksRowView.swift */; };
 		997FFBCE1EAF7DB200ABEA01 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 997FFBC61EAF7DA900ABEA01 /* ReactiveCocoa.framework */; };
 		997FFBCF1EAF7DB200ABEA01 /* ReactiveCocoa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 997FFBC61EAF7DA900ABEA01 /* ReactiveCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		997FFBD01EAF7DB200ABEA01 /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 997FFBC71EAF7DA900ABEA01 /* ReactiveSwift.framework */; };
@@ -102,6 +103,7 @@
 		991E7B2A1EB082FE0086A9D9 /* Task+Reactive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Task+Reactive.swift"; sourceTree = "<group>"; };
 		991E7B2C1EB085EF0086A9D9 /* TasksOutlineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksOutlineView.swift; sourceTree = "<group>"; };
 		991E7B2F1EB0865F0086A9D9 /* NSOutlineView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSOutlineView+Extensions.swift"; sourceTree = "<group>"; };
+		991E7B331EB093690086A9D9 /* TasksRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksRowView.swift; sourceTree = "<group>"; };
 		9922F1191EAF656000BFA01F /* Cartography.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cartography.framework; path = Carthage/Build/Mac/Cartography.framework; sourceTree = "<group>"; };
 		9922F11A1EAF656000BFA01F /* NiceKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NiceKit.framework; path = Carthage/Build/Mac/NiceKit.framework; sourceTree = "<group>"; };
 		997D2B511EB062E0003C8679 /* NiceUI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = NiceUI.xcodeproj; path = ../NiceUI/NiceUI.xcodeproj; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 				991E7B2C1EB085EF0086A9D9 /* TasksOutlineView.swift */,
 				991E7B261EB07E3F0086A9D9 /* TasksBackgroundView.swift */,
 				991E7B281EB082C60086A9D9 /* TaskTitleTableCellView.swift */,
+				991E7B331EB093690086A9D9 /* TasksRowView.swift */,
 			);
 			name = Tasks;
 			sourceTree = "<group>";
@@ -331,6 +334,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				991E7B341EB093690086A9D9 /* TasksRowView.swift in Sources */,
 				99EEDE5D1EAF931500662DED /* ProjectsOutlineView.swift in Sources */,
 				991E7B271EB07E3F0086A9D9 /* TasksBackgroundView.swift in Sources */,
 				991E7B231EB071C20086A9D9 /* TasksViewController.swift in Sources */,
