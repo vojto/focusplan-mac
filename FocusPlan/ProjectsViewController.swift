@@ -26,7 +26,7 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     
     let draggedType = "ProjectRow"
     
-    var onSelect: ((Project) -> ())?
+    var onSelect: ((Project?) -> ())?
     
     @IBOutlet weak var outlineView: NSOutlineView!
     
@@ -155,6 +155,7 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
             selectedProject.value = project
             onSelect?(project)
         } else {
+            onSelect?(nil)
             selectedProject.value = nil
         }
     }
