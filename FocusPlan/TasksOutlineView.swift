@@ -12,15 +12,19 @@ import AppKit
 class TasksOutlineView: NSOutlineView {
     override func mouseDown(with event: NSEvent) {
         
-        
         let point    = convert(event.locationInWindow, from: nil)
         let rowIndex = row(at: point)
         let selectedIndex = selectedRow
 
-
         super.mouseDown(with: event)
         
-        if rowIndex == selectedIndex {
+        let finalPoint = convert(window!.mouseLocationOutsideOfEventStream, from: nil)
+//        let finalRowIndex = row(at: finalPoint)
+        
+        let deltaX = abs(finalPoint.x - point.x)
+        let deltaY = abs(finalPoint.y - point.y)
+        
+        if deltaX < 2, deltaY < 2, rowIndex == selectedIndex {
             edit(at: rowIndex)
         }
     }

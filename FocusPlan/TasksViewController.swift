@@ -23,12 +23,7 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
     var project = MutableProperty<Project?>(nil)
     var tasks = [Task]()
     
-    /*
-    lazy var observer: ReactiveObserver<Task> = {
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Project")
-        return ReactiveObserver<Project>(context: AppDelegate.viewContext, request: request)
-    }()
-    */
+    let draggedType = "TaskRow"
     
     // MARK: - Lifecycle
     // ------------------------------------------------------------------------
@@ -38,19 +33,27 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
         
         project.producer.pick({ $0.reactive.tasks.producer }).startWithValues { tasks in
             if let tasks = tasks as? Set<Task> {
-                self.tasks = Array(tasks).sorted(by: { (task1, task2) -> Bool in
-                    task1.weight < task2.weight
-                })
+                self.tasks = Array(tasks)
             } else {
                 self.tasks = []
             }
             
-            self.outlineView.reloadData()
+            self.sortAndReload()
         }
+    }
+    
+    func sortAndReload() {
+        tasks.sort(by: { (task1, task2) -> Bool in
+            task1.weight < task2.weight
+        })
+        
+        outlineView.reloadData()
     }
     
     override func viewDidAppear() {
         outlineView.expandItem(nil, expandChildren: true)
+        
+        outlineView.register(forDraggedTypes: [draggedType])
     }
     
     // MARK: - Outline view basics
@@ -140,8 +143,6 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
     @IBAction func createTask(_ sender: Any) {
         guard let project = self.project.value else { return }
         
-        
-  
         let context = AppDelegate.viewContext
         let task = Task(entity: Task.entity(), insertInto: context)
         
@@ -166,6 +167,79 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
         textField.isEditable = true
         
         outlineView.window!.makeFirstResponder(textField)
+    }
+    
+    // MARK: - Reordering
+    // -----------------------------------------------------------------------
+    
+    func outlineView(_ outlineView: NSOutlineView, writeItems items: [Any], to pasteboard: NSPasteboard) -> Bool {
+        
+        guard let task = items.first as? Task else { return false }
+        guard let index = tasks.index(of: task) else {
+            return false
+        }
+        
+        let data = NSKeyedArchiver.archivedData(withRootObject: ["index": index])
+        pasteboard.declareTypes([draggedType], owner: self)
+        pasteboard.setData(data, forType: draggedType)
+        
+        return true
+    }
+    
+    func outlineView(_ outlineView: NSOutlineView, validateDrop info: NSDraggingInfo, proposedItem item: Any?, proposedChildIndex index: Int) -> NSDragOperation {
+        if item is RootItem {
+            if index != NSOutlineViewDropOnItemIndex {
+                return .move
+            } else {
+                return []
+            }
+        } else if item is Task {
+            let itemIndex = outlineView.childIndex(forItem: item!)
+            if index == NSOutlineViewDropOnItemIndex {
+                outlineView.setDropItem(rootItem, dropChildIndex: itemIndex)
+            } else if index == 0 {
+                outlineView.setDropItem(rootItem, dropChildIndex: itemIndex+1)
+            }
+            return .move
+        }
+        
+        
+        return []
+    }
+    
+    func outlineView(_ outlineView: NSOutlineView, acceptDrop info: NSDraggingInfo, item: Any?, childIndex index: Int) -> Bool {
+        let pasteboard = info.draggingPasteboard()
+        let data = pasteboard.data(forType: draggedType)!
+        guard let object = NSKeyedUnarchiver.unarchiveObject(with: data) as? [String: Int] else { return false }
+        guard let pageIndex = object["index"] else { return false }
+        
+        var tasks = self.tasks
+        
+        let newIndex = pageIndex >= index ? index : index-1
+        tasks.insert(tasks.remove(at: pageIndex), at: newIndex)
+        
+        let context = AppDelegate.viewContext
+        let undoManager = AppDelegate.undoManager
+        
+        context.processPendingChanges()
+        undoManager.beginUndoGrouping()
+        
+        var weight = 0
+        for task in tasks {
+            task.weight = Int64(weight)
+            
+            weight += 1
+        }
+        
+        context.processPendingChanges()
+        undoManager.setActionName("Reorder tasks")
+        undoManager.endUndoGrouping()
+        
+        sortAndReload()
+        
+        outlineView.select(row: newIndex + 1)
+        
+        return true
     }
     
     

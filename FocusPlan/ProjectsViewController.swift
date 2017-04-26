@@ -282,7 +282,7 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     
     
     
-    // MARK: - Page reordering
+    // MARK: - Reordering
     // -----------------------------------------------------------------------
     
     func outlineView(_ outlineView: NSOutlineView, writeItems items: [Any], to pasteboard: NSPasteboard) -> Bool {
@@ -345,7 +345,7 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
         }
         
         context.processPendingChanges()
-        undoManager.setActionName("Reorder pages")
+        undoManager.setActionName("Reorder projects")
         undoManager.endUndoGrouping()
         
         observer.fetch()
