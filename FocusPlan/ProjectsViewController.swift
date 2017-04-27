@@ -20,7 +20,36 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     class RootItem {
     }
     
+    enum HeaderItemType: String {
+        case plan = "PLAN"
+        case backlog = "BACKLOG"
+    }
+    
+    class HeaderItem {
+        var type: HeaderItemType
+        
+        init(type: HeaderItemType) {
+            self.type = type
+        }
+    }
+    
+    enum PlanItemType: String {
+        case today = "Today"
+        case thisWeek = "This week"
+    }
+    
+    class PlanItem {
+        var type: PlanItemType
+        
+        init(type: PlanItemType) {
+            self.type = type
+        }
+    }
+    
     let rootItem = RootItem()
+    
+    let headerItems = [HeaderItem(type: .plan), HeaderItem(type: .backlog)]
+    var planItems = [PlanItem(type: .today), PlanItem(type: .thisWeek)]
     
     var projects = [Project]()
     
@@ -62,19 +91,29 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     
     func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
         if item == nil {
-            return 1
-        } else if item is RootItem {
-            return projects.count
-        } else {
-            return 0
+            return headerItems.count
+        } else if let header = item as? HeaderItem {
+            switch header.type {
+            case .backlog:
+                return projects.count
+            case .plan:
+                return planItems.count
+            }
         }
+        
+        return 0
     }
     
     func outlineView(_ outlineView: NSOutlineView, child index: Int, ofItem item: Any?) -> Any {
         if item == nil {
-            return rootItem
-        } else if item is RootItem {
-            return projects[index]
+            return headerItems[index]
+        } else if let header = item as? HeaderItem {
+            switch header.type {
+            case .backlog:
+                return projects[index]
+            case .plan:
+                return planItems[index]
+            }
         } else {
             fatalError()
         }
@@ -88,8 +127,18 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     // ------------------------------------------------------------------------
     
     func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
-        if item is RootItem {
-            return outlineView.make(withIdentifier: "HeaderCell", owner: self) as? NSTableCellView
+        if let header = item as? HeaderItem {
+            let view = outlineView.make(withIdentifier: "HeaderCell", owner: self) as? NSTableCellView
+            
+            view?.textField?.stringValue = header.type.rawValue
+            
+            return view
+        } else if let planItem = item as? PlanItem {
+            let view = outlineView.make(withIdentifier: "PlanCell", owner: self) as? NSTableCellView
+            
+            view?.textField?.stringValue = planItem.type.rawValue
+            
+            return view
         } else if let project = item as? Project {
             
             let view = outlineView.make(withIdentifier: "ProjectCell", owner: self) as! ProjectTableCellView
@@ -139,10 +188,12 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     }
     
     func outlineView(_ outlineView: NSOutlineView, shouldSelectItem item: Any) -> Bool {
-        if item is RootItem {
-            return false
-        } else {
+        if item is Project {
             return true
+        } else if item is PlanItem {
+            return true
+        } else {
+            return false
         }
     }
     

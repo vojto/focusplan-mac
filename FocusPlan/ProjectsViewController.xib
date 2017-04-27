@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12118"/>
@@ -19,13 +19,13 @@
             <rect key="frame" x="0.0" y="0.0" width="259" height="441"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="30" horizontalPageScroll="10" verticalLineScroll="30" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wnS-oV-gKD">
+                <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="29" horizontalPageScroll="10" verticalLineScroll="29" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wnS-oV-gKD">
                     <rect key="frame" x="0.0" y="0.0" width="259" height="441"/>
                     <clipView key="contentView" drawsBackground="NO" id="Nt5-Xc-HGe">
                         <rect key="frame" x="0.0" y="0.0" width="259" height="441"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="30" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="14" outlineTableColumn="xwc-hO-G0q" id="Tx9-BQ-pkP" customClass="ProjectsOutlineView" customModule="FocusPlan" customModuleProvider="target">
+                            <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="29" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="14" outlineTableColumn="xwc-hO-G0q" id="Tx9-BQ-pkP" customClass="ProjectsOutlineView" customModule="FocusPlan" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="259" height="441"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="0.0"/>
@@ -97,6 +97,27 @@
                                                 <connections>
                                                     <outlet property="colorPicker" destination="Ket-35-kwK" id="nZI-pN-TOz"/>
                                                     <outlet property="textField" destination="SiK-Vi-47n" id="RXF-Uk-2qq"/>
+                                                </connections>
+                                            </tableCellView>
+                                            <tableCellView identifier="PlanCell" id="QHJ-rB-EZP">
+                                                <rect key="frame" x="1" y="59" width="256" height="29"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <subviews>
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qGF-6N-jWK">
+                                                        <rect key="frame" x="0.0" y="6" width="97" height="17"/>
+                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="dQG-qv-3UV">
+                                                            <font key="font" metaFont="system"/>
+                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="qGF-6N-jWK" firstAttribute="centerY" secondItem="QHJ-rB-EZP" secondAttribute="centerY" id="SRr-D0-mcm"/>
+                                                    <constraint firstItem="qGF-6N-jWK" firstAttribute="leading" secondItem="QHJ-rB-EZP" secondAttribute="leading" constant="2" id="vX4-Uv-ubK"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outlet property="textField" destination="qGF-6N-jWK" id="tBr-CC-cdc"/>
                                                 </connections>
                                             </tableCellView>
                                         </prototypeCellViews>
