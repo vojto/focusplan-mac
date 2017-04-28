@@ -8,6 +8,7 @@
 
 import Cocoa
 import NiceKit
+import ReactiveSwift
 
 class MainWindow: NSWindow {
     @IBOutlet weak var secondaryView: NSView!
@@ -17,24 +18,21 @@ class MainWindow: NSWindow {
         return ProjectsViewController(nibName: "ProjectsViewController", bundle: nil)!
     }()
     
-    lazy var tasksController = {
-        return TasksViewController(nibName: "TasksViewController", bundle: nil)!
-    }()
-    
+    let backlogController = BacklogViewController()
     
     override func awakeFromNib() {
 
         secondaryView.include(projectsController.view)
         
-        mainView.include(tasksController.view)
+        mainView.include(backlogController.view)
         
         projectsController.onSelect = { project in
-            self.tasksController.project.value = project
+            self.backlogController.selectedProject.value = project
         }
     }
     
     
     @IBAction func createTask(_ sender: Any) {
-        tasksController.createTask(sender)
+//        tasksController.createTask(sender)
     }
 }

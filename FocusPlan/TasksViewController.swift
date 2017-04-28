@@ -23,9 +23,9 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
     @IBOutlet weak var unplanMenuItem: NSMenuItem!
     
     
-    
     let rootItem = RootItem()
-    var project = MutableProperty<Project?>(nil)
+    
+    var heading = ""
     var tasks = [Task]()
     
     let draggedType = "TaskRow"
@@ -35,19 +35,9 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        project.producer.pick({ $0.reactive.tasks.producer }).startWithValues { tasks in
-            if let tasks = tasks as? Set<Task> {
-                self.tasks = Array(tasks)
-            } else {
-                self.tasks = []
-            }
-            
-            self.sortAndReload()
-        }
     }
     
-    func sortAndReload() {
+    func reloadData() {
         tasks.sort(by: { (task1, task2) -> Bool in
             task1.weight < task2.weight
         })
@@ -126,7 +116,7 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
     func createHeaderView(_ outlineView: NSOutlineView, column: NSTableColumn?) -> NSView? {
         if column === taskColumn {
             let view = outlineView.make(withIdentifier: "HeaderCell", owner: self) as? NSTableCellView
-            view?.textField?.stringValue = self.project.value?.name ?? ""
+            view?.textField?.stringValue = self.heading
             return view
         }
         return nil // no header view for now
@@ -171,22 +161,6 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
     // MARK: - Adding a task
     // ------------------------------------------------------------------------
     
-    @IBAction func createTask(_ sender: Any) {
-        guard let project = self.project.value else { return }
-        
-        let context = AppDelegate.viewContext
-        let task = Task(entity: Task.entity(), insertInto: context)
-        
-        let nextWeight = (tasks.map({ $0.weight }).max() ?? 0) + 1
-        
-        task.title = ""
-        task.weight = nextWeight
-        task.project = project
-        
-        DispatchQueue.main.async {
-            self.edit(task: task)
-        }
-    }
     
     func edit(task: Task) {
         let row = outlineView.row(forItem: task)
@@ -301,7 +275,7 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
         undoManager.setActionName("Reorder tasks")
         undoManager.endUndoGrouping()
         
-        sortAndReload()
+        reloadData()
         
         outlineView.select(row: newIndex + 1)
         
