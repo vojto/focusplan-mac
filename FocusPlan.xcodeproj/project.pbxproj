@@ -54,6 +54,7 @@
 		99D8C8111EB3B51800EA5001 /* CalendarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 99D8C80F1EB3B51800EA5001 /* CalendarViewController.xib */; };
 		99D8C8141EB3B6B600EA5001 /* CalendarCollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D8C8121EB3B6B600EA5001 /* CalendarCollectionItem.swift */; };
 		99D8C8151EB3B6B600EA5001 /* CalendarCollectionItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 99D8C8131EB3B6B600EA5001 /* CalendarCollectionItem.xib */; };
+		99D8C8171EB3B81900EA5001 /* CalendarCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D8C8161EB3B81900EA5001 /* CalendarCollectionLayout.swift */; };
 		99EEDE391EAF855400662DED /* NiceData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99EEDE371EAF854200662DED /* NiceData.framework */; };
 		99EEDE3A1EAF855400662DED /* NiceData.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 99EEDE371EAF854200662DED /* NiceData.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		99EEDE5D1EAF931500662DED /* ProjectsOutlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99EEDE5C1EAF931500662DED /* ProjectsOutlineView.swift */; };
@@ -122,6 +123,7 @@
 		99D8C80F1EB3B51800EA5001 /* CalendarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarViewController.xib; sourceTree = "<group>"; };
 		99D8C8121EB3B6B600EA5001 /* CalendarCollectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarCollectionItem.swift; sourceTree = "<group>"; };
 		99D8C8131EB3B6B600EA5001 /* CalendarCollectionItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarCollectionItem.xib; sourceTree = "<group>"; };
+		99D8C8161EB3B81900EA5001 /* CalendarCollectionLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarCollectionLayout.swift; sourceTree = "<group>"; };
 		99EEDE371EAF854200662DED /* NiceData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NiceData.framework; path = Carthage/Build/Mac/NiceData.framework; sourceTree = "<group>"; };
 		99EEDE591EAF866A00662DED /* FocusPlan.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FocusPlan.entitlements; sourceTree = "<group>"; };
 		99EEDE5C1EAF931500662DED /* ProjectsOutlineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectsOutlineView.swift; sourceTree = "<group>"; };
@@ -289,6 +291,7 @@
 				99D8C80F1EB3B51800EA5001 /* CalendarViewController.xib */,
 				99D8C8121EB3B6B600EA5001 /* CalendarCollectionItem.swift */,
 				99D8C8131EB3B6B600EA5001 /* CalendarCollectionItem.xib */,
+				99D8C8161EB3B81900EA5001 /* CalendarCollectionLayout.swift */,
 			);
 			name = Calendar;
 			sourceTree = "<group>";
@@ -390,6 +393,7 @@
 				991E7B291EB082C60086A9D9 /* TaskTitleTableCellView.swift in Sources */,
 				991E7AFA1EB064FE0086A9D9 /* Project+Reactive.swift in Sources */,
 				991E7B301EB0865F0086A9D9 /* NSOutlineView+Extensions.swift in Sources */,
+				99D8C8171EB3B81900EA5001 /* CalendarCollectionLayout.swift in Sources */,
 				998746CA1EB360320079215B /* BacklogViewController.swift in Sources */,
 				99D8C8101EB3B51800EA5001 /* CalendarViewController.swift in Sources */,
 				99B610161EB0602A0098F69C /* ProjectTableCellView.swift in Sources */,
