@@ -19,6 +19,7 @@ class PlanViewController: NSViewController {
         super.viewDidLoad()
         
         tasksController.wantsHighlightPlanned = false
+        tasksController.weightKeypath = #keyPath(Task.weightForPlan)
         tasksController.onCreate = { self.createTask() }
         
         observer = {

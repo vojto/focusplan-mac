@@ -28,6 +28,7 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
     
     var heading = ""
     var tasks = [Task]()
+    var weightKeypath = #keyPath(Task.weight)
     
     var wantsHighlightPlanned = true
     
@@ -44,7 +45,7 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
     
     func reloadData() {
         tasks.sort(by: { (task1, task2) -> Bool in
-            task1.weight < task2.weight
+            (task1.value(forKey: weightKeypath) as? Int64) ?? 0 < (task2.value(forKey: weightKeypath) as? Int64) ?? 0
         })
         
         outlineView.reloadData()
@@ -286,7 +287,7 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
         
         var weight = 0
         for task in tasks {
-            task.weight = Int64(weight)
+            task.setValue(weight, forKey: weightKeypath)
             
             weight += 1
         }
@@ -337,6 +338,12 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
         }
         
         return 32
+    }
+    
+    var nextWeight: Int64 {
+        return (tasks.map({ task in
+            return (task.value(forKey: weightKeypath) as? Int64) ?? 0
+        }).max() ?? 0) + 1
     }
     
     func updateHeight(cellView: TaskTitleTableCellView) {

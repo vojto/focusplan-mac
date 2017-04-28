@@ -48,10 +48,8 @@ class BacklogViewController: NSViewController {
         let context = AppDelegate.viewContext
         let task = Task(entity: Task.entity(), insertInto: context)
         
-        let nextWeight = (tasksController.tasks.map({ $0.weight }).max() ?? 0) + 1
-        
         task.title = ""
-        task.weight = nextWeight
+        task.weight = tasksController.nextWeight
         task.project = project
         
         DispatchQueue.main.async {
