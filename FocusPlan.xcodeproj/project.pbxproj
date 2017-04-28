@@ -40,6 +40,8 @@
 		997FFBD91EAF7DB200ABEA01 /* NiceKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9922F11A1EAF656000BFA01F /* NiceKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		998746CA1EB360320079215B /* BacklogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998746C91EB360320079215B /* BacklogViewController.swift */; };
 		999E65091EB361B20001AAB7 /* BacklogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 999E65081EB361B20001AAB7 /* BacklogViewController.xib */; };
+		999E650D1EB362780001AAB7 /* PlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999E650B1EB362780001AAB7 /* PlanViewController.swift */; };
+		999E650E1EB362780001AAB7 /* PlanViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 999E650C1EB362780001AAB7 /* PlanViewController.xib */; };
 		99A24EA71EB3591300C3F229 /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A24EA61EB3591300C3F229 /* Palette.swift */; };
 		99A762681EB1C2CD00A90AE9 /* NiceUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99A762671EB1C2CD00A90AE9 /* NiceUI.framework */; };
 		99A762691EB1C2D000A90AE9 /* NiceUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99A762671EB1C2CD00A90AE9 /* NiceUI.framework */; };
@@ -104,6 +106,8 @@
 		997FFBC81EAF7DA900ABEA01 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/Mac/Result.framework; sourceTree = "<group>"; };
 		998746C91EB360320079215B /* BacklogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BacklogViewController.swift; sourceTree = "<group>"; };
 		999E65081EB361B20001AAB7 /* BacklogViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BacklogViewController.xib; sourceTree = "<group>"; };
+		999E650B1EB362780001AAB7 /* PlanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanViewController.swift; sourceTree = "<group>"; };
+		999E650C1EB362780001AAB7 /* PlanViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlanViewController.xib; sourceTree = "<group>"; };
 		99A24EA61EB3591300C3F229 /* Palette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
 		99A762671EB1C2CD00A90AE9 /* NiceUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NiceUI.framework; path = Carthage/Build/Mac/NiceUI.framework; sourceTree = "<group>"; };
 		99B6100F1EB05D550098F69C /* Hue.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Hue.framework; path = Carthage/Build/Mac/Hue.framework; sourceTree = "<group>"; };
@@ -164,6 +168,7 @@
 				991E7B2E1EB086520086A9D9 /* AppKit+Extensions */,
 				991E7B201EB071AB0086A9D9 /* Projects */,
 				998746C81EB360080079215B /* Backlog */,
+				999E650A1EB362570001AAB7 /* Plan */,
 				991E7B251EB075430086A9D9 /* Tasks */,
 				997FFBC31EAF699A00ABEA01 /* Models */,
 				99078BFB1EAF1CD000C3B789 /* Assets.xcassets */,
@@ -256,6 +261,15 @@
 			name = Backlog;
 			sourceTree = "<group>";
 		};
+		999E650A1EB362570001AAB7 /* Plan */ = {
+			isa = PBXGroup;
+			children = (
+				999E650B1EB362780001AAB7 /* PlanViewController.swift */,
+				999E650C1EB362780001AAB7 /* PlanViewController.xib */,
+			);
+			name = Plan;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -323,6 +337,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				99078BFC1EAF1CD000C3B789 /* Assets.xcassets in Resources */,
+				999E650E1EB362780001AAB7 /* PlanViewController.xib in Resources */,
 				991E7B241EB071C20086A9D9 /* TasksViewController.xib in Resources */,
 				999E65091EB361B20001AAB7 /* BacklogViewController.xib in Resources */,
 				990A180A1EAF3D2300DCE839 /* ProjectsViewController.xib in Resources */,
@@ -338,6 +353,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				991E7B341EB093690086A9D9 /* TasksRowView.swift in Sources */,
+				999E650D1EB362780001AAB7 /* PlanViewController.swift in Sources */,
 				99EEDE5D1EAF931500662DED /* ProjectsOutlineView.swift in Sources */,
 				991E7B271EB07E3F0086A9D9 /* TasksBackgroundView.swift in Sources */,
 				99A24EA71EB3591300C3F229 /* Palette.swift in Sources */,

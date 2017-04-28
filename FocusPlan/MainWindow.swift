@@ -14,9 +14,10 @@ class MainWindow: NSWindow {
     @IBOutlet weak var secondaryView: NSView!
     @IBOutlet weak var mainView: NSView!
     
-    lazy var projectsController = {
-        return ProjectsViewController(nibName: "ProjectsViewController", bundle: nil)!
-    }()
+    
+    let projectsController = ProjectsViewController()
+    
+    let planController = PlanViewController()
     
     let backlogController = BacklogViewController()
     
@@ -26,8 +27,33 @@ class MainWindow: NSWindow {
         
         mainView.include(backlogController.view)
         
-        projectsController.onSelect = { project in
-            self.backlogController.selectedProject.value = project
+        mainView.include(planController.view)
+        
+        backlogController.view.isHidden = true
+        planController.view.isHidden = true
+    
+    
+        projectsController.onSelect = { item in
+            self.showSection(forItem: item)
+        }
+    }
+    
+    func showSection(forItem item: Any?) {
+        backlogController.view.isHidden = true
+        planController.view.isHidden = true
+        
+        if let project = item as? Project {
+            backlogController.selectedProject.value = project
+            backlogController.view.isHidden = false
+            
+        } else if let planItem = item as? ProjectsViewController.PlanItem {
+            planController.view.isHidden = false
+            
+            switch planItem.type {
+            case .today:
+                Swift.print("Gonna display plan controller!")
+            default: break
+            }
         }
     }
     

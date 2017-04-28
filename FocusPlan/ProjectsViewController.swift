@@ -55,13 +55,13 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     
     let draggedType = "ProjectRow"
     
-    var onSelect: ((Project?) -> ())?
+    var onSelect: ((Any?) -> ())?
     
     @IBOutlet weak var outlineView: NSOutlineView!
     
     var disposable = CompositeDisposable()
     
-    let selectedProject = MutableProperty<Project?>(nil)
+//    let selectedProject = MutableProperty<Project?>(nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -202,13 +202,10 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     }
     
     func outlineViewSelectionDidChange(_ notification: Notification) {
-        if let project = findSelectedProject() {
-            selectedProject.value = project
-            onSelect?(project)
-        } else {
-            onSelect?(nil)
-            selectedProject.value = nil
-        }
+        let row = outlineView.selectedRow
+        let item = outlineView.item(atRow: row)
+        
+        onSelect?(item)
     }
     
     func findSelectedProject() -> Project? {
