@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12118"/>
@@ -680,7 +680,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="940" height="626"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" wantsLayer="YES" id="se5-gp-TjO">
                 <rect key="frame" x="0.0" y="0.0" width="940" height="626"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -689,17 +689,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="940" height="626"/>
                         <subviews>
                             <customView fixedFrame="YES" id="jhW-E1-K5O">
-                                <rect key="frame" x="0.0" y="0.0" width="251" height="626"/>
+                                <rect key="frame" x="0.0" y="0.0" width="145" height="626"/>
                                 <autoresizingMask key="autoresizingMask"/>
                             </customView>
                             <customView fixedFrame="YES" id="yIS-zi-HPh">
-                                <rect key="frame" x="252" y="0.0" width="688" height="626"/>
+                                <rect key="frame" x="146" y="0.0" width="397" height="626"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </customView>
+                            <customView fixedFrame="YES" id="HVC-j6-gHM">
+                                <rect key="frame" x="544" y="0.0" width="396" height="626"/>
                                 <autoresizingMask key="autoresizingMask"/>
                             </customView>
                         </subviews>
                         <holdingPriorities>
                             <real value="250"/>
-                            <real value="250"/>
+                            <real value="1"/>
+                            <real value="1"/>
                         </holdingPriorities>
                     </splitView>
                 </subviews>
@@ -712,6 +717,7 @@
             </view>
             <connections>
                 <outlet property="mainView" destination="yIS-zi-HPh" id="o8K-dW-H86"/>
+                <outlet property="mainView2" destination="HVC-j6-gHM" id="N3V-el-kke"/>
                 <outlet property="secondaryView" destination="jhW-E1-K5O" id="Plm-ai-F3H"/>
             </connections>
             <point key="canvasLocation" x="369" y="118"/>

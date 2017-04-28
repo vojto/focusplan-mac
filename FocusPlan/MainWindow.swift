@@ -13,6 +13,7 @@ import ReactiveSwift
 class MainWindow: NSWindow {
     @IBOutlet weak var secondaryView: NSView!
     @IBOutlet weak var mainView: NSView!
+    @IBOutlet weak var mainView2: NSView!
     
     
     let projectsController = ProjectsViewController()
@@ -31,6 +32,7 @@ class MainWindow: NSWindow {
         
         backlogController.view.isHidden = true
         planController.view.isHidden = true
+        mainView2.isHidden = true
     
     
         projectsController.onSelect = { item in
@@ -41,6 +43,7 @@ class MainWindow: NSWindow {
     func showSection(forItem item: Any?) {
         backlogController.view.isHidden = true
         planController.view.isHidden = true
+        mainView2.isHidden = true
         
         if let project = item as? Project {
             backlogController.selectedProject.value = project
@@ -48,6 +51,7 @@ class MainWindow: NSWindow {
             
         } else if let planItem = item as? ProjectsViewController.PlanItem {
             planController.view.isHidden = false
+            mainView2.isHidden = false
             
             switch planItem.type {
             case .today:
