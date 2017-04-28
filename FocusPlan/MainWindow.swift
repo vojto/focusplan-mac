@@ -63,6 +63,11 @@ class MainWindow: NSWindow {
     
     
     @IBAction func createTask(_ sender: Any) {
-//        tasksController.createTask(sender)
+        if !backlogController.view.isHidden {
+            backlogController.createTask()
+        } else if !planController.view.isHidden {
+            planController.createTask()
+        }
+        
     }
 }

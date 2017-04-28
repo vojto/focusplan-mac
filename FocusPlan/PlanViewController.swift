@@ -18,12 +18,17 @@ class PlanViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tasksController.wantsHighlightPlanned = false
+        tasksController.onCreate = { self.createTask() }
+        
         observer = {
             let context = AppDelegate.viewContext
             let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
             request.predicate = NSPredicate(format: "isPlanned = true")
             return ReactiveObserver<Task>(context: context, request: request)
         }()
+        
+        
         
         view.include(tasksController.view)
         
@@ -32,7 +37,22 @@ class PlanViewController: NSViewController {
             self.tasksController.heading = "Planned tasks"
             self.tasksController.reloadData()
         }
+    }
+    
+    func createTask() {
+        let context = AppDelegate.viewContext
+        
+        let project: Project? = context.findFirst()
+        
+        let task = Task(entity: Task.entity(), insertInto: context)
+        task.project = project
+        task.isPlanned = true
+        
+        DispatchQueue.main.async {
+            self.tasksController.edit(task: task)
+        }
         
     }
+    
     
 }

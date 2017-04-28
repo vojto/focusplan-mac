@@ -15,6 +15,8 @@ class TaskTitleTableCellView: EditableTableCellView {
     
     @IBOutlet var finishedButton: NSButton?
     
+    var wantsHighlightPlanned = true
+    
     var controller: TasksViewController?
     
     override func awakeFromNib() {
@@ -36,10 +38,11 @@ class TaskTitleTableCellView: EditableTableCellView {
                     let normal = NSFont.systemFont(ofSize: 14, weight: NSFontWeightRegular)
                     let medium = NSFont.systemFont(ofSize: 14, weight: NSFontWeightMedium)
                     
+                    /*
                     if editing {
                         field.font = normal
                         field.textColor = NSColor.labelColor
-                    } else if (planned ?? false) {
+                    } else if (planned ?? false) && self.wantsHighlightPlanned {
                         field.font = medium
                         
                         if let color = project?.color,
@@ -52,6 +55,7 @@ class TaskTitleTableCellView: EditableTableCellView {
                         field.font = normal
                         field.textColor = NSColor.labelColor
                     }
+                    */
             }
         }
         

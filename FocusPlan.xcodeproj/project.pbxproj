@@ -49,6 +49,7 @@
 		99B610101EB05D550098F69C /* Hue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99B6100F1EB05D550098F69C /* Hue.framework */; };
 		99B610121EB05D570098F69C /* Hue.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 99B6100F1EB05D550098F69C /* Hue.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		99B610161EB0602A0098F69C /* ProjectTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B610151EB0602A0098F69C /* ProjectTableCellView.swift */; };
+		99D8C80C1EB3A16D00EA5001 /* NSManagedObjectModel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D8C80B1EB3A16D00EA5001 /* NSManagedObjectModel+Extensions.swift */; };
 		99EEDE391EAF855400662DED /* NiceData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99EEDE371EAF854200662DED /* NiceData.framework */; };
 		99EEDE3A1EAF855400662DED /* NiceData.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 99EEDE371EAF854200662DED /* NiceData.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		99EEDE5D1EAF931500662DED /* ProjectsOutlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99EEDE5C1EAF931500662DED /* ProjectsOutlineView.swift */; };
@@ -112,6 +113,7 @@
 		99A762671EB1C2CD00A90AE9 /* NiceUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NiceUI.framework; path = Carthage/Build/Mac/NiceUI.framework; sourceTree = "<group>"; };
 		99B6100F1EB05D550098F69C /* Hue.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Hue.framework; path = Carthage/Build/Mac/Hue.framework; sourceTree = "<group>"; };
 		99B610151EB0602A0098F69C /* ProjectTableCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectTableCellView.swift; sourceTree = "<group>"; };
+		99D8C80B1EB3A16D00EA5001 /* NSManagedObjectModel+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectModel+Extensions.swift"; sourceTree = "<group>"; };
 		99EEDE371EAF854200662DED /* NiceData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NiceData.framework; path = Carthage/Build/Mac/NiceData.framework; sourceTree = "<group>"; };
 		99EEDE591EAF866A00662DED /* FocusPlan.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FocusPlan.entitlements; sourceTree = "<group>"; };
 		99EEDE5C1EAF931500662DED /* ProjectsOutlineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectsOutlineView.swift; sourceTree = "<group>"; };
@@ -248,6 +250,7 @@
 				99078BF81EAF1CD000C3B789 /* FocusPlan.xcdatamodeld */,
 				991E7AF91EB064FE0086A9D9 /* Project+Reactive.swift */,
 				991E7B2A1EB082FE0086A9D9 /* Task+Reactive.swift */,
+				99D8C80B1EB3A16D00EA5001 /* NSManagedObjectModel+Extensions.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -358,6 +361,7 @@
 				991E7B271EB07E3F0086A9D9 /* TasksBackgroundView.swift in Sources */,
 				99A24EA71EB3591300C3F229 /* Palette.swift in Sources */,
 				991E7B231EB071C20086A9D9 /* TasksViewController.swift in Sources */,
+				99D8C80C1EB3A16D00EA5001 /* NSManagedObjectModel+Extensions.swift in Sources */,
 				991E7B381EB0BEF00086A9D9 /* String+Extensions.swift in Sources */,
 				990A180C1EAF3D9700DCE839 /* MainWindow.swift in Sources */,
 				990A18091EAF3D2300DCE839 /* ProjectsViewController.swift in Sources */,

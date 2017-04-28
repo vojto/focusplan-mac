@@ -18,6 +18,10 @@ class BacklogViewController: NSViewController {
     let selectedProject = MutableProperty<Project?>(nil)
     
     override func viewDidLoad() {
+        tasksController.onCreate = {
+            self.createTask()
+        }
+        
         view.include(tasksController.view)
         
         selectedProject.producer.startWithValues { project in
@@ -38,7 +42,7 @@ class BacklogViewController: NSViewController {
         }
     }
     
-    @IBAction func createTask(_ sender: Any) {
+    func createTask() {
         guard let project = selectedProject.value else { return }
         
         let context = AppDelegate.viewContext

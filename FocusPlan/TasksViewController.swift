@@ -9,6 +9,7 @@
 import Cocoa
 import NiceData
 import ReactiveSwift
+import Cartography
 
 class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineViewDelegate, NSTextFieldDelegate, NSMenuDelegate {
     
@@ -28,7 +29,11 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
     var heading = ""
     var tasks = [Task]()
     
+    var wantsHighlightPlanned = true
+    
     let draggedType = "TaskRow"
+    
+    var onCreate: (() -> ())?
     
     // MARK: - Lifecycle
     // ------------------------------------------------------------------------
@@ -49,6 +54,16 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
         outlineView.expandItem(nil, expandChildren: true)
         
         outlineView.register(forDraggedTypes: [draggedType])
+    }
+    
+
+    override func viewDidLayout() {
+        var set = IndexSet()
+        for i in 0...outlineView.numberOfRows {
+            set.insert(i)
+        }
+        
+        updateHeight(indexes: set)
     }
     
     // MARK: - Accessors
@@ -126,7 +141,9 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
         if column === taskColumn {
             let view = outlineView.make(withIdentifier: "TaskCell", owner: self) as? TaskTitleTableCellView
             
+            view?.wantsHighlightPlanned = wantsHighlightPlanned
             view?.task.value = task
+            
             
             titleCellViews[task] = view
             view?.controller = self
@@ -158,9 +175,12 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
         }
     }
     
-    // MARK: - Adding a task
+    // MARK: - Actions
     // ------------------------------------------------------------------------
     
+    @IBAction func create(_ sender: Any) {
+        onCreate?()
+    }
     
     func edit(task: Task) {
         let row = outlineView.row(forItem: task)
@@ -291,6 +311,9 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
         if let task = item as? Task {
             if dummyTitleCellView == nil {
                 dummyTitleCellView = outlineView.make(withIdentifier: "TaskCell", owner: self) as! TaskTitleTableCellView
+                
+                dummyTitleCellView.setContentHuggingPriority(1, for: .vertical)
+                dummyTitleCellView.setContentHuggingPriority(999, for: .horizontal)
             }
             
             
@@ -303,11 +326,14 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
             }
             
             dummyTitleCellView.bounds.size.width = taskColumn.width
-            
+            dummyTitleCellView.bounds.size.height = 10
+
             dummyTitleCellView.needsLayout = true
             dummyTitleCellView.layoutSubtreeIfNeeded()
             
-            return dummyTitleCellView.fittingSize.height
+            let size = dummyTitleCellView.fittingSize
+            
+            return size.height
         }
         
         return 32
@@ -316,11 +342,14 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
     func updateHeight(cellView: TaskTitleTableCellView) {
         let row = outlineView.row(for: cellView)
         
+        updateHeight(indexes: IndexSet([row]))
+    }
+    
+    func updateHeight(indexes: IndexSet) {
         NSAnimationContext.runAnimationGroup({ (context) in
             context.duration = 0
-            outlineView.noteHeightOfRows(withIndexesChanged: IndexSet([row]))
+            outlineView.noteHeightOfRows(withIndexesChanged: indexes)
         }, completionHandler: nil)
-        
     }
     
     // MARK: - Updating the menu
