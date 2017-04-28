@@ -12,7 +12,11 @@ import NiceData
 class PlanViewController: NSViewController {
     
     let tasksController = TasksViewController()
+    let calendarController = CalendarViewController()
+    
     var observer: ReactiveObserver<Task>!
+    
+    @IBOutlet var secondaryView: NSView!
     
 
     override func viewDidLoad() {
@@ -29,9 +33,8 @@ class PlanViewController: NSViewController {
             return ReactiveObserver<Task>(context: context, request: request)
         }()
         
-        
-        
         view.include(tasksController.view)
+        secondaryView.include(calendarController.view)
         
         observer.objects.producer.startWithValues { tasks in
             self.tasksController.tasks = tasks

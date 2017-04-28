@@ -29,6 +29,7 @@ class MainWindow: NSWindow {
         mainView.include(backlogController.view)
         
         mainView.include(planController.view)
+        mainView2.include(planController.secondaryView)
         
         backlogController.view.isHidden = true
         planController.view.isHidden = true
