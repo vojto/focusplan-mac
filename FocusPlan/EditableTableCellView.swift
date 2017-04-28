@@ -8,8 +8,11 @@
 
 import Foundation
 import AppKit
+import ReactiveSwift
 
 class EditableTableCellView: NSTableCellView, NSTextFieldDelegate {
+    let isEditing = MutableProperty<Bool>(false)
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -30,6 +33,8 @@ class EditableTableCellView: NSTableCellView, NSTextFieldDelegate {
         window?.makeFirstResponder(field)
         
         rowView?.isEditing = true
+        
+        isEditing.value = true
     }
     
     func finishEditing() {
@@ -39,6 +44,8 @@ class EditableTableCellView: NSTableCellView, NSTextFieldDelegate {
         field.isEditable = false
         
         rowView?.isEditing = false
+        
+        isEditing.value = false
     }
     
     var rowView: EditableTableRowView? {

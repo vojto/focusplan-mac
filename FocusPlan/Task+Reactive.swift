@@ -27,4 +27,9 @@ public extension Reactive where Base: Task {
         return producer(forKeyPath: #keyPath(Task.isFinished))
             .map(asBool).map { $0 ?? false }
     }
+    
+    var isPlanned: SignalProducer<Bool, NoError> {
+        return producer(forKeyPath: #keyPath(Task.isPlanned))
+            .map(asBool).map { $0 ?? false }
+    }
 }

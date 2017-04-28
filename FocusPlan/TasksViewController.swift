@@ -56,6 +56,21 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
         outlineView.register(forDraggedTypes: [draggedType])
     }
     
+    // MARK: - Accessors
+    // ------------------------------------------------------------------------
+    
+    var selectedTasks: Set<Task> {
+        var tasks = Set<Task>()
+        
+        for index in outlineView.selectedRowIndexes {
+            if let task = outlineView.item(atRow: index) as? Task {
+                tasks.insert(task)
+            }
+        }
+        
+        return tasks
+    }
+    
     // MARK: - Outline view basics
     // ------------------------------------------------------------------------
     
@@ -198,18 +213,14 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
         undo?.endUndoGrouping()
     }
     
-    var selectedTasks: Set<Task> {
-        var tasks = Set<Task>()
-        
-        for index in outlineView.selectedRowIndexes {
-            if let task = outlineView.item(atRow: index) as? Task {
-                tasks.insert(task)
-            }
-        }
-        
-        return tasks
-    }
+    // MARK: - Planning
+    // -----------------------------------------------------------------------
     
+    @IBAction func planForToday(_ sender: Any) {
+        for task in selectedTasks {
+            task.isPlanned = true
+        }
+    }
     
     
     // MARK: - Reordering

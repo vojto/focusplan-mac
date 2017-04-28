@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12118"/>
@@ -203,6 +203,13 @@
         </customView>
         <menu id="pJY-Sp-yTU">
             <items>
+                <menuItem title="Plan for today" id="xjs-cc-ef8">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="planForToday:" target="-2" id="3UK-P9-hVK"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="nh6-dv-Tyt"/>
                 <menuItem title="Remove" id="Ona-eO-BYG">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>

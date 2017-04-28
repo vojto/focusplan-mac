@@ -21,12 +21,27 @@ class TaskTitleTableCellView: EditableTableCellView {
         super.awakeFromNib()
         
         let isFinished = task.producer.pick({ $0.reactive.isFinished.producer })
+        let isPlanned = task.producer.pick({ $0.reactive.isPlanned.producer })
         
         if let field = textField {
             field.reactive.stringValue <~ task.producer.pick({ $0.reactive.title.producer }).map { $0 ?? "" }
             
             isFinished.startWithValues { finished in
                 self.superview?.alpha = (finished ?? false) ? 0.4 : 1
+            }
+            
+            SignalProducer.combineLatest(isEditing.producer, isPlanned.producer)
+                .startWithValues { editing, planned in
+                    let normal = NSFont.systemFont(ofSize: 14, weight: NSFontWeightRegular)
+                    let medium = NSFont.systemFont(ofSize: 14, weight: NSFontWeightMedium)
+                    
+                    if editing {
+                        field.font = normal
+                    } else if (planned ?? false) {
+                        field.font = medium
+                    } else {
+                        field.font = normal
+                    }
             }
         }
         
