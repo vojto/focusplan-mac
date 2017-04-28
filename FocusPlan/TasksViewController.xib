@@ -11,7 +11,9 @@
             <connections>
                 <outlet property="estimateColumn" destination="eOx-Kj-WaP" id="2De-jw-sC0"/>
                 <outlet property="outlineView" destination="g5R-kG-AVj" id="wld-fX-P17"/>
+                <outlet property="planMenuItem" destination="xjs-cc-ef8" id="Hlz-ZY-xkI"/>
                 <outlet property="taskColumn" destination="7fd-1L-BeA" id="wYo-3r-EcT"/>
+                <outlet property="unplanMenuItem" destination="gD4-kS-sHF" id="cD6-rN-fWq"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -209,6 +211,12 @@
                         <action selector="planForToday:" target="-2" id="3UK-P9-hVK"/>
                     </connections>
                 </menuItem>
+                <menuItem title="Unplan" id="gD4-kS-sHF">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="unplan:" target="-2" id="fPE-1L-ZtK"/>
+                    </connections>
+                </menuItem>
                 <menuItem isSeparatorItem="YES" id="nh6-dv-Tyt"/>
                 <menuItem title="Remove" id="Ona-eO-BYG">
                     <modifierMask key="keyEquivalentModifierMask"/>
@@ -217,6 +225,9 @@
                     </connections>
                 </menuItem>
             </items>
+            <connections>
+                <outlet property="delegate" destination="-2" id="epj-7d-p9W"/>
+            </connections>
             <point key="canvasLocation" x="144" y="518"/>
         </menu>
     </objects>

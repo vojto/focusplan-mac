@@ -10,7 +10,7 @@ import Cocoa
 import NiceData
 import ReactiveSwift
 
-class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineViewDelegate, NSTextFieldDelegate {
+class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineViewDelegate, NSTextFieldDelegate, NSMenuDelegate {
     
     class RootItem {
     }
@@ -18,6 +18,11 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
     @IBOutlet weak var outlineView: NSOutlineView!
     @IBOutlet weak var taskColumn: NSTableColumn!
     @IBOutlet weak var estimateColumn: NSTableColumn!
+    
+    @IBOutlet weak var planMenuItem: NSMenuItem!
+    @IBOutlet weak var unplanMenuItem: NSMenuItem!
+    
+    
     
     let rootItem = RootItem()
     var project = MutableProperty<Project?>(nil)
@@ -222,6 +227,13 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
         }
     }
     
+    @IBAction func unplan(_ sender: Any) {
+        for task in selectedTasks {
+            task.isPlanned = false
+        }
+    }
+    
+    
     
     // MARK: - Reordering
     // -----------------------------------------------------------------------
@@ -334,6 +346,22 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
             context.duration = 0
             outlineView.noteHeightOfRows(withIndexesChanged: IndexSet([row]))
         }, completionHandler: nil)
+        
+    }
+    
+    // MARK: - Updating the menu
+    // -----------------------------------------------------------------------
+    
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        guard let task = selectedTasks.first else { return }
+        
+        if task.isPlanned {
+            planMenuItem.isHidden = true
+            unplanMenuItem.isHidden = false
+        } else {
+            planMenuItem.isHidden = false
+            unplanMenuItem.isHidden = true
+        }
         
     }
 }

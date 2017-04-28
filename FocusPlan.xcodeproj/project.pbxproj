@@ -38,6 +38,7 @@
 		997FFBD71EAF7DB200ABEA01 /* Cartography.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9922F1191EAF656000BFA01F /* Cartography.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		997FFBD81EAF7DB200ABEA01 /* NiceKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9922F11A1EAF656000BFA01F /* NiceKit.framework */; };
 		997FFBD91EAF7DB200ABEA01 /* NiceKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9922F11A1EAF656000BFA01F /* NiceKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		99A24EA71EB3591300C3F229 /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A24EA61EB3591300C3F229 /* Palette.swift */; };
 		99A762681EB1C2CD00A90AE9 /* NiceUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99A762671EB1C2CD00A90AE9 /* NiceUI.framework */; };
 		99A762691EB1C2D000A90AE9 /* NiceUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99A762671EB1C2CD00A90AE9 /* NiceUI.framework */; };
 		99A7626A1EB1C2D000A90AE9 /* NiceUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 99A762671EB1C2CD00A90AE9 /* NiceUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -99,6 +100,7 @@
 		997FFBC61EAF7DA900ABEA01 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/Mac/ReactiveCocoa.framework; sourceTree = "<group>"; };
 		997FFBC71EAF7DA900ABEA01 /* ReactiveSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveSwift.framework; path = Carthage/Build/Mac/ReactiveSwift.framework; sourceTree = "<group>"; };
 		997FFBC81EAF7DA900ABEA01 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/Mac/Result.framework; sourceTree = "<group>"; };
+		99A24EA61EB3591300C3F229 /* Palette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
 		99A762671EB1C2CD00A90AE9 /* NiceUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NiceUI.framework; path = Carthage/Build/Mac/NiceUI.framework; sourceTree = "<group>"; };
 		99B6100F1EB05D550098F69C /* Hue.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Hue.framework; path = Carthage/Build/Mac/Hue.framework; sourceTree = "<group>"; };
 		99B610151EB0602A0098F69C /* ProjectTableCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectTableCellView.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				99078BF41EAF1CD000C3B789 /* AppDelegate.swift */,
 				990A18051EAF3C5A00DCE839 /* MainMenu.xib */,
 				990A180B1EAF3D9700DCE839 /* MainWindow.swift */,
+				99A24EA61EB3591300C3F229 /* Palette.swift */,
 				991E7B391EB0BEF40086A9D9 /* Swift+Extensions */,
 				991E7B2E1EB086520086A9D9 /* AppKit+Extensions */,
 				991E7B201EB071AB0086A9D9 /* Projects */,
@@ -322,6 +325,7 @@
 				991E7B341EB093690086A9D9 /* TasksRowView.swift in Sources */,
 				99EEDE5D1EAF931500662DED /* ProjectsOutlineView.swift in Sources */,
 				991E7B271EB07E3F0086A9D9 /* TasksBackgroundView.swift in Sources */,
+				99A24EA71EB3591300C3F229 /* Palette.swift in Sources */,
 				991E7B231EB071C20086A9D9 /* TasksViewController.swift in Sources */,
 				991E7B381EB0BEF00086A9D9 /* String+Extensions.swift in Sources */,
 				990A180C1EAF3D9700DCE839 /* MainWindow.swift in Sources */,

@@ -22,6 +22,7 @@ class TaskTitleTableCellView: EditableTableCellView {
         
         let isFinished = task.producer.pick({ $0.reactive.isFinished.producer })
         let isPlanned = task.producer.pick({ $0.reactive.isPlanned.producer })
+        let project = task.producer.pick({ $0.reactive.project.producer })
         
         if let field = textField {
             field.reactive.stringValue <~ task.producer.pick({ $0.reactive.title.producer }).map { $0 ?? "" }
@@ -30,17 +31,26 @@ class TaskTitleTableCellView: EditableTableCellView {
                 self.superview?.alpha = (finished ?? false) ? 0.4 : 1
             }
             
-            SignalProducer.combineLatest(isEditing.producer, isPlanned.producer)
-                .startWithValues { editing, planned in
+            SignalProducer.combineLatest(isEditing.producer, isPlanned.producer, project.producer)
+                .startWithValues { editing, planned, project in
                     let normal = NSFont.systemFont(ofSize: 14, weight: NSFontWeightRegular)
                     let medium = NSFont.systemFont(ofSize: 14, weight: NSFontWeightMedium)
                     
                     if editing {
                         field.font = normal
+                        field.textColor = NSColor.labelColor
                     } else if (planned ?? false) {
                         field.font = medium
+                        
+                        if let color = project?.color,
+                            let nsColor = Palette.decode(colorName: color) {
+                            field.textColor = nsColor
+                        } else {
+                            field.textColor = NSColor.labelColor
+                        }
                     } else {
                         field.font = normal
+                        field.textColor = NSColor.labelColor
                     }
             }
         }
