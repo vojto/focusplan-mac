@@ -166,7 +166,7 @@
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                         <prototypeCellViews>
-                                            <tableCellView identifier="ProjectCell" id="nig-Tx-Ehh">
+                                            <tableCellView identifier="ProjectCell" id="nig-Tx-Ehh" customClass="TaskProjectTableCellView" customModule="FocusPlan" customModuleProvider="target">
                                                 <rect key="frame" x="399" y="2" width="76" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -190,6 +190,9 @@
                                                     <constraint firstItem="ihV-QU-hLW" firstAttribute="leading" secondItem="nig-Tx-Ehh" secondAttribute="leading" constant="4" id="NEj-I0-LjC"/>
                                                     <constraint firstAttribute="trailing" secondItem="ihV-QU-hLW" secondAttribute="trailing" constant="4" id="PST-HR-TAM"/>
                                                 </constraints>
+                                                <connections>
+                                                    <outlet property="popup" destination="ihV-QU-hLW" id="oA5-EW-fHP"/>
+                                                </connections>
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>

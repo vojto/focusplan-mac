@@ -156,7 +156,8 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
         }
         
         if column == projectColumn {
-            let view = outlineView.make(withIdentifier: "ProjectCell", owner: self)
+            let view = outlineView.make(withIdentifier: "ProjectCell", owner: self) as! TaskProjectTableCellView
+            view.task.value = task
             return view
         }
         

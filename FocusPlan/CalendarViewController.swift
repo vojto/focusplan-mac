@@ -61,7 +61,10 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     func reloadData() {
         Swift.print("Reloading data for the  calendar view!")
         
-        collectionView.reloadData()
+
+        self.collectionView.reloadData()
+        
+        
     }
     
     func updateEvents() {

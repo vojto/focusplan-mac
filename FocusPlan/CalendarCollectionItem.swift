@@ -23,7 +23,9 @@ class CalendarCollectionItem: NSCollectionViewItem {
         view.layer?.backgroundColor = NSColor(hexString: "f1f7fd")?.cgColor
         view.layer?.borderColor = NSColor(hexString: "4A90E2")?.cgColor
         view.layer?.borderWidth = 0.5
-        view.layer?.cornerRadius = 3.0
+        view.layer?.cornerRadius = 2.0
+        
+        
         
         let title = task.producer.pick({ $0.reactive.title.producer }).map { $0 ?? "" }
         
@@ -33,5 +35,7 @@ class CalendarCollectionItem: NSCollectionViewItem {
             field.reactive.stringValue <~ title
         }
     }
+    
+    
     
 }

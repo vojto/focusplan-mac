@@ -9,10 +9,16 @@
 import Cocoa
 import ReactiveSwift
 import ReactiveCocoa
+import NiceData
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
+    static let allProjectsObserver: ReactiveObserver<Project> = {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Project")
+        request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+        return ReactiveObserver<Project>(context: AppDelegate.viewContext, request: request)
+    }()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Fetch the project
