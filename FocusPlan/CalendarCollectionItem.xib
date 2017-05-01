@@ -8,6 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="CalendarCollectionItem" customModule="FocusPlan" customModuleProvider="target">
             <connections>
+                <outlet property="textField" destination="5Ov-Rg-UwN" id="eyi-wf-op3"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -33,6 +34,7 @@
         </customView>
         <collectionViewItem id="gSF-4s-C4q" customClass="CalendarCollectionItem" customModule="FocusPlan" customModuleProvider="target">
             <connections>
+                <outlet property="textField" destination="5Ov-Rg-UwN" id="9Tj-P0-A41"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="bAs-8l-CKA"/>
             </connections>
         </collectionViewItem>

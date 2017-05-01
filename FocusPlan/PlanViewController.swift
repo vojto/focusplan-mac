@@ -42,7 +42,11 @@ class PlanViewController: NSViewController {
     }
     
     func updateTasks(tasks: [Task]) {
-        Swift.print("Updating with \(tasks.count) tasks!")
+        var tasks = tasks
+        
+        tasks.sort(by: { (task1, task2) -> Bool in
+            task1.weightForPlan < task2.weightForPlan
+        })
         
         // Update tasks in the list view
         self.tasksController.tasks = tasks
@@ -50,7 +54,7 @@ class PlanViewController: NSViewController {
         self.tasksController.reloadData()
         
         // Update tasks in the calendar view
-        self.calendarController.tasks = tasks
+        self.calendarController.tasks = tasks.filter { !$0.isFinished }
         self.calendarController.reloadData()
     }
     
@@ -62,6 +66,7 @@ class PlanViewController: NSViewController {
         let task = Task(entity: Task.entity(), insertInto: context)
         task.project = project
         task.isPlanned = true
+        task.weightForPlan = tasksController.nextWeight
         
         DispatchQueue.main.async {
             self.tasksController.edit(task: task)

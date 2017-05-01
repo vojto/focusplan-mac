@@ -19,6 +19,7 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
     @IBOutlet weak var outlineView: NSOutlineView!
     @IBOutlet weak var taskColumn: NSTableColumn!
     @IBOutlet weak var estimateColumn: NSTableColumn!
+    @IBOutlet weak var projectColumn: NSTableColumn!
     
     @IBOutlet weak var planMenuItem: NSMenuItem!
     @IBOutlet weak var unplanMenuItem: NSMenuItem!
@@ -44,10 +45,6 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
     }
     
     func reloadData() {
-        tasks.sort(by: { (task1, task2) -> Bool in
-            (task1.value(forKey: weightKeypath) as? Int64) ?? 0 < (task2.value(forKey: weightKeypath) as? Int64) ?? 0
-        })
-        
         outlineView.reloadData()
     }
     
@@ -155,6 +152,11 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
         if column === estimateColumn {
             let view = outlineView.make(withIdentifier: "EstimateCell", owner: self) as! TaskEstimateTableCellView
             view.task.value = task
+            return view
+        }
+        
+        if column == projectColumn {
+            let view = outlineView.make(withIdentifier: "ProjectCell", owner: self)
             return view
         }
         

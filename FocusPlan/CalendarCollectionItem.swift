@@ -7,8 +7,12 @@
 //
 
 import Cocoa
+import ReactiveSwift
 
 class CalendarCollectionItem: NSCollectionViewItem {
+    
+    let task = MutableProperty<Task?>(nil)
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +24,14 @@ class CalendarCollectionItem: NSCollectionViewItem {
         view.layer?.borderColor = NSColor(hexString: "4A90E2")?.cgColor
         view.layer?.borderWidth = 0.5
         view.layer?.cornerRadius = 3.0
+        
+        let title = task.producer.pick({ $0.reactive.title.producer }).map { $0 ?? "" }
+        
+        if let field = textField {
+            Swift.print("Setting up the field: \(field)")
+            
+            field.reactive.stringValue <~ title
+        }
     }
     
 }

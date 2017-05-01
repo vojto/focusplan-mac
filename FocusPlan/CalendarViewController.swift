@@ -7,20 +7,54 @@
 //
 
 import Cocoa
+import SwiftDate
 
 class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCollectionViewDelegate {
     
+    class Event: CustomStringConvertible {
+        var task: Task
+        var startsAt: Date!
+        var duration: TimeInterval!
+        
+        var endsAt: Date {
+            return startsAt.addingTimeInterval(duration)
+        }
+        
+        init(task: Task) {
+            self.task = task
+        }
+        
+        var description: String {
+            return "<Event startsAt=\(startsAt) duration=\(duration) task=\(task)>"
+        }
+    }
+    
 
     @IBOutlet var collectionView: NSCollectionView!
+    let collectionLayout = CalendarCollectionLayout()
     
-    var tasks = [Task]()
-    // TODO: Add date range
+    var tasks = [Task]() {
+        didSet {
+            updateEvents()
+        }
+    }
+    var events = [Event]()
+    var firstDay = Date().startOf(component: .day)
+    var sectionsCount = 1
     
     // MARK: - Lifecycle
     // ------------------------------------------------------------------------
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        collectionView.collectionViewLayout = collectionLayout
+        
+        let nib = NSNib(nibNamed: "CalendarHourHeader", bundle: nil)
+        collectionView.register(nib, forSupplementaryViewOfKind: kHourHeader, withIdentifier: kHourHeaderIdentifier)
+        
+        collectionLayout.register(CalendarTimeLine.self, forDecorationViewOfKind: kTimeLine)
+        
         // Do view setup here.
     }
     
@@ -28,6 +62,26 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
         Swift.print("Reloading data for the  calendar view!")
         
         collectionView.reloadData()
+    }
+    
+    func updateEvents() {
+        events = []
+        
+        var previous: Event?
+        
+        for task in tasks {
+            let event = Event(task: task)
+            event.duration = task.estimate
+            
+            if let previous = previous {
+                event.startsAt = previous.endsAt
+            } else {
+                event.startsAt = Date()
+            }
+            
+            events.append(event)
+            previous = event
+        }
     }
     
     // MARK: - Feeding data to the collection view
@@ -41,10 +95,59 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
         return tasks.count
     }
     
+    // MARK: - Making views
+    // ------------------------------------------------------------------------
+    
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
-        let item = collectionView.makeItem(withIdentifier: "CalendarCollectionItem", for: indexPath)
+        let item = collectionView.makeItem(withIdentifier: "CalendarCollectionItem", for: indexPath) as! CalendarCollectionItem
+        
+        let task = tasks[indexPath.item]
+        
+        item.task.value = task
         
         return item
     }
     
+    func collectionView(_ collectionView: NSCollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> NSView {
+        
+        if kind == kHourHeader {
+            let view = collectionView.makeSupplementaryView(ofKind: kind, withIdentifier: kHourHeaderIdentifier, for: indexPath) as! CalendarHourHeader
+            
+            view.textField.stringValue = collectionLayout.hourHeaderLabel(at: indexPath)
+            
+            return view
+        } else if kind == kTimeLine {
+            Swift.print("🌈 Making the time line!")
+            
+            return NSView()
+        }
+        
+        fatalError("unknown kind: \(kind)")
+    }
+    
+    
+    
+    // MARK: - Accessing events
+    // ------------------------------------------------------------------------
+
+    func allIndexPaths() -> [IndexPath] {
+        var paths = [IndexPath]()
+        
+        for (i, event) in events.enumerated() {
+            // For now, stick them all in one section
+            
+            let interval = event.startsAt.timeIntervalSince(firstDay)
+            
+            let dayIndex = Int(floor(interval / (60 * 60 * 24)))
+            
+            let path = IndexPath(item: i, section: dayIndex)
+            paths.append(path)
+        }
+        
+        return paths
+    }
+    
+    func event(atIndexPath path: IndexPath) -> Event? {
+        return events.at(path.item)
+    }
 }

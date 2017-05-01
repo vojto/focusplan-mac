@@ -7,6 +7,8 @@
 //
 
 import Cocoa
+import ReactiveSwift
+import ReactiveCocoa
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -33,7 +35,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         
         
-        
+        setupAutosave()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -133,5 +135,30 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return .terminateNow
     }
 
+    
+    // MARK: - Autosave
+    // ------------------------------------------------------------------------
+    
+    func setupAutosave() {
+        let center = NotificationCenter.default
+        
+        let signal = center.reactive.notifications(forName: NSNotification.Name.NSManagedObjectContextObjectsDidChange, object: AppDelegate.viewContext)
+        
+        signal.throttle(2, on: QueueScheduler.main).observeValues { notification in
+            self.handleMainContextChanged()
+        }
+    }
+    
+    func handleMainContextChanged() {
+        let context = AppDelegate.viewContext
+        
+        context.processPendingChanges()
+        context.undoManager?.disableUndoRegistration()
+        
+        try! context.save()
+        
+        context.processPendingChanges()
+        context.undoManager?.enableUndoRegistration()
+    }
 }
 
