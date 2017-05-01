@@ -41,7 +41,7 @@ class MainWindow: NSWindow, NSToolbarDelegate {
             self.showSection(forItem: item)
         }
         
-        timerController.selectedTask <~ planController.tasksController.selectedTasks.producer.map { $0.first }
+        TimerState.instance.selectedTask <~ planController.tasksController.selectedTasks.producer.map { $0.first }
     }
     
     func showSection(forItem item: Any?) {

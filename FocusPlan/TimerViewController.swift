@@ -10,12 +10,20 @@ import Foundation
 import AppKit
 import ReactiveSwift
 
-class TimerViewController: NSViewController {
+class TimerState {
+    static let instance = TimerState()
+    
+    let runningTask = MutableProperty<Task?>(nil)
     let selectedTask = MutableProperty<Task?>(nil)
+}
+
+class TimerViewController: NSViewController {
+    let state = TimerState.instance
+    
     @IBOutlet weak var startButton: NSButton!
     
     override func awakeFromNib() {
-        selectedTask.producer.startWithValues { task in
+        state.selectedTask.producer.startWithValues { task in
             if task == nil {
                 self.startButton.isEnabled = false
             } else {
