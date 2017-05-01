@@ -30,8 +30,6 @@ class CalendarCollectionItem: NSCollectionViewItem {
         let title = task.producer.pick({ $0.reactive.title.producer }).map { $0 ?? "" }
         
         if let field = textField {
-            Swift.print("Setting up the field: \(field)")
-            
             field.reactive.stringValue <~ title
         }
     }

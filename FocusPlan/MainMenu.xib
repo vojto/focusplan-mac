@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12118"/>
@@ -680,7 +680,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="940" height="626"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
             <view key="contentView" wantsLayer="YES" id="se5-gp-TjO">
                 <rect key="frame" x="0.0" y="0.0" width="940" height="626"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -715,13 +715,79 @@
                     <constraint firstAttribute="trailing" secondItem="YIz-VL-OgP" secondAttribute="trailing" id="pbY-ff-Bou"/>
                 </constraints>
             </view>
+            <toolbar key="toolbar" implicitIdentifier="3AE158ED-36E1-4C74-B4A9-13B6A12E79F2" autosavesConfiguration="NO" displayMode="iconOnly" sizeMode="regular" id="kaN-YU-qTC">
+                <allowedToolbarItems>
+                    <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="CSo-fy-iHK"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="Ol4-ZY-tt0"/>
+                </allowedToolbarItems>
+                <defaultToolbarItems>
+                    <toolbarItem reference="Ol4-ZY-tt0"/>
+                </defaultToolbarItems>
+                <connections>
+                    <outlet property="delegate" destination="F0z-JX-Cv5" id="k1e-1P-iDN"/>
+                </connections>
+            </toolbar>
             <connections>
                 <outlet property="mainView" destination="yIS-zi-HPh" id="o8K-dW-H86"/>
                 <outlet property="mainView2" destination="HVC-j6-gHM" id="N3V-el-kke"/>
                 <outlet property="secondaryView" destination="jhW-E1-K5O" id="Plm-ai-F3H"/>
+                <outlet property="timerController" destination="uVd-aB-uN4" id="Upl-oy-3sd"/>
+                <outlet property="timerView" destination="4hR-Lq-IxG" id="QKJ-Xm-Tzq"/>
             </connections>
             <point key="canvasLocation" x="369" y="118"/>
         </window>
         <customObject id="1AV-ZW-ri2" customClass="AppDelegate" customModule="FocusPlan" customModuleProvider="target"/>
+        <customView id="4hR-Lq-IxG">
+            <rect key="frame" x="0.0" y="0.0" width="527" height="34"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <button horizontalHuggingPriority="251" verticalHuggingPriority="125" translatesAutoresizingMaskIntoConstraints="NO" id="3MU-zd-oDr">
+                    <rect key="frame" x="2" y="1" width="44" height="31"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="40" id="K6x-2r-PbD"/>
+                    </constraints>
+                    <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="StartTemplate" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="bfy-OX-yJ9">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                </button>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="Tsa-qK-iLv" customClass="TimerFrameView" customModule="FocusPlan" customModuleProvider="target">
+                    <rect key="frame" x="48" y="4" width="475" height="26"/>
+                    <subviews>
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QHe-jl-jhx">
+                            <rect key="frame" x="190" y="7" width="96" height="14"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="No timer running." id="jzw-fv-0js">
+                                <font key="font" metaFont="system" size="11"/>
+                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="QHe-jl-jhx" firstAttribute="centerY" secondItem="Tsa-qK-iLv" secondAttribute="centerY" id="ArJ-fm-NCf"/>
+                        <constraint firstItem="QHe-jl-jhx" firstAttribute="centerX" secondItem="Tsa-qK-iLv" secondAttribute="centerX" id="ppp-bd-NUS"/>
+                    </constraints>
+                </customView>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="Tsa-qK-iLv" secondAttribute="bottom" constant="4" id="6aL-hP-5Yk"/>
+                <constraint firstItem="Tsa-qK-iLv" firstAttribute="top" secondItem="4hR-Lq-IxG" secondAttribute="top" constant="4" id="AJg-dq-xdj"/>
+                <constraint firstAttribute="bottom" secondItem="3MU-zd-oDr" secondAttribute="bottom" constant="4" id="CoS-cL-aBS"/>
+                <constraint firstItem="Tsa-qK-iLv" firstAttribute="leading" secondItem="3MU-zd-oDr" secondAttribute="trailing" constant="4" id="Orl-5e-okz"/>
+                <constraint firstItem="3MU-zd-oDr" firstAttribute="top" secondItem="4hR-Lq-IxG" secondAttribute="top" constant="4" id="QAq-dS-PNk"/>
+                <constraint firstAttribute="trailing" secondItem="Tsa-qK-iLv" secondAttribute="trailing" constant="4" id="R6Q-so-8EX"/>
+                <constraint firstItem="3MU-zd-oDr" firstAttribute="leading" secondItem="4hR-Lq-IxG" secondAttribute="leading" constant="4" id="lJz-fh-Q7d"/>
+            </constraints>
+            <point key="canvasLocation" x="396.5" y="-499"/>
+        </customView>
+        <viewController id="uVd-aB-uN4" customClass="TimerViewController" customModule="FocusPlan" customModuleProvider="target">
+            <connections>
+                <outlet property="startButton" destination="3MU-zd-oDr" id="1J6-W4-LJH"/>
+                <outlet property="view" destination="4hR-Lq-IxG" id="HrJ-ce-Lzh"/>
+            </connections>
+        </viewController>
     </objects>
+    <resources>
+        <image name="StartTemplate" width="14" height="14"/>
+    </resources>
 </document>

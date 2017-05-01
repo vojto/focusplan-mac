@@ -35,6 +35,8 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
     
     let draggedType = "TaskRow"
     
+    let selectedTasks = MutableProperty<Set<Task>>(Set())
+    
     var onCreate: (() -> ())?
     
     // MARK: - Lifecycle
@@ -67,7 +69,7 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
     // MARK: - Accessors
     // ------------------------------------------------------------------------
     
-    var selectedTasks: Set<Task> {
+    func findSelectedTasks() -> Set<Task> {
         var tasks = Set<Task>()
         
         for index in outlineView.selectedRowIndexes {
@@ -179,6 +181,10 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
         }
     }
     
+    func outlineViewSelectionDidChange(_ notification: Notification) {
+        selectedTasks.value = findSelectedTasks()
+    }
+    
     // MARK: - Actions
     // ------------------------------------------------------------------------
     
@@ -208,7 +214,7 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
         context.processPendingChanges()
         undo?.beginUndoGrouping()
         
-        for task in selectedTasks {
+        for task in findSelectedTasks() {
             context.delete(task)
         }
         
@@ -220,13 +226,13 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
     // -----------------------------------------------------------------------
     
     @IBAction func planForToday(_ sender: Any) {
-        for task in selectedTasks {
+        for task in findSelectedTasks() {
             task.isPlanned = true
         }
     }
     
     @IBAction func unplan(_ sender: Any) {
-        for task in selectedTasks {
+        for task in findSelectedTasks() {
             task.isPlanned = false
         }
     }
@@ -366,7 +372,7 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
     // -----------------------------------------------------------------------
     
     func menuNeedsUpdate(_ menu: NSMenu) {
-        guard let task = selectedTasks.first else { return }
+        guard let task = findSelectedTasks().first else { return }
         
         if task.isPlanned {
             planMenuItem.isHidden = true
