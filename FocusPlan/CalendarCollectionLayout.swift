@@ -38,6 +38,8 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
         return NSSize(width: width, height: height)
     }
     
+    
+    
     override func layoutAttributesForElements(in rect: NSRect) -> [NSCollectionViewLayoutAttributes] {
         return [] // TODO...
     }

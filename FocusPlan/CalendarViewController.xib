@@ -8,6 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="CalendarViewController" customModule="FocusPlan" customModuleProvider="target">
             <connections>
+                <outlet property="collectionView" destination="gkq-od-ez8" id="Gwk-1G-M5j"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -23,7 +24,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView id="gkq-od-ez8">
+                            <collectionView wantsLayer="YES" id="gkq-od-ez8">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="Pyr-w2-dQd">

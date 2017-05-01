@@ -37,10 +37,21 @@ class PlanViewController: NSViewController {
         secondaryView.include(calendarController.view)
         
         observer.objects.producer.startWithValues { tasks in
-            self.tasksController.tasks = tasks
-            self.tasksController.heading = "Planned tasks"
-            self.tasksController.reloadData()
+            self.updateTasks(tasks: tasks)
         }
+    }
+    
+    func updateTasks(tasks: [Task]) {
+        Swift.print("Updating with \(tasks.count) tasks!")
+        
+        // Update tasks in the list view
+        self.tasksController.tasks = tasks
+        self.tasksController.heading = "Planned tasks"
+        self.tasksController.reloadData()
+        
+        // Update tasks in the calendar view
+        self.calendarController.tasks = tasks
+        self.calendarController.reloadData()
     }
     
     func createTask() {
