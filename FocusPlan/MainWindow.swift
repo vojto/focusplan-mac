@@ -23,8 +23,12 @@ class MainWindow: NSWindow, NSToolbarDelegate {
     
     @IBOutlet weak var timerController: TimerViewController!
     
+    let myDelegate = MainWindowDelegate()
+    
     
     override func awakeFromNib() {
+        
+        self.delegate = myDelegate
 
         secondaryView.include(projectsController.view)
         
@@ -119,4 +123,6 @@ class MainWindow: NSWindow, NSToolbarDelegate {
             return nil
         }
     }
+    
+    
 }
