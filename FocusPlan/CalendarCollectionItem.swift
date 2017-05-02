@@ -9,6 +9,7 @@
 import Cocoa
 import ReactiveSwift
 import enum Result.NoError
+import Hue
 
 class CalendarCollectionItem: NSCollectionViewItem {
     
@@ -38,11 +39,10 @@ class CalendarCollectionItem: NSCollectionViewItem {
         }
         
         let project = task.pick { $0.reactive.project.producer }
+        let projectColor = project.pick { $0.reactive.color.producer }
         
-        SignalProducer.combineLatest(eventType.producer, project.producer).startWithValues { type, project in
-            guard let project = project else { return }
-            
-            guard let color = Palette.decode(colorName: project.color) else { return }
+        SignalProducer.combineLatest(eventType.producer, projectColor.producer).startWithValues { type, colorName in
+            guard let color = Palette.decode(colorName: colorName) else { return }
             
             let view = self.view
             
@@ -50,14 +50,26 @@ class CalendarCollectionItem: NSCollectionViewItem {
             
             switch type {
             case .task:
-                view.layer?.backgroundColor = NSColor.clear.cgColor
-                view.layer?.borderColor = color.cgColor
+                let color1 = color.addHue(0, saturation: -0.3, brightness: 0.2, alpha: -0.9)
+                let borderColor = color.addHue(0, saturation: -0.3, brightness: 0.2, alpha: -0.2)
                 
+                let textColor = color.addHue(0, saturation: -0.2, brightness: -0.2, alpha: 0)
+                
+                view.layer?.backgroundColor = color1.cgColor
+                view.layer?.borderColor = borderColor.cgColor
+                
+                field.textColor = textColor
                 
                 break
             case .timerEntry:
-                view.layer?.backgroundColor = color.cgColor
-                view.layer?.borderColor = color.cgColor
+                
+                let color1 = color.addHue(0, saturation: -0.3, brightness: 0.2, alpha: -0.2)
+                
+                
+                view.layer?.backgroundColor = color1.cgColor
+                view.layer?.borderColor = color1.cgColor
+                
+                field.textColor = color
                 
                 //                field.textColor = NSColor.white
                 break

@@ -35,6 +35,7 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     }
     
     func reloadData() {
+        NSAnimationContext.current().duration = 0
         self.collectionView.reloadData()
     }
     
