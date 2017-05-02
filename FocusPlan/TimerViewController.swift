@@ -38,28 +38,20 @@ class TimerViewController: NSViewController {
         startButton.reactive.isHidden <~ state.isRunning
         stopButton.reactive.isHidden <~ state.isRunning.map { !$0 }
         
+
         let status = SignalProducer.combineLatest(state.isRunning.producer, currentTime.producer).map { running, date -> String in
             if running,
-                let startedAt = self.state.currentEntry.value?.startedAt as Date? {
-                var time = date.timeIntervalSince(startedAt)
+                let startedAt = self.state.generalLane.runningSince.value as Date? {
+                let time = date.timeIntervalSince(startedAt)
                 
-                if time < 0 {
-                    time = 0
-                }
-                
-                let minutes = Int(floor(time / 60))
-                
-                let seconds = Int((time - Double(minutes * 60)))
-                
-                let formattedTime = NSString(format: "%02d:%02d", minutes, seconds)
-                
-                return "\(formattedTime)"
+                return Formatting.format(timeInterval: time)
             } else {
                 return "No timer running."
             }
         }
         
         statusLabel.reactive.stringValue <~ status
+
         
         projectSection.reactive.isHidden <~ state.isRunning.map({ !$0 })
         projectLabel.reactive.stringValue <~ state.runningProject.producer.pick({ $0.reactive.name.producer }).map({ $0 ?? "" })

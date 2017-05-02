@@ -65,7 +65,7 @@ class PlanViewController: NSViewController {
                 self.updateCalendar(tasks: tasks, timerEntries: timerEntries)
         }
         
-        let now = timer(interval: .seconds(3), on: QueueScheduler.main)
+        let now = timer(interval: .seconds(30), on: QueueScheduler.main)
         
         now.startWithValues { _ in
             self.updateCalendar(tasks: self.lastTasks, timerEntries: self.lastTimerEntries)
