@@ -42,12 +42,41 @@ class TaskTitleTableCellView: EditableTableCellView {
 
         field.reactive.attributedStringValue <~ attributedTitle
         
+        let timer = TimerState.instance
+        
+        let isRunning = SignalProducer.combineLatest(task.producer, timer.runningTask.producer).map { task, runningTask in
+            return runningTask != nil && task == runningTask
+        }.skipRepeats()
+    
+        
+        field.reactive.textColor <~ isRunning.map { running in
+            return running ? NSColor.selectedMenuItemColor : NSColor.labelColor
+        }
+    
+        guard let button = finishedButton else { return assertionFailure() }
+        button.wantsLayer = true
+
+        
+        button.reactive.image <~ SignalProducer.combineLatest(isFinished, isRunning).map { finished, running -> NSImage in
+            if running {
+                return #imageLiteral(resourceName: "TaskRunning")
+            } else if (finished ?? false) {
+                return #imageLiteral(resourceName: "TaskChecked")
+            } else {
+                return #imageLiteral(resourceName: "TaskUnchecked")
+            }
+        }
+        
+        
+        /*
         SignalProducer.combineLatest(isEditing.producer, isPlanned.producer, project.producer)
             .startWithValues { editing, planned, project in
+                
+                
+                
                 let normal = NSFont.systemFont(ofSize: 14, weight: NSFontWeightRegular)
                 let medium = NSFont.systemFont(ofSize: 14, weight: NSFontWeightMedium)
                 
-                /*
                 if editing {
                     field.font = normal
                     field.textColor = NSColor.labelColor
@@ -64,20 +93,16 @@ class TaskTitleTableCellView: EditableTableCellView {
                     field.font = normal
                     field.textColor = NSColor.labelColor
                 }
-                */
         }
+        */
         
         
-        guard let button = finishedButton else { return assertionFailure() }
+        
+        
+//        SignalProducer.combineLatest(isFinished, )
     
 
-        button.reactive.image <~ isFinished.map { finished -> NSImage in
-            if (finished ?? false) {
-                return #imageLiteral(resourceName: "TaskChecked")
-            } else {
-                return #imageLiteral(resourceName: "TaskUnchecked")
-            }
-        }
+        
     }
     
     override func controlTextDidEndEditing(_ obj: Notification) {

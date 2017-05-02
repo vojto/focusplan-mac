@@ -14,10 +14,7 @@ import NiceData
 class TimerState {
     static let instance = TimerState()
     
-    let runningProject = MutableProperty<Project?>(nil)
-    let runningTask = MutableProperty<Task?>(nil)
     
-    let selectedTask = MutableProperty<Task?>(nil)
     
     let currentEntryObserver: ReactiveObserver<TimerEntry> = {
         let context = AppDelegate.viewContext
@@ -28,19 +25,20 @@ class TimerState {
         return ReactiveObserver<TimerEntry>(context: context, request: request)
     }()
     
-    var currentEntry = MutableProperty<TimerEntry?>(nil)
-    var currentRunningEntry = MutableProperty<TimerEntry?>(nil)
-    var isRunning = MutableProperty<Bool>(false)
+    let currentEntry = MutableProperty<TimerEntry?>(nil)
+    let currentRunningEntry = MutableProperty<TimerEntry?>(nil)
+    let isRunning = MutableProperty<Bool>(false)
+    
+    let runningProject = MutableProperty<Project?>(nil)
+    let runningTask = MutableProperty<Task?>(nil)
+    
+    let selectedTask = MutableProperty<Task?>(nil)
     
     init() {
         currentEntry <~ currentEntryObserver.objects.producer.map { $0.first }
         
         runningProject <~ currentRunningEntry.producer.pick { $0.reactive.project }
         runningTask <~ currentRunningEntry.producer.pick { $0.reactive.task }
-        
-//        currentEntry.producer.startWithValues { entry in
-//            Swift.print("Current entry: \(entry)")
-//        }
         
         let isCurrentEntryRunning = currentEntry.producer.pick({ $0.reactive.isRunning.producer }).map({ $0 ?? false })
         

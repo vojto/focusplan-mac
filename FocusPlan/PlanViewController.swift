@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import ReactiveSwift
 import NiceData
 
 class PlanViewController: NSViewController {
@@ -14,7 +15,9 @@ class PlanViewController: NSViewController {
     let tasksController = TasksViewController()
     let calendarController = CalendarViewController()
     
-    var observer: ReactiveObserver<Task>!
+    var tasksObserver: ReactiveObserver<Task>!
+    
+    var timerEntriesObserver: ReactiveObserver<TimerEntry>!
     
     @IBOutlet var secondaryView: NSView!
     
@@ -26,37 +29,106 @@ class PlanViewController: NSViewController {
         tasksController.weightKeypath = #keyPath(Task.weightForPlan)
         tasksController.onCreate = { self.createTask() }
         
-        observer = {
-            let context = AppDelegate.viewContext
-            let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
+        let context = AppDelegate.viewContext
+        
+        tasksObserver = {
+            let request: NSFetchRequest<NSFetchRequestResult> = Task.fetchRequest()
             request.predicate = NSPredicate(format: "isPlanned = true")
             return ReactiveObserver<Task>(context: context, request: request)
+        }()
+        
+        timerEntriesObserver = {
+            // TODO: Filter by displayed time range
+            // ... for now we're displaying all!
+            let request: NSFetchRequest<NSFetchRequestResult> = TimerEntry.fetchRequest()
+//            request.predicate = NSPredicate(format: "isPlanned = true")
+            return ReactiveObserver<TimerEntry>(context: context, request: request)
         }()
         
         view.include(tasksController.view)
         secondaryView.include(calendarController.view)
         
-        observer.objects.producer.startWithValues { tasks in
-            self.updateTasks(tasks: tasks)
+        let sortedTasks = tasksObserver.objects.producer.map { tasks in
+            return tasks.sorted { task1, task2 in
+                return task1.weightForPlan < task2.weightForPlan
+            }
+        }
+        
+        sortedTasks.startWithValues { tasks in
+            self.tasksController.tasks = tasks
+            self.tasksController.heading = "Planned tasks"
+            self.tasksController.reloadData()
+        }
+            
+        SignalProducer.combineLatest(
+            sortedTasks,
+            timerEntriesObserver.objects.producer
+            ).startWithValues { tasks, timerEntries in
+                self.updateCalendar(tasks: tasks, timerEntries: timerEntries)
         }
     }
     
-    func updateTasks(tasks: [Task]) {
-        var tasks = tasks
+    func updateCalendar(tasks: [Task], timerEntries: [TimerEntry]) {
         
-        tasks.sort(by: { (task1, task2) -> Bool in
-            task1.weightForPlan < task2.weightForPlan
-        })
         
-        // Update tasks in the list view
-        self.tasksController.tasks = tasks
-        self.tasksController.heading = "Planned tasks"
-        self.tasksController.reloadData()
+        // Update events in the calendar view
+        let taskEvents = createEvents(fromTasks: tasks.filter({ !$0.isFinished }))
+
+        let timerEvents = createTimerEvents(fromEntries: timerEntries)
         
-        // Update tasks in the calendar view
-        self.calendarController.tasks = tasks.filter { !$0.isFinished }
+        Swift.print("updating calendar with \(timerEvents) timer events")
+        
+        calendarController.events = taskEvents + timerEvents
+        
         self.calendarController.reloadData()
     }
+    
+    func createEvents(fromTasks tasks: [Task]) -> [CalendarEvent] {
+        var events = [CalendarEvent]()
+        
+        var previous: CalendarEvent?
+        
+        for task in tasks {
+            let startsAt: Date
+            
+            if let previous = previous {
+                startsAt = previous.endsAt
+            } else {
+                startsAt = Date()
+            }
+            
+            let event = CalendarEvent(task: task, startsAt: startsAt, duration: task.estimate)
+            
+            events.append(event)
+            previous = event
+        }
+        
+        return events
+    }
+    
+    func createTimerEvents(fromEntries entries: [TimerEntry]) -> [CalendarEvent] {
+        var events = [CalendarEvent]()
+        
+        for entry in entries {
+            Swift.print("Entry: \(entry.isRunning) - \(entry.startedAt) - \(entry.endedAt) - \(entry.duration)")
+            
+            if entry.isRunning {
+                continue
+            }
+            
+            guard let startedAt = entry.startedAt, let duration = entry.duration else {
+                continue
+            }
+            
+            let event = CalendarEvent(timerEntry: entry, startsAt: startedAt as Date, duration: duration)
+            events.append(event)
+        }
+        
+        return events
+    }
+    
+    // MARK: - Creating tasks
+    // -----------------------------------------------------------------------
     
     func createTask() {
         let context = AppDelegate.viewContext

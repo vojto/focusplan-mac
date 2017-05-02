@@ -10,35 +10,11 @@ import Cocoa
 import SwiftDate
 
 class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCollectionViewDelegate {
-    
-    class Event: CustomStringConvertible {
-        var task: Task
-        var startsAt: Date!
-        var duration: TimeInterval!
-        
-        var endsAt: Date {
-            return startsAt.addingTimeInterval(duration)
-        }
-        
-        init(task: Task) {
-            self.task = task
-        }
-        
-        var description: String {
-            return "<Event startsAt=\(startsAt) duration=\(duration) task=\(task)>"
-        }
-    }
-    
 
     @IBOutlet var collectionView: NSCollectionView!
     let collectionLayout = CalendarCollectionLayout()
     
-    var tasks = [Task]() {
-        didSet {
-            updateEvents()
-        }
-    }
-    var events = [Event]()
+    var events = [CalendarEvent]()
     var firstDay = Date().startOf(component: .day)
     var sectionsCount = 1
     
@@ -67,26 +43,6 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
         
     }
     
-    func updateEvents() {
-        events = []
-        
-        var previous: Event?
-        
-        for task in tasks {
-            let event = Event(task: task)
-            event.duration = task.estimate
-            
-            if let previous = previous {
-                event.startsAt = previous.endsAt
-            } else {
-                event.startsAt = Date()
-            }
-            
-            events.append(event)
-            previous = event
-        }
-    }
-    
     // MARK: - Feeding data to the collection view
     // ------------------------------------------------------------------------
     
@@ -95,7 +51,7 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     }
     
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-        return tasks.count
+        return events.count
     }
     
     // MARK: - Making views
@@ -104,7 +60,7 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
         let item = collectionView.makeItem(withIdentifier: "CalendarCollectionItem", for: indexPath) as! CalendarCollectionItem
         
-        let task = tasks[indexPath.item]
+        let task = events[indexPath.item].task
         
         item.task.value = task
         
@@ -150,7 +106,7 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
         return paths
     }
     
-    func event(atIndexPath path: IndexPath) -> Event? {
+    func event(atIndexPath path: IndexPath) -> CalendarEvent? {
         return events.at(path.item)
     }
 }

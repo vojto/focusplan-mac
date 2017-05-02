@@ -58,34 +58,45 @@
                                                 <rect key="frame" x="5" y="103" width="338" height="33"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ecr-hF-tNw">
-                                                        <rect key="frame" x="32" y="8" width="300" height="17"/>
+                                                    <textField focusRingType="none" horizontalHuggingPriority="125" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ecr-hF-tNw">
+                                                        <rect key="frame" x="24" y="8" width="308" height="17"/>
                                                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" focusRingType="none" title="Table View Cell" placeholderString="untitled task" id="LWe-eC-ewQ">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
-                                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="a5J-Ue-YtU">
-                                                        <rect key="frame" x="8" y="7" width="18" height="18"/>
+                                                    <customView wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vnr-lY-iA5">
+                                                        <rect key="frame" x="4" y="8" width="18" height="18"/>
+                                                        <subviews>
+                                                            <button translatesAutoresizingMaskIntoConstraints="NO" id="a5J-Ue-YtU">
+                                                                <rect key="frame" x="0.0" y="0.0" width="18" height="18"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="18" id="Pfb-mD-aQ5"/>
+                                                                    <constraint firstAttribute="width" constant="18" id="oZr-vV-nsg"/>
+                                                                </constraints>
+                                                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="TaskUnchecked" imagePosition="overlaps" alignment="center" inset="2" id="pCw-tw-Q2C">
+                                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                    <font key="font" metaFont="system"/>
+                                                                </buttonCell>
+                                                                <connections>
+                                                                    <action selector="toggleFinished:" target="J4t-Kv-rM7" id="M9f-t6-DYV"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="18" id="Pfb-mD-aQ5"/>
-                                                            <constraint firstAttribute="width" constant="18" id="oZr-vV-nsg"/>
+                                                            <constraint firstAttribute="bottom" secondItem="a5J-Ue-YtU" secondAttribute="bottom" id="Jxh-SX-qJm"/>
+                                                            <constraint firstItem="a5J-Ue-YtU" firstAttribute="top" secondItem="vnr-lY-iA5" secondAttribute="top" id="ZBN-YV-QMn"/>
+                                                            <constraint firstAttribute="trailing" secondItem="a5J-Ue-YtU" secondAttribute="trailing" id="bfn-rT-kmh"/>
+                                                            <constraint firstItem="a5J-Ue-YtU" firstAttribute="leading" secondItem="vnr-lY-iA5" secondAttribute="leading" id="lvy-Ug-3G1"/>
                                                         </constraints>
-                                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="TaskUnchecked" imagePosition="overlaps" alignment="center" inset="2" id="pCw-tw-Q2C">
-                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                            <font key="font" metaFont="system"/>
-                                                        </buttonCell>
-                                                        <connections>
-                                                            <action selector="toggleFinished:" target="J4t-Kv-rM7" id="M9f-t6-DYV"/>
-                                                        </connections>
-                                                    </button>
+                                                    </customView>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="a5J-Ue-YtU" firstAttribute="centerY" secondItem="J4t-Kv-rM7" secondAttribute="centerY" constant="1" id="RcV-xe-l2O"/>
+                                                    <constraint firstItem="vnr-lY-iA5" firstAttribute="centerY" secondItem="J4t-Kv-rM7" secondAttribute="centerY" id="S4L-z1-RzX"/>
+                                                    <constraint firstItem="ecr-hF-tNw" firstAttribute="leading" secondItem="vnr-lY-iA5" secondAttribute="trailing" constant="4" id="U5Z-Vo-18D"/>
                                                     <constraint firstAttribute="trailing" secondItem="ecr-hF-tNw" secondAttribute="trailing" constant="8" id="Xni-9E-CDm"/>
-                                                    <constraint firstItem="ecr-hF-tNw" firstAttribute="leading" secondItem="a5J-Ue-YtU" secondAttribute="trailing" constant="8" id="ffp-NB-Q72"/>
-                                                    <constraint firstItem="a5J-Ue-YtU" firstAttribute="leading" secondItem="J4t-Kv-rM7" secondAttribute="leading" constant="8" id="j5w-ga-5dp"/>
+                                                    <constraint firstItem="vnr-lY-iA5" firstAttribute="leading" secondItem="J4t-Kv-rM7" secondAttribute="leading" constant="4" id="ht4-YK-nyb"/>
                                                     <constraint firstItem="ecr-hF-tNw" firstAttribute="top" secondItem="J4t-Kv-rM7" secondAttribute="top" constant="8" id="mL4-rS-dSw"/>
                                                     <constraint firstAttribute="bottom" secondItem="ecr-hF-tNw" secondAttribute="bottom" constant="8" id="tUc-QI-lel"/>
                                                 </constraints>
@@ -137,7 +148,7 @@
                                                     <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TOn-YK-4ZL">
                                                         <rect key="frame" x="2" y="1" width="47" height="16"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" focusRingType="none" placeholderString="est" id="eZd-Jo-mI6">
-                                                            <font key="font" metaFont="system" size="12"/>
+                                                            <font key="font" metaFont="cellTitle"/>
                                                             <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>

@@ -62,6 +62,8 @@
 		99B610101EB05D550098F69C /* Hue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99B6100F1EB05D550098F69C /* Hue.framework */; };
 		99B610121EB05D570098F69C /* Hue.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 99B6100F1EB05D550098F69C /* Hue.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		99B610161EB0602A0098F69C /* ProjectTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B610151EB0602A0098F69C /* ProjectTableCellView.swift */; };
+		99D122EB1EB86D6C00D495DC /* CalendarEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D122EA1EB86D6C00D495DC /* CalendarEvent.swift */; };
+		99D122ED1EB8729A00D495DC /* TimerEntry+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D122EC1EB8729A00D495DC /* TimerEntry+Extensions.swift */; };
 		99D8C80C1EB3A16D00EA5001 /* NSManagedObjectModel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D8C80B1EB3A16D00EA5001 /* NSManagedObjectModel+Extensions.swift */; };
 		99D8C8101EB3B51800EA5001 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D8C80E1EB3B51800EA5001 /* CalendarViewController.swift */; };
 		99D8C8111EB3B51800EA5001 /* CalendarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 99D8C80F1EB3B51800EA5001 /* CalendarViewController.xib */; };
@@ -145,6 +147,8 @@
 		99A762671EB1C2CD00A90AE9 /* NiceUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NiceUI.framework; path = Carthage/Build/Mac/NiceUI.framework; sourceTree = "<group>"; };
 		99B6100F1EB05D550098F69C /* Hue.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Hue.framework; path = Carthage/Build/Mac/Hue.framework; sourceTree = "<group>"; };
 		99B610151EB0602A0098F69C /* ProjectTableCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectTableCellView.swift; sourceTree = "<group>"; };
+		99D122EA1EB86D6C00D495DC /* CalendarEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarEvent.swift; sourceTree = "<group>"; };
+		99D122EC1EB8729A00D495DC /* TimerEntry+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TimerEntry+Extensions.swift"; sourceTree = "<group>"; };
 		99D8C80B1EB3A16D00EA5001 /* NSManagedObjectModel+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectModel+Extensions.swift"; sourceTree = "<group>"; };
 		99D8C80E1EB3B51800EA5001 /* CalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		99D8C80F1EB3B51800EA5001 /* CalendarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarViewController.xib; sourceTree = "<group>"; };
@@ -307,8 +311,10 @@
 				991E7AF91EB064FE0086A9D9 /* Project+Reactive.swift */,
 				991E7B2A1EB082FE0086A9D9 /* Task+Reactive.swift */,
 				99E6CD851EB6FEA0002A7966 /* Task+Extensions.swift */,
+				99D122EC1EB8729A00D495DC /* TimerEntry+Extensions.swift */,
 				9981560C1EB76ECB0057ECD0 /* TimerEntry+Reactive.swift */,
 				99D8C80B1EB3A16D00EA5001 /* NSManagedObjectModel+Extensions.swift */,
+				99D122EA1EB86D6C00D495DC /* CalendarEvent.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -465,6 +471,8 @@
 				99A24EA71EB3591300C3F229 /* Palette.swift in Sources */,
 				991E7B231EB071C20086A9D9 /* TasksViewController.swift in Sources */,
 				99D8C80C1EB3A16D00EA5001 /* NSManagedObjectModel+Extensions.swift in Sources */,
+				99D122ED1EB8729A00D495DC /* TimerEntry+Extensions.swift in Sources */,
+				99D122EB1EB86D6C00D495DC /* CalendarEvent.swift in Sources */,
 				991E7B381EB0BEF00086A9D9 /* String+Extensions.swift in Sources */,
 				990A180C1EAF3D9700DCE839 /* MainWindow.swift in Sources */,
 				990A18091EAF3D2300DCE839 /* ProjectsViewController.swift in Sources */,
