@@ -220,15 +220,8 @@
 				990A180B1EAF3D9700DCE839 /* MainWindow.swift */,
 				99D122EE1EB8A6C500D495DC /* MainWindowDelegate.swift */,
 				99A24EA61EB3591300C3F229 /* Palette.swift */,
-				998156111EB777F50057ECD0 /* Reactive+Additions */,
-				991E7B391EB0BEF40086A9D9 /* Swift+Extensions */,
-				991E7B2E1EB086520086A9D9 /* AppKit+Extensions */,
-				991E7B201EB071AB0086A9D9 /* Projects */,
-				99D8C80D1EB3B50000EA5001 /* Calendar */,
-				998746C81EB360080079215B /* Backlog */,
-				999E650A1EB362570001AAB7 /* Plan */,
-				991E7B251EB075430086A9D9 /* Tasks */,
-				994063D21EB75E4A00E09165 /* Timer */,
+				99BBB0291EB8C50F002C603F /* Extensions */,
+				99BBB0281EB8C505002C603F /* User Interface */,
 				9981560E1EB776150057ECD0 /* Logic */,
 				997FFBC31EAF699A00ABEA01 /* Models */,
 				99078BFB1EAF1CD000C3B789 /* Assets.xcassets */,
@@ -379,6 +372,29 @@
 				99BBB0261EB8C270002C603F /* Formatting.swift */,
 			);
 			name = Helpers;
+			sourceTree = "<group>";
+		};
+		99BBB0281EB8C505002C603F /* User Interface */ = {
+			isa = PBXGroup;
+			children = (
+				991E7B201EB071AB0086A9D9 /* Projects */,
+				99D8C80D1EB3B50000EA5001 /* Calendar */,
+				998746C81EB360080079215B /* Backlog */,
+				999E650A1EB362570001AAB7 /* Plan */,
+				991E7B251EB075430086A9D9 /* Tasks */,
+				994063D21EB75E4A00E09165 /* Timer */,
+			);
+			name = "User Interface";
+			sourceTree = "<group>";
+		};
+		99BBB0291EB8C50F002C603F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				998156111EB777F50057ECD0 /* Reactive+Additions */,
+				991E7B391EB0BEF40086A9D9 /* Swift+Extensions */,
+				991E7B2E1EB086520086A9D9 /* AppKit+Extensions */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 		99D8C80D1EB3B50000EA5001 /* Calendar */ = {

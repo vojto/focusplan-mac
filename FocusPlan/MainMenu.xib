@@ -740,53 +740,14 @@
         </window>
         <customObject id="1AV-ZW-ri2" customClass="AppDelegate" customModule="FocusPlan" customModuleProvider="target"/>
         <customView id="4hR-Lq-IxG">
-            <rect key="frame" x="0.0" y="0.0" width="481" height="34"/>
+            <rect key="frame" x="0.0" y="0.0" width="566" height="34"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kLM-Vz-k6B">
-                    <rect key="frame" x="4" y="4" width="84" height="26"/>
-                    <subviews>
-                        <button horizontalHuggingPriority="251" verticalHuggingPriority="125" translatesAutoresizingMaskIntoConstraints="NO" id="3MU-zd-oDr">
-                            <rect key="frame" x="-2" y="-3" width="44" height="31"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="40" id="K6x-2r-PbD"/>
-                            </constraints>
-                            <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="StartTemplate" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="bfy-OX-yJ9">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                            <connections>
-                                <action selector="startTimer:" target="uVd-aB-uN4" id="NHJ-nE-Ccd"/>
-                            </connections>
-                        </button>
-                        <button horizontalHuggingPriority="251" verticalHuggingPriority="125" translatesAutoresizingMaskIntoConstraints="NO" id="I1Q-nV-hUz">
-                            <rect key="frame" x="42" y="-3" width="44" height="31"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="40" id="UpI-TY-t1u"/>
-                            </constraints>
-                            <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="StopTemplate" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="mhy-57-3bC">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                            <connections>
-                                <action selector="stopTimer:" target="uVd-aB-uN4" id="hkc-3O-2AH"/>
-                            </connections>
-                        </button>
-                    </subviews>
-                    <visibilityPriorities>
-                        <integer value="1000"/>
-                        <integer value="1000"/>
-                    </visibilityPriorities>
-                    <customSpacing>
-                        <real value="3.4028234663852886e+38"/>
-                        <real value="3.4028234663852886e+38"/>
-                    </customSpacing>
-                </stackView>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="Tsa-qK-iLv" customClass="TimerFrameView" customModule="FocusPlan" customModuleProvider="target">
-                    <rect key="frame" x="92" y="4" width="385" height="26"/>
+                    <rect key="frame" x="57" y="4" width="429" height="26"/>
                     <subviews>
                         <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="125" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uvN-lE-Ccf">
-                            <rect key="frame" x="95" y="6" width="195" height="14"/>
+                            <rect key="frame" x="117" y="6" width="195" height="14"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QHe-jl-jhx">
                                     <rect key="frame" x="-2" y="0.0" width="98" height="14"/>
@@ -854,27 +815,45 @@
                         <constraint firstItem="uvN-lE-Ccf" firstAttribute="centerY" secondItem="Tsa-qK-iLv" secondAttribute="centerY" id="zMA-hU-MTX"/>
                     </constraints>
                 </customView>
+                <segmentedControl horizontalHuggingPriority="100" verticalHuggingPriority="100" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="oFf-gJ-y8c">
+                    <rect key="frame" x="2" y="2" width="53" height="29"/>
+                    <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="momentary" id="El5-rX-5K8">
+                        <font key="font" metaFont="system"/>
+                        <segments>
+                            <segment image="StartTemplate" width="34">
+                                <nil key="label"/>
+                            </segment>
+                            <segment image="ArrowDown" imageScaling="none" width="12" tag="1">
+                                <nil key="label"/>
+                            </segment>
+                        </segments>
+                    </segmentedCell>
+                    <connections>
+                        <action selector="toggleButtonClicked:" target="uVd-aB-uN4" id="FqX-f5-BPX"/>
+                    </connections>
+                </segmentedControl>
             </subviews>
             <constraints>
-                <constraint firstItem="Tsa-qK-iLv" firstAttribute="leading" secondItem="kLM-Vz-k6B" secondAttribute="trailing" constant="4" id="3V3-LU-6f8"/>
+                <constraint firstItem="oFf-gJ-y8c" firstAttribute="leading" secondItem="4hR-Lq-IxG" secondAttribute="leading" constant="4" id="4bE-xg-eMx"/>
                 <constraint firstAttribute="bottom" secondItem="Tsa-qK-iLv" secondAttribute="bottom" constant="4" id="6aL-hP-5Yk"/>
+                <constraint firstAttribute="bottom" secondItem="oFf-gJ-y8c" secondAttribute="bottom" constant="4" id="7Ve-yo-la9"/>
                 <constraint firstItem="Tsa-qK-iLv" firstAttribute="top" secondItem="4hR-Lq-IxG" secondAttribute="top" constant="4" id="AJg-dq-xdj"/>
-                <constraint firstItem="kLM-Vz-k6B" firstAttribute="leading" secondItem="4hR-Lq-IxG" secondAttribute="leading" constant="4" id="KFH-Ao-WRl"/>
-                <constraint firstAttribute="trailing" secondItem="Tsa-qK-iLv" secondAttribute="trailing" constant="4" id="R6Q-so-8EX"/>
-                <constraint firstAttribute="bottom" secondItem="kLM-Vz-k6B" secondAttribute="bottom" constant="4" id="ekx-tw-PQF"/>
-                <constraint firstItem="kLM-Vz-k6B" firstAttribute="top" secondItem="4hR-Lq-IxG" secondAttribute="top" constant="4" id="fEh-vX-K3D"/>
+                <constraint firstItem="oFf-gJ-y8c" firstAttribute="top" secondItem="4hR-Lq-IxG" secondAttribute="top" constant="4" id="AYz-y4-zzq"/>
+                <constraint firstItem="oFf-gJ-y8c" firstAttribute="centerY" secondItem="4hR-Lq-IxG" secondAttribute="centerY" id="GEM-D1-pdV"/>
+                <constraint firstAttribute="trailing" secondItem="Tsa-qK-iLv" secondAttribute="trailing" constant="80" id="R6Q-so-8EX"/>
+                <constraint firstItem="Tsa-qK-iLv" firstAttribute="leading" secondItem="oFf-gJ-y8c" secondAttribute="trailing" constant="4" id="cvp-id-XQK"/>
             </constraints>
-            <point key="canvasLocation" x="-79" y="-486"/>
+            <point key="canvasLocation" x="-37" y="-486"/>
         </customView>
         <viewController id="uVd-aB-uN4" customClass="TimerViewController" customModule="FocusPlan" customModuleProvider="target">
             <connections>
                 <outlet property="projectColor" destination="Ejr-il-Qgk" id="xau-ee-uQ4"/>
                 <outlet property="projectLabel" destination="12L-Mc-4Tt" id="IsU-Iz-b3F"/>
                 <outlet property="projectSection" destination="So6-MY-HXW" id="Ewj-Ez-rl5"/>
-                <outlet property="startButton" destination="3MU-zd-oDr" id="1J6-W4-LJH"/>
                 <outlet property="statusLabel" destination="QHe-jl-jhx" id="Jp7-fQ-Ze4"/>
-                <outlet property="stopButton" destination="I1Q-nV-hUz" id="ZOO-0R-7cY"/>
                 <outlet property="taskLabel" destination="d7b-hG-2PZ" id="FcH-22-HK2"/>
+                <outlet property="toggleButton" destination="oFf-gJ-y8c" id="YnH-XA-7zt"/>
+                <outlet property="toggleMenu" destination="v7M-rN-4Lo" id="OGe-ms-FkX"/>
                 <outlet property="view" destination="4hR-Lq-IxG" id="HrJ-ce-Lzh"/>
             </connections>
         </viewController>
@@ -887,9 +866,26 @@
                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
             </textFieldCell>
         </textField>
+        <menu id="v7M-rN-4Lo">
+            <items>
+                <menuItem title="Start simple timer" id="npH-D8-S0i">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="startSimple:" target="uVd-aB-uN4" id="xu2-AF-lWf"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Start Pomodoro" id="psS-E4-tv4">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="Start break" id="1PU-aa-Mk4">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+            </items>
+            <point key="canvasLocation" x="-362" y="-379"/>
+        </menu>
     </objects>
     <resources>
+        <image name="ArrowDown" width="7" height="4"/>
         <image name="StartTemplate" width="14" height="14"/>
-        <image name="StopTemplate" width="14" height="14"/>
     </resources>
 </document>
