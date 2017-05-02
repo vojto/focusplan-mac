@@ -76,8 +76,6 @@ class PlanViewController: NSViewController {
 
         let timerEvents = createTimerEvents(fromEntries: timerEntries)
         
-        Swift.print("updating calendar with \(timerEvents) timer events")
-        
         calendarController.events = taskEvents + timerEvents
         
         self.calendarController.reloadData()

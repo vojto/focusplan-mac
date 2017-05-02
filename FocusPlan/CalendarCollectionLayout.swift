@@ -76,9 +76,7 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
             }
         }
         
-        
-        /*
-        
+
         // Hour labels
         let countLabels = Int(dayDuration / labelEvery)
         for i in 0...countLabels {
@@ -92,8 +90,6 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
         if let timeLine = layoutAttributesForDecorationView(ofKind: kTimeLine, at: IndexPath(item: 0, section: 0)) {
             attributes.append(timeLine)
         }
- 
-        */
         
         return attributes
     }
@@ -150,7 +146,8 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
             let now = Date().timeIntervalSince(Date().startOf(component: .day)) - dayStart
             let y = CGFloat(now / dayDuration) * innerFrame.size.height
             
-            attributes.frame = NSRect(x: innerFrame.origin.x - 10, y: y - 2, width: innerFrame.size.width + 10, height: 7)
+            attributes.frame = NSRect(x: innerFrame.origin.x - 10, y: y - 3, width: innerFrame.size.width + 10, height: 7)
+            attributes.zIndex = -1
             
             return attributes
         }
