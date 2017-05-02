@@ -1,0 +1,32 @@
+fastlane_version "2.28.7"
+
+default_platform :ios
+
+platform :ios do
+  before_all do
+    # carthage
+  end
+
+
+  lane :build do
+    puts "building"
+  end
+
+  # You can define as many lanes as you want
+
+  after_all do |lane|
+    # This block is called, only if the executed lane was successful
+
+    # slack(
+    #   message: "Successfully deployed new App Update."
+    # )
+  end
+
+  error do |lane, exception|
+    # slack(
+    #   message: exception.message,
+    #   success: false
+    # )
+  end
+end
+
