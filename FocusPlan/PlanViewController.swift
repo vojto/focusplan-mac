@@ -58,12 +58,10 @@ class PlanViewController: NSViewController {
                 self.updateCalendar(tasks: tasks, timerEntries: timerEntries)
         }
         
-        let scheduler = QueueScheduler.main
+        let timerProducer = timer(interval: .seconds(3), on: QueueScheduler.main)
         
-        let producer = SignalProducer.timer(interval: .seconds(3), on: scheduler)
-        
-        producer.startWithValues { date in
-            Swift.print("Date just changed: \(date)")
+        timerProducer.startWithValues { date in
+            self.calendarController.reloadData()
         }
         
     }
