@@ -34,8 +34,8 @@ class MainWindow: NSWindow, NSToolbarDelegate {
         mainView2.include(planController.secondaryView)
         
         backlogController.view.isHidden = true
-        planController.view.isHidden = true
-        mainView2.isHidden = true
+//        planController.view.isHidden = true
+//        mainView2.isHidden = true
     
         projectsController.onSelect = { item in
             self.showSection(forItem: item)

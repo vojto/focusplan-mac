@@ -12,6 +12,10 @@ import ReactiveCocoa
 import NiceReactive
 import enum Result.NoError
 
+public func asProject(_ value: Any?) -> Project? {
+    return value as? Project
+}
+
 public extension Reactive where Base: Project {
     var name: SignalProducer<String?, NoError> {
         return producer(forKeyPath: #keyPath(Project.name))

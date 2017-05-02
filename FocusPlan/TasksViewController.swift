@@ -47,7 +47,22 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
     }
     
     func reloadData() {
+        let items = outlineView.selectedRowIndexes.map {
+            self.outlineView.item(atRow: $0)
+        }
+        
         outlineView.reloadData()
+        
+        var indexes = IndexSet()
+        
+        for item in items {
+            let index = outlineView.row(forItem: item)
+            if index != -1 {
+                indexes.insert(index)
+            }
+        }
+        
+        outlineView.selectRowIndexes(indexes, byExtendingSelection: false)
     }
     
     override func viewDidAppear() {

@@ -47,6 +47,10 @@
 		997FFBD71EAF7DB200ABEA01 /* Cartography.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9922F1191EAF656000BFA01F /* Cartography.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		997FFBD81EAF7DB200ABEA01 /* NiceKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9922F11A1EAF656000BFA01F /* NiceKit.framework */; };
 		997FFBD91EAF7DB200ABEA01 /* NiceKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9922F11A1EAF656000BFA01F /* NiceKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9981560D1EB76ECB0057ECD0 /* TimerEntry+Reactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9981560C1EB76ECB0057ECD0 /* TimerEntry+Reactive.swift */; };
+		998156101EB7761F0057ECD0 /* TimerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9981560F1EB7761F0057ECD0 /* TimerState.swift */; };
+		998156131EB778020057ECD0 /* NSButton+Reactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998156121EB778020057ECD0 /* NSButton+Reactive.swift */; };
+		998156171EB77DAE0057ECD0 /* ProjectColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998156161EB77DAE0057ECD0 /* ProjectColorView.swift */; };
 		998746CA1EB360320079215B /* BacklogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998746C91EB360320079215B /* BacklogViewController.swift */; };
 		999E65091EB361B20001AAB7 /* BacklogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 999E65081EB361B20001AAB7 /* BacklogViewController.xib */; };
 		999E650D1EB362780001AAB7 /* PlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999E650B1EB362780001AAB7 /* PlanViewController.swift */; };
@@ -129,6 +133,10 @@
 		997FFBC61EAF7DA900ABEA01 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/Mac/ReactiveCocoa.framework; sourceTree = "<group>"; };
 		997FFBC71EAF7DA900ABEA01 /* ReactiveSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveSwift.framework; path = Carthage/Build/Mac/ReactiveSwift.framework; sourceTree = "<group>"; };
 		997FFBC81EAF7DA900ABEA01 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/Mac/Result.framework; sourceTree = "<group>"; };
+		9981560C1EB76ECB0057ECD0 /* TimerEntry+Reactive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TimerEntry+Reactive.swift"; sourceTree = "<group>"; };
+		9981560F1EB7761F0057ECD0 /* TimerState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerState.swift; sourceTree = "<group>"; };
+		998156121EB778020057ECD0 /* NSButton+Reactive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSButton+Reactive.swift"; sourceTree = "<group>"; };
+		998156161EB77DAE0057ECD0 /* ProjectColorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectColorView.swift; sourceTree = "<group>"; };
 		998746C91EB360320079215B /* BacklogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BacklogViewController.swift; sourceTree = "<group>"; };
 		999E65081EB361B20001AAB7 /* BacklogViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BacklogViewController.xib; sourceTree = "<group>"; };
 		999E650B1EB362780001AAB7 /* PlanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanViewController.swift; sourceTree = "<group>"; };
@@ -191,12 +199,14 @@
 		99078BF31EAF1CD000C3B789 /* FocusPlan */ = {
 			isa = PBXGroup;
 			children = (
+				998156151EB77DA40057ECD0 /* Component Views */,
 				991E7B3A1EB0E7FB0086A9D9 /* Shared Views */,
 				99EEDE591EAF866A00662DED /* FocusPlan.entitlements */,
 				99078BF41EAF1CD000C3B789 /* AppDelegate.swift */,
 				990A18051EAF3C5A00DCE839 /* MainMenu.xib */,
 				990A180B1EAF3D9700DCE839 /* MainWindow.swift */,
 				99A24EA61EB3591300C3F229 /* Palette.swift */,
+				998156111EB777F50057ECD0 /* Reactive+Additions */,
 				991E7B391EB0BEF40086A9D9 /* Swift+Extensions */,
 				991E7B2E1EB086520086A9D9 /* AppKit+Extensions */,
 				991E7B201EB071AB0086A9D9 /* Projects */,
@@ -205,6 +215,7 @@
 				999E650A1EB362570001AAB7 /* Plan */,
 				991E7B251EB075430086A9D9 /* Tasks */,
 				994063D21EB75E4A00E09165 /* Timer */,
+				9981560E1EB776150057ECD0 /* Logic */,
 				997FFBC31EAF699A00ABEA01 /* Models */,
 				99078BFB1EAF1CD000C3B789 /* Assets.xcassets */,
 				99078C001EAF1CD000C3B789 /* Info.plist */,
@@ -296,9 +307,34 @@
 				991E7AF91EB064FE0086A9D9 /* Project+Reactive.swift */,
 				991E7B2A1EB082FE0086A9D9 /* Task+Reactive.swift */,
 				99E6CD851EB6FEA0002A7966 /* Task+Extensions.swift */,
+				9981560C1EB76ECB0057ECD0 /* TimerEntry+Reactive.swift */,
 				99D8C80B1EB3A16D00EA5001 /* NSManagedObjectModel+Extensions.swift */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		9981560E1EB776150057ECD0 /* Logic */ = {
+			isa = PBXGroup;
+			children = (
+				9981560F1EB7761F0057ECD0 /* TimerState.swift */,
+			);
+			name = Logic;
+			sourceTree = "<group>";
+		};
+		998156111EB777F50057ECD0 /* Reactive+Additions */ = {
+			isa = PBXGroup;
+			children = (
+				998156121EB778020057ECD0 /* NSButton+Reactive.swift */,
+			);
+			name = "Reactive+Additions";
+			sourceTree = "<group>";
+		};
+		998156151EB77DA40057ECD0 /* Component Views */ = {
+			isa = PBXGroup;
+			children = (
+				998156161EB77DAE0057ECD0 /* ProjectColorView.swift */,
+			);
+			name = "Component Views";
 			sourceTree = "<group>";
 		};
 		998746C81EB360080079215B /* Backlog */ = {
@@ -421,9 +457,11 @@
 			files = (
 				991E7B341EB093690086A9D9 /* TasksRowView.swift in Sources */,
 				999E650D1EB362780001AAB7 /* PlanViewController.swift in Sources */,
+				998156131EB778020057ECD0 /* NSButton+Reactive.swift in Sources */,
 				99EEDE5D1EAF931500662DED /* ProjectsOutlineView.swift in Sources */,
 				994063C91EB7035400E09165 /* Date+Extensions.swift in Sources */,
 				991E7B271EB07E3F0086A9D9 /* TasksBackgroundView.swift in Sources */,
+				9981560D1EB76ECB0057ECD0 /* TimerEntry+Reactive.swift in Sources */,
 				99A24EA71EB3591300C3F229 /* Palette.swift in Sources */,
 				991E7B231EB071C20086A9D9 /* TasksViewController.swift in Sources */,
 				99D8C80C1EB3A16D00EA5001 /* NSManagedObjectModel+Extensions.swift in Sources */,
@@ -434,6 +472,7 @@
 				991E7AFA1EB064FE0086A9D9 /* Project+Reactive.swift in Sources */,
 				994063D61EB761D000E09165 /* TimerViewController.swift in Sources */,
 				991E7B301EB0865F0086A9D9 /* NSOutlineView+Extensions.swift in Sources */,
+				998156101EB7761F0057ECD0 /* TimerState.swift in Sources */,
 				994063D41EB75E5D00E09165 /* TimerFrameView.swift in Sources */,
 				99D8C8171EB3B81900EA5001 /* CalendarCollectionLayout.swift in Sources */,
 				998746CA1EB360320079215B /* BacklogViewController.swift in Sources */,
@@ -441,6 +480,7 @@
 				994063D11EB72B2A00E09165 /* TaskProjectTableCellView.swift in Sources */,
 				99B610161EB0602A0098F69C /* ProjectTableCellView.swift in Sources */,
 				994063CD1EB70F6400E09165 /* CalendarHourHeader.swift in Sources */,
+				998156171EB77DAE0057ECD0 /* ProjectColorView.swift in Sources */,
 				99E6CD861EB6FEA0002A7966 /* Task+Extensions.swift in Sources */,
 				99078BF51EAF1CD000C3B789 /* AppDelegate.swift in Sources */,
 				991E7B3C1EB0E80A0086A9D9 /* EditableTableCellView.swift in Sources */,

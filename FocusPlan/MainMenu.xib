@@ -4,6 +4,8 @@
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12118"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+        <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
+        <capability name="system font weights other than Regular or Bold" minToolsVersion="7.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication"/>
@@ -738,56 +740,156 @@
         </window>
         <customObject id="1AV-ZW-ri2" customClass="AppDelegate" customModule="FocusPlan" customModuleProvider="target"/>
         <customView id="4hR-Lq-IxG">
-            <rect key="frame" x="0.0" y="0.0" width="527" height="34"/>
+            <rect key="frame" x="0.0" y="0.0" width="481" height="34"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <button horizontalHuggingPriority="251" verticalHuggingPriority="125" translatesAutoresizingMaskIntoConstraints="NO" id="3MU-zd-oDr">
-                    <rect key="frame" x="2" y="1" width="44" height="31"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="40" id="K6x-2r-PbD"/>
-                    </constraints>
-                    <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="StartTemplate" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="bfy-OX-yJ9">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                </button>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="Tsa-qK-iLv" customClass="TimerFrameView" customModule="FocusPlan" customModuleProvider="target">
-                    <rect key="frame" x="48" y="4" width="475" height="26"/>
+                <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kLM-Vz-k6B">
+                    <rect key="frame" x="4" y="4" width="84" height="26"/>
                     <subviews>
-                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QHe-jl-jhx">
-                            <rect key="frame" x="190" y="7" width="96" height="14"/>
-                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="No timer running." id="jzw-fv-0js">
-                                <font key="font" metaFont="system" size="11"/>
-                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                            </textFieldCell>
-                        </textField>
+                        <button horizontalHuggingPriority="251" verticalHuggingPriority="125" translatesAutoresizingMaskIntoConstraints="NO" id="3MU-zd-oDr">
+                            <rect key="frame" x="-2" y="-3" width="44" height="31"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="40" id="K6x-2r-PbD"/>
+                            </constraints>
+                            <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="StartTemplate" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="bfy-OX-yJ9">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="startTimer:" target="uVd-aB-uN4" id="NHJ-nE-Ccd"/>
+                            </connections>
+                        </button>
+                        <button horizontalHuggingPriority="251" verticalHuggingPriority="125" translatesAutoresizingMaskIntoConstraints="NO" id="I1Q-nV-hUz">
+                            <rect key="frame" x="42" y="-3" width="44" height="31"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="40" id="UpI-TY-t1u"/>
+                            </constraints>
+                            <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="StopTemplate" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="mhy-57-3bC">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="stopTimer:" target="uVd-aB-uN4" id="hkc-3O-2AH"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <visibilityPriorities>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                    </visibilityPriorities>
+                    <customSpacing>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                    </customSpacing>
+                </stackView>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="Tsa-qK-iLv" customClass="TimerFrameView" customModule="FocusPlan" customModuleProvider="target">
+                    <rect key="frame" x="92" y="4" width="385" height="26"/>
+                    <subviews>
+                        <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="125" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uvN-lE-Ccf">
+                            <rect key="frame" x="95" y="6" width="195" height="14"/>
+                            <subviews>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QHe-jl-jhx">
+                                    <rect key="frame" x="-2" y="0.0" width="98" height="14"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="No timer running." id="jzw-fv-0js">
+                                        <font key="font" metaFont="systemMedium" size="11"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="So6-MY-HXW">
+                                    <rect key="frame" x="102" y="0.0" width="41" height="14"/>
+                                    <subviews>
+                                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="Ejr-il-Qgk" customClass="ProjectColorView" customModule="FocusPlan" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="2" width="10" height="10"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="10" id="HoG-F4-cQe"/>
+                                                <constraint firstAttribute="height" constant="10" id="Sfg-xw-Z20"/>
+                                            </constraints>
+                                        </customView>
+                                        <textField horizontalHuggingPriority="750" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="12L-Mc-4Tt">
+                                            <rect key="frame" x="10" y="0.0" width="33" height="14"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="usu-lW-Pw3">
+                                                <font key="font" metaFont="smallSystem"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="12L-Mc-4Tt" firstAttribute="top" secondItem="So6-MY-HXW" secondAttribute="top" id="84w-Hh-sLF"/>
+                                        <constraint firstItem="12L-Mc-4Tt" firstAttribute="leading" secondItem="Ejr-il-Qgk" secondAttribute="trailing" constant="2" id="Akx-ok-7xV"/>
+                                        <constraint firstItem="Ejr-il-Qgk" firstAttribute="centerY" secondItem="So6-MY-HXW" secondAttribute="centerY" id="HsI-fc-NQX"/>
+                                        <constraint firstAttribute="trailing" secondItem="12L-Mc-4Tt" secondAttribute="trailing" id="XXy-gU-p1P"/>
+                                        <constraint firstItem="Ejr-il-Qgk" firstAttribute="leading" secondItem="So6-MY-HXW" secondAttribute="leading" id="gZJ-v5-a1Q"/>
+                                        <constraint firstAttribute="bottom" secondItem="12L-Mc-4Tt" secondAttribute="bottom" id="zra-Fg-WUJ"/>
+                                    </constraints>
+                                </customView>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d7b-hG-2PZ">
+                                    <rect key="frame" x="149" y="0.0" width="48" height="14"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="No task." id="6oM-Ig-0XU">
+                                        <font key="font" metaFont="smallSystem"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="So6-MY-HXW" secondAttribute="bottom" id="2zt-hq-smf"/>
+                                <constraint firstItem="So6-MY-HXW" firstAttribute="top" secondItem="uvN-lE-Ccf" secondAttribute="top" id="3L1-2r-wOF"/>
+                            </constraints>
+                            <visibilityPriorities>
+                                <integer value="1000"/>
+                                <integer value="1000"/>
+                                <integer value="1000"/>
+                            </visibilityPriorities>
+                            <customSpacing>
+                                <real value="3.4028234663852886e+38"/>
+                                <real value="3.4028234663852886e+38"/>
+                                <real value="3.4028234663852886e+38"/>
+                            </customSpacing>
+                        </stackView>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="QHe-jl-jhx" firstAttribute="centerY" secondItem="Tsa-qK-iLv" secondAttribute="centerY" id="ArJ-fm-NCf"/>
-                        <constraint firstItem="QHe-jl-jhx" firstAttribute="centerX" secondItem="Tsa-qK-iLv" secondAttribute="centerX" id="ppp-bd-NUS"/>
+                        <constraint firstItem="uvN-lE-Ccf" firstAttribute="centerX" secondItem="Tsa-qK-iLv" secondAttribute="centerX" id="4cd-fe-A9B"/>
+                        <constraint firstItem="uvN-lE-Ccf" firstAttribute="centerY" secondItem="Tsa-qK-iLv" secondAttribute="centerY" id="zMA-hU-MTX"/>
                     </constraints>
                 </customView>
             </subviews>
             <constraints>
+                <constraint firstItem="Tsa-qK-iLv" firstAttribute="leading" secondItem="kLM-Vz-k6B" secondAttribute="trailing" constant="4" id="3V3-LU-6f8"/>
                 <constraint firstAttribute="bottom" secondItem="Tsa-qK-iLv" secondAttribute="bottom" constant="4" id="6aL-hP-5Yk"/>
                 <constraint firstItem="Tsa-qK-iLv" firstAttribute="top" secondItem="4hR-Lq-IxG" secondAttribute="top" constant="4" id="AJg-dq-xdj"/>
-                <constraint firstAttribute="bottom" secondItem="3MU-zd-oDr" secondAttribute="bottom" constant="4" id="CoS-cL-aBS"/>
-                <constraint firstItem="Tsa-qK-iLv" firstAttribute="leading" secondItem="3MU-zd-oDr" secondAttribute="trailing" constant="4" id="Orl-5e-okz"/>
-                <constraint firstItem="3MU-zd-oDr" firstAttribute="top" secondItem="4hR-Lq-IxG" secondAttribute="top" constant="4" id="QAq-dS-PNk"/>
+                <constraint firstItem="kLM-Vz-k6B" firstAttribute="leading" secondItem="4hR-Lq-IxG" secondAttribute="leading" constant="4" id="KFH-Ao-WRl"/>
                 <constraint firstAttribute="trailing" secondItem="Tsa-qK-iLv" secondAttribute="trailing" constant="4" id="R6Q-so-8EX"/>
-                <constraint firstItem="3MU-zd-oDr" firstAttribute="leading" secondItem="4hR-Lq-IxG" secondAttribute="leading" constant="4" id="lJz-fh-Q7d"/>
+                <constraint firstAttribute="bottom" secondItem="kLM-Vz-k6B" secondAttribute="bottom" constant="4" id="ekx-tw-PQF"/>
+                <constraint firstItem="kLM-Vz-k6B" firstAttribute="top" secondItem="4hR-Lq-IxG" secondAttribute="top" constant="4" id="fEh-vX-K3D"/>
             </constraints>
-            <point key="canvasLocation" x="396.5" y="-499"/>
+            <point key="canvasLocation" x="-79" y="-486"/>
         </customView>
         <viewController id="uVd-aB-uN4" customClass="TimerViewController" customModule="FocusPlan" customModuleProvider="target">
             <connections>
+                <outlet property="projectColor" destination="Ejr-il-Qgk" id="xau-ee-uQ4"/>
+                <outlet property="projectLabel" destination="12L-Mc-4Tt" id="IsU-Iz-b3F"/>
+                <outlet property="projectSection" destination="So6-MY-HXW" id="Ewj-Ez-rl5"/>
                 <outlet property="startButton" destination="3MU-zd-oDr" id="1J6-W4-LJH"/>
+                <outlet property="statusLabel" destination="QHe-jl-jhx" id="Jp7-fQ-Ze4"/>
+                <outlet property="stopButton" destination="I1Q-nV-hUz" id="ZOO-0R-7cY"/>
+                <outlet property="taskLabel" destination="d7b-hG-2PZ" id="FcH-22-HK2"/>
                 <outlet property="view" destination="4hR-Lq-IxG" id="HrJ-ce-Lzh"/>
             </connections>
         </viewController>
+        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" id="iDp-x1-Dne">
+            <rect key="frame" x="0.0" y="0.0" width="63" height="14"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="No project." id="E6L-9a-cKM">
+                <font key="font" metaFont="smallSystem"/>
+                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+            </textFieldCell>
+        </textField>
     </objects>
     <resources>
         <image name="StartTemplate" width="14" height="14"/>
+        <image name="StopTemplate" width="14" height="14"/>
     </resources>
 </document>

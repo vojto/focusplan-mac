@@ -5,6 +5,7 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="weight" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Task" inverseName="project" inverseEntity="Task" syncable="YES"/>
+        <relationship name="timerEntries" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TimerEntry" inverseName="project" inverseEntity="TimerEntry" syncable="YES"/>
     </entity>
     <entity name="Task" representedClassName="Task" syncable="YES" codeGenerationType="class">
         <attribute name="estimatedMinutes" optional="YES" attributeType="Integer 64" defaultValueString="30" usesScalarValueType="YES" syncable="YES"/>
@@ -15,9 +16,17 @@
         <attribute name="weight" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="weightForPlan" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Project" inverseName="tasks" inverseEntity="Project" syncable="YES"/>
+        <relationship name="timerEntries" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TimerEntry" inverseName="task" inverseEntity="TimerEntry" syncable="YES"/>
+    </entity>
+    <entity name="TimerEntry" representedClassName="TimerEntry" syncable="YES" codeGenerationType="class">
+        <attribute name="endedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="startedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Project" inverseName="timerEntries" inverseEntity="Project" syncable="YES"/>
+        <relationship name="task" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Task" inverseName="timerEntries" inverseEntity="Task" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Project" positionX="-63" positionY="-18" width="128" height="105"/>
-        <element name="Task" positionX="-63" positionY="9" width="128" height="165"/>
+        <element name="Project" positionX="-63" positionY="-18" width="128" height="120"/>
+        <element name="Task" positionX="-63" positionY="9" width="128" height="180"/>
+        <element name="TimerEntry" positionX="-54" positionY="63" width="128" height="105"/>
     </elements>
 </model>
