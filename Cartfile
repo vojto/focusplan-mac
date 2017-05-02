@@ -2,6 +2,6 @@ github "vojto/NiceKit" "master"
 github "vojto/NiceData" "master"
 github "vojto/NiceUI" "master"
 github "vojto/NiceReactive" "master"
-github "ReactiveCocoa/ReactiveSwift" ~> 1.1
+github "ReactiveCocoa/ReactiveSwift" > 1.1
 github "ReactiveCocoa/ReactiveCocoa" ~> 5.0
 github "vojto/SwiftDate" "master"
