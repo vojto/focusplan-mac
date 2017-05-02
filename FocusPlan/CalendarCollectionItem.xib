@@ -19,17 +19,17 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Ov-Rg-UwN">
-                    <rect key="frame" x="196" y="128" width="89" height="17"/>
+                    <rect key="frame" x="6" y="248" width="83" height="16"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Calendar item" id="VWh-pE-odT">
-                        <font key="font" metaFont="system"/>
+                        <font key="font" metaFont="system" size="12"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
             </subviews>
             <constraints>
-                <constraint firstItem="5Ov-Rg-UwN" firstAttribute="centerY" secondItem="Hz6-mo-xeY" secondAttribute="centerY" id="0eN-EV-9sn"/>
-                <constraint firstItem="5Ov-Rg-UwN" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="rQx-v8-RzG"/>
+                <constraint firstItem="5Ov-Rg-UwN" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="8" id="5k5-YL-p6v"/>
+                <constraint firstItem="5Ov-Rg-UwN" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="8" id="It9-f5-izb"/>
             </constraints>
         </customView>
         <collectionViewItem id="gSF-4s-C4q" customClass="CalendarCollectionItem" customModule="FocusPlan" customModuleProvider="target">

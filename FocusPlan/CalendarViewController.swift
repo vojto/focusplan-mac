@@ -60,9 +60,7 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
         let item = collectionView.makeItem(withIdentifier: "CalendarCollectionItem", for: indexPath) as! CalendarCollectionItem
         
-        let task = events[indexPath.item].task
-        
-        item.task.value = task
+        item.event.value = events[indexPath.item]
         
         return item
     }

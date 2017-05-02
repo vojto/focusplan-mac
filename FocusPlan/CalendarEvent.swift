@@ -8,7 +8,14 @@
 
 import Foundation
 
+enum CalendarEventType {
+    case task
+    case timerEntry
+}
+
 class CalendarEvent: CustomStringConvertible {
+    let type: CalendarEventType
+    
     var task: Task?
     var timerEntry: TimerEntry?
     
@@ -20,12 +27,14 @@ class CalendarEvent: CustomStringConvertible {
     }
     
     init(task: Task, startsAt: Date, duration: TimeInterval) {
+        self.type = .task
         self.task = task
         self.startsAt = startsAt
         self.duration = duration
     }
     
     init(timerEntry: TimerEntry, startsAt: Date, duration: TimeInterval) {
+        self.type = .timerEntry
         self.timerEntry = timerEntry
         self.startsAt = startsAt
         self.duration = duration
