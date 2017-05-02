@@ -15,7 +15,7 @@ class PlanViewController: NSViewController {
     let tasksController = TasksViewController()
     let calendarController = CalendarViewController()
     
-    var tasksObserver: ReactiveObserver<Task>!
+    var tasksObserver: TasksObserver!
     
     var timerEntriesObserver: ReactiveObserver<TimerEntry>!
     
@@ -31,11 +31,8 @@ class PlanViewController: NSViewController {
         
         let context = AppDelegate.viewContext
         
-        tasksObserver = {
-            let request: NSFetchRequest<NSFetchRequestResult> = Task.fetchRequest()
-            request.predicate = NSPredicate(format: "isPlanned = true")
-            return ReactiveObserver<Task>(context: context, request: request)
-        }()
+        tasksObserver = TasksObserver(wantsPlannedOnly: true, in: context)
+        let sortedTasks = tasksObserver.sortedTasksForPlan
         
         timerEntriesObserver = {
             // TODO: Filter by displayed time range
@@ -47,12 +44,6 @@ class PlanViewController: NSViewController {
         
         view.include(tasksController.view)
         secondaryView.include(calendarController.view)
-        
-        let sortedTasks = tasksObserver.objects.producer.map { tasks in
-            return tasks.sorted { task1, task2 in
-                return task1.weightForPlan < task2.weightForPlan
-            }
-        }
         
         sortedTasks.startWithValues { tasks in
             self.tasksController.tasks = tasks
