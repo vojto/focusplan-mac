@@ -108,13 +108,20 @@ class PlanViewController: NSViewController {
         var events = [CalendarEvent]()
         
         for entry in entries {
-            if entry.isRunning {
+            guard let startedAt = entry.startedAt else {
+                assertionFailure()
                 continue
             }
             
-            guard let startedAt = entry.startedAt, let duration = entry.duration else {
-                continue
+            let endedAt: Date
+            
+            if let entryEndedAt = entry.endedAt {
+                endedAt = entryEndedAt as Date
+            } else {
+                endedAt = Date()
             }
+            
+            let duration = endedAt.timeIntervalSince(startedAt as Date)
             
             let event = CalendarEvent(timerEntry: entry, startsAt: startedAt as Date, duration: duration)
             events.append(event)
