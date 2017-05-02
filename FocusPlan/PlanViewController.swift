@@ -108,8 +108,6 @@ class PlanViewController: NSViewController {
         var events = [CalendarEvent]()
         
         for entry in entries {
-            Swift.print("Entry: \(entry.isRunning) - \(entry.startedAt) - \(entry.endedAt) - \(entry.duration)")
-            
             if entry.isRunning {
                 continue
             }

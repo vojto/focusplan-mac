@@ -24,31 +24,7 @@ class CalendarCollectionItem: NSCollectionViewItem {
         
         guard let field = textField else { return assertionFailure() }
         
-        field.textColor = NSColor(hexString: "4A90E2")
-        
-        let eventType = event.map { $0?.type }
-        
-        eventType.producer.startWithValues { type in
-            let view = self.view
-            
-            guard let type = type else { return }
-            
-            switch type {
-            case .task:
-                view.layer?.backgroundColor = NSColor.clear.cgColor
-                view.layer?.borderColor = NSColor(hexString: "4A90E2")?.cgColor
-                
-                
-                break
-            case .timerEntry:
-                view.layer?.backgroundColor = NSColor(hexString: "f1f7fd")?.cgColor
-                view.layer?.borderColor = NSColor(hexString: "f1f7fd")?.cgColor
-                
-//                field.textColor = NSColor.white
-                break
-            }
-        }
-
+        let eventType = event.map { $0?.type }.skipRepeats { $0 == $1 }
         
         let task = event.producer.map { event -> Task? in
             guard let event = event else { return nil }
@@ -60,6 +36,34 @@ class CalendarCollectionItem: NSCollectionViewItem {
                 return event.timerEntry?.task
             }
         }
+        
+        let project = task.pick { $0.reactive.project.producer }
+        
+        SignalProducer.combineLatest(eventType.producer, project.producer).startWithValues { type, project in
+            guard let project = project else { return }
+            
+            guard let color = Palette.decode(colorName: project.color) else { return }
+            
+            let view = self.view
+            
+            guard let type = type else { return }
+            
+            switch type {
+            case .task:
+                view.layer?.backgroundColor = NSColor.clear.cgColor
+                view.layer?.borderColor = color.cgColor
+                
+                
+                break
+            case .timerEntry:
+                view.layer?.backgroundColor = color.cgColor
+                view.layer?.borderColor = color.cgColor
+                
+                //                field.textColor = NSColor.white
+                break
+            }
+        }
+    
         
         let taskTitle = task.pick { $0.reactive.title }
         
