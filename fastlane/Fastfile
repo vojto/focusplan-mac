@@ -9,7 +9,35 @@ platform :ios do
 
 
   lane :build do
-    puts "building"
+    increment_build_number
+
+    project_dir = File.expand_path(File.join(File.dirname(__FILE__), '..'))
+
+    build_dir = File.join(project_dir, "build")
+
+    system("rm -rf #{build_dir}")
+
+    build_dir = gym(
+      scheme: "FocusPlan",
+      output_directory: build_dir,
+      # codesigning_identity: identity,
+      archive_path: File.join(project_dir, "build", "archive")
+    )
+
+    app_path = File.join(build_dir, "FocusPlan.app")
+
+    build_dir = File.dirname(app_path)
+    dsym_path = File.join(build_dir, "FocusPlan.app.dSYM.zip")
+
+    zip_path = app_path + ".zip"
+    app_filename = File.basename(app_path)
+    Actions.sh("pushd #{build_dir} && zip -y -r #{zip_path} #{app_filename}/* && popd")
+
+    hockey(
+      :api_token => "aec6fd6f1ad54a5686fca0b5a7916710",
+      :ipa => zip_path,
+      :dsym => dsym_path
+    )
   end
 
   # You can define as many lanes as you want
