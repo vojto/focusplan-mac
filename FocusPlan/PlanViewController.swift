@@ -9,6 +9,7 @@
 import Cocoa
 import ReactiveSwift
 import NiceData
+import SwiftDate
 
 class PlanViewController: NSViewController {
     
@@ -16,8 +17,10 @@ class PlanViewController: NSViewController {
     let calendarController = CalendarViewController()
     
     var tasksObserver: TasksObserver!
-    
     var timerEntriesObserver: ReactiveObserver<TimerEntry>!
+    
+    var lastTasks = [Task]()
+    var lastTimerEntries = [TimerEntry]()
     
     @IBOutlet var secondaryView: NSView!
     
@@ -50,27 +53,30 @@ class PlanViewController: NSViewController {
             self.tasksController.heading = "Planned tasks"
             self.tasksController.reloadData()
         }
-            
+        
+        
+        
         SignalProducer.combineLatest(
             sortedTasks,
             timerEntriesObserver.objects.producer
             ).startWithValues { tasks, timerEntries in
+                self.lastTasks = tasks
+                self.lastTimerEntries = timerEntries
                 self.updateCalendar(tasks: tasks, timerEntries: timerEntries)
         }
         
-        let timerProducer = timer(interval: .seconds(3), on: QueueScheduler.main)
+        let now = timer(interval: .seconds(3), on: QueueScheduler.main)
         
-        timerProducer.startWithValues { date in
-            self.calendarController.reloadData()
+        now.startWithValues { _ in
+            self.updateCalendar(tasks: self.lastTasks, timerEntries: self.lastTimerEntries)
         }
-        
     }
     
+    
+    
     func updateCalendar(tasks: [Task], timerEntries: [TimerEntry]) {
-        
-        
         // Update events in the calendar view
-        let taskEvents = createEvents(fromTasks: tasks.filter({ !$0.isFinished }))
+        let taskEvents = createEvents(fromTasks: tasks.filter({ !$0.isFinished }), timerEntries: timerEntries)
 
         let timerEvents = createTimerEvents(fromEntries: timerEntries)
         
@@ -79,7 +85,11 @@ class PlanViewController: NSViewController {
         self.calendarController.reloadData()
     }
     
-    func createEvents(fromTasks tasks: [Task]) -> [CalendarEvent] {
+    /**
+     Takes timer entries so it can calculate how much time was spent already
+     on a task.
+     */
+    func createEvents(fromTasks tasks: [Task], timerEntries: [TimerEntry]) -> [CalendarEvent] {
         var events = [CalendarEvent]()
         
         var previous: CalendarEvent?
@@ -93,13 +103,40 @@ class PlanViewController: NSViewController {
                 startsAt = Date()
             }
             
-            let event = CalendarEvent(task: task, startsAt: startsAt, duration: task.estimate)
+            var duration = task.estimate
+
+            // Adjust duration by time already spent on this task
+            duration -= durationSpentToday(onTask: task, timerEntries: timerEntries)
+            
+            if duration < 0 {
+                continue
+            }
+            
+            let event = CalendarEvent(task: task, startsAt: startsAt, duration: duration)
             
             events.append(event)
             previous = event
         }
         
         return events
+    }
+    
+    func durationSpentToday(onTask task: Task, timerEntries: [TimerEntry]) -> TimeInterval {
+        let taskEntries = timerEntries.filter { $0.task == task }
+        let entriesToday = taskEntries.filter { ($0.startedAt! as Date).isToday }
+        
+        var total: TimeInterval = 0
+        
+        for entry in entriesToday {
+            if let duration = entry.duration {
+                total += duration
+            } else if let startedAt = entry.startedAt, entry.endedAt == nil {
+                let durationSoFar = Date().timeIntervalSince(startedAt as Date)
+                total += durationSoFar
+            }
+        }
+        
+        return total
     }
     
     func createTimerEvents(fromEntries entries: [TimerEntry]) -> [CalendarEvent] {
