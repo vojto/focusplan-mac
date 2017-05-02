@@ -24,8 +24,21 @@ class TimerLane {
     let isRunning = MutableProperty<Bool>(false)
     let runningSince = MutableProperty<Date?>(nil)
     
+    let currentEntryObserver: ReactiveObserver<TimerEntry>!
+    
     init(id: LaneId) {
         self.id = id
+        
+        self.currentEntryObserver = {
+            let context = AppDelegate.viewContext
+            let request = NSFetchRequest<NSFetchRequestResult>(entityName: TimerEntry.entity().name!)
+            
+            request.predicate = NSPredicate(format: "lane = %@", id.rawValue)
+            request.sortDescriptors = [NSSortDescriptor(key: "startedAt", ascending: false)]
+            request.fetchLimit = 1
+            
+            return ReactiveObserver<TimerEntry>(context: context, request: request)
+        }()
         
         currentEntry <~ currentEntryObserver.objects.producer.map { $0.first }
         
@@ -49,19 +62,11 @@ class TimerLane {
         }
     }
     
-    let currentEntryObserver: ReactiveObserver<TimerEntry> = {
-        let context = AppDelegate.viewContext
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: TimerEntry.entity().name!)
-        request.sortDescriptors = [NSSortDescriptor(key: "startedAt", ascending: false)]
-        request.fetchLimit = 1
-        
-        return ReactiveObserver<TimerEntry>(context: context, request: request)
-    }()
-    
     func start(task: Task?) {
         let context = AppDelegate.viewContext
         let entry = TimerEntry(entity: TimerEntry.entity(), insertInto: context)
         
+        entry.lane = id.rawValue
         entry.startedAt = Date() as NSDate
         entry.task = task
         entry.project = task?.project

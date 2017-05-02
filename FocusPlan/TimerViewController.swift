@@ -51,7 +51,6 @@ class TimerViewController: NSViewController {
         }
         
         statusLabel.reactive.stringValue <~ status
-
         
         projectSection.reactive.isHidden <~ state.isRunning.map({ !$0 })
         projectLabel.reactive.stringValue <~ state.runningProject.producer.pick({ $0.reactive.name.producer }).map({ $0 ?? "" })
