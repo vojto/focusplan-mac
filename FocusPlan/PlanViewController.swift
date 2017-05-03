@@ -110,7 +110,7 @@ class PlanViewController: NSViewController {
 
         let timerEvents = createTimerEvents(fromEntries: timerEntries)
         
-        calendarController.events = taskEvents + timerEvents
+        calendarController.events = timerEvents + taskEvents
         
         self.calendarController.reloadData()
     }

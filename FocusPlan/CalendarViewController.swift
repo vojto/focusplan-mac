@@ -9,6 +9,12 @@
 import Cocoa
 import SwiftDate
 
+enum CalendarDecorationSection: Int {
+    case hourLine = 0
+    case sectionLine = 1
+    case sectionLabel = 2
+}
+
 class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCollectionViewDelegate {
 
     @IBOutlet var collectionView: NSCollectionView!
@@ -43,6 +49,10 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
         collectionView.register(nib, forSupplementaryViewOfKind: kHourHeader, withIdentifier: kHourHeaderIdentifier)
         
         collectionLayout.register(CalendarTimeLine.self, forDecorationViewOfKind: kTimeLine)
+        
+        collectionLayout.register(CalendarSectionLine.self, forDecorationViewOfKind: kSectionLine)
+        
+        collectionLayout.register(CalendarSectionLabel.self, forDecorationViewOfKind: kSectionLabel)
         
         // Do view setup here.
     }

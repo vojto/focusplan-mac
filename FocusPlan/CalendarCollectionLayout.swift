@@ -15,6 +15,8 @@ import SwiftDate
 let kHourHeader = "HourHeader"
 let kHourHeaderIdentifier = "CalendarHourHeader"
 let kTimeLine = "TimeLine"
+let kSectionLine = "SectionLine"
+let kSectionLabel = "SectionLabel"
 
 class CalendarCollectionLayout: NSCollectionViewLayout {
     
@@ -76,11 +78,16 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
     
     var innerFrame: NSRect {
         let leftMargin: CGFloat = 50.0
+        let topMargin: CGFloat = 20.0
+        
         let size = collectionViewContentSize
         var frame = NSRect(x: 0, y: 0, width: size.width, height: size.height)
         
         frame.size.width -= leftMargin
         frame.origin.x += leftMargin
+        
+        frame.size.height -= topMargin
+        frame.origin.y += topMargin
         
         return frame
     }
@@ -112,8 +119,21 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
             }
             
             // Current hour label
-            if let timeLine = layoutAttributesForDecorationView(ofKind: kTimeLine, at: IndexPath(item: 0, section: 0)) {
+            if let timeLine = layoutAttributesForDecorationView(ofKind: kTimeLine, at: IndexPath(item: 0, section: CalendarDecorationSection.hourLine.rawValue)) {
                 attributes.append(timeLine)
+            }
+        }
+        
+        // Section lines & labels
+        for i in 0...config.range.dayCount {
+            if let attribute = layoutAttributesForDecorationView(ofKind: kSectionLine, at: IndexPath(item: i, section: CalendarDecorationSection.sectionLine.rawValue)) {
+                attributes.append(attribute)
+            }
+            
+            if config.range.dayCount > 1 {
+                if let attribute = layoutAttributesForDecorationView(ofKind: kSectionLabel, at: IndexPath(item: i, section: CalendarDecorationSection.sectionLabel.rawValue)) {
+                    attributes.append(attribute)
+                }
             }
         }
         
@@ -148,7 +168,7 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
         
         let relativeStart = startingInterval / dayDuration
         
-        let y = CGFloat(relativeStart) * innerFrame.size.height
+        let y = innerFrame.origin.y + CGFloat(relativeStart) * innerFrame.size.height
         
         let height = CGFloat(durationInterval / dayDuration) * innerFrame.size.height
         
@@ -160,6 +180,14 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
         x += laneOffset
         
         attributes.frame = NSRect(x: x, y: y, width: laneWidth, height: height).insetBy(dx: 1.0, dy: 0)
+        
+        if config.durationsOnly {
+            attributes.frame = attributes.frame.insetBy(dx: 2.0, dy: 2.0)
+        }
+        
+        if attributes.frame.size.height < 0 {
+            return nil
+        }
         
         return attributes
     }
@@ -173,7 +201,7 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
             let attributes = NSCollectionViewLayoutAttributes(forSupplementaryViewOfKind: elementKind, with: indexPath)
             
             let yTime = labelEvery * Double(indexPath.item)
-            let y = CGFloat(yTime / dayDuration) * contentSize.height
+            let y = innerFrame.origin.y + CGFloat(yTime / dayDuration) * contentSize.height
             
             attributes.frame = NSRect(x: 0, y: y, width: 50, height: 40)
             
@@ -189,15 +217,43 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
             let attributes = NSCollectionViewLayoutAttributes(forDecorationViewOfKind: kTimeLine, with: indexPath)
             
             let now = Date().timeIntervalSince(Date().startOf(component: .day)) - dayStart
-            let y = CGFloat(now / dayDuration) * innerFrame.size.height
+            let y = innerFrame.origin.y + CGFloat(now / dayDuration) * innerFrame.size.height
             
             attributes.frame = NSRect(x: innerFrame.origin.x - 10, y: y - 3, width: innerFrame.size.width + 10, height: 7)
             attributes.zIndex = -1
             
             return attributes
+            
+        } else if elementKind == kSectionLine {
+            let attributes = NSCollectionViewLayoutAttributes(forDecorationViewOfKind: kSectionLine, with: indexPath)
+            
+            attributes.frame = sectionFrame(at: indexPath.item)
+            
+            return attributes
+        } else if elementKind == kSectionLabel {
+            let attributes = NSCollectionViewLayoutAttributes(forDecorationViewOfKind: kSectionLabel, with: indexPath)
+            
+            
+            
+            var frame = sectionFrame(at: indexPath.item)
+            frame.size.height = 20
+            
+            attributes.frame = frame
+            
+            return attributes
         }
         
         return nil
+    }
+    
+    func sectionFrame(at index: Int) -> NSRect {
+        let sections = controller.config.range.dayCount
+        let sectionWidth = innerFrame.size.width / CGFloat(sections)
+        
+        let marginLeft = innerFrame.origin.x
+        let x = marginLeft + sectionWidth * CGFloat(index)
+        
+        return NSRect(x: x, y: 0, width: sectionWidth, height: innerFrame.size.height)
     }
     
     // MARK: - Getting labels

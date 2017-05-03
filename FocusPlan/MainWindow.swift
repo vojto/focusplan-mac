@@ -78,6 +78,8 @@ class MainWindow: NSWindow, NSToolbarDelegate {
                     lanes: [.task],
                     durationsOnly: true
                 )
+                
+                planController.calendarController.collectionView.scroll(NSPoint(x: 0, y: 0))
             }
         }
     }
