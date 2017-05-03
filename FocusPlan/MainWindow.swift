@@ -66,7 +66,8 @@ class MainWindow: NSWindow, NSToolbarDelegate {
             case .today:
                 planController.config = PlanConfig(
                     range: PlanRange(start: Date(), dayCount: 1),
-                    lanes: [.task, .pomodoro]
+                    lanes: [.task, .pomodoro],
+                    durationsOnly: false
                 )
                 
             case .thisWeek:
@@ -74,7 +75,8 @@ class MainWindow: NSWindow, NSToolbarDelegate {
                 
                 planController.config = PlanConfig(
                     range: PlanRange(start: Date().startOf(component: .weekOfYear), dayCount: 7),
-                    lanes: [.task]
+                    lanes: [.task],
+                    durationsOnly: true
                 )
             }
         }

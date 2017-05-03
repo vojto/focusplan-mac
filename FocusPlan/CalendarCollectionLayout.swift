@@ -101,18 +101,20 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
             }
         }
         
-        // Hour labels
-        let countLabels = Int(dayDuration / labelEvery)
-        for i in 0...countLabels {
-            let path = IndexPath(item: i, section: 0)
-            if let attribute = layoutAttributesForSupplementaryView(ofKind: kHourHeader, at: path) {
-                attributes.append(attribute)
+        if !config.durationsOnly {
+            // Hour labels
+            let countLabels = Int(dayDuration / labelEvery)
+            for i in 0...countLabels {
+                let path = IndexPath(item: i, section: 0)
+                if let attribute = layoutAttributesForSupplementaryView(ofKind: kHourHeader, at: path) {
+                    attributes.append(attribute)
+                }
             }
-        }
-        
-        // Current hour label
-        if let timeLine = layoutAttributesForDecorationView(ofKind: kTimeLine, at: IndexPath(item: 0, section: 0)) {
-            attributes.append(timeLine)
+            
+            // Current hour label
+            if let timeLine = layoutAttributesForDecorationView(ofKind: kTimeLine, at: IndexPath(item: 0, section: 0)) {
+                attributes.append(timeLine)
+            }
         }
         
         return attributes
@@ -133,11 +135,22 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
         
         var x = CGFloat(indexPath.section) * sectionWidth + innerFrame.origin.x
         
-        let relativeStart = (event.startsAt.dayTimeInterval - dayStart) / dayDuration
+        let startingInterval: TimeInterval
+        let durationInterval: TimeInterval
+        
+        if config.durationsOnly {
+            startingInterval = event.durationOffset
+            durationInterval = event.duration
+        } else {
+            startingInterval = event.startsAt.dayTimeInterval - dayStart
+            durationInterval = event.duration
+        }
+        
+        let relativeStart = startingInterval / dayDuration
         
         let y = CGFloat(relativeStart) * innerFrame.size.height
         
-        let height = CGFloat(event.duration / dayDuration) * innerFrame.size.height
+        let height = CGFloat(durationInterval / dayDuration) * innerFrame.size.height
         
         // Offset x by lane number
         let laneWidth = sectionWidth / CGFloat(config.lanes.count)

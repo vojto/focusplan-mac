@@ -21,6 +21,7 @@ class CalendarEvent: CustomStringConvertible {
     
     let startsAt: Date
     let duration: TimeInterval
+    var durationOffset: TimeInterval = 0
     
     var endsAt: Date {
         return startsAt.addingTimeInterval(duration)

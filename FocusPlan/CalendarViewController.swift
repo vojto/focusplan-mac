@@ -14,7 +14,16 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     @IBOutlet var collectionView: NSCollectionView!
     let collectionLayout = CalendarCollectionLayout()
     
-    var events = [CalendarEvent]()
+    var events = [CalendarEvent]() {
+        didSet {
+            var offset: TimeInterval = 0
+            
+            for event in events {
+                event.durationOffset = offset
+                offset += event.duration
+            }
+        }
+    }
     
     var config = PlanConfig.defaultConfig {
         didSet {

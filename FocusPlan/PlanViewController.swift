@@ -19,11 +19,13 @@ struct PlanRange {
 struct PlanConfig {
     var range: PlanRange
     var lanes: [PlanLane]
+    var durationsOnly = false
     
     static var defaultConfig: PlanConfig {
         return PlanConfig(
             range: PlanRange(start: Date(), dayCount: 1),
-            lanes: [.task, .pomodoro]
+            lanes: [.task, .pomodoro],
+            durationsOnly: false
         )
     }
 }
@@ -40,7 +42,10 @@ class PlanViewController: NSViewController {
     let calendarController = CalendarViewController()
     
     var config = PlanConfig.defaultConfig {
-        didSet { calendarController.config = config }
+        didSet {
+            calendarController.config = config
+            updateCalendarWithLastValues()
+        }
     }
     
     var tasksObserver: TasksObserver!
@@ -91,11 +96,13 @@ class PlanViewController: NSViewController {
         let now = timer(interval: .seconds(5), on: QueueScheduler.main)
         
         now.startWithValues { _ in
-            self.updateCalendar(tasks: self.lastTasks, timerEntries: self.lastTimerEntries)
+            self.updateCalendarWithLastValues()
         }
     }
     
-    
+    func updateCalendarWithLastValues() {
+        self.updateCalendar(tasks: lastTasks, timerEntries: lastTimerEntries)
+    }
     
     func updateCalendar(tasks: [Task], timerEntries: [TimerEntry]) {
         // Update events in the calendar view
