@@ -29,6 +29,7 @@
 		991E7B381EB0BEF00086A9D9 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991E7B371EB0BEF00086A9D9 /* String+Extensions.swift */; };
 		991E7B3C1EB0E80A0086A9D9 /* EditableTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991E7B3B1EB0E80A0086A9D9 /* EditableTableCellView.swift */; };
 		9933E49C1EB9BC6200B1CE85 /* PomodoroType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9933E49B1EB9BC6200B1CE85 /* PomodoroType.swift */; };
+		9933E49E1EB9C84600B1CE85 /* CalendarCollectionItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9933E49D1EB9C84600B1CE85 /* CalendarCollectionItemView.swift */; };
 		994063C61EB7028500E09165 /* SwiftDate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 994063C51EB7028500E09165 /* SwiftDate.framework */; };
 		994063C71EB7028A00E09165 /* SwiftDate.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 994063C51EB7028500E09165 /* SwiftDate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		994063C91EB7035400E09165 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994063C81EB7035400E09165 /* Date+Extensions.swift */; };
@@ -130,6 +131,7 @@
 		9922F1191EAF656000BFA01F /* Cartography.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cartography.framework; path = Carthage/Build/Mac/Cartography.framework; sourceTree = "<group>"; };
 		9922F11A1EAF656000BFA01F /* NiceKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NiceKit.framework; path = Carthage/Build/Mac/NiceKit.framework; sourceTree = "<group>"; };
 		9933E49B1EB9BC6200B1CE85 /* PomodoroType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PomodoroType.swift; sourceTree = "<group>"; };
+		9933E49D1EB9C84600B1CE85 /* CalendarCollectionItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarCollectionItemView.swift; sourceTree = "<group>"; };
 		994063C51EB7028500E09165 /* SwiftDate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftDate.framework; path = Carthage/Build/Mac/SwiftDate.framework; sourceTree = "<group>"; };
 		994063C81EB7035400E09165 /* Date+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		994063CA1EB70ECA00E09165 /* CalendarHourHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarHourHeader.xib; sourceTree = "<group>"; };
@@ -407,6 +409,7 @@
 				99D8C80F1EB3B51800EA5001 /* CalendarViewController.xib */,
 				99D8C8121EB3B6B600EA5001 /* CalendarCollectionItem.swift */,
 				99D8C8131EB3B6B600EA5001 /* CalendarCollectionItem.xib */,
+				9933E49D1EB9C84600B1CE85 /* CalendarCollectionItemView.swift */,
 				99D8C8161EB3B81900EA5001 /* CalendarCollectionLayout.swift */,
 				994063CA1EB70ECA00E09165 /* CalendarHourHeader.xib */,
 				994063CC1EB70F6400E09165 /* CalendarHourHeader.swift */,
@@ -535,6 +538,7 @@
 				99078BF51EAF1CD000C3B789 /* AppDelegate.swift in Sources */,
 				991E7B3C1EB0E80A0086A9D9 /* EditableTableCellView.swift in Sources */,
 				99BBB0241EB8BFB5002C603F /* TimerLane.swift in Sources */,
+				9933E49E1EB9C84600B1CE85 /* CalendarCollectionItemView.swift in Sources */,
 				99D122EF1EB8A6C500D495DC /* MainWindowDelegate.swift in Sources */,
 				994063CF1EB715DA00E09165 /* CalendarTimeLine.swift in Sources */,
 				991E7B2B1EB082FE0086A9D9 /* Task+Reactive.swift in Sources */,
@@ -647,7 +651,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = FocusPlan/FocusPlan.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = Q4C48EKH9Z;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -668,7 +672,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = FocusPlan/FocusPlan.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = Q4C48EKH9Z;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
