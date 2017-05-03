@@ -93,6 +93,10 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
             
             let dayIndex = Int(floor(interval / (60 * 60 * 24)))
             
+            if dayIndex < 0 {
+                continue
+            }
+            
             let path = IndexPath(item: i, section: dayIndex)
             paths.append(path)
         }

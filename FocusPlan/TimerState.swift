@@ -10,6 +10,11 @@ import Foundation
 import ReactiveSwift
 import NiceData
 
+enum PomodoroType: String {
+    case pomodoro = "pomodoro"
+    case shortBreak = "shortBreak"
+    case longBreak = "longBreak"
+}
 
 class TimerState {
     static let instance = TimerState()
@@ -24,7 +29,6 @@ class TimerState {
     let isRunning = MutableProperty<Bool>(false)
     
     init() {
-        
         isRunning <~ generalLane.isRunning
         
         runningProject <~ generalLane.runningEntry.producer.pick { $0.reactive.project }
@@ -38,8 +42,26 @@ class TimerState {
         generalLane.start(task: task)
     }
     
+    func startPomodoro() {
+        let task = selectedTask.value
+        
+        if !generalLane.isRunning.value {
+            generalLane.start(task: task)
+        }
+        
+        if !pomodoroLane.isRunning.value {
+            pomodoroLane.start(task: task, type: PomodoroType.pomodoro.rawValue, targetDuration: 25*60)
+        }
+    }
+    
     func stop() {
-        generalLane.stop()
+        if generalLane.isRunning.value {
+            generalLane.stop()
+        }
+        
+        if pomodoroLane.isRunning.value {
+            pomodoroLane.stop()
+        }
     }
 }
 

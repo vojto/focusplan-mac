@@ -60,9 +60,22 @@ class TimerViewController: NSViewController {
         
 
         let status = SignalProducer.combineLatest(state.isRunning.producer, currentTime.producer).map { running, date -> String in
-            if running,
-                let startedAt = self.state.generalLane.runningSince.value as Date? {
-                let time = date.timeIntervalSince(startedAt)
+            
+            if !running {
+                return "No timer running."
+            }
+            
+            if let pomodoroStart = self.state.pomodoroLane.runningSince.value as Date?,
+                let entry = self.state.pomodoroLane.currentEntry.value {
+                
+                let elapsed: TimeInterval = date.timeIntervalSince(pomodoroStart)
+                let remaining = Double(entry.targetDuration) - elapsed
+                
+                return "Pomodoro: \(Formatting.format(timeInterval: remaining))"
+                
+            } else if let generalStart = self.state.generalLane.runningSince.value as Date? {
+                
+                let time = date.timeIntervalSince(generalStart)
                 
                 return Formatting.format(timeInterval: time)
             } else {
@@ -77,8 +90,7 @@ class TimerViewController: NSViewController {
         projectColor.project <~ state.runningProject
         
         taskLabel.reactive.stringValue <~ state.runningTask.producer.pick({ $0.reactive.title.producer }).map({ $0 ?? "" })
-        
-
+    
         
     }
     
@@ -107,6 +119,10 @@ class TimerViewController: NSViewController {
         startUIRefreshTimer()
     }
     
+    @IBAction func startPomodoro(_ sender: Any) {
+        state.startPomodoro()
+        startUIRefreshTimer()
+    }
     
     
     func startUIRefreshTimer() {

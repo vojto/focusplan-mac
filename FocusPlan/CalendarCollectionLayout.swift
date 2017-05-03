@@ -25,16 +25,37 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
      - 8am / read day start from settings
      */
     
-    let dayStart: TimeInterval = 8 * 60 * 60
+    var dayStart: TimeInterval = 8 * 60 * 60
     let dayEnd: TimeInterval = 20 * 60 * 60
     var dayDuration: TimeInterval { return dayEnd - dayStart }
     
     let labelEvery: TimeInterval = 1 * 60 * 60
     
-    
     var controller: CalendarViewController {
         return collectionView!.dataSource as! CalendarViewController
     }
+    
+    // MARK: - Lifecycle
+    // ------------------------------------------------------------------------
+    
+    override init() {
+        let now = Date() - 10.minutes
+        let dayStart = now.startOf(component: .day)
+        
+        let timeNow = now.timeIntervalSince(dayStart)
+        let defaultStart: TimeInterval = 8 * 60 * 60
+        
+        self.dayStart = min(timeNow, defaultStart)
+        
+        super.init()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Getting content frame
+    // ------------------------------------------------------------------------
     
     override var collectionViewContentSize: NSSize {
         guard let collectionView = self.collectionView else { return NSZeroSize }
@@ -76,7 +97,6 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
             }
         }
         
-
         // Hour labels
         let countLabels = Int(dayDuration / labelEvery)
         for i in 0...countLabels {

@@ -876,6 +876,9 @@
                 </menuItem>
                 <menuItem title="Start Pomodoro" id="psS-E4-tv4">
                     <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="startPomodoro:" target="uVd-aB-uN4" id="mLb-r5-6gb"/>
+                    </connections>
                 </menuItem>
                 <menuItem title="Start break" id="1PU-aa-Mk4">
                     <modifierMask key="keyEquivalentModifierMask"/>

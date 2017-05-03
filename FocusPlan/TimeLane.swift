@@ -62,13 +62,19 @@ class TimerLane {
         }
     }
     
-    func start(task: Task?) {
+    func start(task: Task? = nil, type: String? = nil, targetDuration: TimeInterval? = nil) {
         let context = AppDelegate.viewContext
         let entry = TimerEntry(entity: TimerEntry.entity(), insertInto: context)
         
         entry.lane = id.rawValue
+        entry.type = type
         entry.startedAt = Date() as NSDate
         entry.task = task
+        
+        if let duration = targetDuration {
+            entry.targetDuration = Int64(duration)
+        }
+        
         entry.project = task?.project
     }
     
