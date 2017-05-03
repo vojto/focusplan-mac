@@ -137,6 +137,14 @@ class TimerViewController: NSViewController {
         startUIRefreshTimer()
     }
     
+    @IBAction func startShortBreak(_ sender: Any) {
+        state.startPomodoro(type: .shortBreak)
+    }
+    
+    @IBAction func startLongBreak(_ sender: Any) {
+        state.startPomodoro(type: .longBreak)
+    }
+    
     
     func startUIRefreshTimer() {
         self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in

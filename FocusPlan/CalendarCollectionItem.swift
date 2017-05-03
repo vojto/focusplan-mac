@@ -72,19 +72,19 @@ class CalendarCollectionItem: NSCollectionViewItem {
                     
                     switch type {
                     case .pomodoro:
-                        let red = NSColor(hexString: "DB225D")!
+                        let red = NSColor(hexString: "FE9097")!
                         view.background = red
                         view.border = red
                         field.textColor = NSColor.white
                         field.stringValue = "Pomodoro"
-                        field.alpha = 0.75
+                        field.alpha = 0.85
                     case .shortBreak, .longBreak:
-                        let green = NSColor(hexString: "85D0C0")!
+                        let green = NSColor(hexString: "9BDDB6")!
                         view.background = green
                         view.border = green
                         field.textColor = NSColor.white
                         field.stringValue = "Break"
-                        field.alpha = 0.75
+                        field.alpha = 0.85
                     }
                 case .general:
                     guard let color = Palette.decode(colorName: colorName) else { return }

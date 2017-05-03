@@ -880,8 +880,17 @@
                         <action selector="startPomodoro:" target="uVd-aB-uN4" id="mLb-r5-6gb"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Start break" id="1PU-aa-Mk4">
+                <menuItem title="Start short break" id="1PU-aa-Mk4">
                     <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="startShortBreak:" target="uVd-aB-uN4" id="pQ3-kp-83d"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Start long break" id="GPs-ak-mpu">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="startLongBreak:" target="uVd-aB-uN4" id="2B2-zK-NuL"/>
+                    </connections>
                 </menuItem>
             </items>
             <point key="canvasLocation" x="-362" y="-379"/>
