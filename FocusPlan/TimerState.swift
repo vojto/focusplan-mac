@@ -128,7 +128,7 @@ class TimerState: NSObject, NSUserNotificationCenterDelegate {
         
         let nextType: PomodoroType
         
-        let longBreakEach = 2
+        let longBreakEach = 4
         
         switch type {
         case .pomodoro:
