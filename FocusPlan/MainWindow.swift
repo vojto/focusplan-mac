@@ -51,6 +51,7 @@ class MainWindow: NSWindow, NSToolbarDelegate {
     func showSection(forItem item: Any?) {
         backlogController.view.isHidden = true
         planController.view.isHidden = true
+        mainView.isHidden = false
         mainView2.isHidden = true
         
         if let project = item as? Project {
@@ -63,8 +64,18 @@ class MainWindow: NSWindow, NSToolbarDelegate {
             
             switch planItem.type {
             case .today:
-                Swift.print("Gonna display plan controller!")
-            default: break
+                planController.config = PlanConfig(
+                    range: PlanRange(start: Date(), dayCount: 1),
+                    lanes: [.task, .pomodoro]
+                )
+                
+            case .thisWeek:
+                mainView.isHidden = true
+                
+                planController.config = PlanConfig(
+                    range: PlanRange(start: Date().startOf(component: .weekOfYear), dayCount: 7),
+                    lanes: [.task]
+                )
             }
         }
     }

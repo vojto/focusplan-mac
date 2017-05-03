@@ -15,8 +15,12 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     let collectionLayout = CalendarCollectionLayout()
     
     var events = [CalendarEvent]()
-    var firstDay = Date().startOf(component: .day)
-    var sectionsCount = 1
+    
+    var config = PlanConfig.defaultConfig {
+        didSet {
+            reloadData()
+        }
+    }
     
     // MARK: - Lifecycle
     // ------------------------------------------------------------------------
@@ -43,7 +47,7 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     // ------------------------------------------------------------------------
     
     func numberOfSections(in collectionView: NSCollectionView) -> Int {
-        return sectionsCount
+        return config.range.dayCount
     }
     
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -89,7 +93,9 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
         for (i, event) in events.enumerated() {
             // For now, stick them all in one section
             
-            let interval = event.startsAt.timeIntervalSince(firstDay)
+            let rangeStart = config.range.start.startOf(component: .day)
+            
+            let interval = event.startsAt.timeIntervalSince(rangeStart)
             
             let dayIndex = Int(floor(interval / (60 * 60 * 24)))
             

@@ -25,7 +25,9 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
      - 8am / read day start from settings
      */
     
-    let lanesCount = 2
+    var config: PlanConfig {
+        return controller.config
+    }
     
     var dayStart: TimeInterval = 8 * 60 * 60
     let dayEnd: TimeInterval = 20 * 60 * 60
@@ -122,11 +124,11 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
     override func layoutAttributesForItem(at indexPath: IndexPath) -> NSCollectionViewLayoutAttributes? {
         
         guard let event = controller.event(atIndexPath: indexPath) else { return nil }
-        guard let laneNumber = event.lane else { return nil }
+        guard let lane = event.lane else { return nil }
         
         let attributes = NSCollectionViewLayoutAttributes(forItemWith: indexPath)
 
-        let sections = controller.sectionsCount
+        let sections = controller.config.range.dayCount
         let sectionWidth = innerFrame.size.width / CGFloat(sections)
         
         var x = CGFloat(indexPath.section) * sectionWidth + innerFrame.origin.x
@@ -138,7 +140,8 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
         let height = CGFloat(event.duration / dayDuration) * innerFrame.size.height
         
         // Offset x by lane number
-        let laneWidth = sectionWidth / CGFloat(lanesCount)
+        let laneWidth = sectionWidth / CGFloat(config.lanes.count)
+        guard let laneNumber = config.lanes.index(of: lane) else { return nil }
         let laneOffset = CGFloat(laneNumber) * laneWidth
         
         x += laneOffset

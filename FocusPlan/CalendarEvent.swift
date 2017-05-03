@@ -26,18 +26,18 @@ class CalendarEvent: CustomStringConvertible {
         return startsAt.addingTimeInterval(duration)
     }
     
-    var lane: Int? {
+    var lane: PlanLane? {
         switch type {
         case .task:
-            return 0
+            return .task
         case .timerEntry:
             guard let lane = LaneId(rawValue: timerEntry?.lane ?? "") else { return nil }
             
             switch lane {
             case .general:
-                return 0
+                return .task
             case .pomodoro:
-                return 1
+                return .pomodoro
             }
         }
     }

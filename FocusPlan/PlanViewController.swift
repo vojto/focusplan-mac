@@ -11,10 +11,37 @@ import ReactiveSwift
 import NiceData
 import SwiftDate
 
+struct PlanRange {
+    var start: Date
+    var dayCount: Int
+}
+
+struct PlanConfig {
+    var range: PlanRange
+    var lanes: [PlanLane]
+    
+    static var defaultConfig: PlanConfig {
+        return PlanConfig(
+            range: PlanRange(start: Date(), dayCount: 1),
+            lanes: [.task, .pomodoro]
+        )
+    }
+}
+
+enum PlanLane {
+    case project
+    case task
+    case pomodoro
+}
+
 class PlanViewController: NSViewController {
     
     let tasksController = TasksViewController()
     let calendarController = CalendarViewController()
+    
+    var config = PlanConfig.defaultConfig {
+        didSet { calendarController.config = config }
+    }
     
     var tasksObserver: TasksObserver!
     var timerEntriesObserver: ReactiveObserver<TimerEntry>!
@@ -23,8 +50,6 @@ class PlanViewController: NSViewController {
     var lastTimerEntries = [TimerEntry]()
     
     @IBOutlet var secondaryView: NSView!
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -53,8 +78,6 @@ class PlanViewController: NSViewController {
             self.tasksController.heading = "Planned tasks"
             self.tasksController.reloadData()
         }
-        
-        
         
         SignalProducer.combineLatest(
             sortedTasks,
