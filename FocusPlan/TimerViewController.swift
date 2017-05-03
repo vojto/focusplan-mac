@@ -27,7 +27,7 @@ class TimerViewController: NSViewController {
     @IBOutlet weak var projectSection: NSView!
     @IBOutlet weak var projectLabel: NSTextField!
     @IBOutlet weak var projectColor: ProjectColorView!
-    @IBOutlet weak var taskLabel: NSTextField!
+    @IBOutlet weak var taskPopup: NSPopUpButton!
     
     
     var timer: Timer?
@@ -36,12 +36,12 @@ class TimerViewController: NSViewController {
     override func awakeFromNib() {
         statusLabel.font = NSFont.systemFont(ofSize: 11, weight: NSFontWeightMedium).monospaced()
         
+        setupTaskPopup()
+        
         startUIRefreshTimer()
         
         let isTaskSelected = state.selectedTask.producer.map { $0 != nil }
         let isRunning = state.isRunning.producer
-        
-//        toggleButton.setMenu(toggleMenu, forSegment: 1)
         
         toggleButton.reactive.isEnabled <~ SignalProducer.combineLatest(
             isTaskSelected,
@@ -102,10 +102,71 @@ class TimerViewController: NSViewController {
         projectLabel.reactive.stringValue <~ state.runningProject.producer.pick({ $0.reactive.name.producer }).map({ $0 ?? "" })
         projectColor.project <~ state.runningProject
         
-        taskLabel.reactive.stringValue <~ state.runningTask.producer.pick({ $0.reactive.title.producer }).map({ $0 ?? "" })
+        
+        taskPopup.reactive.isHidden <~ state.isRunning.map({ !$0 })
+//        taskLabel.reactive.stringValue <~ state.runningTask.producer.pick({ $0.reactive.title.producer }).map({ $0 ?? "" })
     
         
     }
+    
+    
+    var tasksObserver: TasksObserver!
+    var nextTasks = [Task]()
+    
+    func setupTaskPopup() {
+        let context = AppDelegate.viewContext
+        let popup = taskPopup
+        
+//        popup?.reactive.isHidden <~ 
+        
+        tasksObserver = TasksObserver(wantsPlannedOnly: true, wantsUnfinishedOnly: true, in: context)
+        
+        tasksObserver.sortedTasksForPlan.producer.startWithValues { tasks in
+            self.nextTasks = tasks
+            
+            guard let popup = popup else { return }
+            
+            let selected = popup.indexOfSelectedItem
+            
+            popup.removeAllItems()
+            
+            popup.addItem(withTitle: "No task")
+            
+            for task in tasks {
+                popup.addItem(withTitle: task.title ?? "")
+            }
+            
+            popup.selectItem(at: selected)
+        }
+        
+        state.runningTask.producer.startWithValues { task in
+            Swift.print("✳️ Running task changed to: \(task)")
+            
+            guard let task = task else {
+                popup?.selectItem(at: 0)
+                return
+            }
+            
+            if let index = self.nextTasks.index(of: task) {
+                Swift.print("Index of running task: \(index)")
+                Swift.print("Selecting in poopup: \(index + 1)")
+                
+                popup?.selectItem(at: index + 1)
+            } else {
+                Swift.print("Running task has no index")
+                
+                popup?.selectItem(at: 0)
+            }
+        }
+    }
+    
+    @IBAction func changeRunningTask(_ sender: Any) {
+        let index = taskPopup.indexOfSelectedItem
+        if let task = nextTasks.at(index - 1) {
+            state.restartChangingTo(task: task)
+        }
+    }
+    
     
     @IBAction func toggleButtonClicked(_ sender: Any) {
         let index = toggleButton.selectedSegment

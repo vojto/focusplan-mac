@@ -21,6 +21,14 @@ extension TimerEntry {
         return endedAt.timeIntervalSince(startedAt)
     }
     
+    var elapsed: TimeInterval {
+        guard let startedAt = self.startedAt else {
+            return 0
+        }
+        
+        return Date().timeIntervalSince(startedAt as Date)
+    }
+    
     var projectedEnd: Date? {
         if let startedAt = self.startedAt, targetDuration > 0 {
             return (startedAt as Date).addingTimeInterval(targetDuration)

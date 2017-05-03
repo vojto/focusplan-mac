@@ -42,6 +42,19 @@ class TimerState: NSObject, NSUserNotificationCenterDelegate {
         generalLane.start(task: task)
     }
     
+    func restartChangingTo(task: Task) {
+        if let entry = generalLane.runningEntry.value,
+            entry.elapsed < 60 {
+            
+            entry.task = task
+            return
+        }
+        
+        
+        generalLane.stop()
+        generalLane.start(task: task)
+    }
+    
     func startPomodoro(type: PomodoroType) {
         let task = selectedTask.value
      

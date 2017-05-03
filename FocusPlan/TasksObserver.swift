@@ -13,12 +13,20 @@ import ReactiveSwift
 import enum Result.NoError
 
 class TasksObserver: ReactiveObserver<Task> {
-    init(wantsPlannedOnly: Bool, in context: NSManagedObjectContext) {
+    init(wantsPlannedOnly: Bool, wantsUnfinishedOnly: Bool = false, in context: NSManagedObjectContext) {
         let request: NSFetchRequest<NSFetchRequestResult> = Task.fetchRequest()
         
+        var predicates = [NSPredicate]()
+        
         if wantsPlannedOnly {
-            request.predicate = NSPredicate(format: "isPlanned = true")
+            predicates.append(NSPredicate(format: "isPlanned = true"))
         }
+        
+        if wantsUnfinishedOnly {
+            predicates.append(NSPredicate(format: "isFinished = false"))
+        }
+        
+        request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
         
         super.init(context: context, request: request)
     }
