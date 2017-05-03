@@ -23,6 +23,11 @@ class TimerLane {
     let runningEntry = MutableProperty<TimerEntry?>(nil)
     let isRunning = MutableProperty<Bool>(false)
     let runningSince = MutableProperty<Date?>(nil)
+    /**
+     If there is a running entry and it has a projected end, then `runningTill`
+     contains projected end of that running entry.
+     */
+    let runningTill = MutableProperty<Date?>(nil)
     
     let currentEntryObserver: ReactiveObserver<TimerEntry>!
     
@@ -45,24 +50,31 @@ class TimerLane {
         let isCurrentEntryRunning = currentEntry.producer.pick({ $0.reactive.isRunning.producer }).map({ $0 ?? false })
         
         runningEntry <~ SignalProducer.combineLatest(
-            isCurrentEntryRunning,
-            currentEntry.producer
-            ).map { running, entry -> TimerEntry? in
+            currentEntry.producer,
+            isCurrentEntryRunning
+        ).map({ entry, running -> TimerEntry? in
                 if running {
                     return entry
                 } else {
                     return nil
                 }
-        }
+        })
+    
         
         isRunning <~ isCurrentEntryRunning
         
         runningSince <~ runningEntry.producer.map { entry -> Date? in
             return entry?.startedAt as Date?
         }
+        
+        runningTill <~ runningEntry.producer.map({ entry -> Date? in
+            return entry?.projectedEnd
+        }).skipRepeats({ $0 == $1 })
     }
     
     func start(task: Task? = nil, type: String? = nil, targetDuration: TimeInterval? = nil) {
+        Swift.print("🌈 Starting timer in \(id) lane!")
+        
         let context = AppDelegate.viewContext
         let entry = TimerEntry(entity: TimerEntry.entity(), insertInto: context)
         
@@ -72,7 +84,7 @@ class TimerLane {
         entry.task = task
         
         if let duration = targetDuration {
-            entry.targetDuration = Int64(duration)
+            entry.targetDuration = duration
         }
         
         entry.project = task?.project

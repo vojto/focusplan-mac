@@ -71,7 +71,20 @@ class TimerViewController: NSViewController {
                 let elapsed: TimeInterval = date.timeIntervalSince(pomodoroStart)
                 let remaining = Double(entry.targetDuration) - elapsed
                 
-                return "Pomodoro: \(Formatting.format(timeInterval: remaining))"
+                guard let type = PomodoroType(rawValue: entry.type ?? "") else {
+                    assertionFailure()
+                    return ""
+                }
+                
+                let icon: String
+                switch type {
+                case .pomodoro:
+                    icon = "🍅"
+                case .shortBreak, .longBreak:
+                    icon = "💤"
+                }
+                
+                return "\(icon) \(Formatting.format(timeInterval: remaining))"
                 
             } else if let generalStart = self.state.generalLane.runningSince.value as Date? {
                 
@@ -120,7 +133,7 @@ class TimerViewController: NSViewController {
     }
     
     @IBAction func startPomodoro(_ sender: Any) {
-        state.startPomodoro()
+        state.startPomodoro(type: .pomodoro)
         startUIRefreshTimer()
     }
     

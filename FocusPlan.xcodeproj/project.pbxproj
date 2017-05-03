@@ -28,6 +28,7 @@
 		991E7B361EB0B9660086A9D9 /* TaskEstimateTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991E7B351EB0B9660086A9D9 /* TaskEstimateTableCellView.swift */; };
 		991E7B381EB0BEF00086A9D9 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991E7B371EB0BEF00086A9D9 /* String+Extensions.swift */; };
 		991E7B3C1EB0E80A0086A9D9 /* EditableTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991E7B3B1EB0E80A0086A9D9 /* EditableTableCellView.swift */; };
+		9933E49C1EB9BC6200B1CE85 /* PomodoroType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9933E49B1EB9BC6200B1CE85 /* PomodoroType.swift */; };
 		994063C61EB7028500E09165 /* SwiftDate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 994063C51EB7028500E09165 /* SwiftDate.framework */; };
 		994063C71EB7028A00E09165 /* SwiftDate.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 994063C51EB7028500E09165 /* SwiftDate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		994063C91EB7035400E09165 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994063C81EB7035400E09165 /* Date+Extensions.swift */; };
@@ -62,7 +63,7 @@
 		99B610101EB05D550098F69C /* Hue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99B6100F1EB05D550098F69C /* Hue.framework */; };
 		99B610121EB05D570098F69C /* Hue.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 99B6100F1EB05D550098F69C /* Hue.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		99B610161EB0602A0098F69C /* ProjectTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B610151EB0602A0098F69C /* ProjectTableCellView.swift */; };
-		99BBB0241EB8BFB5002C603F /* TimeLane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BBB0231EB8BFB5002C603F /* TimeLane.swift */; };
+		99BBB0241EB8BFB5002C603F /* TimerLane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BBB0231EB8BFB5002C603F /* TimerLane.swift */; };
 		99BBB0271EB8C270002C603F /* Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BBB0261EB8C270002C603F /* Formatting.swift */; };
 		99D122EB1EB86D6C00D495DC /* CalendarEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D122EA1EB86D6C00D495DC /* CalendarEvent.swift */; };
 		99D122ED1EB8729A00D495DC /* TimerEntry+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D122EC1EB8729A00D495DC /* TimerEntry+Extensions.swift */; };
@@ -128,6 +129,7 @@
 		991E7B3B1EB0E80A0086A9D9 /* EditableTableCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditableTableCellView.swift; sourceTree = "<group>"; };
 		9922F1191EAF656000BFA01F /* Cartography.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cartography.framework; path = Carthage/Build/Mac/Cartography.framework; sourceTree = "<group>"; };
 		9922F11A1EAF656000BFA01F /* NiceKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NiceKit.framework; path = Carthage/Build/Mac/NiceKit.framework; sourceTree = "<group>"; };
+		9933E49B1EB9BC6200B1CE85 /* PomodoroType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PomodoroType.swift; sourceTree = "<group>"; };
 		994063C51EB7028500E09165 /* SwiftDate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftDate.framework; path = Carthage/Build/Mac/SwiftDate.framework; sourceTree = "<group>"; };
 		994063C81EB7035400E09165 /* Date+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		994063CA1EB70ECA00E09165 /* CalendarHourHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarHourHeader.xib; sourceTree = "<group>"; };
@@ -151,7 +153,7 @@
 		99A762671EB1C2CD00A90AE9 /* NiceUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NiceUI.framework; path = Carthage/Build/Mac/NiceUI.framework; sourceTree = "<group>"; };
 		99B6100F1EB05D550098F69C /* Hue.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Hue.framework; path = Carthage/Build/Mac/Hue.framework; sourceTree = "<group>"; };
 		99B610151EB0602A0098F69C /* ProjectTableCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectTableCellView.swift; sourceTree = "<group>"; };
-		99BBB0231EB8BFB5002C603F /* TimeLane.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeLane.swift; sourceTree = "<group>"; };
+		99BBB0231EB8BFB5002C603F /* TimerLane.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerLane.swift; sourceTree = "<group>"; };
 		99BBB0261EB8C270002C603F /* Formatting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Formatting.swift; sourceTree = "<group>"; };
 		99D122EA1EB86D6C00D495DC /* CalendarEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarEvent.swift; sourceTree = "<group>"; };
 		99D122EC1EB8729A00D495DC /* TimerEntry+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TimerEntry+Extensions.swift"; sourceTree = "<group>"; };
@@ -327,7 +329,8 @@
 			isa = PBXGroup;
 			children = (
 				9981560F1EB7761F0057ECD0 /* TimerState.swift */,
-				99BBB0231EB8BFB5002C603F /* TimeLane.swift */,
+				99BBB0231EB8BFB5002C603F /* TimerLane.swift */,
+				9933E49B1EB9BC6200B1CE85 /* PomodoroType.swift */,
 			);
 			name = Logic;
 			sourceTree = "<group>";
@@ -499,6 +502,7 @@
 			files = (
 				991E7B341EB093690086A9D9 /* TasksRowView.swift in Sources */,
 				99BBB0271EB8C270002C603F /* Formatting.swift in Sources */,
+				9933E49C1EB9BC6200B1CE85 /* PomodoroType.swift in Sources */,
 				999E650D1EB362780001AAB7 /* PlanViewController.swift in Sources */,
 				998156131EB778020057ECD0 /* NSButton+Reactive.swift in Sources */,
 				99EEDE5D1EAF931500662DED /* ProjectsOutlineView.swift in Sources */,
@@ -530,7 +534,7 @@
 				99E6CD861EB6FEA0002A7966 /* Task+Extensions.swift in Sources */,
 				99078BF51EAF1CD000C3B789 /* AppDelegate.swift in Sources */,
 				991E7B3C1EB0E80A0086A9D9 /* EditableTableCellView.swift in Sources */,
-				99BBB0241EB8BFB5002C603F /* TimeLane.swift in Sources */,
+				99BBB0241EB8BFB5002C603F /* TimerLane.swift in Sources */,
 				99D122EF1EB8A6C500D495DC /* MainWindowDelegate.swift in Sources */,
 				994063CF1EB715DA00E09165 /* CalendarTimeLine.swift in Sources */,
 				991E7B2B1EB082FE0086A9D9 /* Task+Reactive.swift in Sources */,
@@ -643,7 +647,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = FocusPlan/FocusPlan.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = Q4C48EKH9Z;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -664,7 +668,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = FocusPlan/FocusPlan.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = Q4C48EKH9Z;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
