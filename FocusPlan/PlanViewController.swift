@@ -158,6 +158,8 @@ class PlanViewController: NSViewController {
             
             let duration = endedAt.timeIntervalSince(startedAt as Date)
             
+            Swift.print("➡️ Creating event from timer entry: \(entry)")
+            
             let event = CalendarEvent(timerEntry: entry, startsAt: startedAt as Date, duration: duration)
             events.append(event)
         }

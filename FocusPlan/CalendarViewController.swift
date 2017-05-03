@@ -43,7 +43,7 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     // ------------------------------------------------------------------------
     
     func numberOfSections(in collectionView: NSCollectionView) -> Int {
-        return 1
+        return sectionsCount
     }
     
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {

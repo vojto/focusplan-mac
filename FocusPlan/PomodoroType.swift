@@ -16,11 +16,11 @@ enum PomodoroType: String {
     var duration: TimeInterval {
         switch self {
         case .pomodoro:
-            return 30           // temp values
+            return 5 * 60           // temp values
         case .shortBreak:
-            return 15
+            return 60
         case .longBreak:
-            return 20
+            return 60
         }
     }
 }

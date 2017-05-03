@@ -52,7 +52,7 @@ class TimerState: NSObject, NSUserNotificationCenterDelegate {
         
         // But for Pomodoro lane, stop the running cycle and start a new one.
         pomodoroLane.stop()
-        pomodoroLane.start(task: task, type: type.rawValue, targetDuration: type.duration)
+        pomodoroLane.start(type: type.rawValue, targetDuration: type.duration)
     }
     
     func stop() {

@@ -26,6 +26,22 @@ class CalendarEvent: CustomStringConvertible {
         return startsAt.addingTimeInterval(duration)
     }
     
+    var lane: Int? {
+        switch type {
+        case .task:
+            return 0
+        case .timerEntry:
+            guard let lane = LaneId(rawValue: timerEntry?.lane ?? "") else { return nil }
+            
+            switch lane {
+            case .general:
+                return 0
+            case .pomodoro:
+                return 1
+            }
+        }
+    }
+    
     init(task: Task, startsAt: Date, duration: TimeInterval) {
         self.type = .task
         self.task = task
