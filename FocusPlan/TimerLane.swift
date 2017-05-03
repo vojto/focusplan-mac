@@ -72,7 +72,7 @@ class TimerLane {
         }).skipRepeats({ $0 == $1 })
     }
     
-    func start(task: Task? = nil, type: String? = nil, targetDuration: TimeInterval? = nil) {
+    func start(task: Task? = nil, type: String? = nil, targetDuration: TimeInterval? = nil, countPrevPomos: Int16 = 0) {
         Swift.print("🌈 Starting timer in \(id) lane!")
         
         let context = AppDelegate.viewContext
@@ -82,6 +82,7 @@ class TimerLane {
         entry.type = type
         entry.startedAt = Date() as NSDate
         entry.task = task
+        entry.countPrevPomos = countPrevPomos
         
         if let duration = targetDuration {
             entry.targetDuration = duration
@@ -91,7 +92,7 @@ class TimerLane {
     }
     
     func stop() {
-        guard let entry = currentEntry.value else { return }
+        guard let entry = runningEntry.value else { return }
         
         entry.endedAt = Date() as NSDate
     }

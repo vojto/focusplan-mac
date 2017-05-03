@@ -134,15 +134,17 @@ class TimerViewController: NSViewController {
     
     @IBAction func startPomodoro(_ sender: Any) {
         state.startPomodoro(type: .pomodoro)
-        startUIRefreshTimer()
+        resetUIRefreshTimer()
     }
     
     @IBAction func startShortBreak(_ sender: Any) {
         state.startPomodoro(type: .shortBreak)
+        resetUIRefreshTimer()
     }
     
     @IBAction func startLongBreak(_ sender: Any) {
         state.startPomodoro(type: .longBreak)
+        resetUIRefreshTimer()
     }
     
     

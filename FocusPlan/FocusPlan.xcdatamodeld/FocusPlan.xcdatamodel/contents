@@ -19,6 +19,7 @@
         <relationship name="timerEntries" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TimerEntry" inverseName="task" inverseEntity="TimerEntry" syncable="YES"/>
     </entity>
     <entity name="TimerEntry" representedClassName="TimerEntry" syncable="YES" codeGenerationType="class">
+        <attribute name="countPrevPomos" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="endedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="lane" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="startedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
@@ -30,6 +31,6 @@
     <elements>
         <element name="Project" positionX="-63" positionY="-18" width="128" height="120"/>
         <element name="Task" positionX="-63" positionY="9" width="128" height="180"/>
-        <element name="TimerEntry" positionX="-54" positionY="63" width="128" height="150"/>
+        <element name="TimerEntry" positionX="-54" positionY="63" width="128" height="165"/>
     </elements>
 </model>

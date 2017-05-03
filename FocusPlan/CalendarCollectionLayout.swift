@@ -64,7 +64,7 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
         
         let width = collectionView.bounds.size.width
         
-        let hourHeight = Double(75)
+        let hourHeight = Double(1500)
         let hours = (dayEnd - dayStart) / (60 * 60)
         
         let height = CGFloat(hours * hourHeight)

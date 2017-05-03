@@ -874,6 +874,7 @@
                         <action selector="startSimple:" target="uVd-aB-uN4" id="xu2-AF-lWf"/>
                     </connections>
                 </menuItem>
+                <menuItem isSeparatorItem="YES" id="hGa-SB-bPj"/>
                 <menuItem title="Start Pomodoro" id="psS-E4-tv4">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>

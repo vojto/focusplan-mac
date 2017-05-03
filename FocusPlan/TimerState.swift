@@ -51,18 +51,24 @@ class TimerState: NSObject, NSUserNotificationCenterDelegate {
         }
         
         // But for Pomodoro lane, stop the running cycle and start a new one.
+        var nextCountPrevPomos: Int16 = 0
+        if let runningPomo = pomodoroLane.runningEntry.value {
+            if runningPomo.type == PomodoroType.pomodoro.rawValue {
+                nextCountPrevPomos = runningPomo.countPrevPomos + Int16(1)
+            } else {
+                nextCountPrevPomos = runningPomo.countPrevPomos
+            }
+        }
+        
+        
         pomodoroLane.stop()
-        pomodoroLane.start(type: type.rawValue, targetDuration: type.duration)
+        pomodoroLane.start(type: type.rawValue, targetDuration: type.duration, countPrevPomos: nextCountPrevPomos)
     }
     
     func stop() {
-        if generalLane.isRunning.value {
-            generalLane.stop()
-        }
+        generalLane.stop()
         
-        if pomodoroLane.isRunning.value {
-            pomodoroLane.stop()
-        }
+        pomodoroLane.stop()
     }
     
     func handleProjectedEndChanged(_ projectedEnd: Date?) {
@@ -122,10 +128,19 @@ class TimerState: NSObject, NSUserNotificationCenterDelegate {
         
         let nextType: PomodoroType
         
+        let longBreakEach = 2
+        
         switch type {
         case .pomodoro:
-            nextType = .shortBreak
-        case .shortBreak, .longBreak:
+            let countPrevPomos = Int(entry.countPrevPomos)
+            if (countPrevPomos + 1) % longBreakEach == 0 {
+                nextType = .longBreak
+            } else {
+                nextType = .shortBreak
+            }
+        case .shortBreak:
+            nextType = .pomodoro
+        case .longBreak:
             nextType = .pomodoro
         }
         
