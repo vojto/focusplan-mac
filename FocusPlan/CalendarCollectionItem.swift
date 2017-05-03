@@ -97,7 +97,7 @@ class CalendarCollectionItem: NSCollectionViewItem {
                     view.layer?.backgroundColor = color1.cgColor
                     view.layer?.borderColor = color1.cgColor
                     field.textColor = color
-                    field.stringValue = self.event.value?.task?.title ?? ""
+                    field.stringValue = self.event.value?.timerEntry?.task?.title ?? ""
                 }
                 
                 break
