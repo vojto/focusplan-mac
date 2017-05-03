@@ -42,14 +42,15 @@ class CalendarCollectionItem: NSCollectionViewItem {
         let projectColor = project.pick { $0.reactive.color.producer }
         
         SignalProducer.combineLatest(eventType.producer, projectColor.producer).startWithValues { type, colorName in
-            guard let color = Palette.decode(colorName: colorName) else { return }
-            
             let view = self.view
             
             guard let type = type else { return }
             
+            field.alpha = 1
+            
             switch type {
             case .task:
+                guard let color = Palette.decode(colorName: colorName) else { return }
                 let color1 = color.addHue(0, saturation: -0.3, brightness: 0.2, alpha: -0.9)
                 let borderColor = color.addHue(0, saturation: -0.3, brightness: 0.2, alpha: -0.2)
                 
@@ -59,28 +60,54 @@ class CalendarCollectionItem: NSCollectionViewItem {
                 view.layer?.borderColor = borderColor.cgColor
                 
                 field.textColor = textColor
+                field.stringValue = self.event.value?.task?.title ?? ""
                 
                 break
             case .timerEntry:
+                Swift.print("🖍")
+                Swift.print("Coloring from event: \(self.event)")
+                Swift.print("Entry: \(self.event.value?.timerEntry)")
                 
-                let color1 = color.addHue(0, saturation: -0.3, brightness: 0.2, alpha: -0.2)
+                guard let entry = self.event.value?.timerEntry else { return }
+                guard let lane = LaneId(rawValue: entry.lane ?? "") else { return }
                 
+                switch lane {
+                case .pomodoro:
+                    guard let type = PomodoroType(rawValue: entry.type ?? "") else { return }
+                    
+                    switch type {
+                    case .pomodoro:
+                        let red = NSColor(hexString: "DB225D")?.cgColor
+                        view.layer?.backgroundColor = red
+                        view.layer?.borderColor = red
+                        field.textColor = NSColor.white
+                        field.stringValue = "Pomodoro"
+                        field.alpha = 0.75
+                    case .shortBreak, .longBreak:
+                        let green = NSColor(hexString: "85D0C0")?.cgColor
+                        view.layer?.backgroundColor = green
+                        view.layer?.borderColor = green
+                        field.textColor = NSColor.white
+                        field.stringValue = "Break"
+                        field.alpha = 0.75
+                    }
+                case .general:
+                    guard let color = Palette.decode(colorName: colorName) else { return }
+                    let color1 = color.addHue(0, saturation: -0.3, brightness: 0.2, alpha: -0.2)
+                    view.layer?.backgroundColor = color1.cgColor
+                    view.layer?.borderColor = color1.cgColor
+                    field.textColor = color
+                }
                 
-                view.layer?.backgroundColor = color1.cgColor
-                view.layer?.borderColor = color1.cgColor
-                
-                field.textColor = color
-                
-                //                field.textColor = NSColor.white
                 break
             }
         }
     
         
-        let taskTitle = task.pick { $0.reactive.title }
+//        let taskTitle = task.pick { $0.reactive.title }
         
 
-        field.reactive.stringValue <~ taskTitle.map { $0 ?? "" }
+//        field.reactive.stringValue <~ taskTitle.map { $0 ?? "" }
         
     }
     
