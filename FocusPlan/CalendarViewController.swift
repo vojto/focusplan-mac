@@ -15,8 +15,6 @@ enum CalendarDecorationSection: Int {
     case sectionLabel = 2
 }
 
-fileprivate let kCalendarDraggedType = "CalendarDraggedType"
-
 class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCollectionViewDelegate {
 
     @IBOutlet var collectionView: NSCollectionView!
@@ -45,7 +43,7 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        collectionView.collectionViewLayout = collectionLayout
+//        collectionView.collectionViewLayout = collectionLayout
         
         let nib = NSNib(nibNamed: "CalendarHourHeader", bundle: nil)
         collectionView.register(nib, forSupplementaryViewOfKind: kHourHeader, withIdentifier: kHourHeaderIdentifier)
@@ -60,7 +58,8 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
         collectionView.allowsEmptySelection = true
         collectionView.allowsMultipleSelection = true
         
-        collectionView.register(forDraggedTypes: [kCalendarDraggedType])
+        collectionView.register(forDraggedTypes: [NSStringPboardType])
+
 
     }
     
@@ -146,39 +145,24 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     
     func collectionView(_ collectionView: NSCollectionView, pasteboardWriterForItemAt indexPath: IndexPath) -> NSPasteboardWriting? {
         
-        Swift.print("Getting pasteboard writer for item at index path: \(indexPath)")
-        
-        return "some item" as NSString
-        
-        /*
-        if let url = URL(dataRepresentation: data, relativeTo: nil) {
-            Swift.print("Writing URL: \(url)")
-            
-            return url as NSURL
-        } else {
-            return nil
-        }
-        */
-    }
- 
-    
-//    func collectionView(_ collectionView: NSCollectionView, writeItemsAt indexPaths: Set<IndexPath>, to pasteboard: NSPasteboard) -> Bool {
-//        return true
-//    }
-    
-    func collectionView(_ collectionView: NSCollectionView, canDragItemsAt indexes: IndexSet, with event: NSEvent) -> Bool {
-        
-        Swift.print("Checking if we can drag items at \(indexes)")
-        
-        return true
+        let data = NSKeyedArchiver.archivedData(withRootObject: indexPath)
+        return data.base64EncodedString() as NSString
     }
     
-    func collectionView(_ collectionView: NSCollectionView, validateDrop draggingInfo: NSDraggingInfo, proposedIndex proposedDropIndex: UnsafeMutablePointer<Int>, dropOperation proposedDropOperation: UnsafeMutablePointer<NSCollectionViewDropOperation>) -> NSDragOperation {
+    func collectionView(_ collectionView: NSCollectionView, validateDrop draggingInfo: NSDraggingInfo, proposedIndexPath proposedDropIndexPath: AutoreleasingUnsafeMutablePointer<NSIndexPath>, dropOperation proposedDropOperation: UnsafeMutablePointer<NSCollectionViewDropOperation>) -> NSDragOperation {
         
-        Swift.print("Validating drop")
+        Swift.print("validating drop!")
         
         return .move
+        
     }
+//    
+//    func collectionView(_ collectionView: NSCollectionView, validateDrop draggingInfo: NSDraggingInfo, proposedIndex proposedDropIndex: UnsafeMutablePointer<Int>, dropOperation proposedDropOperation: UnsafeMutablePointer<NSCollectionViewDropOperation>) -> NSDragOperation {
+//        
+//        Swift.print("Validating drop")
+//        
+//        return .move
+//    }
     
 //    func collectionView(_ collectionView: NSCollectionView, draggingSession session: NSDraggingSession, willBeginAt screenPoint: NSPoint, forItemsAt indexes: IndexSet) {
 //        Swift.print("Dragging session will begin!")
@@ -188,11 +172,20 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
 //        
 //    }
     
+    func collectionView(_ collectionView: NSCollectionView, acceptDrop draggingInfo: NSDraggingInfo, indexPath: IndexPath, dropOperation: NSCollectionViewDropOperation) -> Bool {
+        Swift.print("accepting drop")
+        
+        return true
+    }
+    
+    
+    
     func collectionView(_ collectionView: NSCollectionView, acceptDrop draggingInfo: NSDraggingInfo, index: Int, dropOperation: NSCollectionViewDropOperation) -> Bool {
         
         Swift.print("Accepting drop")
         
         return true
     }
-    
 }
+
+
