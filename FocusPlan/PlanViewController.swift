@@ -93,11 +93,11 @@ class PlanViewController: NSViewController {
                 self.updateCalendar(tasks: tasks, timerEntries: timerEntries)
         }
         
-        let now = timer(interval: .seconds(5), on: QueueScheduler.main)
-        
-        now.startWithValues { _ in
-            self.updateCalendarWithLastValues()
-        }
+//        let now = timer(interval: .seconds(5), on: QueueScheduler.main)
+//        
+//        now.startWithValues { _ in
+//            self.updateCalendarWithLastValues()
+//        }
     }
     
     func updateCalendarWithLastValues() {

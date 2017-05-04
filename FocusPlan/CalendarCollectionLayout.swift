@@ -12,8 +12,9 @@ import SwiftDate
 
 // https://www.objc.io/issues/3-views/collection-view-layouts/
 
-let kHourHeader = "HourHeader"
 let kHourHeaderIdentifier = "CalendarHourHeader"
+
+let kHourHeader = "HourHeader"
 let kTimeLine = "TimeLine"
 let kSectionLine = "SectionLine"
 let kSectionLabel = "SectionLabel"
@@ -227,13 +228,12 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
         } else if elementKind == kSectionLine {
             let attributes = NSCollectionViewLayoutAttributes(forDecorationViewOfKind: kSectionLine, with: indexPath)
             
+            attributes.zIndex = -1
             attributes.frame = sectionFrame(at: indexPath.item)
             
             return attributes
         } else if elementKind == kSectionLabel {
             let attributes = NSCollectionViewLayoutAttributes(forDecorationViewOfKind: kSectionLabel, with: indexPath)
-            
-            
             
             var frame = sectionFrame(at: indexPath.item)
             frame.size.height = 20

@@ -14,6 +14,10 @@ import Hue
 class CalendarCollectionItem: NSCollectionViewItem {
     
     let event = MutableProperty<CalendarEvent?>(nil)
+    
+    var customView: CalendarCollectionItemView {
+        return self.view as! CalendarCollectionItemView
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,7 +59,6 @@ class CalendarCollectionItem: NSCollectionViewItem {
                 
                 view.background = color1
                 view.border = borderColor
-                view.isDashed = true
                 
                 field.textColor = textColor
                 field.stringValue = self.event.value?.task?.title ?? ""
@@ -98,13 +101,30 @@ class CalendarCollectionItem: NSCollectionViewItem {
                 break
             }
         }
+    }
     
-        
-//        let taskTitle = task.pick { $0.reactive.title }
-        
-
-//        field.reactive.stringValue <~ taskTitle.map { $0 ?? "" }
-        
+    override var isSelected: Bool {
+        didSet {
+            if isSelected {
+                customView.isHighlighted = true
+            } else {
+                customView.isHighlighted = false
+            }
+        }
+    }
+    
+    override var highlightState: NSCollectionViewItemHighlightState {
+        didSet {
+            switch highlightState {
+            case .forSelection:
+                customView.isHighlighted = true
+            case .forDeselection:
+                customView.isHighlighted = false
+            default:
+                break
+//                customView.isHighlighted = false
+            }
+        }
     }
     
     

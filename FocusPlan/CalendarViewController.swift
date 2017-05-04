@@ -54,7 +54,12 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
         
         collectionLayout.register(CalendarSectionLabel.self, forDecorationViewOfKind: kSectionLabel)
         
-        // Do view setup here.
+        collectionView.isSelectable = true
+        collectionView.allowsEmptySelection = true
+        collectionView.allowsMultipleSelection = true
+        
+        
+        
     }
     
     func reloadData() {
@@ -96,9 +101,9 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
             Swift.print("🌈 Making the time line!")
             
             return NSView()
+        } else {
+            return collectionView.makeSupplementaryView(ofKind: kind, withIdentifier: "", for: indexPath)
         }
-        
-        fatalError("unknown kind: \(kind)")
     }
     
     
