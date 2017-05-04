@@ -61,8 +61,7 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
         collectionView.allowsMultipleSelection = true
         
         collectionView.register(forDraggedTypes: [kCalendarDraggedType])
-        
-        
+
     }
     
     func reloadData() {
@@ -143,30 +142,56 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     // MARK: - Drag and drop
     // ------------------------------------------------------------------------
     
-    func collectionView(_ collectionView: NSCollectionView, writeItemsAt indexes: IndexSet, to pasteboard: NSPasteboard) -> Bool {
+    
+    
+    func collectionView(_ collectionView: NSCollectionView, pasteboardWriterForItemAt indexPath: IndexPath) -> NSPasteboardWriting? {
         
-        let data = NSKeyedArchiver.archivedData(withRootObject: indexes)
+        Swift.print("Getting pasteboard writer for item at index path: \(indexPath)")
         
+        return "some item" as NSString
         
-        
-        pasteboard.declareTypes([kCalendarDraggedType], owner: self)
-        pasteboard.setData(data, forType: kCalendarDraggedType)
-        
-        Swift.print("Writing items at indexes: \(indexes)")
-        
-        return true
+        /*
+        if let url = URL(dataRepresentation: data, relativeTo: nil) {
+            Swift.print("Writing URL: \(url)")
+            
+            return url as NSURL
+        } else {
+            return nil
+        }
+        */
     }
+ 
+    
+//    func collectionView(_ collectionView: NSCollectionView, writeItemsAt indexPaths: Set<IndexPath>, to pasteboard: NSPasteboard) -> Bool {
+//        return true
+//    }
     
     func collectionView(_ collectionView: NSCollectionView, canDragItemsAt indexes: IndexSet, with event: NSEvent) -> Bool {
+        
+        Swift.print("Checking if we can drag items at \(indexes)")
+        
         return true
     }
     
     func collectionView(_ collectionView: NSCollectionView, validateDrop draggingInfo: NSDraggingInfo, proposedIndex proposedDropIndex: UnsafeMutablePointer<Int>, dropOperation proposedDropOperation: UnsafeMutablePointer<NSCollectionViewDropOperation>) -> NSDragOperation {
         
+        Swift.print("Validating drop")
+        
         return .move
     }
     
+//    func collectionView(_ collectionView: NSCollectionView, draggingSession session: NSDraggingSession, willBeginAt screenPoint: NSPoint, forItemsAt indexes: IndexSet) {
+//        Swift.print("Dragging session will begin!")
+//    }
+//    
+//    func collectionView(_ collectionView: NSCollectionView, draggingSession session: NSDraggingSession, endedAt screenPoint: NSPoint, dragOperation operation: NSDragOperation) {
+//        
+//    }
+    
     func collectionView(_ collectionView: NSCollectionView, acceptDrop draggingInfo: NSDraggingInfo, index: Int, dropOperation: NSCollectionViewDropOperation) -> Bool {
+        
+        Swift.print("Accepting drop")
+        
         return true
     }
     
