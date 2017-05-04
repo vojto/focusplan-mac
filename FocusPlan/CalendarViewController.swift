@@ -15,6 +15,8 @@ enum CalendarDecorationSection: Int {
     case sectionLabel = 2
 }
 
+fileprivate let kCalendarDraggedType = "CalendarDraggedType"
+
 class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCollectionViewDelegate {
 
     @IBOutlet var collectionView: NSCollectionView!
@@ -58,6 +60,7 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
         collectionView.allowsEmptySelection = true
         collectionView.allowsMultipleSelection = true
         
+        collectionView.register(forDraggedTypes: [kCalendarDraggedType])
         
         
     }
@@ -107,7 +110,6 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     }
     
     
-    
     // MARK: - Accessing events
     // ------------------------------------------------------------------------
 
@@ -137,4 +139,35 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     func event(atIndexPath path: IndexPath) -> CalendarEvent? {
         return events.at(path.item)
     }
+    
+    // MARK: - Drag and drop
+    // ------------------------------------------------------------------------
+    
+    func collectionView(_ collectionView: NSCollectionView, writeItemsAt indexes: IndexSet, to pasteboard: NSPasteboard) -> Bool {
+        
+        let data = NSKeyedArchiver.archivedData(withRootObject: indexes)
+        
+        
+        
+        pasteboard.declareTypes([kCalendarDraggedType], owner: self)
+        pasteboard.setData(data, forType: kCalendarDraggedType)
+        
+        Swift.print("Writing items at indexes: \(indexes)")
+        
+        return true
+    }
+    
+    func collectionView(_ collectionView: NSCollectionView, canDragItemsAt indexes: IndexSet, with event: NSEvent) -> Bool {
+        return true
+    }
+    
+    func collectionView(_ collectionView: NSCollectionView, validateDrop draggingInfo: NSDraggingInfo, proposedIndex proposedDropIndex: UnsafeMutablePointer<Int>, dropOperation proposedDropOperation: UnsafeMutablePointer<NSCollectionViewDropOperation>) -> NSDragOperation {
+        
+        return .move
+    }
+    
+    func collectionView(_ collectionView: NSCollectionView, acceptDrop draggingInfo: NSDraggingInfo, index: Int, dropOperation: NSCollectionViewDropOperation) -> Bool {
+        return true
+    }
+    
 }
