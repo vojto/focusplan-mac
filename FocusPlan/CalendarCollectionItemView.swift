@@ -15,6 +15,8 @@ class CalendarCollectionItemView: NSView {
     var border = NSColor.blue { didSet { needsDisplay = true } }
     var isDashed = false { didSet { needsDisplay = true } }
     var isHighlighted = false { didSet { needsDisplay = true } }
+    
+    var onDoubleClick: (() -> ())?
 
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
@@ -39,6 +41,14 @@ class CalendarCollectionItemView: NSView {
         
         border.setStroke()
         path.stroke()
+    }
+    
+    override func mouseDown(with event: NSEvent) {
+        if event.clickCount == 2 {
+            onDoubleClick?()
+        } else {
+            super.mouseDown(with: event)
+        }
     }
     
 }

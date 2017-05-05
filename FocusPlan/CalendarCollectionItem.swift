@@ -24,6 +24,8 @@ class CalendarCollectionItem: NSCollectionViewItem {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        customView.onDoubleClick = self.handleDoubleClick
+        
         let view = self.view as! CalendarCollectionItemView
 
         
@@ -128,7 +130,22 @@ class CalendarCollectionItem: NSCollectionViewItem {
             }
         }
     }
-
     
+    var editController: EditTaskViewController?
+    var editPopover: NSPopover?
     
+    func handleDoubleClick() {
+        if editController == nil {
+            editController = EditTaskViewController()
+        }
+        
+        if editPopover == nil {
+            editPopover = NSPopover()
+            editPopover?.contentViewController = editController
+            editPopover?.behavior = .transient
+            editPopover?.animates = false
+        }
+        
+        editPopover?.show(relativeTo: view.bounds, of: view, preferredEdge: .minY)
+    }
 }
