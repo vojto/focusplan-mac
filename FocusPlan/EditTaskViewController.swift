@@ -8,6 +8,7 @@
 
 import Cocoa
 import ReactiveSwift
+import NiceReactive
 
 class EditTaskViewController: NSViewController, NSTextFieldDelegate {
     
@@ -17,7 +18,8 @@ class EditTaskViewController: NSViewController, NSTextFieldDelegate {
     
     @IBOutlet weak var titleField: SelectingTextField!
     @IBOutlet weak var estimateField: SelectingTextField!
-    
+    @IBOutlet weak var projectPopup: NSPopUpButton!
+    var projectSelect: ReactiveSelect<Project>!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +27,8 @@ class EditTaskViewController: NSViewController, NSTextFieldDelegate {
         setupTitleField()
         
         setupEstimateField()
+        
+        setupProjectField()
     }
     
     func setupTitleField() {
@@ -49,6 +53,19 @@ class EditTaskViewController: NSViewController, NSTextFieldDelegate {
         estimateField.reactive.stringValues.observeValues { value in
             self.task.value?.setEstimate(fromString: value)
         }
+    }
+    
+    func setupProjectField() {
+        projectSelect = ReactiveSelect(button: projectPopup)
+        projectSelect.label = { $0.name ?? "" }
+        projectSelect.rac_values <~ AppDelegate.allProjectsObserver.objects
+        
+        projectSelect.rac_selectedValue <~ task.producer.pick({ $0.reactive.project.producer })
+        
+        projectSelect.onChange = { project in
+            self.task.value?.project = project
+        }
+        
     }
     
     func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
