@@ -15,8 +15,8 @@ class EditTaskViewController: NSViewController, NSTextFieldDelegate {
     
     var onFinishEditing: (() -> ())?
     
-    @IBOutlet weak var titleField: NSTextField!
-    @IBOutlet weak var estimateField: NSTextField!
+    @IBOutlet weak var titleField: SelectingTextField!
+    @IBOutlet weak var estimateField: SelectingTextField!
     
 
     override func viewDidLoad() {

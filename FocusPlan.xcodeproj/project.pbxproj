@@ -67,6 +67,7 @@
 		99B026D61EBC7E9300533FE3 /* Sequence+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B026D51EBC7E9300533FE3 /* Sequence+Extensions.swift */; };
 		99B026DA1EBC941100533FE3 /* EditTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B026D81EBC941100533FE3 /* EditTaskViewController.swift */; };
 		99B026DB1EBC941100533FE3 /* EditTaskViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 99B026D91EBC941100533FE3 /* EditTaskViewController.xib */; };
+		99B026DD1EBCA13200533FE3 /* SelectingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B026DC1EBCA13200533FE3 /* SelectingTextField.swift */; };
 		99B610101EB05D550098F69C /* Hue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99B6100F1EB05D550098F69C /* Hue.framework */; };
 		99B610121EB05D570098F69C /* Hue.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 99B6100F1EB05D550098F69C /* Hue.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		99B610161EB0602A0098F69C /* ProjectTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B610151EB0602A0098F69C /* ProjectTableCellView.swift */; };
@@ -165,6 +166,7 @@
 		99B026D51EBC7E9300533FE3 /* Sequence+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Sequence+Extensions.swift"; sourceTree = "<group>"; };
 		99B026D81EBC941100533FE3 /* EditTaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditTaskViewController.swift; sourceTree = "<group>"; };
 		99B026D91EBC941100533FE3 /* EditTaskViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditTaskViewController.xib; sourceTree = "<group>"; };
+		99B026DC1EBCA13200533FE3 /* SelectingTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectingTextField.swift; sourceTree = "<group>"; };
 		99B6100F1EB05D550098F69C /* Hue.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Hue.framework; path = Carthage/Build/Mac/Hue.framework; sourceTree = "<group>"; };
 		99B610151EB0602A0098F69C /* ProjectTableCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectTableCellView.swift; sourceTree = "<group>"; };
 		99BBB0231EB8BFB5002C603F /* TimerLane.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerLane.swift; sourceTree = "<group>"; };
@@ -276,6 +278,7 @@
 			isa = PBXGroup;
 			children = (
 				991E7B2F1EB0865F0086A9D9 /* NSOutlineView+Extensions.swift */,
+				99B026DC1EBCA13200533FE3 /* SelectingTextField.swift */,
 			);
 			name = "AppKit+Extensions";
 			sourceTree = "<group>";
@@ -569,6 +572,7 @@
 				99BBB0241EB8BFB5002C603F /* TimerLane.swift in Sources */,
 				9933E49E1EB9C84600B1CE85 /* CalendarCollectionItemView.swift in Sources */,
 				99D122EF1EB8A6C500D495DC /* MainWindowDelegate.swift in Sources */,
+				99B026DD1EBCA13200533FE3 /* SelectingTextField.swift in Sources */,
 				9933E4A21EBA176500B1CE85 /* CalendarSectionLabel.swift in Sources */,
 				99B026D41EBC675F00533FE3 /* CalendarEventsCollection.swift in Sources */,
 				994063CF1EB715DA00E09165 /* CalendarTimeLine.swift in Sources */,
