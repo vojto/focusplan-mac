@@ -16,6 +16,8 @@ class CalendarCollectionItem: NSCollectionViewItem {
     let event = MutableProperty<CalendarEvent?>(nil)
     @IBOutlet weak var field: NSTextField!
     
+    var onEdit: ((CalendarCollectionItem) -> ())?
+    
     var customView: CalendarCollectionItemView {
         return self.view as! CalendarCollectionItemView
     }
@@ -131,29 +133,7 @@ class CalendarCollectionItem: NSCollectionViewItem {
         }
     }
     
-    var editController: EditTaskViewController?
-    var editPopover: NSPopover?
-    
     func handleDoubleClick() {
-        guard let task = event.value?.task else { return }
-        
-        if editController == nil {
-            editController = EditTaskViewController()
-            
-            editController?.onFinishEditing = {
-                self.editPopover?.close()
-            }
-        }
-        
-        if editPopover == nil {
-            editPopover = NSPopover()
-            editPopover?.contentViewController = editController
-            editPopover?.behavior = .transient
-            editPopover?.animates = false
-        }
-        
-        editController?.task.value = task
-        
-        editPopover?.show(relativeTo: view.bounds, of: view, preferredEdge: .minY)
+        onEdit?(self)
     }
 }

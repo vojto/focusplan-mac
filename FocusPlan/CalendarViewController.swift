@@ -20,6 +20,9 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     @IBOutlet var collectionView: NSCollectionView!
     let collectionLayout = CalendarCollectionLayout()
     
+    var editController: EditTaskViewController?
+    var editPopover: NSPopover?
+    
     var events = CalendarEventsCollection()
     
     var onReorder: (() -> ())?
@@ -53,6 +56,12 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     }
     
     func reloadData() {
+        // TODO: Temporary hack to avoid reloading collection when popover
+        // makes changes to data...
+        if (editPopover?.isShown ?? false) {
+            return
+        }
+        
         NSAnimationContext.current().duration = 0
         self.collectionView.reloadData()
     }
@@ -73,6 +82,8 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
         let item = collectionView.makeItem(withIdentifier: "CalendarCollectionItem", for: indexPath) as! CalendarCollectionItem
+        
+        item.onEdit = self.handleEdit
         
         item.event.value = events.at(indexPath: indexPath)
         
@@ -162,12 +173,37 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     func collectionView(_ collectionView: NSCollectionView, acceptDrop draggingInfo: NSDraggingInfo, indexPath: IndexPath, dropOperation: NSCollectionViewDropOperation) -> Bool {
 
         onReorder?()
- 
         
         return true
     }
     
+    // MARK: - Editing
+    // -----------------------------------------------------------------------
     
+    func handleEdit(item: CalendarCollectionItem) {
+        guard let task = item.event.value?.task else { return }
+        let view = item.view
+        
+        if editController == nil {
+            editController = EditTaskViewController()
+            
+            editController?.onFinishEditing = {
+                self.editPopover?.close()
+                self.reloadData()
+            }
+        }
+        
+        if editPopover == nil {
+            editPopover = NSPopover()
+            editPopover?.contentViewController = editController
+            editPopover?.behavior = .transient
+            editPopover?.animates = false
+        }
+        
+        editController?.task.value = task
+        
+        editPopover?.show(relativeTo: view.bounds, of: view, preferredEdge: .minY)
+    }
 }
 
 
