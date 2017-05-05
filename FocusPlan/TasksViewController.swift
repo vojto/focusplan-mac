@@ -242,13 +242,13 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
     
     @IBAction func planForToday(_ sender: Any) {
         for task in findSelectedTasks() {
-            task.isPlanned = true
+            task.plannedFor = Date() as NSDate
         }
     }
     
     @IBAction func unplan(_ sender: Any) {
         for task in findSelectedTasks() {
-            task.isPlanned = false
+            task.plannedFor = nil
         }
     }
     

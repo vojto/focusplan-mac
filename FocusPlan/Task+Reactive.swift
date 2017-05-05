@@ -32,9 +32,13 @@ public extension Reactive where Base: Task {
             .map(asBool).map { $0 ?? false }
     }
     
+    var plannedFor: SignalProducer<Date?, NoError> {
+        return producer(forKeyPath: #keyPath(Task.plannedFor))
+            .map(asDate)
+    }
+    
     var isPlanned: SignalProducer<Bool, NoError> {
-        return producer(forKeyPath: #keyPath(Task.isPlanned))
-            .map(asBool).map { $0 ?? false }
+        return plannedFor.map { $0 != nil }
     }
     
     var project: SignalProducer<Project?, NoError> {

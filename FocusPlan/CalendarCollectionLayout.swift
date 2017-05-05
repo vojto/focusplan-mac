@@ -109,7 +109,6 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
             }
         }
         
-        
         if !config.durationsOnly {
             // Hour labels
             let countLabels = Int(dayDuration / labelEvery)
@@ -146,12 +145,22 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
     // ------------------------------------------------------------------------
     
     override func layoutAttributesForItem(at indexPath: IndexPath) -> NSCollectionViewLayoutAttributes? {
+
+        let attributes = NSCollectionViewLayoutAttributes(forItemWith: indexPath)
         
+        guard let frame = frameFor(eventAt: indexPath) else {
+            return nil
+        }
+
+        attributes.frame = frame
+        
+        return attributes
+    }
+    
+    func frameFor(eventAt indexPath: IndexPath) -> NSRect? {
         guard let event = controller.event(atIndexPath: indexPath) else { return nil }
         guard let lane = event.lane else { return nil }
         
-        let attributes = NSCollectionViewLayoutAttributes(forItemWith: indexPath)
-
         let sections = controller.config.range.dayCount
         let sectionWidth = innerFrame.size.width / CGFloat(sections)
         
@@ -161,7 +170,8 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
         let durationInterval: TimeInterval
         
         if config.durationsOnly {
-            startingInterval = event.durationOffset
+            startingInterval = durationOffset(forEventAt: indexPath)
+            //            Swift.print("Duration offset for \(event.task?.title): \(startingInterval)")
             durationInterval = event.duration
         } else {
             startingInterval = event.startsAt.dayTimeInterval - dayStart
@@ -181,19 +191,35 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
         
         x += laneOffset
         
-        attributes.frame = NSRect(x: x, y: y, width: laneWidth, height: height).insetBy(dx: 1.0, dy: 0)
+        var frame: NSRect
+        
+        frame = NSRect(x: x, y: y, width: laneWidth, height: height).insetBy(dx: 1.0, dy: 0)
         
         if config.durationsOnly {
-            attributes.frame = attributes.frame.insetBy(dx: 2.0, dy: 2.0)
+            frame = frame.insetBy(dx: 2.0, dy: 2.0)
         }
         
-        if attributes.frame.size.height < 0 {
+        if frame.size.height < 0 {
             return nil
         }
         
-        return attributes
+        return frame
     }
     
+    func durationOffset(forEventAt indexPath: IndexPath) -> TimeInterval {
+        var durationOffset: TimeInterval = 0
+        
+        if indexPath.item == 0 {
+            return 0
+        }
+        
+        for i in 0...(indexPath.item-1) {
+            let event = controller.event(atIndexPath: IndexPath(item: i, section: indexPath.section))
+            durationOffset += event?.duration ?? 0
+        }
+        
+        return durationOffset
+    }
     
     override func layoutAttributesForSupplementaryView(ofKind elementKind: String, at indexPath: IndexPath) -> NSCollectionViewLayoutAttributes? {
         
@@ -273,4 +299,41 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
         return nil // TODO ...
     }
     */
+    
+    // MARK: - Dropping items
+    // ------------------------------------------------------------------------
+    
+    override func layoutAttributesForDropTarget(at pointInCollectionView: NSPoint) -> NSCollectionViewLayoutAttributes? {
+        
+        // Find the item on top of which we are
+        
+        for path in controller.events.allIndexPaths {
+            if let frame = frameFor(eventAt: path),
+                frame.contains(pointInCollectionView) {
+                
+                let attributes = NSCollectionViewLayoutAttributes(forItemWith: path)
+//                attributes.frame = frame
+                return attributes
+            }
+        }
+        
+        let sections = controller.events.sections
+        
+        for i in 0...sections.lastIndex {
+            let frame = sectionFrame(at: i)
+            
+            if frame.contains(pointInCollectionView) {
+                let attributes = NSCollectionViewLayoutAttributes(forInterItemGapBefore: IndexPath(item: 0, section: i))
+//                attributes.frame = frame
+                
+                // TODO: Set the frame?
+                
+                return attributes
+            }
+        }
+        
+        return nil
+    
+        
+    }
 }

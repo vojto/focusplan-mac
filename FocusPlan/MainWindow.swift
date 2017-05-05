@@ -69,6 +69,7 @@ class MainWindow: NSWindow, NSToolbarDelegate {
                     lanes: [.task, .pomodoro],
                     durationsOnly: false
                 )
+                planController.calendarController.reloadData()
                 
             case .thisWeek:
                 mainView.isHidden = true
@@ -79,6 +80,7 @@ class MainWindow: NSWindow, NSToolbarDelegate {
                     durationsOnly: true
                 )
                 
+                planController.calendarController.reloadData()
                 planController.calendarController.collectionView.scroll(NSPoint(x: 0, y: 0))
             }
         }

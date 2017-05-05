@@ -18,4 +18,8 @@ extension Task {
         
         return Double(minutes) * 60
     }
+
+    var isPlanned: Bool {
+        return plannedFor != nil
+    }
 }

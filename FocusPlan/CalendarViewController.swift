@@ -20,16 +20,9 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     @IBOutlet var collectionView: NSCollectionView!
     let collectionLayout = CalendarCollectionLayout()
     
-    var events = [CalendarEvent]() {
-        didSet {
-            var offset: TimeInterval = 0
-            
-            for event in events {
-                event.durationOffset = offset
-                offset += event.duration
-            }
-        }
-    }
+    var events = CalendarEventsCollection()
+    
+    var onReorder: (() -> ())?
     
     var config = PlanConfig.defaultConfig {
         didSet {
@@ -72,7 +65,7 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     }
     
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-        return events.count
+        return events.sections.at(section)?.count ?? 0
     }
     
     // MARK: - Making views
@@ -81,7 +74,7 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
         let item = collectionView.makeItem(withIdentifier: "CalendarCollectionItem", for: indexPath) as! CalendarCollectionItem
         
-        item.event.value = events[indexPath.item]
+        item.event.value = events.at(indexPath: indexPath)
         
         return item
     }
@@ -108,36 +101,19 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     // ------------------------------------------------------------------------
 
     func allIndexPaths() -> [IndexPath] {
-        var paths = [IndexPath]()
-        
-        for (i, event) in events.enumerated() {
-            // For now, stick them all in one section
-            
-            let rangeStart = config.range.start.startOf(component: .day)
-            
-            let interval = event.startsAt.timeIntervalSince(rangeStart)
-            
-            let dayIndex = Int(floor(interval / (60 * 60 * 24)))
-            
-            if dayIndex < 0 {
-                continue
-            }
-            
-            let path = IndexPath(item: i, section: dayIndex)
-            paths.append(path)
-        }
-        
-        return paths
+        return events.allIndexPaths
     }
     
     func event(atIndexPath path: IndexPath) -> CalendarEvent? {
-        return events.at(path.item)
+        return events.at(indexPath: path)
     }
     
     // MARK: - Drag and drop
     // ------------------------------------------------------------------------
     
     var draggedItem: NSCollectionViewItem?
+    var draggedEvent: CalendarEvent?
+    var draggedIndexPath: IndexPath?
     
     func collectionView(_ collectionView: NSCollectionView, pasteboardWriterForItemAt indexPath: IndexPath) -> NSPasteboardWriting? {
         
@@ -153,6 +129,10 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
             let currentIndexPath = collectionView.indexPath(for: draggedItem),
             currentIndexPath != proposedDropIndexPath {
             
+            let sourcePath = events.indexPath(forEvent: draggedEvent!)!
+            events.moveItem(at: sourcePath, to: proposedDropIndexPath)
+            
+            
             collectionView.animator().moveItem(at: currentIndexPath, to: proposedDropIndexPath)
         }
         
@@ -164,7 +144,10 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
         
         if let indexPath = indexPaths.first,
             let item = collectionView.item(at: indexPath) {
+            
+            draggedIndexPath = indexPath
             draggedItem = item
+            draggedEvent = events.at(indexPath: indexPath)
         }
     }
     
@@ -172,22 +155,19 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     func collectionView(_ collectionView: NSCollectionView, draggingSession session: NSDraggingSession, endedAt screenPoint: NSPoint, dragOperation operation: NSDragOperation) {
         
         draggedItem = nil
+        draggedIndexPath = nil
+        draggedEvent = nil
     }
     
     func collectionView(_ collectionView: NSCollectionView, acceptDrop draggingInfo: NSDraggingInfo, indexPath: IndexPath, dropOperation: NSCollectionViewDropOperation) -> Bool {
 
+        onReorder?()
+ 
         
         return true
     }
     
     
-    
-    func collectionView(_ collectionView: NSCollectionView, acceptDrop draggingInfo: NSDraggingInfo, index: Int, dropOperation: NSCollectionViewDropOperation) -> Bool {
-        
-        Swift.print("Accepting drop")
-        
-        return true
-    }
 }
 
 

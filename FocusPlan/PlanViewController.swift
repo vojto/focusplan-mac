@@ -71,7 +71,7 @@ class PlanViewController: NSViewController {
             // TODO: Filter by displayed time range
             // ... for now we're displaying all!
             let request: NSFetchRequest<NSFetchRequestResult> = TimerEntry.fetchRequest()
-//            request.predicate = NSPredicate(format: "isPlanned = true")
+
             return ReactiveObserver<TimerEntry>(context: context, request: request)
         }()
         
@@ -92,12 +92,9 @@ class PlanViewController: NSViewController {
                 self.lastTimerEntries = timerEntries
                 self.updateCalendar(tasks: tasks, timerEntries: timerEntries)
         }
+
         
-//        let now = timer(interval: .seconds(5), on: QueueScheduler.main)
-//        
-//        now.startWithValues { _ in
-//            self.updateCalendarWithLastValues()
-//        }
+        calendarController.onReorder = self.handleReorder
     }
     
     func updateCalendarWithLastValues() {
@@ -110,7 +107,27 @@ class PlanViewController: NSViewController {
 
         let timerEvents = createTimerEvents(fromEntries: timerEntries)
         
-        calendarController.events = timerEvents + taskEvents
+        let events = timerEvents + taskEvents
+        
+        calendarController.events.reset()
+        
+        for (i, event) in events.enumerated() {
+            // For now, stick them all in one section
+            
+            let rangeStart = config.range.start.startOf(component: .day)
+            
+            let interval = event.startsAt.timeIntervalSince(rangeStart)
+            
+            let dayIndex = Int(floor(interval / (60 * 60 * 24)))
+            
+            if dayIndex < 0 {
+                continue
+            }
+            
+            calendarController.events.append(event: event, section: dayIndex)
+        }
+        
+        Swift.print("Prepared events: \(calendarController.events)")
         
         self.calendarController.reloadData()
     }
@@ -122,31 +139,39 @@ class PlanViewController: NSViewController {
     func createEvents(fromTasks tasks: [Task], timerEntries: [TimerEntry]) -> [CalendarEvent] {
         var events = [CalendarEvent]()
         
-        var previous: CalendarEvent?
-        
-        for task in tasks {
-            let startsAt: Date
-            
-            if let previous = previous {
-                startsAt = previous.endsAt
-            } else {
-                startsAt = Date()
-            }
-            
-            var duration = task.estimate
+        let tasksByDays = tasks.group { ($0.plannedFor! as Date).string(format: .custom("yyyyMMdd")) }
 
-            // Adjust duration by time already spent on this task
-            duration -= durationSpentToday(onTask: task, timerEntries: timerEntries)
+        for (_, tasks) in tasksByDays {
+            var previous: CalendarEvent? = nil
             
-            if duration < 0 {
-                continue
+            for task in tasks {
+                let startsAt: Date
+                
+                if let previous = previous {
+                    startsAt = previous.endsAt
+                } else {
+                    let planDate = task.plannedFor! as Date
+                    let time = Date().timeIntervalSince(Date().startOf(component: .day))
+                    startsAt = planDate.startOf(component: .day).addingTimeInterval(time)
+                }
+                
+                var duration = task.estimate
+                
+                // Adjust duration by time already spent on this task
+                duration -= durationSpentToday(onTask: task, timerEntries: timerEntries)
+                
+                if duration < 0 {
+                    continue
+                }
+                
+                let event = CalendarEvent(task: task, startsAt: startsAt, duration: duration)
+                
+                events.append(event)
+                previous = event
             }
-            
-            let event = CalendarEvent(task: task, startsAt: startsAt, duration: duration)
-            
-            events.append(event)
-            previous = event
         }
+        
+        
         
         return events
     }
@@ -205,14 +230,35 @@ class PlanViewController: NSViewController {
         
         let task = Task(entity: Task.entity(), insertInto: context)
         task.project = project
-        task.isPlanned = true
+        task.plannedFor = Date() as NSDate
         task.weightForPlan = tasksController.nextWeight
         
         DispatchQueue.main.async {
             self.tasksController.edit(task: task)
         }
-        
     }
+    
+    // MARK: - Reordering tasks
+    // -----------------------------------------------------------------------
+    
+    func handleReorder() {
+        Swift.print("Handling reorder...")
+        
+        for (i, events) in calendarController.events.sections.enumerated() {
+            var weight = 0
+            
+            for event in events {
+                if let task = event.task {
+                    task.weightForPlan = Int64(weight)
+                    weight += 1
+                    
+                    task.plannedFor = (config.range.start + i.days) as NSDate
+                }
+                
+            }
+        }
+    }
+    
     
     
 }

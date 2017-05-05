@@ -19,7 +19,7 @@ class TasksObserver: ReactiveObserver<Task> {
         var predicates = [NSPredicate]()
         
         if wantsPlannedOnly {
-            predicates.append(NSPredicate(format: "isPlanned = true"))
+            predicates.append(NSPredicate(format: "plannedFor != nil"))
         }
         
         if wantsUnfinishedOnly {
