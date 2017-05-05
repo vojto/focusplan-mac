@@ -135,8 +135,14 @@ class CalendarCollectionItem: NSCollectionViewItem {
     var editPopover: NSPopover?
     
     func handleDoubleClick() {
+        guard let task = event.value?.task else { return }
+        
         if editController == nil {
             editController = EditTaskViewController()
+            
+            editController?.onFinishEditing = {
+                self.editPopover?.close()
+            }
         }
         
         if editPopover == nil {
@@ -145,6 +151,8 @@ class CalendarCollectionItem: NSCollectionViewItem {
             editPopover?.behavior = .transient
             editPopover?.animates = false
         }
+        
+        editController?.task.value = task
         
         editPopover?.show(relativeTo: view.bounds, of: view, preferredEdge: .minY)
     }

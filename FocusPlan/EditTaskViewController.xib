@@ -8,6 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="EditTaskViewController" customModule="FocusPlan" customModuleProvider="target">
             <connections>
+                <outlet property="titleField" destination="7Ch-Cy-h1L" id="RsH-VX-ObV"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
