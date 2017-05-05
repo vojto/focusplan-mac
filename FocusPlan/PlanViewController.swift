@@ -19,12 +19,14 @@ struct PlanRange {
 struct PlanConfig {
     var range: PlanRange
     var lanes: [PlanLane]
+    var detail: PlanDetail
     var durationsOnly = false
     
     static var defaultConfig: PlanConfig {
         return PlanConfig(
             range: PlanRange(start: Date(), dayCount: 1),
             lanes: [.task, .pomodoro],
+            detail: .daily,
             durationsOnly: false
         )
     }
@@ -34,6 +36,11 @@ enum PlanLane {
     case project
     case task
     case pomodoro
+}
+
+enum PlanDetail {
+    case daily
+    case weekly
 }
 
 class PlanViewController: NSViewController {
@@ -54,13 +61,17 @@ class PlanViewController: NSViewController {
     var lastTasks = [Task]()
     var lastTimerEntries = [TimerEntry]()
     
+    
+
     @IBOutlet var secondaryView: NSView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tasksController.wantsHighlightPlanned = false
         tasksController.weightKeypath = #keyPath(Task.weightForPlan)
-        tasksController.onCreate = { self.createTask() }
+        tasksController.onCreate = { self.handleTasksCreate() }
         
         let context = AppDelegate.viewContext
         
@@ -95,6 +106,7 @@ class PlanViewController: NSViewController {
 
         
         calendarController.onReorder = self.handleReorder
+        calendarController.onCreate = self.handleCalendarCreate
     }
     
     func updateCalendarWithLastValues() {
@@ -223,7 +235,33 @@ class PlanViewController: NSViewController {
     // MARK: - Creating tasks
     // -----------------------------------------------------------------------
     
-    func createTask() {
+    func handleCalendarCreate() {
+        let task = createTask()
+        
+        DispatchQueue.main.async {
+            self.calendarController.edit(task: task)
+        }
+    }
+    
+    func handleTasksCreate() {
+        let task = createTask()
+        
+        DispatchQueue.main.async {
+            self.tasksController.edit(task: task)
+        }
+    }
+    
+    func createTaskFromWindow() {
+        switch config.detail {
+        case .daily:
+            handleTasksCreate()
+        case .weekly:
+            handleCalendarCreate()
+        }
+    }
+    
+    @discardableResult
+    func createTask() -> Task {
         let context = AppDelegate.viewContext
         
         let project: Project? = context.findFirst()
@@ -232,10 +270,8 @@ class PlanViewController: NSViewController {
         task.project = project
         task.plannedFor = Date() as NSDate
         task.weightForPlan = tasksController.nextWeight
-        
-        DispatchQueue.main.async {
-            self.tasksController.edit(task: task)
-        }
+
+        return task
     }
     
     // MARK: - Reordering tasks

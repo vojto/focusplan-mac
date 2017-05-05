@@ -67,6 +67,7 @@ class MainWindow: NSWindow, NSToolbarDelegate {
                 planController.config = PlanConfig(
                     range: PlanRange(start: Date(), dayCount: 1),
                     lanes: [.task, .pomodoro],
+                    detail: .daily,
                     durationsOnly: false
                 )
                 planController.calendarController.reloadData()
@@ -77,6 +78,7 @@ class MainWindow: NSWindow, NSToolbarDelegate {
                 planController.config = PlanConfig(
                     range: PlanRange(start: Date().startOf(component: .weekOfYear), dayCount: 7),
                     lanes: [.task],
+                    detail: .weekly,
                     durationsOnly: true
                 )
                 
@@ -91,7 +93,7 @@ class MainWindow: NSWindow, NSToolbarDelegate {
         if !backlogController.view.isHidden {
             backlogController.createTask()
         } else if !planController.view.isHidden {
-            planController.createTask()
+            planController.createTaskFromWindow()
         }
     }
     

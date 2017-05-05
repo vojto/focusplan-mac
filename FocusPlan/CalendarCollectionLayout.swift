@@ -336,4 +336,11 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
     
         
     }
+    
+    // MARK: - Invalidation
+    // ------------------------------------------------------------------------
+    
+    override func shouldInvalidateLayout(forBoundsChange newBounds: NSRect) -> Bool {
+        return true
+    }
 }

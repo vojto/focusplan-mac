@@ -14,18 +14,18 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView wantsLayer="YES" id="Hz6-mo-xeY">
+        <customView wantsLayer="YES" id="Hz6-mo-xeY" customClass="BackgroundView" customModule="FocusPlan" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <scrollView wantsLayer="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GfK-j7-Vvf">
-                    <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+                    <rect key="frame" x="0.0" y="25" width="480" height="247"/>
                     <clipView key="contentView" wantsLayer="YES" drawsBackground="NO" id="2Vs-hR-9fS">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="247"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView wantsLayer="YES" selectable="YES" id="gkq-od-ez8">
-                                <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="247"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" scrollDirection="horizontal" id="Pyr-w2-dQd">
                                     <size key="itemSize" width="200" height="50"/>
@@ -44,16 +44,43 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="4yN-UM-LO4">
-                        <rect key="frame" x="463" y="1" width="16" height="270"/>
+                        <rect key="frame" x="464" y="0.0" width="16" height="230"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
+                <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="TRo-xk-II9">
+                    <rect key="frame" x="0.0" y="22" width="480" height="5"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="6ND-Gn-JCL"/>
+                    </constraints>
+                </box>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="Qwh-zb-LwX">
+                    <rect key="frame" x="8" y="4" width="16" height="16"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="16" id="58K-0D-TVm"/>
+                        <constraint firstAttribute="width" constant="16" id="9S7-9c-ivq"/>
+                        <constraint firstAttribute="height" constant="16" id="qDv-rX-3wm"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="16" id="wiP-h2-brZ"/>
+                    </constraints>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSAddTemplate" imagePosition="only" alignment="center" inset="2" id="Has-G2-gA0">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="createAction:" target="-2" id="1sx-Ah-Y4c"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="GfK-j7-Vvf" secondAttribute="bottom" id="8ph-LJ-Qfs"/>
+                <constraint firstAttribute="bottom" secondItem="TRo-xk-II9" secondAttribute="bottom" constant="24" id="Dj1-hv-LLq"/>
+                <constraint firstAttribute="trailing" secondItem="TRo-xk-II9" secondAttribute="trailing" id="LK1-Yg-3eO"/>
                 <constraint firstItem="GfK-j7-Vvf" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="M1j-s9-ENy"/>
+                <constraint firstAttribute="bottom" secondItem="Qwh-zb-LwX" secondAttribute="bottom" constant="4" id="OjC-xz-bMH"/>
+                <constraint firstItem="TRo-xk-II9" firstAttribute="top" secondItem="GfK-j7-Vvf" secondAttribute="bottom" id="QzD-jS-lIv"/>
                 <constraint firstAttribute="trailing" secondItem="GfK-j7-Vvf" secondAttribute="trailing" id="fEX-yh-gsE"/>
+                <constraint firstItem="TRo-xk-II9" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="iRt-Rf-UTJ"/>
                 <constraint firstItem="GfK-j7-Vvf" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="ueO-RH-pMh"/>
+                <constraint firstItem="Qwh-zb-LwX" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="8" id="voy-Z0-3lb"/>
             </constraints>
         </customView>
         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" id="6s9-rL-Viu">
@@ -67,4 +94,7 @@
             <point key="canvasLocation" x="23" y="606"/>
         </textField>
     </objects>
+    <resources>
+        <image name="NSAddTemplate" width="11" height="11"/>
+    </resources>
 </document>

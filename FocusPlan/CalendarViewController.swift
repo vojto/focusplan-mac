@@ -26,12 +26,15 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     var events = CalendarEventsCollection()
     
     var onReorder: (() -> ())?
+    var onCreate: (() -> ())?
     
     var config = PlanConfig.defaultConfig {
         didSet {
             reloadData()
         }
     }
+    
+    
     
     // MARK: - Lifecycle
     // ------------------------------------------------------------------------
@@ -99,8 +102,6 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
             
             return view
         } else if kind == kTimeLine {
-            Swift.print("🌈 Making the time line!")
-            
             return NSView()
         } else {
             return collectionView.makeSupplementaryView(ofKind: kind, withIdentifier: "", for: indexPath)
@@ -182,6 +183,20 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     
     func handleEdit(item: CalendarCollectionItem) {
         guard let task = item.event.value?.task else { return }
+        
+        edit(task: task)
+    }
+    
+    func edit(task: Task) {
+        
+        Swift.print("Editing task: \(task)")
+        
+        // Find the item
+        guard let item = collectionItem(forTask: task) else { return }
+
+        
+        Swift.print("Found task item: \(item)")
+        
         let view = item.view
         
         if editController == nil {
@@ -204,6 +219,30 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
         
         editPopover?.show(relativeTo: view.bounds, of: view, preferredEdge: .minY)
     }
+    
+    func collectionItem(forTask task: Task) -> CalendarCollectionItem? {
+        for item in collectionView.visibleItems() {
+            Swift.print("Item: \(item)")
+            
+
+            if let item = item as? CalendarCollectionItem,
+                let itemTask = item.event.value?.task,
+                itemTask == task {
+                
+                return item
+            }
+        }
+        
+        return nil
+    }
+    
+    // MARK: - Actions
+    // -----------------------------------------------------------------------
+    
+    @IBAction func createAction(_ sender: Any) {
+        onCreate?()
+    }
+    
 }
 
 

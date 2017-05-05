@@ -1,15 +1,15 @@
 //
-//  TasksBackgroundView.swift
+//  BackgroundView.swift
 //  FocusPlan
 //
-//  Created by Vojtech Rinik on 4/26/17.
+//  Created by Vojtech Rinik on 5/5/17.
 //  Copyright © 2017 Median. All rights reserved.
 //
 
 import Foundation
 import AppKit
 
-class TasksBackgroundView: NSView {
+class BackgroundView: NSView {
     override func draw(_ dirtyRect: NSRect) {
         NSColor.white.set()
         NSRectFill(bounds)
