@@ -127,7 +127,7 @@ class PlanViewController: NSViewController {
             calendarController.events.append(event: event, section: dayIndex)
         }
         
-        Swift.print("Prepared events: \(calendarController.events)")
+//        Swift.print("Prepared events: \(calendarController.events)")
         
         self.calendarController.reloadData()
     }
@@ -242,7 +242,7 @@ class PlanViewController: NSViewController {
     // -----------------------------------------------------------------------
     
     func handleReorder() {
-        Swift.print("Handling reorder...")
+//        Swift.print("Handling reorder...")
         
         for (i, events) in calendarController.events.sections.enumerated() {
             var weight = 0
