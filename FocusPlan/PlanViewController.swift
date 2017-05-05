@@ -109,9 +109,9 @@ class PlanViewController: NSViewController {
         
         let events = timerEvents + taskEvents
         
-        calendarController.events.reset()
+        calendarController.events.reset(sectionsCount: config.range.dayCount)
         
-        for (i, event) in events.enumerated() {
+        for (_, event) in events.enumerated() {
             // For now, stick them all in one section
             
             let rangeStart = config.range.start.startOf(component: .day)

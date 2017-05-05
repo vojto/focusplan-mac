@@ -50,8 +50,12 @@ class CalendarEventsCollection: CustomDebugStringConvertible {
         return paths
     }
     
-    func reset() {
+    func reset(sectionsCount: Int) {
         sections = []
+        
+        for _ in 0...(sectionsCount-1) {
+            sections.append([])
+        }
     }
     
     func append(event: CalendarEvent, section: Int) {
