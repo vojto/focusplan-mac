@@ -19,49 +19,15 @@ class TaskEstimateTableCellView: EditableTableCellView {
         
         guard let field = textField else { return }
         
-        let minutesLabel = task.producer.pick({ $0.reactive.estimatedMinutes })
-            .map { minutes -> String in
-                
-                guard let minutes = minutes, minutes > 0 else {
-                    return ""
-                }
-                
-                let hours = minutes / 60
-                let extraMinutes = minutes - (hours*60)
-                
-                if hours > 0 {
-                    if extraMinutes > 0 {
-                        return "\(hours)h \(extraMinutes)m"
-                    } else {
-                        return "\(hours)h"
-                    }
-                } else {
-                    return "\(minutes)m"
-                }
-        }
+        let minutesLabel = task.producer.pick({ $0.reactive.estimatedMinutesFormatted.producer })
         
-        field.reactive.stringValue <~ minutesLabel
+        field.reactive.stringValue <~ minutesLabel.map({ $0 ?? "" })
     }
     
     override func controlTextDidEndEditing(_ obj: Notification) {
         super.controlTextDidEndEditing(obj)
         
-        let minutes: Int?
         let value = textField?.stringValue ?? ""
-        
-        if let match = value.match(regex: "^\\s*(\\d+)\\s*m?\\s*$") {
-            // "   123   "
-            minutes = Int(match[1])
-        } else if let match = value.match(regex: "^\\s*(\\d+)\\s*h\\s*$") {
-            // "   123   h  "
-            minutes = (Int(match[1]) ?? 0) * 60
-        } else if let match = value.match(regex: "^\\s*(\\d+)\\s*h\\s*(\\d+)\\s*m?\\s*$") {
-            // "   123   h  30m "
-            minutes = (Int(match[1]) ?? 0) * 60 + (Int(match[2]) ?? 0)
-        } else {
-            minutes = nil
-        }
-        
-        self.task.value?.estimatedMinutes = Int64(minutes ?? 0)
+        self.task.value?.setEstimate(fromString: value)
     }
 }

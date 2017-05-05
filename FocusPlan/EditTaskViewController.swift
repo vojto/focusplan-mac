@@ -16,20 +16,39 @@ class EditTaskViewController: NSViewController, NSTextFieldDelegate {
     var onFinishEditing: (() -> ())?
     
     @IBOutlet weak var titleField: NSTextField!
+    @IBOutlet weak var estimateField: NSTextField!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupTitleField()
+        
+        setupEstimateField()
+    }
+    
+    func setupTitleField() {
         titleField.delegate = self
         
-        let title = task.producer.pick({ $0.reactive.title.producer })
-        
-        titleField.reactive.stringValue <~ title.map { $0 ?? "" }
+        titleField.reactive.stringValue <~ task.producer.pick({
+            $0.reactive.title.producer
+        }).map { $0 ?? "" }
         
         titleField.reactive.stringValues.observeValues { title in
             self.task.value?.title = title
         }
+    }
+    
+    func setupEstimateField() {
+        estimateField.delegate = self
         
+        estimateField.reactive.stringValue <~ task.producer.pick({
+            $0.reactive.estimatedMinutesFormatted.producer
+        }).map({ $0 ?? "" })
+        
+        estimateField.reactive.stringValues.observeValues { value in
+            self.task.value?.setEstimate(fromString: value)
+        }
     }
     
     func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {

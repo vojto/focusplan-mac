@@ -27,6 +27,27 @@ public extension Reactive where Base: Task {
             .map(asInt)
     }
     
+    var estimatedMinutesFormatted: SignalProducer<String, NoError> {
+        return estimatedMinutes.map { minutes -> String in
+            guard let minutes = minutes, minutes > 0 else {
+                return ""
+            }
+            
+            let hours = minutes / 60
+            let extraMinutes = minutes - (hours*60)
+            
+            if hours > 0 {
+                if extraMinutes > 0 {
+                    return "\(hours)h \(extraMinutes)m"
+                } else {
+                    return "\(hours)h"
+                }
+            } else {
+                return "\(minutes)m"
+            }
+        }
+    }
+    
     var isFinished: SignalProducer<Bool, NoError> {
         return producer(forKeyPath: #keyPath(Task.isFinished))
             .map(asBool).map { $0 ?? false }
