@@ -19,7 +19,6 @@ class CalendarCollectionItemView: NSView {
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
         
-
         let path = NSBezierPath(roundedRect: bounds.insetBy(dx: 0.5, dy: 0.5), cornerRadius: 2.0)
         
         var background = self.background
@@ -40,7 +39,6 @@ class CalendarCollectionItemView: NSView {
         
         border.setStroke()
         path.stroke()
-
     }
     
 }

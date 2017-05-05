@@ -109,6 +109,7 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
             }
         }
         
+        
         if !config.durationsOnly {
             // Hour labels
             let countLabels = Int(dayDuration / labelEvery)

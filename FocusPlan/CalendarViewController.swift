@@ -43,7 +43,7 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        collectionView.collectionViewLayout = collectionLayout
+        collectionView.collectionViewLayout = collectionLayout
         
         let nib = NSNib(nibNamed: "CalendarHourHeader", bundle: nil)
         collectionView.register(nib, forSupplementaryViewOfKind: kHourHeader, withIdentifier: kHourHeaderIdentifier)
@@ -53,10 +53,6 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
         collectionLayout.register(CalendarSectionLine.self, forDecorationViewOfKind: kSectionLine)
         
         collectionLayout.register(CalendarSectionLabel.self, forDecorationViewOfKind: kSectionLabel)
-        
-        collectionView.isSelectable = true
-        collectionView.allowsEmptySelection = true
-        collectionView.allowsMultipleSelection = true
         
         collectionView.register(forDraggedTypes: [NSStringPboardType])
 
@@ -141,7 +137,7 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     // MARK: - Drag and drop
     // ------------------------------------------------------------------------
     
-    
+    var draggedItem: NSCollectionViewItem?
     
     func collectionView(_ collectionView: NSCollectionView, pasteboardWriterForItemAt indexPath: IndexPath) -> NSPasteboardWriting? {
         
@@ -150,30 +146,36 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     }
     
     func collectionView(_ collectionView: NSCollectionView, validateDrop draggingInfo: NSDraggingInfo, proposedIndexPath proposedDropIndexPath: AutoreleasingUnsafeMutablePointer<NSIndexPath>, dropOperation proposedDropOperation: UnsafeMutablePointer<NSCollectionViewDropOperation>) -> NSDragOperation {
+
+        let proposedDropIndexPath = proposedDropIndexPath.pointee as IndexPath
         
-        Swift.print("validating drop!")
+        if let draggedItem = draggedItem,
+            let currentIndexPath = collectionView.indexPath(for: draggedItem),
+            currentIndexPath != proposedDropIndexPath {
+            
+            collectionView.animator().moveItem(at: currentIndexPath, to: proposedDropIndexPath)
+        }
         
         return .move
         
     }
-//    
-//    func collectionView(_ collectionView: NSCollectionView, validateDrop draggingInfo: NSDraggingInfo, proposedIndex proposedDropIndex: UnsafeMutablePointer<Int>, dropOperation proposedDropOperation: UnsafeMutablePointer<NSCollectionViewDropOperation>) -> NSDragOperation {
-//        
-//        Swift.print("Validating drop")
-//        
-//        return .move
-//    }
+
+    func collectionView(_ collectionView: NSCollectionView, draggingSession session: NSDraggingSession, willBeginAt screenPoint: NSPoint, forItemsAt indexPaths: Set<IndexPath>) {
+        
+        if let indexPath = indexPaths.first,
+            let item = collectionView.item(at: indexPath) {
+            draggedItem = item
+        }
+    }
     
-//    func collectionView(_ collectionView: NSCollectionView, draggingSession session: NSDraggingSession, willBeginAt screenPoint: NSPoint, forItemsAt indexes: IndexSet) {
-//        Swift.print("Dragging session will begin!")
-//    }
-//    
-//    func collectionView(_ collectionView: NSCollectionView, draggingSession session: NSDraggingSession, endedAt screenPoint: NSPoint, dragOperation operation: NSDragOperation) {
-//        
-//    }
+    
+    func collectionView(_ collectionView: NSCollectionView, draggingSession session: NSDraggingSession, endedAt screenPoint: NSPoint, dragOperation operation: NSDragOperation) {
+        
+        draggedItem = nil
+    }
     
     func collectionView(_ collectionView: NSCollectionView, acceptDrop draggingInfo: NSDraggingInfo, indexPath: IndexPath, dropOperation: NSCollectionViewDropOperation) -> Bool {
-        Swift.print("accepting drop")
+
         
         return true
     }

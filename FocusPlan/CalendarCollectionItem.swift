@@ -104,7 +104,6 @@ class CalendarCollectionItem: NSCollectionViewItem {
         }
     }
     
-    
 
     override var isSelected: Bool {
         didSet {
