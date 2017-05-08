@@ -71,7 +71,14 @@ platform :ios do
 
     switch_to_dev
 
-    system("open #{build_dir}")
+
+    # Deploy locally...
+    Actions.sh "killall FocusPlan || date"
+    Actions.sh "rm -rf /Applications/FocusPlan.app"
+    # puts "Copying " + "cp #{app_path} /Applications"
+    Actions.sh "mv #{app_path} /Applications"
+
+    # system("open #{build_dir}")
 
     # zip_path = app_path + ".zip"
     # app_filename = File.basename(app_path)

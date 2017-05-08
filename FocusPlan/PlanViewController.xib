@@ -4,24 +4,100 @@
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12118"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+        <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
+        <capability name="system font weights other than Regular or Bold" minToolsVersion="7.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PlanViewController" customModule="FocusPlan" customModuleProvider="target">
             <connections>
-                <outlet property="secondaryView" destination="4z2-cn-5gZ" id="9wq-SL-9dK"/>
-                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+                <outlet property="detailControl" destination="jgJ-PB-KFe" id="6LD-h1-p6e"/>
+                <outlet property="primaryView" destination="HeY-1b-gau" id="PUY-L8-e2D"/>
+                <outlet property="secondaryView" destination="OQX-XL-9Fk" id="8sv-JC-oX5"/>
+                <outlet property="titleField" destination="Jiw-ea-Nj1" id="S9h-GJ-v9r"/>
+                <outlet property="view" destination="tKT-91-vsq" id="TjJ-qQ-tEi"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView id="Hz6-mo-xeY">
-            <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-        </customView>
-        <customView id="4z2-cn-5gZ">
-            <rect key="frame" x="0.0" y="0.0" width="347" height="202"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-            <point key="canvasLocation" x="76.5" y="530"/>
-        </customView>
+        <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" id="tKT-91-vsq">
+            <rect key="frame" x="0.0" y="0.0" width="648" height="611"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="uig-5h-bVa" customClass="BackgroundView" customModule="FocusPlan" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="566" width="648" height="45"/>
+                    <subviews>
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jiw-ea-Nj1">
+                            <rect key="frame" x="305" y="13" width="39" height="19"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Title" id="o5B-Ud-ULf">
+                                <font key="font" metaFont="systemMedium" size="15"/>
+                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="p6e-T8-poS">
+                            <rect key="frame" x="0.0" y="-2" width="648" height="5"/>
+                        </box>
+                        <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jgJ-PB-KFe">
+                            <rect key="frame" x="16" y="10" width="121" height="23"/>
+                            <segmentedCell key="cell" borderStyle="border" alignment="left" style="capsule" trackingMode="selectOne" id="KAd-7d-D9e">
+                                <font key="font" metaFont="system"/>
+                                <segments>
+                                    <segment label="Daily"/>
+                                    <segment label="Weekly" selected="YES" tag="1"/>
+                                </segments>
+                            </segmentedCell>
+                            <connections>
+                                <action selector="changeDetail:" target="-2" id="tPY-zj-Ihk"/>
+                            </connections>
+                        </segmentedControl>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="p6e-T8-poS" firstAttribute="leading" secondItem="uig-5h-bVa" secondAttribute="leading" id="3r7-bh-Syo"/>
+                        <constraint firstAttribute="height" constant="45" id="9uX-1b-yeG"/>
+                        <constraint firstItem="jgJ-PB-KFe" firstAttribute="leading" secondItem="uig-5h-bVa" secondAttribute="leading" constant="16" id="NPB-Wa-6ks"/>
+                        <constraint firstAttribute="bottom" secondItem="p6e-T8-poS" secondAttribute="bottom" id="SC1-tv-T58"/>
+                        <constraint firstItem="Jiw-ea-Nj1" firstAttribute="centerY" secondItem="uig-5h-bVa" secondAttribute="centerY" id="Uvy-uv-lmG"/>
+                        <constraint firstItem="jgJ-PB-KFe" firstAttribute="centerY" secondItem="uig-5h-bVa" secondAttribute="centerY" id="d5N-Dz-HVH"/>
+                        <constraint firstAttribute="trailing" secondItem="p6e-T8-poS" secondAttribute="trailing" id="phd-NB-Y9i"/>
+                        <constraint firstItem="Jiw-ea-Nj1" firstAttribute="centerX" secondItem="uig-5h-bVa" secondAttribute="centerX" id="yma-K7-XZ2"/>
+                    </constraints>
+                </customView>
+                <splitView arrangesAllSubviews="NO" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L4c-sH-ca8">
+                    <rect key="frame" x="0.0" y="0.0" width="648" height="566"/>
+                    <subviews>
+                        <customView fixedFrame="YES" id="HeY-1b-gau">
+                            <rect key="frame" x="0.0" y="0.0" width="339" height="566"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </customView>
+                        <customView fixedFrame="YES" id="OQX-XL-9Fk">
+                            <rect key="frame" x="340" y="0.0" width="308" height="566"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </customView>
+                    </subviews>
+                    <holdingPriorities>
+                        <real value="195"/>
+                        <real value="179"/>
+                    </holdingPriorities>
+                    <connections>
+                        <outlet property="delegate" destination="-2" id="a2u-TS-oqV"/>
+                    </connections>
+                </splitView>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="uig-5h-bVa" secondAttribute="trailing" id="Sfw-SJ-YpL"/>
+                <constraint firstItem="L4c-sH-ca8" firstAttribute="leading" secondItem="tKT-91-vsq" secondAttribute="leading" id="aE1-WQ-9Td"/>
+                <constraint firstAttribute="trailing" secondItem="L4c-sH-ca8" secondAttribute="trailing" id="i5w-vq-44z"/>
+                <constraint firstItem="uig-5h-bVa" firstAttribute="leading" secondItem="tKT-91-vsq" secondAttribute="leading" id="oPn-DY-MEY"/>
+            </constraints>
+            <visibilityPriorities>
+                <integer value="1000"/>
+                <integer value="1000"/>
+            </visibilityPriorities>
+            <customSpacing>
+                <real value="3.4028234663852886e+38"/>
+                <real value="3.4028234663852886e+38"/>
+            </customSpacing>
+            <point key="canvasLocation" x="11" y="873.5"/>
+        </stackView>
     </objects>
 </document>

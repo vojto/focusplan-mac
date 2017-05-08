@@ -13,7 +13,6 @@ import ReactiveSwift
 class MainWindow: NSWindow, NSToolbarDelegate {
     @IBOutlet weak var secondaryView: NSView!
     @IBOutlet weak var mainView: NSView!
-    @IBOutlet weak var mainView2: NSView!
     
     let projectsController = ProjectsViewController()
     
@@ -35,7 +34,6 @@ class MainWindow: NSWindow, NSToolbarDelegate {
         mainView.include(backlogController.view)
         
         mainView.include(planController.view)
-        mainView2.include(planController.secondaryView)
         
         backlogController.view.isHidden = true
 //        planController.view.isHidden = true
@@ -52,7 +50,6 @@ class MainWindow: NSWindow, NSToolbarDelegate {
         backlogController.view.isHidden = true
         planController.view.isHidden = true
         mainView.isHidden = false
-        mainView2.isHidden = true
         
         if let project = item as? Project {
             backlogController.selectedProject.value = project
@@ -60,27 +57,14 @@ class MainWindow: NSWindow, NSToolbarDelegate {
             
         } else if let planItem = item as? ProjectsViewController.PlanItem {
             planController.view.isHidden = false
-            mainView2.isHidden = false
             
             switch planItem.type {
             case .today:
-                planController.config = PlanConfig(
-                    range: PlanRange(start: Date(), dayCount: 1),
-                    lanes: [.task, .pomodoro],
-                    detail: .daily,
-                    durationsOnly: false
-                )
+                planController.config = PlanConfig.daily(date: Date())
                 planController.calendarController.reloadData()
                 
             case .thisWeek:
-                mainView.isHidden = true
-                
-                planController.config = PlanConfig(
-                    range: PlanRange(start: Date().startOf(component: .weekOfYear), dayCount: 7),
-                    lanes: [.task],
-                    detail: .weekly,
-                    durationsOnly: true
-                )
+                planController.config = PlanConfig.weekly(date: Date())
                 
                 planController.calendarController.reloadData()
                 planController.calendarController.collectionView.scroll(NSPoint(x: 0, y: 0))

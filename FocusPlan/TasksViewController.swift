@@ -135,7 +135,8 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
     
     func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
         if item is RootItem {
-            return createHeaderView(outlineView, column: tableColumn)
+            return nil
+//            return createHeaderView(outlineView, column: tableColumn)
         } else if let task = item as? Task {
             return createTaskView(outlineView, column: tableColumn, task: task)
         }
@@ -359,6 +360,8 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
             let size = dummyTitleCellView.fittingSize
             
             return size.height
+        } else if item is RootItem {
+            return 1
         }
         
         return 32

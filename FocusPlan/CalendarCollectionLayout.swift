@@ -255,6 +255,7 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
         } else if elementKind == kSectionLine {
             let attributes = NSCollectionViewLayoutAttributes(forDecorationViewOfKind: kSectionLine, with: indexPath)
             
+            attributes.isHidden = (indexPath.item == 0)
             attributes.zIndex = -1
             attributes.frame = sectionFrame(at: indexPath.item)
             

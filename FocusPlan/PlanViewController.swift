@@ -30,6 +30,28 @@ struct PlanConfig {
             durationsOnly: false
         )
     }
+    
+    public static func daily(date: Date) -> PlanConfig {
+        let range = PlanRange(start: date.startOf(component: .day), dayCount: 1)
+        
+        return PlanConfig(
+            range: range,
+            lanes: [.task, .pomodoro],
+            detail: .daily,
+            durationsOnly: false
+        )
+    }
+    
+    public static func weekly(date: Date) -> PlanConfig {
+        let range = PlanRange(start: date.startOf(component: .weekOfYear), dayCount: 7)
+        
+        return PlanConfig(
+            range: range,
+            lanes: [.task],
+            detail: .weekly,
+            durationsOnly: true
+        )
+    }
 }
 
 enum PlanLane {
@@ -43,13 +65,22 @@ enum PlanDetail {
     case weekly
 }
 
-class PlanViewController: NSViewController {
+class PlanViewController: NSViewController, NSSplitViewDelegate {
+    
+    @IBOutlet var primaryView: NSView!
+    @IBOutlet var secondaryView: NSView!
+    
+    @IBOutlet weak var titleField: NSTextField!
+    @IBOutlet weak var detailControl: NSSegmentedControl!
+    
     
     let tasksController = TasksViewController()
     let calendarController = CalendarViewController()
     
+    
     var config = PlanConfig.defaultConfig {
         didSet {
+            updateLayout()
             calendarController.config = config
             updateCalendarWithLastValues()
         }
@@ -60,10 +91,6 @@ class PlanViewController: NSViewController {
     
     var lastTasks = [Task]()
     var lastTimerEntries = [TimerEntry]()
-    
-    
-
-    @IBOutlet var secondaryView: NSView!
     
     
     override func viewDidLoad() {
@@ -86,7 +113,7 @@ class PlanViewController: NSViewController {
             return ReactiveObserver<TimerEntry>(context: context, request: request)
         }()
         
-        view.include(tasksController.view)
+        primaryView.include(tasksController.view)
         secondaryView.include(calendarController.view)
         
         sortedTasks.startWithValues { tasks in
@@ -107,6 +134,77 @@ class PlanViewController: NSViewController {
         
         calendarController.onReorder = self.handleReorder
         calendarController.onCreate = self.handleCalendarCreate
+        
+        updateLayout()
+    }
+    
+    func updateLayout() {
+        switch config.detail {
+        case .daily:
+            primaryView.isHidden = false
+            detailControl.selectedSegment = 0
+        case .weekly:
+            primaryView.isHidden = true
+            detailControl.selectedSegment = 1
+        }
+        
+        // Update the title too while we're at it
+        let date = config.range.start
+        var title = ""
+        
+        switch config.detail {
+        case .daily:
+            if date.isToday {
+                title = "Today"
+            } else if date.isTomorrow {
+                title = "Tomorrow"
+            } else if date.isYesterday {
+                title = "Yesterday"
+            } else {
+                title = date.string(custom: "E, MMM d yyyy")
+            }
+            
+            
+        case .weekly:
+            let now = Date()
+            let thisWeek = (now.startOf(component: .weekOfYear), now.endOf(component: .weekOfYear))
+            let nextWeek = ((now + 1.week).startOf(component: .weekOfYear), (now + 1.week).endOf(component: .weekOfYear))
+            let previousWeek = ((now - 1.week).startOf(component: .weekOfYear), (now - 1.week).endOf(component: .weekOfYear))
+            
+            if date >= thisWeek.0 && date <= thisWeek.1 {
+                title = "This week"
+            } else if date >= previousWeek.0 && date <= previousWeek.1 {
+                title = "Previous week"
+            } else if date >= nextWeek.0 && date <= nextWeek.1 {
+                title = "Next week"
+            } else {
+                title = "Week of " + date.startOf(component: .weekOfYear).string(custom: "MMM d, YYYY")
+            }
+        }
+        
+        titleField.stringValue = title
+    }
+    
+    @IBAction func changeDetail(_ sender: Any) {
+        let index = detailControl.selectedSegment
+        
+        switch index {
+        case 0:
+            self.config = PlanConfig.daily(date: config.range.start)
+        case 1:
+            self.config = PlanConfig.weekly(date: config.range.start)
+        default: break
+        }
+    }
+    
+    
+    func splitView(_ splitView: NSSplitView, shouldHideDividerAt dividerIndex: Int) -> Bool {
+        switch config.detail {
+        case .daily:
+            return false
+        case .weekly:
+            return true
+        }
     }
     
     func updateCalendarWithLastValues() {

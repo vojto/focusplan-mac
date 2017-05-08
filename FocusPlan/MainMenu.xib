@@ -695,26 +695,21 @@
                                 <autoresizingMask key="autoresizingMask"/>
                             </customView>
                             <customView fixedFrame="YES" id="yIS-zi-HPh">
-                                <rect key="frame" x="146" y="0.0" width="397" height="626"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                            </customView>
-                            <customView fixedFrame="YES" id="HVC-j6-gHM">
-                                <rect key="frame" x="544" y="0.0" width="396" height="626"/>
+                                <rect key="frame" x="146" y="0.0" width="794" height="626"/>
                                 <autoresizingMask key="autoresizingMask"/>
                             </customView>
                         </subviews>
                         <holdingPriorities>
                             <real value="250"/>
                             <real value="1"/>
-                            <real value="1"/>
                         </holdingPriorities>
                     </splitView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="YIz-VL-OgP" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" id="0ys-aD-05y"/>
-                    <constraint firstItem="YIz-VL-OgP" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" id="4bz-Kk-tfd"/>
-                    <constraint firstAttribute="bottom" secondItem="YIz-VL-OgP" secondAttribute="bottom" id="d3S-mJ-NhX"/>
-                    <constraint firstAttribute="trailing" secondItem="YIz-VL-OgP" secondAttribute="trailing" id="pbY-ff-Bou"/>
+                    <constraint firstAttribute="trailing" secondItem="YIz-VL-OgP" secondAttribute="trailing" id="Nnp-8V-hZh"/>
+                    <constraint firstAttribute="bottom" secondItem="YIz-VL-OgP" secondAttribute="bottom" id="SxZ-k2-aYI"/>
+                    <constraint firstItem="YIz-VL-OgP" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" id="sFj-M5-W30"/>
+                    <constraint firstItem="YIz-VL-OgP" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" id="t9M-cX-05e"/>
                 </constraints>
             </view>
             <toolbar key="toolbar" implicitIdentifier="3AE158ED-36E1-4C74-B4A9-13B6A12E79F2" autosavesConfiguration="NO" displayMode="iconOnly" sizeMode="regular" id="kaN-YU-qTC">
@@ -731,7 +726,6 @@
             </toolbar>
             <connections>
                 <outlet property="mainView" destination="yIS-zi-HPh" id="o8K-dW-H86"/>
-                <outlet property="mainView2" destination="HVC-j6-gHM" id="N3V-el-kke"/>
                 <outlet property="secondaryView" destination="jhW-E1-K5O" id="Plm-ai-F3H"/>
                 <outlet property="timerController" destination="uVd-aB-uN4" id="Upl-oy-3sd"/>
                 <outlet property="timerView" destination="4hR-Lq-IxG" id="QKJ-Xm-Tzq"/>
