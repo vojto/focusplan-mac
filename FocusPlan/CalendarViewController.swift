@@ -158,8 +158,19 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     var draggedEvent: CalendarEvent?
     var draggedIndexPath: IndexPath?
     
-    func collectionView(_ collectionView: NSCollectionView, canDragItemsAt indexes: IndexSet, with event: NSEvent) -> Bool {
-        return config.detail == .weekly
+    func collectionView(_ collectionView: NSCollectionView, canDragItemsAt indexPaths: Set<IndexPath>, with event: NSEvent) -> Bool {
+        
+        if config.detail == .daily {
+            return false
+        }
+        
+        if let path = indexPaths.first {
+            let event = events.at(indexPath: path)
+            
+            return (event.type == .task)
+        }
+        
+        return true
     }
     
     func collectionView(_ collectionView: NSCollectionView, pasteboardWriterForItemAt indexPath: IndexPath) -> NSPasteboardWriting? {

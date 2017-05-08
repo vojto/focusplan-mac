@@ -332,7 +332,7 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
         var events = [CalendarEvent]()
         
         for entry in entries {
-            guard let startedAt = entry.startedAt else {
+            guard var startedAt = entry.startedAt else {
                 assertionFailure()
                 continue
             }
@@ -347,7 +347,9 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
             
             let duration = endedAt.timeIntervalSince(startedAt as Date)
             
-            let event = CalendarEvent(timerEntry: entry, startsAt: (startedAt as Date).timeIntervalSinceStartOfDay, duration: duration)
+            let startTime = !config.durationsOnly ? (startedAt as Date).timeIntervalSinceStartOfDay : nil
+            
+            let event = CalendarEvent(timerEntry: entry, startsAt: startTime, duration: duration)
             events.append(event)
         }
         

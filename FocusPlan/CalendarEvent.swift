@@ -82,7 +82,7 @@ class CalendarEvent: CustomStringConvertible, Hashable {
         self.duration = duration
     }
     
-    init(timerEntry: TimerEntry, startsAt: TimeInterval, duration: TimeInterval) {
+    init(timerEntry: TimerEntry, startsAt: TimeInterval?, duration: TimeInterval) {
         self.type = .timerEntry
         self.timerEntry = timerEntry
         self.startsAt = startsAt
