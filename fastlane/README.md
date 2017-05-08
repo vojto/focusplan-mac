@@ -30,9 +30,19 @@ xcode-select --install
 
 # Available Actions
 ## iOS
-### ios build
+### ios switch_to_beta
 ```
-fastlane ios build
+fastlane ios switch_to_beta
+```
+
+### ios switch_to_dev
+```
+fastlane ios switch_to_dev
+```
+
+### ios beta
+```
+fastlane ios beta
 ```
 
 

@@ -7,8 +7,46 @@ platform :ios do
     # carthage
   end
 
+  def suite_id_beta
+    "tech\\.median"
+  end
 
-  lane :build do
+  def suite_id_dev
+    "t3ch\\.m3dian"
+  end
+
+  def files_with_suite_id
+    project_dir = File.expand_path(File.join(File.dirname(__FILE__), '..'))
+    
+    return [
+      File.join(project_dir, 'FocusPlan.xcodeproj', 'project.pbxproj'),
+    ]
+  end
+
+  def rewrite_from_all(files, to)
+    rewrite_files(files_with_suite_id, suite_id_dev, to)
+    rewrite_files(files_with_suite_id, suite_id_beta, to)
+  end
+
+  def rewrite_files(files, from, to)
+    rewrite_exact_files(files, from, to)
+  end
+
+  def rewrite_exact_files(files, from, to)
+    files.each do |file|
+      Actions.sh("sed -i '' 's/#{from}/#{to}/g' #{file}")
+    end
+  end
+
+  lane :switch_to_beta do
+    rewrite_from_all(files_with_suite_id, suite_id_beta)
+  end
+
+  lane :switch_to_dev do
+    rewrite_from_all(files_with_suite_id, suite_id_dev)
+  end
+
+  lane :beta do
     increment_build_number
 
     project_dir = File.expand_path(File.join(File.dirname(__FILE__), '..'))
@@ -16,6 +54,8 @@ platform :ios do
     build_dir = File.join(project_dir, "build")
 
     system("rm -rf #{build_dir}")
+
+    switch_to_beta
 
     build_dir = gym(
       scheme: "FocusPlan",
@@ -29,15 +69,19 @@ platform :ios do
     build_dir = File.dirname(app_path)
     dsym_path = File.join(build_dir, "FocusPlan.app.dSYM.zip")
 
-    zip_path = app_path + ".zip"
-    app_filename = File.basename(app_path)
-    Actions.sh("pushd #{build_dir} && zip -y -r #{zip_path} #{app_filename}/* && popd")
+    switch_to_dev
 
-    hockey(
-      :api_token => "aec6fd6f1ad54a5686fca0b5a7916710",
-      :ipa => zip_path,
-      :dsym => dsym_path
-    )
+    system("open #{build_dir}")
+
+    # zip_path = app_path + ".zip"
+    # app_filename = File.basename(app_path)
+    # Actions.sh("pushd #{build_dir} && zip -y -r #{zip_path} #{app_filename}/* && popd")
+
+    # hockey(
+    #   :api_token => "aec6fd6f1ad54a5686fca0b5a7916710",
+    #   :ipa => zip_path,
+    #   :dsym => dsym_path
+    # )
   end
 
   # You can define as many lanes as you want
