@@ -11,12 +11,20 @@ import Hue
 
 class CalendarCollectionItemView: NSView {
     
+    enum HandleType {
+        case top
+        case bottom
+    }
+    
     var background = NSColor.yellow { didSet { needsDisplay = true } }
     var border = NSColor.blue { didSet { needsDisplay = true } }
     var isDashed = false { didSet { needsDisplay = true } }
     var isHighlighted = false { didSet { needsDisplay = true } }
     
     var onDoubleClick: (() -> ())?
+    var onBeforeResize: (() -> ())?
+    var onResize: ((CGFloat, HandleType) -> ())?
+    var onFinishResize: ((HandleType) -> ())?
 
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
@@ -49,19 +57,17 @@ class CalendarCollectionItemView: NSView {
         } else {
             let point = convert(event.locationInWindow, from: nil)
             
-            if topResizeFrame.contains(point) || bottomResizeFrame.contains(point) {
-                resize(event: event)
+            if topResizeFrame.contains(point) {
+                resize(event: event, handle: .top)
+            } else if bottomResizeFrame.contains(point) {
+                resize(event: event, handle: .bottom)
             } else {
                 super.mouseDown(with: event)
             }
         }
     }
     
-    var onBeforeResize: (() -> ())?
-    var onResize: ((CGFloat) -> ())?
-    var onFinishResize: (() -> ())?
-    
-    func resize(event: NSEvent) {
+    func resize(event: NSEvent, handle: HandleType) {
         var keepOn = true
         
         let initialLocation = event.locationInWindow
@@ -77,13 +83,13 @@ class CalendarCollectionItemView: NSView {
             
             switch event.type {
             case .leftMouseDragged:
-                self.onResize?(deltaY)
+                self.onResize?(deltaY, handle)
                 
                 break
             case .leftMouseUp:
                 // TODO: Call finished callback
                 
-                onFinishResize?()
+                onFinishResize?(handle)
 
                 keepOn = false
             default:

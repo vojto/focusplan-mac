@@ -20,12 +20,8 @@ class CalendarEvent: CustomStringConvertible, Hashable {
     var task: Task?
     var timerEntry: TimerEntry?
     
-    let startsAt: Date?
+    var startsAt: TimeInterval?
     var duration: TimeInterval
-    
-    var endsAt: Date? {
-        return startsAt?.addingTimeInterval(duration)
-    }
     
     var date: Date? {
         if let task = self.task {
@@ -67,14 +63,14 @@ class CalendarEvent: CustomStringConvertible, Hashable {
         }
     }
     
-    init(task: Task, startsAt: Date?, duration: TimeInterval) {
+    init(task: Task, startsAt: TimeInterval?, duration: TimeInterval) {
         self.type = .task
         self.task = task
         self.startsAt = startsAt
         self.duration = duration
     }
     
-    init(timerEntry: TimerEntry, startsAt: Date, duration: TimeInterval) {
+    init(timerEntry: TimerEntry, startsAt: TimeInterval, duration: TimeInterval) {
         self.type = .timerEntry
         self.timerEntry = timerEntry
         self.startsAt = startsAt

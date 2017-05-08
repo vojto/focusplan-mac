@@ -220,7 +220,7 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
         let event = controller.event(atIndexPath: indexPath)!
     
         if let start = event.startsAt {
-            return start.timeIntervalSinceStartOfDay
+            return start
         } else if indexPath.item == 0 {
             return dayStart
         } else {

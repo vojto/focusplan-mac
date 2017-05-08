@@ -280,7 +280,7 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
                     continue
                 }
                 
-                let event = CalendarEvent(task: task, startsAt: startsAt, duration: duration)
+                let event = CalendarEvent(task: task, startsAt: startsAt?.timeIntervalSinceStartOfDay, duration: duration)
                 
                 tasksAdded += 1
                 events.append(event)
@@ -329,7 +329,7 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
             
             let duration = endedAt.timeIntervalSince(startedAt as Date)
             
-            let event = CalendarEvent(timerEntry: entry, startsAt: startedAt as Date, duration: duration)
+            let event = CalendarEvent(timerEntry: entry, startsAt: (startedAt as Date).timeIntervalSinceStartOfDay, duration: duration)
             events.append(event)
         }
         

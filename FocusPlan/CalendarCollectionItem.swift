@@ -141,28 +141,40 @@ class CalendarCollectionItem: NSCollectionViewItem {
     }
     
     var initialDuration: TimeInterval = 0
+    var initialStartTime: TimeInterval = 0
 
     func handleBeforeResize() {
+        let collectionView = self.view.superview as! NSCollectionView
+        let layout = collectionView.collectionViewLayout as! CalendarCollectionLayout
+        
         initialDuration = event.value!.duration
+        
+        let indexPath = collectionView.indexPath(for: self)!
+        initialStartTime = layout.startTime(forEventAt: indexPath)
     }
     
-    func handleResize(delta: CGFloat) {
+    func handleResize(delta: CGFloat, handle: CalendarCollectionItemView.HandleType) {
         let collectionView = self.view.superview as! NSCollectionView
         let layout = collectionView.collectionViewLayout as! CalendarCollectionLayout
         let durationDelta = layout.duration(pointValue: delta)
         
-        let duration = initialDuration + durationDelta
+        switch handle {
+        case .top:
+            event.value!.startsAt = initialStartTime + durationDelta
+            event.value!.duration = initialDuration - durationDelta
+        case .bottom:
+            event.value!.duration = initialDuration + durationDelta
+        }
         
-        event.value!.duration = duration
 
         layout.invalidateLayout()
         
-        let minutes = Int(round(duration / 60))
+        let minutes = Int(round(event.value!.duration / 60))
         
         self.field.stringValue = Formatting.format(estimate: minutes)
     }
     
-    func handleFinishResize() {
+    func handleFinishResize(handle: CalendarCollectionItemView.HandleType) {
         initialDuration = 0
         
         guard let event = self.event.value else { return }
@@ -170,9 +182,13 @@ class CalendarCollectionItem: NSCollectionViewItem {
         if let task = event.task {
             task.estimatedMinutes = Int64(round(event.duration / 60))
         } else if let entry = event.timerEntry,
-            let start = entry.startedAt {
+            let start = (entry.startedAt as Date?) {
             
-            entry.endedAt = start.addingTimeInterval(event.duration)
+            let dayStart = start.startOf(component: .day)
+            entry.startedAt = dayStart.addingTimeInterval(event.startsAt!) as NSDate
+            entry.endedAt = entry.startedAt!.addingTimeInterval(event.duration)
+            
+//            entry.endedAt = start.addingTimeInterval(event.duration)
         }
     }
 }
