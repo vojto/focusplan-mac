@@ -329,9 +329,14 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
         
         for i in 0...sections.lastIndex {
             let frame = sectionFrame(at: i)
+            let countEvents = sections[i].count
+            let lastIndex = countEvents > 0 ? countEvents - 1 : 0
+
             
             if frame.contains(pointInCollectionView) {
-                let attributes = NSCollectionViewLayoutAttributes(forInterItemGapBefore: IndexPath(item: 0, section: i))
+                
+                
+                let attributes = NSCollectionViewLayoutAttributes(forInterItemGapBefore: IndexPath(item: lastIndex, section: i))
 //                attributes.frame = frame
                 
                 // TODO: Set the frame?
