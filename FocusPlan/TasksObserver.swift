@@ -13,7 +13,25 @@ import ReactiveSwift
 import enum Result.NoError
 
 class TasksObserver: ReactiveObserver<Task> {
+    let wantsPlannedOnly: Bool
+    let wantsUnfinishedOnly: Bool
+    let context: NSManagedObjectContext
+    
+    var range: (Date, Date)? {
+        didSet {
+            update()
+        }
+    }
+    
     init(wantsPlannedOnly: Bool, wantsUnfinishedOnly: Bool = false, in context: NSManagedObjectContext) {
+        self.wantsPlannedOnly = wantsPlannedOnly
+        self.wantsUnfinishedOnly = wantsUnfinishedOnly
+        self.context = context
+        
+        super.init(context: context, request: nil)
+    }
+    
+    func createRequest() -> NSFetchRequest<NSFetchRequestResult> {
         let request: NSFetchRequest<NSFetchRequestResult> = Task.fetchRequest()
         
         var predicates = [NSPredicate]()
@@ -26,9 +44,24 @@ class TasksObserver: ReactiveObserver<Task> {
             predicates.append(NSPredicate(format: "isFinished = false"))
         }
         
+        if let range = self.range {
+            predicates.append(NSPredicate(
+                format: "plannedFor >= %@ AND plannedFor <= %@",
+                range.0.startOf(component: .day) as NSDate,
+                range.1.endOf(component: .day) as NSDate
+            ))
+        }
+        
+        
+        Swift.print("Creating request for tasks with predicates: \(predicates)")
+        
         request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
         
-        super.init(context: context, request: request)
+        return request
+    }
+    
+    func update() {
+        self.request = createRequest()
     }
     
     public var sortedTasksForPlan: SignalProducer<[Task], NoError> {
