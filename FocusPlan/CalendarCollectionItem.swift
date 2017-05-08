@@ -170,8 +170,21 @@ class CalendarCollectionItem: NSCollectionViewItem {
         layout.invalidateLayout()
         
         let minutes = Int(round(event.value!.duration / 60))
+        let formattedMinutes = Formatting.format(estimate: minutes)
         
-        self.field.stringValue = Formatting.format(estimate: minutes)
+        switch event.value!.type {
+        case .task:
+            field.stringValue = formattedMinutes
+        case .timerEntry:
+            if let event = self.event.value,
+                let from = event.startDate?.string(custom: "h:mm"),
+                let to = event.endDate?.string(custom: "h:mm") {
+                field.stringValue = "\(from) - \(to) (\(formattedMinutes))"
+            }
+            
+        }
+        
+        
     }
     
     func handleFinishResize(handle: CalendarCollectionItemView.HandleType) {

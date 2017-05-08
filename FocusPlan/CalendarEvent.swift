@@ -33,6 +33,18 @@ class CalendarEvent: CustomStringConvertible, Hashable {
         }
     }
     
+    var startDate: Date? {
+        if let startTime = startsAt {
+            return Date().startOf(component: .day).addingTimeInterval(startTime)
+        } else {
+            return nil
+        }
+    }
+    
+    var endDate: Date? {
+        return startDate?.addingTimeInterval(duration)
+    }
+    
     var hashValue: Int {
         if let task = self.task {
             return (31 &* type.hashValue) &+ task.hashValue
