@@ -158,6 +158,10 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     var draggedEvent: CalendarEvent?
     var draggedIndexPath: IndexPath?
     
+    func collectionView(_ collectionView: NSCollectionView, canDragItemsAt indexes: IndexSet, with event: NSEvent) -> Bool {
+        return config.detail == .weekly
+    }
+    
     func collectionView(_ collectionView: NSCollectionView, pasteboardWriterForItemAt indexPath: IndexPath) -> NSPasteboardWriting? {
         
         let data = NSKeyedArchiver.archivedData(withRootObject: indexPath)
