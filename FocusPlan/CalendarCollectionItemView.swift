@@ -103,18 +103,19 @@ class CalendarCollectionItemView: NSView {
         super.resetCursorRects()
         
         let topCursor = NSCursor.resizeDown()
-        var topFrame = self.frame
+        var topFrame = self.bounds
         topFrame.origin.y = topFrame.size.height - 5
         topFrame.size.height = 5
         addCursorRect(topFrame, cursor: topCursor)
         topResizeFrame = topFrame
         
         let bottomCursor = NSCursor.resizeUp()
-        var bottomFrame = self.frame
+        var bottomFrame = self.bounds
         bottomFrame.origin.y = 0
         bottomFrame.size.height = 5
         addCursorRect(bottomFrame, cursor: bottomCursor)
         bottomResizeFrame = bottomFrame
     }
+    
     
 }
