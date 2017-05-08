@@ -215,6 +215,7 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
         return startTime(forEventAt: indexPath) + event.duration
     }
     
+    // TODO: Memoize
     func startTime(forEventAt indexPath: IndexPath) -> TimeInterval {
         let event = controller.event(atIndexPath: indexPath)!
     
@@ -293,6 +294,7 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
     
     // MARK: - Getting labels
     // ------------------------------------------------------------------------
+    
     
     public func hourHeaderLabel(at indexPath: IndexPath) -> String {
         let time = dayStart + Double(indexPath.item) * labelEvery

@@ -169,6 +169,10 @@ class CalendarCollectionItem: NSCollectionViewItem {
         
         if let task = event.task {
             task.estimatedMinutes = Int64(round(event.duration / 60))
+        } else if let entry = event.timerEntry,
+            let start = entry.startedAt {
+            
+            entry.endedAt = start.addingTimeInterval(event.duration)
         }
     }
 }

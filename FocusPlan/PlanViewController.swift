@@ -258,13 +258,14 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
         var events = [CalendarEvent]()
         
         let tasksByDays = tasks.group { ($0.plannedFor! as Date).string(format: .custom("yyyyMMdd")) }
+        
+        var tasksAdded = 0
 
         for (_, tasks) in tasksByDays {
-            for (i, task) in tasks.enumerated() {
+            for (_, task) in tasks.enumerated() {
                 var startsAt: Date?
-                
 
-                if config.durationsOnly == false, i == 0 {
+                if config.durationsOnly == false, tasksAdded == 0 {
                     let planDate = task.plannedFor! as Date
                     let time = Date().timeIntervalSince(Date().startOf(component: .day))
                     startsAt = planDate.startOf(component: .day).addingTimeInterval(time)
@@ -281,6 +282,7 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
                 
                 let event = CalendarEvent(task: task, startsAt: startsAt, duration: duration)
                 
+                tasksAdded += 1
                 events.append(event)
             }
         }

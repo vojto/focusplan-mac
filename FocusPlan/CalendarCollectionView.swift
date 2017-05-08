@@ -44,8 +44,6 @@ class CalendarCollectionView: NSCollectionView {
         guard let indexPath = indexPathForItem(at: point) else {
             return
         }
-        
-        Swift.print("Going to select at index path: \(indexPath)")
 
         
         if !selectionIndexPaths.contains(indexPath) {
