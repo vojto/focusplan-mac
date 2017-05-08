@@ -56,6 +56,7 @@
 		998156131EB778020057ECD0 /* NSButton+Reactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998156121EB778020057ECD0 /* NSButton+Reactive.swift */; };
 		998156171EB77DAE0057ECD0 /* ProjectColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998156161EB77DAE0057ECD0 /* ProjectColorView.swift */; };
 		998746CA1EB360320079215B /* BacklogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998746C91EB360320079215B /* BacklogViewController.swift */; };
+		998A0C3C1EC05712006CC99E /* CalendarCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998A0C3B1EC05712006CC99E /* CalendarCollectionView.swift */; };
 		999E65091EB361B20001AAB7 /* BacklogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 999E65081EB361B20001AAB7 /* BacklogViewController.xib */; };
 		999E650D1EB362780001AAB7 /* PlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999E650B1EB362780001AAB7 /* PlanViewController.swift */; };
 		999E650E1EB362780001AAB7 /* PlanViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 999E650C1EB362780001AAB7 /* PlanViewController.xib */; };
@@ -158,6 +159,7 @@
 		998156121EB778020057ECD0 /* NSButton+Reactive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSButton+Reactive.swift"; sourceTree = "<group>"; };
 		998156161EB77DAE0057ECD0 /* ProjectColorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectColorView.swift; sourceTree = "<group>"; };
 		998746C91EB360320079215B /* BacklogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BacklogViewController.swift; sourceTree = "<group>"; };
+		998A0C3B1EC05712006CC99E /* CalendarCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarCollectionView.swift; sourceTree = "<group>"; };
 		999E65081EB361B20001AAB7 /* BacklogViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BacklogViewController.xib; sourceTree = "<group>"; };
 		999E650B1EB362780001AAB7 /* PlanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanViewController.swift; sourceTree = "<group>"; };
 		999E650C1EB362780001AAB7 /* PlanViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlanViewController.xib; sourceTree = "<group>"; };
@@ -437,6 +439,7 @@
 			children = (
 				99D8C80E1EB3B51800EA5001 /* CalendarViewController.swift */,
 				99D8C80F1EB3B51800EA5001 /* CalendarViewController.xib */,
+				998A0C3B1EC05712006CC99E /* CalendarCollectionView.swift */,
 				99D8C8121EB3B6B600EA5001 /* CalendarCollectionItem.swift */,
 				99D8C8131EB3B6B600EA5001 /* CalendarCollectionItem.xib */,
 				9933E49D1EB9C84600B1CE85 /* CalendarCollectionItemView.swift */,
@@ -570,6 +573,7 @@
 				998156171EB77DAE0057ECD0 /* ProjectColorView.swift in Sources */,
 				99E6CD861EB6FEA0002A7966 /* Task+Extensions.swift in Sources */,
 				99078BF51EAF1CD000C3B789 /* AppDelegate.swift in Sources */,
+				998A0C3C1EC05712006CC99E /* CalendarCollectionView.swift in Sources */,
 				991E7B3C1EB0E80A0086A9D9 /* EditableTableCellView.swift in Sources */,
 				99BBB0241EB8BFB5002C603F /* TimerLane.swift in Sources */,
 				9933E49E1EB9C84600B1CE85 /* CalendarCollectionItemView.swift in Sources */,
@@ -691,7 +695,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = FocusPlan/FocusPlan.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 23;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_TEAM = Q4C48EKH9Z;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -712,7 +716,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = FocusPlan/FocusPlan.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 23;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_TEAM = Q4C48EKH9Z;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

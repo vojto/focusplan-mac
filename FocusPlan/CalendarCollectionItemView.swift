@@ -25,9 +25,9 @@ class CalendarCollectionItemView: NSView {
         
         var background = self.background
         
-        if isHighlighted {
-            background = background.addHue(0, saturation: 0.1, brightness: -0.2, alpha: 0)
-        }
+//        if isHighlighted {
+//            background = background.addHue(0, saturation: 0.1, brightness: -0.2, alpha: 0)
+//        }
         
         background.setFill()
         path.fill()

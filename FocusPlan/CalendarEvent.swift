@@ -8,12 +8,15 @@
 
 import Foundation
 
-enum CalendarEventType {
+enum CalendarEventType: String {
     case task
     case timerEntry
 }
 
-class CalendarEvent: CustomStringConvertible {
+class CalendarEvent: CustomStringConvertible, Hashable {
+    
+    
+
     let type: CalendarEventType
     
     var task: Task?
@@ -24,6 +27,20 @@ class CalendarEvent: CustomStringConvertible {
     
     var endsAt: Date {
         return startsAt.addingTimeInterval(duration)
+    }
+    
+    var hashValue: Int {
+        if let task = self.task {
+            return (31 &* type.hashValue) &+ task.hashValue
+        } else if let entry = self.timerEntry {
+            return (31 &* type.hashValue) &+ entry.hashValue
+        } else {
+            fatalError()
+        }
+    }
+    
+    static func ==(lhs: CalendarEvent, rhs: CalendarEvent) -> Bool {
+        return lhs.hashValue == rhs.hashValue
     }
     
     var lane: PlanLane? {

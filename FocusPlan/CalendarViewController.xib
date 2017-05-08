@@ -24,7 +24,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="247"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView wantsLayer="YES" selectable="YES" id="gkq-od-ez8">
+                            <collectionView wantsLayer="YES" selectable="YES" id="gkq-od-ez8" customClass="CalendarCollectionView" customModule="FocusPlan" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="247"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" scrollDirection="horizontal" id="Pyr-w2-dQd">
@@ -34,6 +34,7 @@
                                 <connections>
                                     <outlet property="dataSource" destination="-2" id="sKg-iK-aEd"/>
                                     <outlet property="delegate" destination="-2" id="qp3-AS-PL5"/>
+                                    <outlet property="menu" destination="0kr-5O-ftF" id="jnA-JQ-HMp"/>
                                 </connections>
                             </collectionView>
                         </subviews>
@@ -93,6 +94,23 @@
             </textFieldCell>
             <point key="canvasLocation" x="23" y="606"/>
         </textField>
+        <menu id="0kr-5O-ftF">
+            <items>
+                <menuItem title="Item 1" id="uf8-wj-9Hh">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="Item 2" id="LHC-hN-NXd">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="Item 3" id="vzh-gS-Njt">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+            </items>
+            <connections>
+                <outlet property="delegate" destination="-2" id="WJT-HJ-3WG"/>
+            </connections>
+            <point key="canvasLocation" x="87.5" y="476.5"/>
+        </menu>
     </objects>
     <resources>
         <image name="NSAddTemplate" width="11" height="11"/>

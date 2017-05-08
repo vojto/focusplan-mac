@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import ReactiveSwift
 import SwiftDate
 
 enum CalendarDecorationSection: Int {
@@ -15,7 +16,7 @@ enum CalendarDecorationSection: Int {
     case sectionLabel = 2
 }
 
-class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCollectionViewDelegate {
+class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCollectionViewDelegate, NSMenuDelegate {
 
     @IBOutlet var collectionView: NSCollectionView!
     let collectionLayout = CalendarCollectionLayout()
@@ -24,6 +25,8 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     var editPopover: NSPopover?
     
     var events = CalendarEventsCollection()
+    
+    let selectedEvents = MutableProperty<Set<CalendarEvent>>(Set())
     
     var onReorder: (() -> ())?
     var onCreate: (() -> ())?
@@ -34,6 +37,29 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
         }
     }
     
+    var selectedTasks: Set<Task> {
+        var tasks = Set<Task>()
+        
+        for event in selectedEvents.value {
+            if event.type == .task, let task = event.task {
+                tasks.insert(task)
+            }
+        }
+        
+        return tasks
+    }
+    
+    var selectedEntries: Set<TimerEntry> {
+        var entries = Set<TimerEntry>()
+        
+        for event in selectedEvents.value {
+            if event.type == .timerEntry, let entry = event.timerEntry {
+                entries.insert(entry)
+            }
+        }
+        
+        return entries
+    }
     
     
     // MARK: - Lifecycle
@@ -55,6 +81,7 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
         
         collectionView.register(forDraggedTypes: [NSStringPboardType])
 
+        setupSelectionObserving()
 
     }
     
@@ -239,6 +266,61 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     @IBAction func createAction(_ sender: Any) {
         onCreate?()
     }
+    
+    func removeSelectedTasks() {
+        let context = AppDelegate.viewContext
+        
+        for task in selectedTasks {
+            task.remove(in: context)
+        }
+    }
+    
+    // MARK: - Handling selection
+    // -----------------------------------------------------------------------
+    
+    func setupSelectionObserving() {
+        collectionView.addObserver(self, forKeyPath: "selectionIndexPaths", options: .new, context: nil)
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        
+        if keyPath == "selectionIndexPaths" {
+            if let value = change?[.newKey] as? Set<IndexPath> {
+                updateReactiveSelection(fromIndexPaths: value)
+            }
+            
+        }
+    }
+    
+    func updateReactiveSelection(fromIndexPaths indexPaths: Set<IndexPath>) {
+        var events = Set<CalendarEvent>()
+        
+        for path in indexPaths {
+            if let item = collectionView.item(at: path) as? CalendarCollectionItem,
+                let event = item.event.value {
+                
+                events.insert(event)
+            }
+        }
+        
+        selectedEvents.value = events
+    }
+    
+    
+    
+    // MARK: - Updating menu
+    // -----------------------------------------------------------------------
+    
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        menu.removeAllItems()
+        
+        if let task = selectedTasks.first, selectedTasks.count == 1, selectedEntries.count == 0 {
+            menu.addItem(withTitle: "Remove '\(task.title ?? "")'", action: #selector(removeSelectedTasks), keyEquivalent: "")
+        }
+    }
+    
+
+    
     
 }
 

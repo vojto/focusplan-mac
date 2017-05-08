@@ -42,8 +42,6 @@ class TasksOutlineView: NSOutlineView {
             select(row: rowIndex)
         }
         
-//        super.rightMouseDown(with: event)
-        
         NSMenu.popUpContextMenu(menu!, with: event, for: self)
     }
     

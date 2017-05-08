@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import AppKit
 
 extension Task {
     var estimate: TimeInterval {
@@ -40,5 +41,9 @@ extension Task {
         }
         
         self.estimatedMinutes = Int64(minutes ?? 0)
+    }
+    
+    func remove(in context: NSManagedObjectContext) {
+        context.delete(self)
     }
 }

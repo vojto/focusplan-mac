@@ -136,6 +136,7 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
         calendarController.onCreate = self.handleCalendarCreate
         
         updateLayout()
+        
     }
     
     func updateLayout() {
