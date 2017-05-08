@@ -15,18 +15,26 @@ enum CalendarEventType: String {
 
 class CalendarEvent: CustomStringConvertible, Hashable {
     
-    
-
     let type: CalendarEventType
     
     var task: Task?
     var timerEntry: TimerEntry?
     
-    let startsAt: Date
-    let duration: TimeInterval
+    let startsAt: Date?
+    var duration: TimeInterval
     
-    var endsAt: Date {
-        return startsAt.addingTimeInterval(duration)
+    var endsAt: Date? {
+        return startsAt?.addingTimeInterval(duration)
+    }
+    
+    var date: Date? {
+        if let task = self.task {
+            return task.plannedFor as Date?
+        } else if let entry = timerEntry {
+            return entry.startedAt as Date?
+        } else {
+            return nil
+        }
     }
     
     var hashValue: Int {
@@ -59,7 +67,7 @@ class CalendarEvent: CustomStringConvertible, Hashable {
         }
     }
     
-    init(task: Task, startsAt: Date, duration: TimeInterval) {
+    init(task: Task, startsAt: Date?, duration: TimeInterval) {
         self.type = .task
         self.task = task
         self.startsAt = startsAt

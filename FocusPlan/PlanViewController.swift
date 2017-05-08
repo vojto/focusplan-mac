@@ -137,11 +137,11 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
         
         updateLayout()
         
-        let now = timer(interval: .seconds(5), on: QueueScheduler.main)
-        
-        now.startWithValues { _ in
-            self.updateCalendarWithLastValues()
-        }
+//        let now = timer(interval: .seconds(5), on: QueueScheduler.main)
+//        
+//        now.startWithValues { _ in
+//            self.updateCalendarWithLastValues()
+//        }
     }
     
     func updateLayout() {
@@ -232,7 +232,9 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
             
             let rangeStart = config.range.start.startOf(component: .day)
             
-            let interval = event.startsAt.timeIntervalSince(rangeStart)
+            guard let date = event.date else { continue }
+            
+            let interval = date.timeIntervalSince(rangeStart)
             
             let dayIndex = Int(floor(interval / (60 * 60 * 24)))
             
@@ -258,14 +260,11 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
         let tasksByDays = tasks.group { ($0.plannedFor! as Date).string(format: .custom("yyyyMMdd")) }
 
         for (_, tasks) in tasksByDays {
-            var previous: CalendarEvent? = nil
-            
-            for task in tasks {
-                let startsAt: Date
+            for (i, task) in tasks.enumerated() {
+                var startsAt: Date?
                 
-                if let previous = previous {
-                    startsAt = previous.endsAt
-                } else {
+
+                if config.durationsOnly == false, i == 0 {
                     let planDate = task.plannedFor! as Date
                     let time = Date().timeIntervalSince(Date().startOf(component: .day))
                     startsAt = planDate.startOf(component: .day).addingTimeInterval(time)
@@ -283,7 +282,6 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
                 let event = CalendarEvent(task: task, startsAt: startsAt, duration: duration)
                 
                 events.append(event)
-                previous = event
             }
         }
         

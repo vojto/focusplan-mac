@@ -47,8 +47,74 @@ class CalendarCollectionItemView: NSView {
         if event.clickCount == 2 {
             onDoubleClick?()
         } else {
-            super.mouseDown(with: event)
+            let point = convert(event.locationInWindow, from: nil)
+            
+            if topResizeFrame.contains(point) || bottomResizeFrame.contains(point) {
+                resize(event: event)
+            } else {
+                super.mouseDown(with: event)
+            }
         }
+    }
+    
+    var onBeforeResize: (() -> ())?
+    var onResize: ((CGFloat) -> ())?
+    var onFinishResize: (() -> ())?
+    
+    func resize(event: NSEvent) {
+        var keepOn = true
+        
+        let initialLocation = event.locationInWindow
+        
+        onBeforeResize?()
+        
+        while keepOn {
+            let event = window!.nextEvent(matching: [.leftMouseUp, .leftMouseDragged])!
+            
+            let location = event.locationInWindow
+            
+            let deltaY = initialLocation.y - location.y
+            
+            switch event.type {
+            case .leftMouseDragged:
+                self.onResize?(deltaY)
+                
+                break
+            case .leftMouseUp:
+                // TODO: Call finished callback
+                
+                onFinishResize?()
+
+                keepOn = false
+            default:
+                assertionFailure()
+                break
+            }
+        }
+    }
+    
+    // MARK: - Cursor rects
+    // -----------------------------------------------------------------------
+    
+    var topResizeFrame = NSZeroRect
+    var bottomResizeFrame = NSZeroRect
+    
+    override func resetCursorRects() {
+        super.resetCursorRects()
+        
+        let topCursor = NSCursor.resizeDown()
+        var topFrame = self.frame
+        topFrame.origin.y = topFrame.size.height - 5
+        topFrame.size.height = 5
+        addCursorRect(topFrame, cursor: topCursor)
+        topResizeFrame = topFrame
+        
+        let bottomCursor = NSCursor.resizeUp()
+        var bottomFrame = self.frame
+        bottomFrame.origin.y = 0
+        bottomFrame.size.height = 5
+        addCursorRect(bottomFrame, cursor: bottomCursor)
+        bottomResizeFrame = bottomFrame
     }
     
 }

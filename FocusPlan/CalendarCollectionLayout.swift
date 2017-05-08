@@ -64,17 +64,24 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
     // MARK: - Getting content frame
     // ------------------------------------------------------------------------
     
+    let hourHeight = Double(75)
+    
     override var collectionViewContentSize: NSSize {
         guard let collectionView = self.collectionView else { return NSZeroSize }
         
         let width = collectionView.bounds.size.width
         
-        let hourHeight = Double(75)
         let hours = (dayEnd - dayStart) / (60 * 60)
         
         let height = CGFloat(hours * hourHeight)
         
         return NSSize(width: width, height: height)
+    }
+    
+    func duration(pointValue: CGFloat) -> TimeInterval {
+        let secondHeight = hourHeight / 3600
+        
+        return Double(pointValue) / secondHeight
     }
     
     var innerFrame: NSRect {
@@ -169,15 +176,11 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
         let startingInterval: TimeInterval
         let durationInterval: TimeInterval
         
-        if config.durationsOnly {
-            startingInterval = durationOffset(forEventAt: indexPath)
-            //            Swift.print("Duration offset for \(event.task?.title): \(startingInterval)")
-            durationInterval = event.duration
-        } else {
-            startingInterval = event.startsAt.dayTimeInterval - dayStart
-            durationInterval = event.duration
-        }
         
+        startingInterval = startTime(forEventAt: indexPath) - dayStart
+        durationInterval = event.duration
+
+
         let relativeStart = startingInterval / dayDuration
         
         let y = innerFrame.origin.y + CGFloat(relativeStart) * innerFrame.size.height
@@ -196,7 +199,7 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
         frame = NSRect(x: x, y: y, width: laneWidth, height: height).insetBy(dx: 1.0, dy: 0)
         
         if config.durationsOnly {
-            frame = frame.insetBy(dx: 2.0, dy: 2.0)
+            frame = frame.insetBy(dx: 2.0, dy: 0.0)
         }
         
         if frame.size.height < 0 {
@@ -206,19 +209,23 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
         return frame
     }
     
-    func durationOffset(forEventAt indexPath: IndexPath) -> TimeInterval {
-        var durationOffset: TimeInterval = 0
+    func endTime(forEventAt indexPath: IndexPath) -> TimeInterval {
+        let event = controller.event(atIndexPath: indexPath)!
         
-        if indexPath.item == 0 {
-            return 0
+        return startTime(forEventAt: indexPath) + event.duration
+    }
+    
+    func startTime(forEventAt indexPath: IndexPath) -> TimeInterval {
+        let event = controller.event(atIndexPath: indexPath)!
+    
+        if let start = event.startsAt {
+            return start.timeIntervalSinceStartOfDay
+        } else if indexPath.item == 0 {
+            return dayStart
+        } else {
+            let previousPath = IndexPath(item: indexPath.item - 1, section: indexPath.section)
+            return endTime(forEventAt: previousPath)
         }
-        
-        for i in 0...(indexPath.item-1) {
-            let event = controller.event(atIndexPath: IndexPath(item: i, section: indexPath.section))
-            durationOffset += event?.duration ?? 0
-        }
-        
-        return durationOffset
     }
     
     override func layoutAttributesForSupplementaryView(ofKind elementKind: String, at indexPath: IndexPath) -> NSCollectionViewLayoutAttributes? {

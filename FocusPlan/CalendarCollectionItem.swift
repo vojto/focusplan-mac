@@ -27,6 +27,9 @@ class CalendarCollectionItem: NSCollectionViewItem {
         super.viewDidLoad()
         
         customView.onDoubleClick = self.handleDoubleClick
+        customView.onBeforeResize = self.handleBeforeResize
+        customView.onResize = self.handleResize
+        customView.onFinishResize = self.handleFinishResize
         
         let view = self.view as! CalendarCollectionItemView
 
@@ -135,5 +138,31 @@ class CalendarCollectionItem: NSCollectionViewItem {
     
     func handleDoubleClick() {
         onEdit?(self)
+    }
+    
+    var initialDuration: TimeInterval = 0
+    var initialHeight: CGFloat = 0
+    
+    func handleBeforeResize() {
+        initialDuration = event.value!.duration
+        initialHeight = view.frame.size.height
+    }
+    
+    func handleResize(delta: CGFloat) {
+        let collectionView = self.view.superview as! NSCollectionView
+        let layout = collectionView.collectionViewLayout as! CalendarCollectionLayout
+        let durationDelta = layout.duration(pointValue: delta)
+        
+        event.value!.duration = initialDuration + durationDelta
+
+        layout.invalidateLayout()
+    }
+    
+    func handleFinishResize() {
+        initialDuration = 0
+        
+        let collectionView = self.view.superview as! NSCollectionView
+        
+//        collectionView.reloadData()
     }
 }

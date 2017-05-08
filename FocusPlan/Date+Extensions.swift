@@ -9,7 +9,7 @@
 import Foundation
 
 extension Date {
-    var dayTimeInterval: TimeInterval {
+    var timeIntervalSinceStartOfDay: TimeInterval {
         let start = self.startOf(component: .day)
         return self.timeIntervalSince(start)
     }
