@@ -344,6 +344,14 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
         }
     }
     
+    func removeSelectedEntries() {
+        let context = AppDelegate.viewContext
+        
+        for entry in selectedEntries {
+            context.delete(entry)
+        }
+    }
+    
     // MARK: - Handling selection
     // -----------------------------------------------------------------------
     
@@ -385,6 +393,10 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
         
         if let task = selectedTasks.first, selectedTasks.count == 1, selectedEntries.count == 0 {
             menu.addItem(withTitle: "Remove '\(task.title ?? "")'", action: #selector(removeSelectedTasks), keyEquivalent: "")
+        }
+        
+        if let entry = selectedEntries.first, selectedEntries.count == 1, selectedTasks.count == 0 {
+            menu.addItem(withTitle: "Remove entry", action: #selector(removeSelectedEntries), keyEquivalent: "")
         }
     }
     
