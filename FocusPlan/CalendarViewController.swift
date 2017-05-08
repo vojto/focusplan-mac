@@ -16,9 +16,9 @@ enum CalendarDecorationSection: Int {
     case sectionLabel = 2
 }
 
-class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCollectionViewDelegate, NSMenuDelegate {
+class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCollectionViewDelegate {
 
-    @IBOutlet var collectionView: NSCollectionView!
+    @IBOutlet var collectionView: CalendarCollectionView!
     let collectionLayout = CalendarCollectionLayout()
     
     var editController: EditTaskViewController?
@@ -82,6 +82,10 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
         collectionView.register(forDraggedTypes: [NSStringPboardType])
 
         setupSelectionObserving()
+        
+        collectionView.scrollSignal.throttle(0.5, on: QueueScheduler.main).observeValues {
+            self.view.window?.resetCursorRects()
+        }
 
     }
     
@@ -320,6 +324,9 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     }
     
 
+    // MARK: - Reacting to scrolling
+    // -----------------------------------------------------------------------
+    
     
     
 }

@@ -7,8 +7,31 @@
 //
 
 import Cocoa
+import ReactiveSwift
+import enum Result.NoError
 
 class CalendarCollectionView: NSCollectionView {
+    
+    var scrollSignal: Signal<(), NoError>!
+    var scrollObserver: Observer<(), NoError>!
+    
+    override init(frame frameRect: NSRect) {
+        super.init(frame: frameRect)
+        
+        setup()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        
+        setup()
+    }
+    
+    func setup() {
+        let (signal, observer) = Signal<(), NoError>.pipe()
+        scrollSignal = signal
+        scrollObserver = observer
+    }
     
     override func rightMouseDown(with event: NSEvent) {
         guard let menu = self.menu else {
@@ -37,6 +60,14 @@ class CalendarCollectionView: NSCollectionView {
 
     override func menu(for event: NSEvent) -> NSMenu? {
         return nil
+    }
+    
+    
+    
+    override func scrollWheel(with event: NSEvent) {
+        super.scrollWheel(with: event)
+        
+        scrollObserver.send(value: ())
     }
     
 }
