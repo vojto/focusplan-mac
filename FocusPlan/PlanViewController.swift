@@ -14,6 +14,10 @@ import SwiftDate
 struct PlanRange {
     var start: Date
     var dayCount: Int
+    
+    var lastDay: Date {
+        return start + dayCount.days
+    }
 }
 
 struct PlanConfig {
@@ -80,6 +84,7 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
     
     var config = PlanConfig.defaultConfig {
         didSet {
+            updateTimerEntriesObserver()
             updateLayout()
             calendarController.config = config
             updateCalendarWithLastValues()
@@ -106,12 +111,11 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
         let sortedTasks = tasksObserver.sortedTasksForPlan
         
         timerEntriesObserver = {
-            // TODO: Filter by displayed time range
-            // ... for now we're displaying all!
             let request: NSFetchRequest<NSFetchRequestResult> = TimerEntry.fetchRequest()
-
             return ReactiveObserver<TimerEntry>(context: context, request: request)
         }()
+        
+        updateTimerEntriesObserver()
         
         primaryView.include(tasksController.view)
         secondaryView.include(calendarController.view)
@@ -142,6 +146,20 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
 //        now.startWithValues { _ in
 //            self.updateCalendarWithLastValues()
 //        }
+    }
+    
+    func updateTimerEntriesObserver() {
+        let request: NSFetchRequest<NSFetchRequestResult> = TimerEntry.fetchRequest()
+        
+        let range = config.range
+        let start = range.start.startOf(component: .day) as NSDate
+        let end = range.lastDay.endOf(component: .day) as NSDate
+        
+        request.predicate = NSPredicate(format: "startedAt >= %@ and startedAt <= %@", start, end)
+        
+        Swift.print("🌈 Updated request with predicate: \(request.predicate)")
+        
+        timerEntriesObserver.request = request
     }
     
     func updateLayout() {
