@@ -21,8 +21,11 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     @IBOutlet var collectionView: CalendarCollectionView!
     let collectionLayout = CalendarCollectionLayout()
     
-    var editController: EditTaskViewController?
-    var editPopover: NSPopover?
+    var editTaskController: EditTaskViewController?
+    var editTaskPopover: NSPopover?
+    
+    var editTimerEntryController: EditTimerEntryController?
+    var editTimerEntryPopover: NSPopover?
     
     var events = CalendarEventsCollection()
     
@@ -92,9 +95,15 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     func reloadData() {
         // TODO: Temporary hack to avoid reloading collection when popover
         // makes changes to data...
-        if (editPopover?.isShown ?? false) {
+        if (editTaskPopover?.isShown ?? false) {
             return
         }
+        
+        if (editTimerEntryPopover?.isShown ?? false) {
+            return
+        }
+        
+        
         
         NSAnimationContext.current().duration = 0
         self.collectionView.reloadData()
@@ -228,42 +237,70 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     // -----------------------------------------------------------------------
     
     func handleEdit(item: CalendarCollectionItem) {
-        guard let task = item.event.value?.task else { return }
+        Swift.print("Handling edit of \(item)")
         
-        edit(task: task)
+        if let task = item.event.value?.task {
+            edit(task: task)
+        } else if let entry = item.event.value?.timerEntry {
+            edit(timerEntry: entry)
+        }
     }
     
     func edit(task: Task) {
-        
-        Swift.print("Editing task: \(task)")
-        
         // Find the item
         guard let item = collectionItem(forTask: task) else { return }
-
-        
-        Swift.print("Found task item: \(item)")
         
         let view = item.view
         
-        if editController == nil {
-            editController = EditTaskViewController()
+        if editTaskController == nil {
+            editTaskController = EditTaskViewController()
             
-            editController?.onFinishEditing = {
-                self.editPopover?.close()
+            editTaskController?.onFinishEditing = {
+                self.editTaskPopover?.close()
                 self.reloadData()
             }
         }
         
-        if editPopover == nil {
-            editPopover = NSPopover()
-            editPopover?.contentViewController = editController
-            editPopover?.behavior = .transient
-            editPopover?.animates = false
+        if editTaskPopover == nil {
+            editTaskPopover = NSPopover()
+            editTaskPopover?.contentViewController = editTaskController
+            editTaskPopover?.behavior = .transient
+            editTaskPopover?.animates = false
         }
         
-        editController?.task.value = task
+        editTaskController?.task.value = task
         
-        editPopover?.show(relativeTo: view.bounds, of: view, preferredEdge: .minY)
+        editTaskPopover?.show(relativeTo: view.bounds, of: view, preferredEdge: .minY)
+    }
+    
+    func edit(timerEntry: TimerEntry) {
+        Swift.print("Handling editing of timer entry \(timerEntry)")
+        
+        guard let item = collectionItem(forEntry: timerEntry) else { return }
+        
+        Swift.print("Collection item: \(item)")
+        
+        let view = item.view
+        
+        if editTimerEntryController == nil {
+            editTimerEntryController = EditTimerEntryController()
+            
+            editTimerEntryController?.onFinishEditing = {
+                self.editTimerEntryPopover?.close()
+                self.reloadData()
+            }
+        }
+        
+        if editTimerEntryPopover == nil {
+            editTimerEntryPopover = NSPopover()
+            editTimerEntryPopover?.contentViewController = editTimerEntryController
+            editTimerEntryPopover?.behavior = .transient
+            editTimerEntryPopover?.animates = false
+        }
+        
+        editTimerEntryController?.entry.value = timerEntry
+        
+        editTimerEntryPopover?.show(relativeTo: view.bounds, of: view, preferredEdge: .minY)
     }
     
     func collectionItem(forTask task: Task) -> CalendarCollectionItem? {
@@ -271,6 +308,19 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
             if let item = item as? CalendarCollectionItem,
                 let itemTask = item.event.value?.task,
                 itemTask == task {
+                
+                return item
+            }
+        }
+        
+        return nil
+    }
+    
+    func collectionItem(forEntry entry: TimerEntry) -> CalendarCollectionItem? {
+        for item in collectionView.visibleItems() {
+            if let item = item as? CalendarCollectionItem,
+                let itemEntry = item.event.value?.timerEntry,
+                itemEntry == entry {
                 
                 return item
             }

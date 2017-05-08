@@ -97,9 +97,12 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
     var lastTasks = [Task]()
     var lastTimerEntries = [TimerEntry]()
     
+    static var instance: PlanViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        PlanViewController.instance = self
         
         tasksController.wantsHighlightPlanned = false
         tasksController.weightKeypath = #keyPath(Task.weightForPlan)

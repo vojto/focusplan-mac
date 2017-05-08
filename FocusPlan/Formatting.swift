@@ -9,8 +9,10 @@
 import Foundation
 
 class Formatting {
-    public static func format(timeInterval: TimeInterval) -> String {
-        var time = timeInterval
+    public static func format(timeInterval: TimeInterval?) -> String {
+        guard var time = timeInterval else {
+            return ""
+        }
         
         if time < 0 {
             time = 0

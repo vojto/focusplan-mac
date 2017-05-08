@@ -23,6 +23,16 @@ public extension Reactive where Base: TimerEntry {
             .map(asDate)
     }
     
+    var duration: SignalProducer<TimeInterval?, NoError> {
+        return SignalProducer.combineLatest(startedAt, endedAt).map { start, end -> TimeInterval? in
+            guard let startedAt = (start as Date?), let endedAt = (end as Date?) else {
+                return nil
+            }
+            
+            return endedAt.timeIntervalSince(startedAt)
+        }
+    }
+    
     var isRunning: SignalProducer<Bool, NoError> {
         return endedAt.map { $0 == nil }
     }
