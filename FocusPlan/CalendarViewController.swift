@@ -222,9 +222,6 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     
     func collectionItem(forTask task: Task) -> CalendarCollectionItem? {
         for item in collectionView.visibleItems() {
-            Swift.print("Item: \(item)")
-            
-
             if let item = item as? CalendarCollectionItem,
                 let itemTask = item.event.value?.task,
                 itemTask == task {

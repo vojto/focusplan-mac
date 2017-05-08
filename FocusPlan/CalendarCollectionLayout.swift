@@ -46,7 +46,7 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
     // ------------------------------------------------------------------------
     
     override init() {
-        let now = Date() - 10.minutes
+        let now = (Date() - 10.minutes).startOf(component: .hour)
         let dayStart = now.startOf(component: .day)
         
         let timeNow = now.timeIntervalSince(dayStart)
