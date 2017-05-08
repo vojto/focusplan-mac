@@ -34,6 +34,16 @@ class TimerState: NSObject, NSUserNotificationCenterDelegate {
         pomodoroLane.runningTill.producer.startWithValues { projectedEnd in
             self.handleProjectedEndChanged(projectedEnd)
         }
+        
+        // Watch for task getting checked off
+        let isFinished = runningTask.producer.pick { $0.reactive.isFinished }
+        isFinished.startWithValues { finished in
+            if finished == true {
+                DispatchQueue.main.async {
+                    self.stop()
+                }
+            }
+        }
     }
     
     func start() {
@@ -42,7 +52,7 @@ class TimerState: NSObject, NSUserNotificationCenterDelegate {
         generalLane.start(task: task)
     }
     
-    func restartChangingTo(task: Task) {
+    func restartChangingTo(task: Task?) {
         if let entry = generalLane.runningEntry.value,
             entry.elapsed < 60 {
             
