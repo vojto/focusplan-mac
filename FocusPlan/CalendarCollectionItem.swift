@@ -141,11 +141,9 @@ class CalendarCollectionItem: NSCollectionViewItem {
     }
     
     var initialDuration: TimeInterval = 0
-    var initialHeight: CGFloat = 0
-    
+
     func handleBeforeResize() {
         initialDuration = event.value!.duration
-        initialHeight = view.frame.size.height
     }
     
     func handleResize(delta: CGFloat) {
@@ -153,16 +151,24 @@ class CalendarCollectionItem: NSCollectionViewItem {
         let layout = collectionView.collectionViewLayout as! CalendarCollectionLayout
         let durationDelta = layout.duration(pointValue: delta)
         
-        event.value!.duration = initialDuration + durationDelta
+        let duration = initialDuration + durationDelta
+        
+        event.value!.duration = duration
 
         layout.invalidateLayout()
+        
+        let minutes = Int(round(duration / 60))
+        
+        self.field.stringValue = Formatting.format(estimate: minutes)
     }
     
     func handleFinishResize() {
         initialDuration = 0
         
-        let collectionView = self.view.superview as! NSCollectionView
+        guard let event = self.event.value else { return }
         
-//        collectionView.reloadData()
+        if let task = event.task {
+            task.estimatedMinutes = Int64(round(event.duration / 60))
+        }
     }
 }

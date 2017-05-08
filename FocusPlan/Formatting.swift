@@ -22,4 +22,23 @@ class Formatting {
         
         return NSString(format: "%02d:%02d", minutes, seconds) as String
     }
+    
+    public static func format(estimate minutes: Int?) -> String {
+        guard let minutes = minutes, minutes > 0 else {
+            return ""
+        }
+        
+        let hours = minutes / 60
+        let extraMinutes = minutes - (hours*60)
+        
+        if hours > 0 {
+            if extraMinutes > 0 {
+                return "\(hours)h \(extraMinutes)m"
+            } else {
+                return "\(hours)h"
+            }
+        } else {
+            return "\(minutes)m"
+        }
+    }
 }
