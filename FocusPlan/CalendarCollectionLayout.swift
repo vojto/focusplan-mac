@@ -112,7 +112,7 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
         let paths = controller.allIndexPaths()
         
         // Assign starting date to first task event in case we want exact numbers
-        if !config.durationsOnly {
+        if config.style != .durations {
             var markedFirstEvent = false
             
             for path in paths {
@@ -141,7 +141,7 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
         }
         
 
-        if !config.durationsOnly {
+        if config.style != .durations {
             // Hour labels
             let countLabels = Int(dayDuration / labelEvery)
             for i in 0...countLabels {
@@ -230,9 +230,9 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
         
         frame = NSRect(x: x, y: y, width: laneWidth, height: height).insetBy(dx: 1.0, dy: 0)
         
-        if config.durationsOnly {
-            frame = frame.insetBy(dx: 2.0, dy: 0.0)
-        }
+//        if config.durationsOnly {
+//            frame = frame.insetBy(dx: 2.0, dy: 0.0)
+//        }
         
         if frame.size.height < 0 {
             return nil

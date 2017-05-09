@@ -13,6 +13,7 @@
                 <outlet property="detailControl" destination="jgJ-PB-KFe" id="6LD-h1-p6e"/>
                 <outlet property="primaryView" destination="HeY-1b-gau" id="PUY-L8-e2D"/>
                 <outlet property="secondaryView" destination="OQX-XL-9Fk" id="8sv-JC-oX5"/>
+                <outlet property="styleControl" destination="zWn-GQ-lua" id="VSA-XD-bPE"/>
                 <outlet property="titleField" destination="Jiw-ea-Nj1" id="S9h-GJ-v9r"/>
                 <outlet property="view" destination="tKT-91-vsq" id="TjJ-qQ-tEi"/>
             </connections>
@@ -70,10 +71,24 @@
                                 <action selector="nextUnit:" target="-2" id="NeE-KB-PCp"/>
                             </connections>
                         </button>
+                        <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zWn-GQ-lua">
+                            <rect key="frame" x="536" y="11" width="96" height="23"/>
+                            <segmentedCell key="cell" borderStyle="border" alignment="left" style="capsule" trackingMode="selectOne" id="fCv-Ao-hdf">
+                                <font key="font" metaFont="system"/>
+                                <segments>
+                                    <segment label="Plan" selected="YES"/>
+                                    <segment label="Log" tag="1"/>
+                                </segments>
+                            </segmentedCell>
+                            <connections>
+                                <action selector="changeStyle:" target="-2" id="ijx-Mf-cfO"/>
+                            </connections>
+                        </segmentedControl>
                     </subviews>
                     <constraints>
                         <constraint firstItem="p6e-T8-poS" firstAttribute="leading" secondItem="uig-5h-bVa" secondAttribute="leading" id="3r7-bh-Syo"/>
                         <constraint firstAttribute="height" constant="45" id="9uX-1b-yeG"/>
+                        <constraint firstItem="zWn-GQ-lua" firstAttribute="centerY" secondItem="uig-5h-bVa" secondAttribute="centerY" id="9zK-CM-jBC"/>
                         <constraint firstItem="Jiw-ea-Nj1" firstAttribute="leading" secondItem="g2g-VE-XA5" secondAttribute="trailing" constant="8" id="FJf-sU-4zS"/>
                         <constraint firstItem="jgJ-PB-KFe" firstAttribute="leading" secondItem="uig-5h-bVa" secondAttribute="leading" constant="16" id="NPB-Wa-6ks"/>
                         <constraint firstAttribute="bottom" secondItem="p6e-T8-poS" secondAttribute="bottom" id="SC1-tv-T58"/>
@@ -81,6 +96,7 @@
                         <constraint firstItem="jgJ-PB-KFe" firstAttribute="centerY" secondItem="uig-5h-bVa" secondAttribute="centerY" id="d5N-Dz-HVH"/>
                         <constraint firstItem="Tgm-bD-Tez" firstAttribute="centerY" secondItem="uig-5h-bVa" secondAttribute="centerY" id="gzz-z0-EAp"/>
                         <constraint firstItem="Tgm-bD-Tez" firstAttribute="leading" secondItem="Jiw-ea-Nj1" secondAttribute="trailing" constant="8" id="mO7-JO-RIZ"/>
+                        <constraint firstAttribute="trailing" secondItem="zWn-GQ-lua" secondAttribute="trailing" constant="16" id="nxt-43-FnQ"/>
                         <constraint firstAttribute="trailing" secondItem="p6e-T8-poS" secondAttribute="trailing" id="phd-NB-Y9i"/>
                         <constraint firstItem="Jiw-ea-Nj1" firstAttribute="centerX" secondItem="uig-5h-bVa" secondAttribute="centerX" id="yma-K7-XZ2"/>
                         <constraint firstItem="g2g-VE-XA5" firstAttribute="centerY" secondItem="uig-5h-bVa" secondAttribute="centerY" id="zst-iG-Qk1"/>

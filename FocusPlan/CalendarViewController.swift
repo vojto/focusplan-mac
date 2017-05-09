@@ -114,15 +114,11 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     func numberOfSections(in collectionView: NSCollectionView) -> Int {
         let count = config.range.dayCount
         
-        Swift.print("Number of sections: \(count)")
-        
         return count
     }
     
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
         let count = events.sections.at(section)?.count ?? 0
-        
-        Swift.print("Number of items for section \(section) = \(count)")
         
         return count
     }
@@ -342,6 +338,22 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
         }
     }
     
+    func moveToNextWeek() {
+        moveBy(weeks: 1)
+    }
+    
+    func moveToPreviousWeek() {
+        moveBy(weeks: -1)
+    }
+    
+    func moveBy(weeks: Int) {
+        for task in selectedTasks {
+            guard let date = (task.plannedFor as Date?) else { continue }
+            let newDate = (date + weeks.week).startOf(component: .weekOfYear)
+            task.plannedFor = newDate as NSDate
+        }
+    }
+    
     func removeSelectedEntries() {
         let context = AppDelegate.viewContext
         
@@ -390,7 +402,13 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
         menu.removeAllItems()
         
         if let task = selectedTasks.first, selectedTasks.count == 1, selectedEntries.count == 0 {
+            menu.addItem(NSMenuItem(title: "Move to next week", action: #selector(moveToNextWeek), keyEquivalent: ""))
+            menu.addItem(NSMenuItem(title: "Move to previous week", action: #selector(moveToPreviousWeek), keyEquivalent: ""))
+            
+            menu.addItem(NSMenuItem.separator())
+            
             menu.addItem(withTitle: "Remove '\(task.title ?? "")'", action: #selector(removeSelectedTasks), keyEquivalent: "")
+            
         }
         
         if let entry = selectedEntries.first, selectedEntries.count == 1, selectedTasks.count == 0 {

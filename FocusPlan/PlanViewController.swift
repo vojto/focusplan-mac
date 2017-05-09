@@ -20,18 +20,24 @@ struct PlanRange {
     }
 }
 
+enum PlanStyle {
+    case hybrid
+    case durations
+    case entries
+}
+
 struct PlanConfig {
     var range: PlanRange
     var lanes: [PlanLane]
     var detail: PlanDetail
-    var durationsOnly = false
+    var style = PlanStyle.hybrid
     
     static var defaultConfig: PlanConfig {
         return PlanConfig(
             range: PlanRange(start: Date(), dayCount: 1),
             lanes: [.task, .pomodoro],
             detail: .daily,
-            durationsOnly: false
+            style: .hybrid
         )
     }
     
@@ -42,7 +48,7 @@ struct PlanConfig {
             range: range,
             lanes: [.task, .pomodoro],
             detail: .daily,
-            durationsOnly: false
+            style: .hybrid
         )
     }
     
@@ -53,7 +59,7 @@ struct PlanConfig {
             range: range,
             lanes: [.task],
             detail: .weekly,
-            durationsOnly: true
+            style: .durations
         )
     }
 }
@@ -76,6 +82,7 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
     
     @IBOutlet weak var titleField: NSTextField!
     @IBOutlet weak var detailControl: NSSegmentedControl!
+    @IBOutlet weak var styleControl: NSSegmentedControl!
     
     
     let tasksController = TasksViewController()
@@ -84,6 +91,8 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
     
     var config = PlanConfig.defaultConfig {
         didSet {
+            Swift.print("✳️ Changed style to \(config.style)")
+            
             updateObservers()
             updateLayout()
             calendarController.config = config
@@ -170,9 +179,18 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
         case .daily:
             primaryView.isHidden = false
             detailControl.selectedSegment = 0
+            styleControl.isHidden = true
         case .weekly:
             primaryView.isHidden = true
             detailControl.selectedSegment = 1
+            styleControl.isHidden = false
+        }
+        
+        switch config.style {
+        case .hybrid, .entries:
+            styleControl.selectedSegment = 1
+        case .durations:
+            styleControl.selectedSegment = 0
         }
         
         // Update the title too while we're at it
@@ -213,9 +231,7 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
     }
     
     @IBAction func changeDetail(_ sender: Any) {
-        let index = detailControl.selectedSegment
-        
-        switch index {
+        switch detailControl.selectedSegment {
         case 0:
             self.config = PlanConfig.daily(date: config.range.start)
         case 1:
@@ -223,6 +239,17 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
         default: break
         }
     }
+    
+    @IBAction func changeStyle(_ sender: Any) {
+        switch styleControl.selectedSegment {
+        case 0:
+            self.config.style = .durations
+        case 1:
+            self.config.style = .entries
+        default: break
+        }
+    }
+
     
     
     func splitView(_ splitView: NSSplitView, shouldHideDividerAt dividerIndex: Int) -> Bool {
@@ -245,7 +272,17 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
 
         let timerEvents = createTimerEvents(fromEntries: timerEntries)
         
-        let events = timerEvents + taskEvents
+        let events: [CalendarEvent]
+        
+        Swift.print("👙 Updating calendar with \(timerEvents.count) timer events")
+        
+        switch config.style {
+        case .entries:
+            events = timerEvents
+        default:
+            events = timerEvents + taskEvents
+        }
+    
         
         calendarController.events.reset(sectionsCount: config.range.dayCount)
         
@@ -340,7 +377,7 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
             
             let duration = endedAt.timeIntervalSince(startedAt as Date)
             
-            let startTime = !config.durationsOnly ? (startedAt as Date).timeIntervalSinceStartOfDay : nil
+            let startTime = config.style != .durations ? (startedAt as Date).timeIntervalSinceStartOfDay : nil
             
             let event = CalendarEvent(timerEntry: entry, startsAt: startTime, duration: duration)
             events.append(event)
