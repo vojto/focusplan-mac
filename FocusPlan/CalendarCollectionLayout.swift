@@ -107,6 +107,26 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
     override func layoutAttributesForElements(in rect: NSRect) -> [NSCollectionViewLayoutAttributes] {
         let paths = controller.allIndexPaths()
         
+        // Assign starting date to first task event in case we want exact numbers
+        if !config.durationsOnly {
+            var markedFirstEvent = false
+            
+            for path in paths {
+                let event = controller.event(atIndexPath: path)!
+                
+                if event.type == .task {
+                    event.startsAt = nil
+                    
+                    if !markedFirstEvent {
+                        event.startsAt = Date().timeIntervalSinceStartOfDay
+                        markedFirstEvent = true
+                    }
+                }
+                
+            }
+        }
+        
+        
         var attributes = [NSCollectionViewLayoutAttributes]()
         
         // Events
@@ -116,6 +136,7 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
             }
         }
         
+
         if !config.durationsOnly {
             // Hour labels
             let countLabels = Int(dayDuration / labelEvery)
@@ -132,18 +153,22 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
             }
         }
         
-        // Section lines & labels
-        for i in 0...config.range.dayCount {
-            if let attribute = layoutAttributesForDecorationView(ofKind: kSectionLine, at: IndexPath(item: i, section: CalendarDecorationSection.sectionLine.rawValue)) {
-                attributes.append(attribute)
-            }
-            
-            if config.range.dayCount > 1 {
-                if let attribute = layoutAttributesForDecorationView(ofKind: kSectionLabel, at: IndexPath(item: i, section: CalendarDecorationSection.sectionLabel.rawValue)) {
+        
+        if config.detail == .weekly {
+            // Section lines & labels
+            for i in 0...config.range.dayCount {
+                if let attribute = layoutAttributesForDecorationView(ofKind: kSectionLine, at: IndexPath(item: i, section: CalendarDecorationSection.sectionLine.rawValue)) {
                     attributes.append(attribute)
+                }
+                
+                if config.range.dayCount > 1 {
+                    if let attribute = layoutAttributesForDecorationView(ofKind: kSectionLabel, at: IndexPath(item: i, section: CalendarDecorationSection.sectionLabel.rawValue)) {
+                        attributes.append(attribute)
+                    }
                 }
             }
         }
+        
         
         return attributes
     }

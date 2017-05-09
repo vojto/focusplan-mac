@@ -69,25 +69,11 @@ class MainWindow: NSWindow, NSToolbarDelegate {
     }
     
     @IBAction func nextUnit(_ sender: Any) {
-        updateRange(change: 1)
+        planController.updateRange(change: 1)
     }
     
     @IBAction func previousUnit(_ sender: Any) {
-        updateRange(change: -1)
-    }
-    
-    func updateRange(change units: Int) {
-        let date: Date
-        let config = planController.config
-
-        switch config.detail {
-        case .daily:
-            date = config.range.start + units.days
-        case .weekly:
-            date = config.range.start + units.weeks
-        }
-        
-        planController.config.range.start = date
+        planController.updateRange(change: -1)
     }
     
     func showProject(_ project: Project) {

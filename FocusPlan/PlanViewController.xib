@@ -56,6 +56,9 @@
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
+                            <connections>
+                                <action selector="previousUnit:" target="-2" id="AIS-b1-jKD"/>
+                            </connections>
                         </button>
                         <button translatesAutoresizingMaskIntoConstraints="NO" id="Tgm-bD-Tez">
                             <rect key="frame" x="350" y="17" width="9" height="12"/>
@@ -63,6 +66,9 @@
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
+                            <connections>
+                                <action selector="nextUnit:" target="-2" id="NeE-KB-PCp"/>
+                            </connections>
                         </button>
                     </subviews>
                     <constraints>

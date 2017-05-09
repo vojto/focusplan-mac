@@ -284,14 +284,6 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
 
         for (_, tasks) in tasksByDays {
             for (_, task) in tasks.enumerated() {
-                var startsAt: Date?
-
-                if config.durationsOnly == false, tasksAdded == 0 {
-                    let planDate = task.plannedFor! as Date
-                    let time = Date().timeIntervalSince(Date().startOf(component: .day))
-                    startsAt = planDate.startOf(component: .day).addingTimeInterval(time)
-                }
-                
                 var duration = task.estimate
                 
                 // Adjust duration by time already spent on this task
@@ -301,7 +293,7 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
                     continue
                 }
                 
-                let event = CalendarEvent(task: task, startsAt: startsAt?.timeIntervalSinceStartOfDay, duration: duration)
+                let event = CalendarEvent(task: task, startsAt: nil, duration: duration)
                 
                 tasksAdded += 1
                 events.append(event)
@@ -422,6 +414,29 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
         }
     }
     
+    // MARK: - Changing the config
+    // -----------------------------------------------------------------------
     
+    @IBAction func previousUnit(_ sender: Any) {
+        updateRange(change: -1)
+    }
+    
+    @IBAction func nextUnit(_ sender: Any) {
+        updateRange(change: 1)
+    }
+    
+    func updateRange(change units: Int) {
+        let date: Date
+        let config = self.config
+        
+        switch config.detail {
+        case .daily:
+            date = config.range.start + units.days
+        case .weekly:
+            date = config.range.start + units.weeks
+        }
+        
+        self.config.range.start = date
+    }
     
 }

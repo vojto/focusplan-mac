@@ -103,7 +103,8 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
             return
         }
         
-        
+
+        Swift.print("🎧 Reloading data!")
         
         NSAnimationContext.current().duration = 0
         self.collectionView.reloadData()
@@ -113,11 +114,19 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     // ------------------------------------------------------------------------
     
     func numberOfSections(in collectionView: NSCollectionView) -> Int {
-        return config.range.dayCount
+        let count = config.range.dayCount
+        
+        Swift.print("Number of sections: \(count)")
+        
+        return count
     }
     
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-        return events.sections.at(section)?.count ?? 0
+        let count = events.sections.at(section)?.count ?? 0
+        
+        Swift.print("Number of items for section \(section) = \(count)")
+        
+        return count
     }
     
     // MARK: - Making views
@@ -169,17 +178,10 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     
     func collectionView(_ collectionView: NSCollectionView, canDragItemsAt indexPaths: Set<IndexPath>, with event: NSEvent) -> Bool {
         
-        if config.detail == .daily {
-            return false
-        }
+        guard let path = indexPaths.first else { return false }
+        let event = events.at(indexPath: path)
         
-        if let path = indexPaths.first {
-            let event = events.at(indexPath: path)
-            
-            return (event.type == .task)
-        }
-        
-        return true
+        return (event.type == .task)
     }
     
     func collectionView(_ collectionView: NSCollectionView, pasteboardWriterForItemAt indexPath: IndexPath) -> NSPasteboardWriting? {
@@ -196,11 +198,15 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
             let currentIndexPath = collectionView.indexPath(for: draggedItem),
             currentIndexPath != proposedDropIndexPath {
             
+            Swift.print("🖍 Moving from \(currentIndexPath) to \(proposedDropIndexPath)")
+            
+            
             let sourcePath = events.indexPath(forEvent: draggedEvent!)!
             events.moveItem(at: sourcePath, to: proposedDropIndexPath)
             
-            
             collectionView.animator().moveItem(at: currentIndexPath, to: proposedDropIndexPath)
+            
+            
         }
         
         return .move
