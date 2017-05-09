@@ -241,8 +241,6 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     // -----------------------------------------------------------------------
     
     func handleEdit(item: CalendarCollectionItem) {
-        Swift.print("Handling edit of \(item)")
-        
         if let task = item.event.value?.task {
             edit(task: task)
         } else if let entry = item.event.value?.timerEntry {
@@ -278,11 +276,7 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     }
     
     func edit(timerEntry: TimerEntry) {
-        Swift.print("Handling editing of timer entry \(timerEntry)")
-        
         guard let item = collectionItem(forEntry: timerEntry) else { return }
-        
-        Swift.print("Collection item: \(item)")
         
         let view = item.view
         
