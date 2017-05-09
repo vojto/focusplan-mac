@@ -15,6 +15,8 @@ class CalendarCollectionView: NSCollectionView {
     var scrollSignal: Signal<(), NoError>!
     var scrollObserver: Observer<(), NoError>!
     
+    var onDoubleClick: ((NSEvent) -> ())?
+    
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         
@@ -31,6 +33,14 @@ class CalendarCollectionView: NSCollectionView {
         let (signal, observer) = Signal<(), NoError>.pipe()
         scrollSignal = signal
         scrollObserver = observer
+    }
+    
+    override func mouseDown(with event: NSEvent) {
+        super.mouseDown(with: event)
+        
+        if event.clickCount == 2 {
+            onDoubleClick?(event)
+        }
     }
     
     override func rightMouseDown(with event: NSEvent) {

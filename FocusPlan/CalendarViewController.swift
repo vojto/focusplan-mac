@@ -72,6 +72,7 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
         super.viewDidLoad()
         
         collectionView.collectionViewLayout = collectionLayout
+        collectionView.onDoubleClick = handleDoubleClick
         
         let nib = NSNib(nibNamed: "CalendarHourHeader", bundle: nil)
         collectionView.register(nib, forSupplementaryViewOfKind: kHourHeader, withIdentifier: kHourHeaderIdentifier)
@@ -404,8 +405,29 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     }
     
 
-    // MARK: - Reacting to scrolling
+    // MARK: - Creating time entries
     // -----------------------------------------------------------------------
+    
+    func handleDoubleClick(event: NSEvent) {
+        let location = collectionView.convert(event.locationInWindow, from: nil)
+        guard let section = collectionLayout.sectionIndexPath(atPoint: location) else { return }
+        
+        let time = collectionLayout.time(pointValue: location.y)
+        let date = (config.range.start + section.section.days).startOf(component: .day).addingTimeInterval(time)
+        
+        let context = AppDelegate.viewContext
+        let entry = TimerEntry(entity: TimerEntry.entity(), insertInto: context)
+        
+        entry.lane = LaneId.general.rawValue
+        entry.startedAt = date as NSDate
+        entry.endedAt = (date + 15.minutes) as NSDate
+        
+        
+        
+        
+    }
+    
+    
     
     
     

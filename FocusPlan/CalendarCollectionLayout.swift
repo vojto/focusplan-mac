@@ -84,10 +84,14 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
         return Double(pointValue) / secondHeight
     }
     
+    func time(pointValue: CGFloat) -> TimeInterval {
+        return duration(pointValue: pointValue - topMargin) + dayStart
+    }
+    
+    let leftMargin: CGFloat = 50.0
+    let topMargin: CGFloat = 20.0
+    
     var innerFrame: NSRect {
-        let leftMargin: CGFloat = 50.0
-        let topMargin: CGFloat = 20.0
-        
         let size = collectionViewContentSize
         var frame = NSRect(x: 0, y: 0, width: size.width, height: size.height)
         
@@ -347,34 +351,31 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
                 frame.contains(pointInCollectionView) {
                 
                 let attributes = NSCollectionViewLayoutAttributes(forItemWith: path)
-//                attributes.frame = frame
                 return attributes
             }
         }
         
+        if let indexPath = sectionIndexPath(atPoint: pointInCollectionView) {
+            return NSCollectionViewLayoutAttributes(forInterItemGapBefore: indexPath)
+        }
+        
+        return nil
+    }
+    
+    func sectionIndexPath(atPoint point: NSPoint) -> IndexPath? {
         let sections = controller.events.sections
         
         for i in 0...sections.lastIndex {
             let frame = sectionFrame(at: i)
             let countEvents = sections[i].count
             let lastIndex = countEvents > 0 ? countEvents - 1 : 0
-
             
-            if frame.contains(pointInCollectionView) {
-                
-                
-                let attributes = NSCollectionViewLayoutAttributes(forInterItemGapBefore: IndexPath(item: lastIndex, section: i))
-//                attributes.frame = frame
-                
-                // TODO: Set the frame?
-                
-                return attributes
+            if frame.contains(point) {
+                return IndexPath(item: lastIndex, section: i)
             }
         }
         
         return nil
-    
-        
     }
     
     // MARK: - Invalidation
