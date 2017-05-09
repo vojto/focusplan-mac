@@ -91,8 +91,6 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
     
     var config = PlanConfig.defaultConfig {
         didSet {
-            Swift.print("✳️ Changed style to \(config.style)")
-            
             updateObservers()
             updateLayout()
             calendarController.config = config
@@ -274,8 +272,6 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
         
         let events: [CalendarEvent]
         
-        Swift.print("👙 Updating calendar with \(timerEvents.count) timer events")
-        
         switch config.style {
         case .entries:
             events = timerEvents
@@ -432,17 +428,12 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
     // -----------------------------------------------------------------------
     
     func handleReorder() {
-//        Swift.print("Handling reorder...")
-        
         for (i, events) in calendarController.events.sections.enumerated() {
             var weight = 0
-            
-            Swift.print("SAving order for \(events.count) events in section \(i)")
             
             for event in events {
                 if let task = event.task {
                     task.weightForPlan = Int64(weight)
-                    Swift.print("Set weight \(weight) for task \(task.title)")
                     weight += 1
                     
                     task.plannedFor = (config.range.start + i.days) as NSDate
