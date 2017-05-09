@@ -19,12 +19,14 @@ class TaskTitleTableCellView: EditableTableCellView {
     
     var controller: TasksViewController?
     
+    var onTabOut: (() -> ())?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
         let isFinished = task.producer.pick({ $0.reactive.isFinished.producer })
-        let isPlanned = task.producer.pick({ $0.reactive.isPlanned.producer })
-        let project = task.producer.pick({ $0.reactive.project.producer })
+//        let isPlanned = task.producer.pick({ $0.reactive.isPlanned.producer })
+//        let project = task.producer.pick({ $0.reactive.project.producer })
         
         guard let field = textField else { return assertionFailure() }
         
@@ -112,6 +114,14 @@ class TaskTitleTableCellView: EditableTableCellView {
         let value = field.stringValue
         
         task.value?.title = value
+        
+        if let mov = obj.userInfo?["NSTextMovement"] as? Int,
+            mov == NSTabTextMovement {
+            
+            DispatchQueue.main.async {
+                self.onTabOut?()
+            }
+        }
     }
     
     override func controlTextDidChange(_ obj: Notification) {

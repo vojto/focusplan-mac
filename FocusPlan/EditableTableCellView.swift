@@ -26,8 +26,20 @@ class EditableTableCellView: NSTableCellView, NSTextFieldDelegate {
     override func controlTextDidChange(_ obj: Notification) {
     }
     
+    func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
+        if commandSelector == #selector(NSControl.cancelOperation(_:)) {
+            window?.makeFirstResponder(nil)
+            
+            return true
+        }
+        
+        return false
+    }
+    
     func startEditing() {
         guard let field = textField else { return }
+        
+        Swift.print("Starting editing \(field) in window \(window)")
         
         field.isEditable = true
         window?.makeFirstResponder(field)

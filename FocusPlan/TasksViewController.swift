@@ -47,6 +47,8 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
     }
     
     func reloadData() {
+        Swift.print("Tasks list reloading data!")
+        
         let items = outlineView.selectedRowIndexes.map {
             self.outlineView.item(atRow: $0)
         }
@@ -132,6 +134,7 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
     // ------------------------------------------------------------------------
     
     var titleCellViews = [Task: TaskTitleTableCellView]()
+    var estimateCellViews = [Task: TaskEstimateTableCellView]()
     
     func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
         if item is RootItem {
@@ -160,9 +163,15 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
             view?.wantsHighlightPlanned = wantsHighlightPlanned
             view?.task.value = task
             
-            
             titleCellViews[task] = view
             view?.controller = self
+            
+            view?.onTabOut = {
+                Swift.print("Tabbed out! estimate text field: \(self.estimateCellViews[task]?.textField)")
+                
+                self.estimateCellViews[task]?.startEditing()
+
+            }
             
             return view
         }
@@ -170,6 +179,9 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
         if column === estimateColumn {
             let view = outlineView.make(withIdentifier: "EstimateCell", owner: self) as! TaskEstimateTableCellView
             view.task.value = task
+            
+            estimateCellViews[task] = view
+            
             return view
         }
         

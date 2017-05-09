@@ -103,9 +103,6 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
             return
         }
         
-
-        Swift.print("🎧 Reloading data!")
-        
         NSAnimationContext.current().duration = 0
         self.collectionView.reloadData()
     }

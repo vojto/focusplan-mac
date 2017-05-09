@@ -300,8 +300,6 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
             }
         }
         
-        
-        
         return events
     }
     
