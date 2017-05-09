@@ -16,7 +16,7 @@ enum CalendarDecorationSection: Int {
     case sectionLabel = 2
 }
 
-class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCollectionViewDelegate {
+class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCollectionViewDelegate, NSPopoverDelegate {
 
     @IBOutlet var collectionView: CalendarCollectionView!
     let collectionLayout = CalendarCollectionLayout()
@@ -290,12 +290,17 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
             editTimerEntryPopover?.contentViewController = editTimerEntryController
             editTimerEntryPopover?.behavior = .transient
             editTimerEntryPopover?.animates = false
+            editTimerEntryPopover?.delegate = self
         }
         
         editTimerEntryController?.entry.value = timerEntry
         
         editTimerEntryPopover?.show(relativeTo: view.bounds, of: view, preferredEdge: .minY)
     }
+    
+//    func popoverWillClose(_ notification: Notification) {
+//        reloadData()
+//    }
     
     func collectionItem(forTask task: Task) -> CalendarCollectionItem? {
         for item in collectionView.visibleItems() {

@@ -39,7 +39,7 @@ struct PlanConfig {
         
         return PlanConfig(
             range: range,
-            lanes: [.project, .task, .pomodoro],
+            lanes: [.task, .pomodoro],
             detail: .daily,
             style: .hybrid
         )
@@ -133,6 +133,8 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
             sortedTasks,
             timerEntriesObserver.objects.producer
             ).startWithValues { tasks, timerEntries in
+                Swift.print("➡️ Updating everything!")
+                
                 self.lastTasks = tasks
                 self.lastTimerEntries = timerEntries
                 self.updateCalendar(tasks: tasks, timerEntries: timerEntries)
@@ -370,13 +372,6 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
             
             let event = CalendarEvent(timerEntry: entry, startsAt: startTime, duration: duration)
             events.append(event)
-            
-            // For every event, we're gonna add another event, but for the project lane
-            if let project = entry.task?.project {
-                let projectEvent = CalendarEvent(project: project, date: entry.startedAt! as Date, startsAt: startTime, duration: duration)
-                Swift.print("✅ Adding the extra event: \(projectEvent)")
-                events.append(projectEvent)
-            }
         }
         
         return events

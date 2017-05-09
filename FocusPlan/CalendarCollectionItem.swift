@@ -48,8 +48,6 @@ class CalendarCollectionItem: NSCollectionViewItem {
         let projectColor = project.pick { $0.reactive.color.producer }
         
         SignalProducer.combineLatest(event.producer, projectColor.producer).startWithValues { event, colorName in
-            Swift.print("Updating with event: \(event)")
-            
             guard let type = event?.type else { return }
             
             self.field.alpha = 1
