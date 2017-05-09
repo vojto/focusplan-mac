@@ -154,7 +154,7 @@ class MainWindow: NSWindow, NSToolbarDelegate {
         case kTimerButton:
             item.label = "Timer"
 //            let button = NSButton(title: "Toggle Timer", target: self, action: #selector(toggleTimer))
-            let image = NSImage(named: NSImageNameSlideshowTemplate)!
+            let image = #imageLiteral(resourceName: "TimerTemplate")
             let button = NSButton(image: image, target: self, action: #selector(toggleTimer))
             button.bezelStyle = .texturedRounded
             button.setContentHuggingPriority(125, for: .vertical)

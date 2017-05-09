@@ -145,11 +145,11 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
         
         updateLayout()
         
-//        let now = timer(interval: .seconds(5), on: QueueScheduler.main)
-//        
-//        now.startWithValues { _ in
-//            self.updateCalendarWithLastValues()
-//        }
+        let now = timer(interval: .seconds(10), on: QueueScheduler.main)
+        
+        now.startWithValues { _ in
+            self.updateCalendarWithLastValues()
+        }
     }
     
     func updateObservers() {
