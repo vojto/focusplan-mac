@@ -140,8 +140,6 @@ class TimerViewController: NSViewController {
         }
         
         state.runningTask.producer.startWithValues { task in
-            Swift.print("✳️ Running task changed to: \(task)")
-            
             guard let task = task else {
                 popup?.selectItem(at: 0)
                 return

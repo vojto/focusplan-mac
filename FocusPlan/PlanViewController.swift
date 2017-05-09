@@ -32,21 +32,14 @@ struct PlanConfig {
     var detail: PlanDetail
     var style = PlanStyle.hybrid
     
-    static var defaultConfig: PlanConfig {
-        return PlanConfig(
-            range: PlanRange(start: Date(), dayCount: 1),
-            lanes: [.task, .pomodoro],
-            detail: .daily,
-            style: .hybrid
-        )
-    }
+    static var defaultConfig = PlanConfig.daily(date: Date())
     
     public static func daily(date: Date) -> PlanConfig {
         let range = PlanRange(start: date.startOf(component: .day), dayCount: 1)
         
         return PlanConfig(
             range: range,
-            lanes: [.task, .pomodoro],
+            lanes: [.project, .task, .pomodoro],
             detail: .daily,
             style: .hybrid
         )
@@ -268,7 +261,7 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
         // Update events in the calendar view
         let taskEvents = createEvents(fromTasks: tasks, timerEntries: timerEntries)
 
-        let timerEvents = createTimerEvents(fromEntries: timerEntries)
+        let timerEvents = createEvents(fromEntries: timerEntries)
         
         let events: [CalendarEvent]
         
@@ -354,11 +347,11 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
         return total
     }
     
-    func createTimerEvents(fromEntries entries: [TimerEntry]) -> [CalendarEvent] {
+    func createEvents(fromEntries entries: [TimerEntry]) -> [CalendarEvent] {
         var events = [CalendarEvent]()
         
         for entry in entries {
-            guard var startedAt = entry.startedAt else {
+            guard let startedAt = entry.startedAt else {
                 assertionFailure()
                 continue
             }
@@ -377,6 +370,13 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
             
             let event = CalendarEvent(timerEntry: entry, startsAt: startTime, duration: duration)
             events.append(event)
+            
+            // For every event, we're gonna add another event, but for the project lane
+            if let project = entry.task?.project {
+                let projectEvent = CalendarEvent(project: project, date: entry.startedAt! as Date, startsAt: startTime, duration: duration)
+                Swift.print("✅ Adding the extra event: \(projectEvent)")
+                events.append(projectEvent)
+            }
         }
         
         return events

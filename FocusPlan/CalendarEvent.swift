@@ -9,6 +9,7 @@
 import Foundation
 
 enum CalendarEventType: String {
+    case project
     case task
     case timerEntry
 }
@@ -16,6 +17,9 @@ enum CalendarEventType: String {
 class CalendarEvent: CustomStringConvertible, Hashable {
     
     let type: CalendarEventType
+    
+    var project: Project?
+    var projectEntryDate: Date?
     
     var task: Task?
     var timerEntry: TimerEntry?
@@ -26,7 +30,9 @@ class CalendarEvent: CustomStringConvertible, Hashable {
     var isHidden = false
     
     var date: Date? {
-        if let task = self.task {
+        if let project = self.project {
+            return projectEntryDate
+        } else if let task = self.task {
             return task.plannedFor as Date?
         } else if let entry = timerEntry {
             return entry.startedAt as Date?
@@ -63,6 +69,8 @@ class CalendarEvent: CustomStringConvertible, Hashable {
     
     var lane: PlanLane? {
         switch type {
+        case .project:
+            return .project
         case .task:
             return .task
         case .timerEntry:
@@ -75,6 +83,14 @@ class CalendarEvent: CustomStringConvertible, Hashable {
                 return .pomodoro
             }
         }
+    }
+    
+    init(project: Project, date: Date, startsAt: TimeInterval?, duration: TimeInterval) {
+        self.type = .project
+        self.project = project
+        self.projectEntryDate = date
+        self.startsAt = startsAt
+        self.duration = duration
     }
     
     init(task: Task, startsAt: TimeInterval?, duration: TimeInterval) {
@@ -92,6 +108,6 @@ class CalendarEvent: CustomStringConvertible, Hashable {
     }
     
     var description: String {
-        return "<Event startsAt=\(startsAt) duration=\(duration)>"
+        return "<Event type=\(type) startsAt=\(String(describing: startsAt)) duration=\(duration)>"
     }
 }

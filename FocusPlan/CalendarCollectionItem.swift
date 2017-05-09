@@ -35,6 +35,8 @@ class CalendarCollectionItem: NSCollectionViewItem {
         
         let task = event.producer.pick { event -> SignalProducer<Task?, NoError> in
             switch event.type {
+            case .project:
+                return SignalProducer(value: nil)
             case .task:
                 return SignalProducer(value: event.task!)
             case .timerEntry:
@@ -46,12 +48,22 @@ class CalendarCollectionItem: NSCollectionViewItem {
         let projectColor = project.pick { $0.reactive.color.producer }
         
         SignalProducer.combineLatest(event.producer, projectColor.producer).startWithValues { event, colorName in
+            Swift.print("Updating with event: \(event)")
+            
             guard let type = event?.type else { return }
             
             self.field.alpha = 1
             view.isDashed = false
             
             switch type {
+            case .project:
+                Swift.print("Updating calendar item for project: \(project)")
+                let colorName = event?.project?.color
+                guard let color = Palette.decode(colorName: colorName) else { return }
+                let color1 = color.addHue(0, saturation: -0.3, brightness: 0.2, alpha: -0.9)
+                view.background = color1
+                view.border = NSColor.clear
+                self.field.stringValue = ""
             case .task:
                 guard let color = Palette.decode(colorName: colorName) else { return }
                 let color1 = color.addHue(0, saturation: -0.3, brightness: 0.2, alpha: -0.9)
@@ -172,6 +184,8 @@ class CalendarCollectionItem: NSCollectionViewItem {
         let formattedMinutes = Formatting.format(estimate: minutes)
         
         switch event.value!.type {
+        case .project:
+            break
         case .task:
             field.stringValue = formattedMinutes
         case .timerEntry:
