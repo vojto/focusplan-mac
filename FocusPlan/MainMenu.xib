@@ -621,6 +621,17 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="xa7-Hw-RpX"/>
+                            <menuItem title="Next" keyEquivalent="" id="gqB-3w-fIZ">
+                                <connections>
+                                    <action selector="nextUnit:" target="F0z-JX-Cv5" id="wIl-NH-xuP"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Previous" keyEquivalent="" id="BuQ-g3-QFD">
+                                <connections>
+                                    <action selector="previousUnit:" target="F0z-JX-Cv5" id="DJE-Qn-482"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="vid-k4-My1"/>
                             <menuItem title="Show Toolbar" keyEquivalent="t" id="snW-S8-Cw5">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <connections>

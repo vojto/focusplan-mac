@@ -9,6 +9,7 @@
 import Cocoa
 import NiceKit
 import ReactiveSwift
+import SwiftDate
 
 class MainWindow: NSWindow, NSToolbarDelegate {
     @IBOutlet weak var secondaryView: NSView!
@@ -67,6 +68,28 @@ class MainWindow: NSWindow, NSToolbarDelegate {
         showPlan(detail: .weekly, date: Date())
     }
     
+    @IBAction func nextUnit(_ sender: Any) {
+        updateRange(change: 1)
+    }
+    
+    @IBAction func previousUnit(_ sender: Any) {
+        updateRange(change: -1)
+    }
+    
+    func updateRange(change units: Int) {
+        let date: Date
+        let config = planController.config
+
+        switch config.detail {
+        case .daily:
+            date = config.range.start + units.days
+        case .weekly:
+            date = config.range.start + units.weeks
+        }
+        
+        planController.config.range.start = date
+    }
+    
     func showProject(_ project: Project) {
         planController.view.isHidden = true
         mainView.isHidden = false
@@ -82,12 +105,10 @@ class MainWindow: NSWindow, NSToolbarDelegate {
         switch detail {
         case .daily:
             planController.config = PlanConfig.daily(date: Date())
-            planController.calendarController.reloadData()
             
         case .weekly:
             planController.config = PlanConfig.weekly(date: Date())
             
-            planController.calendarController.reloadData()
             planController.calendarController.collectionView.scroll(NSPoint(x: 0, y: 0))
         }
     }

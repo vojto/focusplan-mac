@@ -50,16 +50,34 @@
                                 <action selector="changeDetail:" target="-2" id="tPY-zj-Ihk"/>
                             </connections>
                         </segmentedControl>
+                        <button translatesAutoresizingMaskIntoConstraints="NO" id="g2g-VE-XA5">
+                            <rect key="frame" x="290" y="17" width="9" height="12"/>
+                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSGoLeftTemplate" imagePosition="only" alignment="center" inset="2" id="SR5-VX-1In">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                        <button translatesAutoresizingMaskIntoConstraints="NO" id="Tgm-bD-Tez">
+                            <rect key="frame" x="350" y="17" width="9" height="12"/>
+                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSGoRightTemplate" imagePosition="only" alignment="center" inset="2" id="Y54-gk-FI7">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
                     </subviews>
                     <constraints>
                         <constraint firstItem="p6e-T8-poS" firstAttribute="leading" secondItem="uig-5h-bVa" secondAttribute="leading" id="3r7-bh-Syo"/>
                         <constraint firstAttribute="height" constant="45" id="9uX-1b-yeG"/>
+                        <constraint firstItem="Jiw-ea-Nj1" firstAttribute="leading" secondItem="g2g-VE-XA5" secondAttribute="trailing" constant="8" id="FJf-sU-4zS"/>
                         <constraint firstItem="jgJ-PB-KFe" firstAttribute="leading" secondItem="uig-5h-bVa" secondAttribute="leading" constant="16" id="NPB-Wa-6ks"/>
                         <constraint firstAttribute="bottom" secondItem="p6e-T8-poS" secondAttribute="bottom" id="SC1-tv-T58"/>
                         <constraint firstItem="Jiw-ea-Nj1" firstAttribute="centerY" secondItem="uig-5h-bVa" secondAttribute="centerY" id="Uvy-uv-lmG"/>
                         <constraint firstItem="jgJ-PB-KFe" firstAttribute="centerY" secondItem="uig-5h-bVa" secondAttribute="centerY" id="d5N-Dz-HVH"/>
+                        <constraint firstItem="Tgm-bD-Tez" firstAttribute="centerY" secondItem="uig-5h-bVa" secondAttribute="centerY" id="gzz-z0-EAp"/>
+                        <constraint firstItem="Tgm-bD-Tez" firstAttribute="leading" secondItem="Jiw-ea-Nj1" secondAttribute="trailing" constant="8" id="mO7-JO-RIZ"/>
                         <constraint firstAttribute="trailing" secondItem="p6e-T8-poS" secondAttribute="trailing" id="phd-NB-Y9i"/>
                         <constraint firstItem="Jiw-ea-Nj1" firstAttribute="centerX" secondItem="uig-5h-bVa" secondAttribute="centerX" id="yma-K7-XZ2"/>
+                        <constraint firstItem="g2g-VE-XA5" firstAttribute="centerY" secondItem="uig-5h-bVa" secondAttribute="centerY" id="zst-iG-Qk1"/>
                     </constraints>
                 </customView>
                 <splitView arrangesAllSubviews="NO" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L4c-sH-ca8">
@@ -100,4 +118,8 @@
             <point key="canvasLocation" x="11" y="873.5"/>
         </stackView>
     </objects>
+    <resources>
+        <image name="NSGoLeftTemplate" width="9" height="12"/>
+        <image name="NSGoRightTemplate" width="9" height="12"/>
+    </resources>
 </document>

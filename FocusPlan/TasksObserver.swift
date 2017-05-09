@@ -52,9 +52,6 @@ class TasksObserver: ReactiveObserver<Task> {
             ))
         }
         
-        
-        Swift.print("Creating request for tasks with predicates: \(predicates)")
-        
         request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
         
         return request
