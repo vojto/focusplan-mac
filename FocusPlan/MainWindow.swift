@@ -47,28 +47,48 @@ class MainWindow: NSWindow, NSToolbarDelegate {
     }
     
     func showSection(forItem item: Any?) {
-        backlogController.view.isHidden = true
-        planController.view.isHidden = true
-        mainView.isHidden = false
-        
         if let project = item as? Project {
-            backlogController.selectedProject.value = project
-            backlogController.view.isHidden = false
-            
+            showProject(project)
         } else if let planItem = item as? ProjectsViewController.PlanItem {
-            planController.view.isHidden = false
-            
             switch planItem.type {
             case .today:
-                planController.config = PlanConfig.daily(date: Date())
-                planController.calendarController.reloadData()
-                
+                showPlan(detail: .daily, date: Date())
             case .thisWeek:
-                planController.config = PlanConfig.weekly(date: Date())
-                
-                planController.calendarController.reloadData()
-                planController.calendarController.collectionView.scroll(NSPoint(x: 0, y: 0))
+                showPlan(detail: .weekly, date: Date())
             }
+        }
+    }
+    
+    @IBAction func showDailyPlan(_ sender: Any) {
+        showPlan(detail: .daily, date: Date())
+    }
+    
+    @IBAction func showWeeklyPlan(_ sender: Any) {
+        showPlan(detail: .weekly, date: Date())
+    }
+    
+    func showProject(_ project: Project) {
+        planController.view.isHidden = true
+        mainView.isHidden = false
+        backlogController.selectedProject.value = project
+        backlogController.view.isHidden = false
+    }
+    
+    func showPlan(detail: PlanDetail, date: Date) {
+        backlogController.view.isHidden = true
+        mainView.isHidden = false
+        planController.view.isHidden = false
+        
+        switch detail {
+        case .daily:
+            planController.config = PlanConfig.daily(date: Date())
+            planController.calendarController.reloadData()
+            
+        case .weekly:
+            planController.config = PlanConfig.weekly(date: Date())
+            
+            planController.calendarController.reloadData()
+            planController.calendarController.collectionView.scroll(NSPoint(x: 0, y: 0))
         }
     }
     

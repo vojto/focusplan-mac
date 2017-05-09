@@ -610,6 +610,17 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="View" id="HyV-fh-RgO">
                         <items>
+                            <menuItem title="Daily plan" keyEquivalent="1" id="5VD-8r-sAi">
+                                <connections>
+                                    <action selector="showDailyPlan:" target="F0z-JX-Cv5" id="4vE-OH-lUu"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Weekly plan" keyEquivalent="2" id="clY-xH-CzQ">
+                                <connections>
+                                    <action selector="showWeeklyPlan:" target="F0z-JX-Cv5" id="0o9-7r-nDS"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="xa7-Hw-RpX"/>
                             <menuItem title="Show Toolbar" keyEquivalent="t" id="snW-S8-Cw5">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <connections>
