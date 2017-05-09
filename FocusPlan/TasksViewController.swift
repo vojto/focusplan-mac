@@ -347,12 +347,18 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
     
     func outlineView(_ outlineView: NSOutlineView, heightOfRowByItem item: Any) -> CGFloat {
         if let task = item as? Task {
-            if dummyTitleCellView == nil {
+            
+            /*
+             We're creating a new instance of the cell view each time, because the layout
+             was just not acting consistently when we tried to reuse the previous instance.
+            */
+            
+//            if dummyTitleCellView == nil {
                 dummyTitleCellView = outlineView.make(withIdentifier: "TaskCell", owner: self) as! TaskTitleTableCellView
                 
                 dummyTitleCellView.setContentHuggingPriority(1, for: .vertical)
-                dummyTitleCellView.setContentHuggingPriority(999, for: .horizontal)
-            }
+                dummyTitleCellView.setContentHuggingPriority(NSLayoutPriorityRequired, for: .horizontal)
+//            }
             
             
             dummyTitleCellView.task.value = task
@@ -362,9 +368,11 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
             if let view = titleCellViews[task] {
                 dummyTitleCellView.textField?.stringValue = view.textField?.stringValue ?? ""
             }
+        
             
             dummyTitleCellView.bounds.size.width = taskColumn.width
             dummyTitleCellView.bounds.size.height = 10
+            dummyTitleCellView.setContentHuggingPriority(NSLayoutPriorityRequired, for: .horizontal)
 
             dummyTitleCellView.needsLayout = true
             dummyTitleCellView.layoutSubtreeIfNeeded()
