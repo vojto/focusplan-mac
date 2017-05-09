@@ -32,27 +32,21 @@ class CalendarCollectionItem: NSCollectionViewItem {
         customView.onFinishResize = self.handleFinishResize
         
         let view = self.view as! CalendarCollectionItemView
-
         
-        let eventType = event.map { $0?.type }.skipRepeats { $0 == $1 }
-        
-        let task = event.producer.map { event -> Task? in
-            guard let event = event else { return nil }
-            
+        let task = event.producer.pick { event -> SignalProducer<Task?, NoError> in
             switch event.type {
             case .task:
-                return event.task
+                return SignalProducer(value: event.task!)
             case .timerEntry:
-                return event.timerEntry?.task
+                return event.timerEntry!.reactive.task
             }
         }
         
         let project = task.pick { $0.reactive.project.producer }
         let projectColor = project.pick { $0.reactive.color.producer }
         
-        SignalProducer.combineLatest(eventType.producer, projectColor.producer).startWithValues { type, colorName in
-            
-            guard let type = type else { return }
+        SignalProducer.combineLatest(event.producer, projectColor.producer).startWithValues { event, colorName in
+            guard let type = event?.type else { return }
             
             self.field.alpha = 1
             view.isDashed = false
@@ -73,7 +67,6 @@ class CalendarCollectionItem: NSCollectionViewItem {
                 
                 break
             case .timerEntry:
-
                 guard let entry = self.event.value?.timerEntry else { return }
                 guard let lane = LaneId(rawValue: entry.lane ?? "") else { return }
                 
@@ -98,12 +91,18 @@ class CalendarCollectionItem: NSCollectionViewItem {
                         self.field.alpha = 0.85
                     }
                 case .general:
-                    guard let color = Palette.decode(colorName: colorName) else { return }
-                    let color1 = color.addHue(0, saturation: -0.3, brightness: 0.2, alpha: -0.2)
-                    view.background = color1
-                    view.border = color1
-                    self.field.textColor = color
-                    self.field.stringValue = self.event.value?.timerEntry?.task?.title ?? ""
+                    self.field.stringValue = self.event.value?.timerEntry?.task?.title ?? "(no task)"
+                    
+                    if let color = Palette.decode(colorName: colorName) {
+                        let color1 = color.addHue(0, saturation: -0.3, brightness: 0.2, alpha: -0.2)
+                        view.background = color1
+                        view.border = color1
+                        self.field.textColor = color
+                    } else {
+                        view.background = NSColor(hexString: "E0E7F0")!
+                        view.border = NSColor(hexString: "97A9BE")!
+                        self.field.textColor = NSColor(hexString: "69798B")
+                    }
                 }
                 
                 break
@@ -181,7 +180,6 @@ class CalendarCollectionItem: NSCollectionViewItem {
                 let to = event.endDate?.string(custom: "h:mm") {
                 field.stringValue = "\(from) - \(to) (\(formattedMinutes))"
             }
-            
         }
         
         

@@ -51,7 +51,7 @@ class EditTimerEntryController: NSViewController {
     func setupTaskSelect() {
         guard let controller = PlanViewController.instance else { return }
         
-        taskSelect = ReactiveSelect(button: taskPopup)
+        taskSelect = ReactiveSelect(button: taskPopup, allowsNone: true)
         taskSelect.label = { $0.title ?? "" }
         
         let selectedTask = entry.producer.pick({ $0.reactive.task.producer })
@@ -75,6 +75,7 @@ class EditTimerEntryController: NSViewController {
         
         taskSelect.onChange = { task in
             self.entry.value?.task = task
+            self.entry.value?.project = task?.project
         }
     }
     

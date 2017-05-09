@@ -423,8 +423,6 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
         entry.endedAt = (date + 15.minutes) as NSDate
         
         
-        
-        
     }
     
     
