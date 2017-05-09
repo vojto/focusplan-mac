@@ -197,6 +197,10 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
         guard let event = controller.event(atIndexPath: indexPath) else { return nil }
         guard let lane = event.lane else { return nil }
         
+        if event.isHidden {
+            return nil
+        }
+        
         let sections = controller.config.range.dayCount
         let sectionWidth = innerFrame.size.width / CGFloat(sections)
         
@@ -208,7 +212,6 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
         
         startingInterval = startTime(forEventAt: indexPath) - dayStart
         durationInterval = event.duration
-
 
         let relativeStart = startingInterval / dayDuration
         

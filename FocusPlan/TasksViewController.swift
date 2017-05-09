@@ -47,7 +47,7 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
     }
     
     func reloadData() {
-        Swift.print("Tasks list reloading data!")
+        Swift.print("🎧 Tasks list reloading data!")
         
         let items = outlineView.selectedRowIndexes.map {
             self.outlineView.item(atRow: $0)

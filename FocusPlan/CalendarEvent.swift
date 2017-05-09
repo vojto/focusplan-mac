@@ -23,6 +23,8 @@ class CalendarEvent: CustomStringConvertible, Hashable {
     var startsAt: TimeInterval?
     var duration: TimeInterval
     
+    var isHidden = false
+    
     var date: Date? {
         if let task = self.task {
             return task.plannedFor as Date?

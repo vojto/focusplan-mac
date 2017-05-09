@@ -239,8 +239,9 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
     }
     
     func updateCalendar(tasks: [Task], timerEntries: [TimerEntry]) {
+        
         // Update events in the calendar view
-        let taskEvents = createEvents(fromTasks: tasks.filter({ !$0.isFinished }), timerEntries: timerEntries)
+        let taskEvents = createEvents(fromTasks: tasks, timerEntries: timerEntries)
 
         let timerEvents = createTimerEvents(fromEntries: timerEntries)
         
@@ -266,8 +267,6 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
             calendarController.events.append(event: event, section: dayIndex)
         }
         
-//        Swift.print("Prepared events: \(calendarController.events)")
-        
         self.calendarController.reloadData()
     }
     
@@ -289,11 +288,12 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
                 // Adjust duration by time already spent on this task
                 duration -= durationSpentToday(onTask: task, timerEntries: timerEntries)
                 
-                if duration < 0 {
-                    continue
-                }
-                
                 let event = CalendarEvent(task: task, startsAt: nil, duration: duration)
+                
+                if duration < 0 || task.isFinished {
+                    event.isHidden = true
+                    event.duration = 0
+                }
                 
                 tasksAdded += 1
                 events.append(event)
@@ -400,9 +400,12 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
         for (i, events) in calendarController.events.sections.enumerated() {
             var weight = 0
             
+            Swift.print("SAving order for \(events.count) events in section \(i)")
+            
             for event in events {
                 if let task = event.task {
                     task.weightForPlan = Int64(weight)
+                    Swift.print("Set weight \(weight) for task \(task.title)")
                     weight += 1
                     
                     task.plannedFor = (config.range.start + i.days) as NSDate
