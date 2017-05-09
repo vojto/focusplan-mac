@@ -754,7 +754,11 @@
             </connections>
             <point key="canvasLocation" x="369" y="118"/>
         </window>
-        <customObject id="1AV-ZW-ri2" customClass="AppDelegate" customModule="FocusPlan" customModuleProvider="target"/>
+        <customObject id="1AV-ZW-ri2" customClass="AppDelegate" customModule="FocusPlan" customModuleProvider="target">
+            <connections>
+                <outlet property="timerWindow" destination="NhO-AT-Y6e" id="an0-gB-oSs"/>
+            </connections>
+        </customObject>
         <customView id="4hR-Lq-IxG">
             <rect key="frame" x="0.0" y="0.0" width="566" height="34"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -921,6 +925,17 @@
             </items>
             <point key="canvasLocation" x="-362" y="-379"/>
         </menu>
+        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="NhO-AT-Y6e" customClass="NSPanel">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" utility="YES" nonactivatingPanel="YES" fullSizeContentView="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="272" y="172" width="255" height="307"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
+            <view key="contentView" id="TDg-kC-CAx">
+                <rect key="frame" x="0.0" y="0.0" width="255" height="307"/>
+                <autoresizingMask key="autoresizingMask"/>
+            </view>
+            <point key="canvasLocation" x="1105.5" y="70.5"/>
+        </window>
     </objects>
     <resources>
         <image name="ArrowDown" width="7" height="4"/>

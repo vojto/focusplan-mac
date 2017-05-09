@@ -112,17 +112,19 @@ class MainWindow: NSWindow, NSToolbarDelegate {
     
     let kTimerItem = "Timer"
     let kAddButton = "AddButton"
+    let kTimerButton = "TimerButton"
     
     func toolbarAllowedItemIdentifiers(_ toolbar: NSToolbar) -> [String] {
         return [
             NSToolbarFlexibleSpaceItemIdentifier,
             kTimerItem,
-            kAddButton
+            kAddButton,
+            kTimerButton
         ]
     }
     
     func toolbarDefaultItemIdentifiers(_ toolbar: NSToolbar) -> [String] {
-        return [NSToolbarFlexibleSpaceItemIdentifier, kTimerItem, NSToolbarFlexibleSpaceItemIdentifier]
+        return [NSToolbarFlexibleSpaceItemIdentifier, kTimerItem, NSToolbarFlexibleSpaceItemIdentifier, kTimerButton]
     }
     
     class BlueView: NSView {
@@ -149,10 +151,23 @@ class MainWindow: NSWindow, NSToolbarDelegate {
             item.view = button
             
             return item
+        case kTimerButton:
+            item.label = "Timer"
+//            let button = NSButton(title: "Toggle Timer", target: self, action: #selector(toggleTimer))
+            let image = NSImage(named: NSImageNameSlideshowTemplate)!
+            let button = NSButton(image: image, target: self, action: #selector(toggleTimer))
+            button.bezelStyle = .texturedRounded
+            button.setContentHuggingPriority(125, for: .vertical)
+            item.view = button
+            
+            return item
         default:
             return nil
         }
     }
     
+    func toggleTimer() {
+        AppDelegate.instance?.toggleTimerWindow()
+    }
     
 }

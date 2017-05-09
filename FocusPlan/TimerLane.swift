@@ -73,8 +73,7 @@ class TimerLane {
     }
     
     func start(task: Task? = nil, type: String? = nil, targetDuration: TimeInterval? = nil, countPrevPomos: Int16 = 0) {
-        Swift.print("🌈 Starting timer in \(id) lane!")
-        
+
         let context = AppDelegate.viewContext
         let entry = TimerEntry(entity: TimerEntry.entity(), insertInto: context)
         

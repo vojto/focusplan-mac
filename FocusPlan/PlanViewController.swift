@@ -133,8 +133,7 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
             sortedTasks,
             timerEntriesObserver.objects.producer
             ).startWithValues { tasks, timerEntries in
-                Swift.print("➡️ Updating everything!")
-                
+
                 self.lastTasks = tasks
                 self.lastTimerEntries = timerEntries
                 self.updateCalendar(tasks: tasks, timerEntries: timerEntries)

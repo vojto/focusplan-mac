@@ -192,9 +192,6 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
             let currentIndexPath = collectionView.indexPath(for: draggedItem),
             currentIndexPath != proposedDropIndexPath {
             
-            Swift.print("🖍 Moving from \(currentIndexPath) to \(proposedDropIndexPath)")
-            
-            
             let sourcePath = events.indexPath(forEvent: draggedEvent!)!
             events.moveItem(at: sourcePath, to: proposedDropIndexPath)
             

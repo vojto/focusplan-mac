@@ -13,12 +13,20 @@ import NiceData
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
+    
+    @IBOutlet weak var timerWindow: NSWindow!
+    
+    static var instance: AppDelegate?
 
     static let allProjectsObserver: ReactiveObserver<Project> = {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Project")
         request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
         return ReactiveObserver<Project>(context: AppDelegate.viewContext, request: request)
     }()
+    
+    func applicationWillFinishLaunching(_ notification: Notification) {
+        AppDelegate.instance = self
+    }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Fetch the project
@@ -42,6 +50,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         
         setupAutosave()
+        
+        setupTimerWindow()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -165,6 +175,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         context.processPendingChanges()
         context.undoManager?.enableUndoRegistration()
+    }
+    
+    // MARK: - Window management
+    // ------------------------------------------------------------------------
+    
+    func setupTimerWindow() {
+        timerWindow.isMovableByWindowBackground = true
+    }
+    
+    func toggleTimerWindow() {
+        if timerWindow.isVisible {
+            timerWindow.close()
+        } else {
+            timerWindow.orderFront(self)
+        }
     }
 }
 
