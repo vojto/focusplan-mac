@@ -213,23 +213,19 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
     }
     
     func updateCalendar(tasks: [Task], timerEntries: [TimerEntry]) {
-        
-        // Update events in the calendar view
-        let taskEvents = createEvents(fromTasks: tasks, timerEntries: timerEntries)
 
-        let timerEvents = createEvents(fromEntries: timerEntries)
-        
         let events: [CalendarEvent]
         
         switch config.style {
         case .entries:
-            events = timerEvents
+            events = createEvents(fromEntries: timerEntries)
         case .plan:
-            events = taskEvents
+            events = createEventsForPlan(tasks: tasks, entries: timerEntries)
         case .hybrid:
-            events = timerEvents + taskEvents
+            events = createEvents(fromEntries: timerEntries) + createEventsForHybrid(fromTasks: tasks, timerEntries: timerEntries)
         }
     
+        Swift.print("⚓️ Updating with \(events.count) events")
         
         calendarController.events.reset(sectionsCount: config.range.dayCount)
         calendarController.summaryRowController.events = events
@@ -240,6 +236,8 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
             let rangeStart = config.range.start.startOf(component: .day)
             
             guard let date = event.date else { continue }
+            
+            Swift.print("  💊 Event date: \(date)")
             
             let interval = date.timeIntervalSince(rangeStart)
             
@@ -256,35 +254,111 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
     }
     
     /**
+        Create events for the plan section.
+     */
+    func createEventsForPlan(tasks: [Task], entries: [TimerEntry]) -> [CalendarEvent] {
+        var allEvents = [CalendarEvent]()
+        
+        for date in config.range.days {
+//            let dayStart = date.startOf(component: .day)
+//            let dayEnd = date.endOf(component: .day)
+            
+//            let tasks = tasks.filter { $0.plann
+            
+//            var dayEvents = [(Date, CalendarEvent)]()
+            
+            Swift.print("Aggregating for date \(date)")
+            
+            let tasks = Task.filter(tasks: tasks, onDay: date)
+            
+            var events = tasks.map { task in
+                return createEvent(fromTask: task)
+            }
+            
+            
+            let entries = TimerEntry.filter(entries: entries, onDay: date)
+            
+            for entry in entries {
+                guard let task = entry.task else { continue }
+                
+                let event: CalendarEvent
+                
+                if let existing = events.filter({ $0.timerEntry == entry }).first {
+                    // Event already exists, but it was created for another entry.
+                    // In that case we just increase duration by this entry
+                    event = existing
+                    event.duration += entry.duration ?? 0
+                    
+                } else if let existing = events.filter({ $0.task == task }).first {
+                    // Event for the same task already exist. All we have to do is
+                    // to increase spent duration.
+                    
+                    event = existing
+                } else {
+                    event = createEvent(fromTask: task)
+                    event.timerEntry = entry
+                    event.date = entry.startedAt as Date?
+                    event.duration = entry.duration ?? 0
+                    events.insert(event, at: 0)
+                }
+                
+                event.spentDuration += entry.duration ?? 0
+                
+                if event.spentDuration > event.duration {
+                    event.duration = event.spentDuration
+                }
+            }
+            
+            Swift.print("  Tasks: \(tasks.count)")
+            Swift.print("  Entries: \(entries.count)")
+            Swift.print("  Events: \(events)")
+            
+            allEvents += events
+        }
+        
+        return allEvents
+        
+        /*
+        let tasksByDays = tasks.group { ($0.plannedFor! as Date).string(format: format) }
+        
+        
+        for (day, tasks) in tasksByDays {
+            for (_, task) in tasks.enumerated() {
+                let date = day.date(format: format)!
+                let dayStart = date.startOf(component: .day)
+                let dayEnd = date.endOf(component: .day)
+                
+                
+                
+            }
+        }
+        */
+        
+
+    }
+    
+    /**
      Create events from planned tasks.
      
      Takes also timer entries as an argument, so it can calculate how much time
      was spent already on every task.
      */
-    func createEvents(fromTasks tasks: [Task], timerEntries: [TimerEntry]) -> [CalendarEvent] {
+    func createEventsForHybrid(fromTasks tasks: [Task], timerEntries: [TimerEntry]) -> [CalendarEvent] {
         var events = [CalendarEvent]()
         
         let tasksByDays = tasks.group { ($0.plannedFor! as Date).string(format: .custom("yyyyMMdd")) }
-        
-        var tasksAdded = 0
 
         for (_, tasks) in tasksByDays {
             for (_, task) in tasks.enumerated() {
-                var duration = task.estimate
+                let event = createEvent(fromTask: task)
                 
-                // In hybrid view, adjust duration by time already spent on this task
-                if config.style == .hybrid {
-                    duration -= durationSpentToday(onTask: task, timerEntries: timerEntries)
-                }
+                event.duration -= TimerEntry.durationSpentToday(onTask: task, timerEntries: timerEntries)
                 
-                let event = CalendarEvent(task: task, startsAt: nil, duration: duration)
-                
-                if duration < 0 || task.isFinished {
+                if event.duration < 0 || task.isFinished {
                     event.isHidden = true
                     event.duration = 0
                 }
-                
-                tasksAdded += 1
+
                 events.append(event)
             }
         }
@@ -292,22 +366,8 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
         return events
     }
     
-    func durationSpentToday(onTask task: Task, timerEntries: [TimerEntry]) -> TimeInterval {
-        let taskEntries = timerEntries.filter { $0.task == task }
-        let entriesToday = taskEntries.filter { ($0.startedAt! as Date).isToday }
-        
-        var total: TimeInterval = 0
-        
-        for entry in entriesToday {
-            if let duration = entry.duration {
-                total += duration
-            } else if let startedAt = entry.startedAt, entry.endedAt == nil {
-                let durationSoFar = Date().timeIntervalSince(startedAt as Date)
-                total += durationSoFar
-            }
-        }
-        
-        return total
+    func createEvent(fromTask task: Task) -> CalendarEvent {
+        return CalendarEvent(task: task, startsAt: nil, duration: task.estimate)
     }
     
     /**

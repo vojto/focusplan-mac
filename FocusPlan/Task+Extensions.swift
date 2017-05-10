@@ -61,4 +61,21 @@ extension Task {
         
         return task
     }
+    
+    static func filter(tasks: [Task], onDay date: Date) -> [Task] {
+        let startDate = date.startOf(component: .day)
+        let endDate = date.endOf(component: .day)
+        
+        var result = [Task]()
+        
+        for task in tasks {
+            guard let date = (task.plannedFor as Date?) else { continue }
+            
+            if date >= startDate && date < endDate {
+                result.append(task)
+            }
+        }
+        
+        return result
+    }
 }

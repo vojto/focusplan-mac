@@ -21,6 +21,8 @@ class CalendarCollectionItemView: NSView {
     var isDashed = false { didSet { needsDisplay = true } }
     var isHighlighted = false { didSet { needsDisplay = true } }
     
+    var backgroundProgress = 1.0
+    
     var onDoubleClick: (() -> ())?
     var onBeforeResize: (() -> ())?
     var onResize: ((CGFloat, HandleType) -> ())?
@@ -29,16 +31,23 @@ class CalendarCollectionItemView: NSView {
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
         
-        let path = NSBezierPath(roundedRect: bounds.insetBy(dx: 0.5, dy: 0.5), cornerRadius: 2.0)
+        let cornerRadius: CGFloat = 2.0
+        let bounds = self.bounds.insetBy(dx: 0.5, dy: 0.5)
         
-        var background = self.background
-        
-//        if isHighlighted {
-//            background = background.addHue(0, saturation: 0.1, brightness: -0.2, alpha: 0)
-//        }
+        let path = NSBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
         
         background.setFill()
         path.fill()
+        
+        
+        let darkerBackground = background.addHue(0, saturation: 0, brightness: -0.2, alpha: 0)
+        var darkerBounds = bounds
+        let newHeight = bounds.size.height * CGFloat(backgroundProgress)
+        darkerBounds.origin.y += darkerBounds.size.height - newHeight
+        darkerBounds.size.height = newHeight
+        let darkerPath = NSBezierPath(roundedRect: darkerBounds, cornerRadius: cornerRadius)
+        darkerBackground.setFill()
+        darkerPath.fill()
         
         if isDashed {
             let dashes: [CGFloat] = [4.0, 2.0]

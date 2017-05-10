@@ -19,17 +19,20 @@ class CalendarEvent: CustomStringConvertible, Hashable {
     let type: CalendarEventType
     
     var project: Project?
-    var projectEntryDate: Date?
     
     var task: Task?
     var timerEntry: TimerEntry?
     
     var startsAt: TimeInterval?
+    
     var duration: TimeInterval
+    var spentDuration: TimeInterval = 0
     
     var isHidden = false
     
-    var date: Date? {
+    var date: Date?
+    
+    /*{
         if let project = self.project {
             return projectEntryDate
         } else if let task = self.task {
@@ -39,7 +42,7 @@ class CalendarEvent: CustomStringConvertible, Hashable {
         } else {
             return nil
         }
-    }
+    }*/
     
     var startDate: Date? {
         if let startTime = startsAt {
@@ -88,7 +91,8 @@ class CalendarEvent: CustomStringConvertible, Hashable {
     init(project: Project, date: Date, startsAt: TimeInterval?, duration: TimeInterval) {
         self.type = .project
         self.project = project
-        self.projectEntryDate = date
+        self.date = date
+//        self.projectEntryDate = date
         self.startsAt = startsAt
         self.duration = duration
     }
@@ -96,6 +100,7 @@ class CalendarEvent: CustomStringConvertible, Hashable {
     init(task: Task, startsAt: TimeInterval?, duration: TimeInterval) {
         self.type = .task
         self.task = task
+        self.date = task.plannedFor as Date?
         self.startsAt = startsAt
         self.duration = duration
     }
@@ -103,11 +108,12 @@ class CalendarEvent: CustomStringConvertible, Hashable {
     init(timerEntry: TimerEntry, startsAt: TimeInterval?, duration: TimeInterval) {
         self.type = .timerEntry
         self.timerEntry = timerEntry
+        self.date = timerEntry.startedAt as Date?
         self.startsAt = startsAt
         self.duration = duration
     }
     
     var description: String {
-        return "<Event type=\(type) startsAt=\(String(describing: startsAt)) duration=\(duration)>"
+        return "<Event type=\(type) date=\(String(describing: date)) startsAt=\(String(describing: startsAt)) duration=\(duration)>"
     }
 }

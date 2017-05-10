@@ -48,15 +48,17 @@ class CalendarCollectionItem: NSCollectionViewItem {
         let projectColor = project.pick { $0.reactive.color.producer }
         
         SignalProducer.combineLatest(event.producer, projectColor.producer).startWithValues { event, colorName in
-            guard let type = event?.type else { return }
+            guard let event = event else { return }
             
             self.field.alpha = 1
             view.isDashed = false
             
-            switch type {
+            view.backgroundProgress = event.spentDuration / event.duration
+            
+            switch event.type {
             case .project:
                 Swift.print("Updating calendar item for project: \(project)")
-                let colorName = event?.project?.color
+                let colorName = event.project?.color
                 guard let color = Palette.decode(colorName: colorName) else { return }
                 let color1 = color.addHue(0, saturation: -0.3, brightness: 0.2, alpha: -0.9)
                 view.background = color1

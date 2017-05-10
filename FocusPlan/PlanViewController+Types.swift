@@ -17,6 +17,16 @@ struct PlanRange {
         return start + (dayCount - 1).days
     }
     
+    var days: [Date] {
+        var days = [Date]()
+        
+        for i in 0...(dayCount - 1) {
+            days.append(start + i.days)
+        }
+        
+        return days
+    }
+    
     var dateRange: (Date, Date) {
         let start = self.start.startOf(component: .day)
         let end = lastDay.endOf(component: .day)

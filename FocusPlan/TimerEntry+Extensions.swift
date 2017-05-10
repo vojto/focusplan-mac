@@ -37,4 +37,39 @@ extension TimerEntry {
         }
     }
     
+    static func durationSpentToday(onTask task: Task, timerEntries: [TimerEntry]) -> TimeInterval {
+        let taskEntries = timerEntries.filter { $0.task == task }
+        let entriesToday = taskEntries.filter { ($0.startedAt! as Date).isToday }
+        
+        var total: TimeInterval = 0
+        
+        for entry in entriesToday {
+            if let duration = entry.duration {
+                total += duration
+            } else if let startedAt = entry.startedAt, entry.endedAt == nil {
+                let durationSoFar = Date().timeIntervalSince(startedAt as Date)
+                total += durationSoFar
+            }
+        }
+        
+        return total
+    }
+    
+    static func filter(entries: [TimerEntry], onDay date: Date) -> [TimerEntry] {
+        var result = [TimerEntry]()
+        
+        let dayStart = date.startOf(component: .day)
+        let dayEnd = date.endOf(component: .day)
+        
+        for entry in entries {
+            guard let date = (entry.startedAt as Date?) else { continue }
+            
+            if date >= dayStart && date < dayEnd {
+                result.append(entry)
+            }
+        }
+        
+        return result
+    }
+    
 }

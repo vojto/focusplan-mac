@@ -57,11 +57,6 @@ class SummaryRowViewController: NSViewController {
             }
         }
         
-        Swift.print("Totals: \(totals)")
-        
-//        let stats = ["foo", "bar"]
-        
-        
         let views = totals.map { (project, summary) -> NSView in
             
             let view = createItemView()
