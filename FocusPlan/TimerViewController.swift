@@ -66,22 +66,10 @@ class TimerViewController: NSViewController {
             switch status {
                 
             case .pomodoro(type: let type, since: let since, duration: let duration):
-                let elapsed: TimeInterval = date.timeIntervalSince(since)
-                let remaining = duration - elapsed
-                
-                let icon: String
-                switch type {
-                case .pomodoro:
-                    icon = "🍅"
-                case .shortBreak, .longBreak:
-                    icon = "💤"
-                }
-                
-                return "\(icon) \(Formatting.format(timeInterval: remaining))"
+                return Formatting.formatPomodoro(type: type, since: since, duration: duration)
                 
             case .general(since: let since):
-                let time = date.timeIntervalSince(since)
-                return Formatting.format(timeInterval: time)
+                return Formatting.format(timeInterval: date.timeIntervalSince(since))
                 
             case .stopped:
                 return "No timer running."

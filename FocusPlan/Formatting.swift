@@ -43,4 +43,19 @@ class Formatting {
             return "\(minutes)m"
         }
     }
+    
+    public static func formatPomodoro(type: PomodoroType, since: Date, duration: TimeInterval) -> String {
+        let elapsed: TimeInterval = Date().timeIntervalSince(since)
+        let remaining = duration - elapsed
+        
+        let icon: String
+        switch type {
+        case .pomodoro:
+            icon = "🍅"
+        case .shortBreak, .longBreak:
+            icon = "💤"
+        }
+        
+        return "\(icon) \(Formatting.format(timeInterval: remaining))"
+    }
 }
