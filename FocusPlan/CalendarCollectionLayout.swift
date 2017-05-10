@@ -111,25 +111,9 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
     override func layoutAttributesForElements(in rect: NSRect) -> [NSCollectionViewLayoutAttributes] {
         let paths = controller.allIndexPaths()
         
-        // Assign starting date to first task event in case we want exact numbers
-        
-        if config.style != .plan {
-            var markedFirstEvent = false
-            
-            for path in paths {
-                let event = controller.event(atIndexPath: path)!
-                
-                if event.type == .task {
-                    event.startsAt = nil
-                    
-                    if !markedFirstEvent {
-                        event.startsAt = Date().timeIntervalSinceStartOfDay
-                        markedFirstEvent = true
-                    }
-                }
-            }
+        if config.style == .hybrid {
+            calculateStartForPlanPartOfHybrid(paths: paths)
         }
-        
         
         var attributes = [NSCollectionViewLayoutAttributes]()
         
@@ -175,6 +159,47 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
         
         
         return attributes
+    }
+    
+    func calculateStartForPlanPartOfHybrid(paths: [IndexPath]) {
+        let events = paths.map({ controller.event(atIndexPath: $0)! })
+        
+        let currentTime = Date().timeIntervalSinceStartOfDay
+        let planStartTime: TimeInterval
+        
+        if let endTime = latestEndTime(events: events) {
+            planStartTime = max(endTime, currentTime)
+        } else {
+            planStartTime = currentTime
+        }
+        
+        var markedFirstEvent = false
+        for event in events where event.type == .task {
+            event.startsAt = nil
+            
+            if !markedFirstEvent {
+                event.startsAt = planStartTime
+                markedFirstEvent = true
+            }
+        }
+    }
+    
+    func latestEndTime(events: [CalendarEvent]) -> TimeInterval? {
+        var latestEndTime: TimeInterval?
+        
+        for event in events where event.type == .timerEntry {
+            guard let endTime = event.endDate?.timeIntervalSinceStartOfDay else { continue }
+            
+            if latestEndTime == nil {
+                latestEndTime = endTime
+            }
+            
+            if let latestEnd = latestEndTime, endTime > latestEnd {
+                latestEndTime = endTime
+            }
+        }
+        
+        return latestEndTime
     }
     
     // MARK: - Getting specific layout attributes

@@ -273,8 +273,10 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
             for (_, task) in tasks.enumerated() {
                 var duration = task.estimate
                 
-                // Adjust duration by time already spent on this task
-                duration -= durationSpentToday(onTask: task, timerEntries: timerEntries)
+                // In hybrid view, adjust duration by time already spent on this task
+                if config.style == .hybrid {
+                    duration -= durationSpentToday(onTask: task, timerEntries: timerEntries)
+                }
                 
                 let event = CalendarEvent(task: task, startsAt: nil, duration: duration)
                 
