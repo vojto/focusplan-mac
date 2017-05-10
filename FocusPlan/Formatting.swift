@@ -33,7 +33,7 @@ class Formatting {
         guard let interval = timeInterval else { return "" }
         let minutes = Int(round(interval / 60))
         
-        guard minutes > 0 else { return "" }
+        guard minutes > 0 else { return "0m" }
         
         let hours = minutes / 60
         let extraMinutes = minutes - (hours*60)

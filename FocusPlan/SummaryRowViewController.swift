@@ -66,7 +66,7 @@ class SummaryRowViewController: NSViewController {
             
             let view = createItemView()
             
-            let label = "\(Formatting.longFormat(timeInterval: summary.spent)) / \(Formatting.longFormat(timeInterval: summary.planned))"
+            let label = "\(Formatting.longFormat(timeInterval: summary.spent))/\(Formatting.longFormat(timeInterval: summary.planned))"
             
             view.label.stringValue = label
             view.colorView.project.value = project

@@ -13,5 +13,7 @@ class SummaryRowItem: NSView {
     @IBOutlet weak var colorView: ProjectColorView!
     @IBOutlet weak var label: NSTextField!
     
-    
+    override func awakeFromNib() {
+        colorView.alpha = 0.5
+    }
 }
