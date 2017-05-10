@@ -345,8 +345,8 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
     // MARK: - Creating tasks
     // -----------------------------------------------------------------------
     
-    func handleCalendarCreate() {
-        let task = createTask()
+    func handleCalendarCreate(plannedFor date: Date? = nil) {
+        let task = createTask(plannedFor: date)
         
         DispatchQueue.main.async {
             self.calendarController.edit(task: task)
@@ -371,9 +371,9 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
     }
     
     @discardableResult
-    func createTask() -> Task {
+    func createTask(plannedFor date: Date? = nil) -> Task {
         let context = AppDelegate.viewContext
-        return Task.create(in: context, weight: tasksController.nextWeight)
+        return Task.create(in: context, weight: tasksController.nextWeight, plannedFor: date)
     }
     
     // MARK: - Reordering tasks

@@ -32,7 +32,7 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     let selectedEvents = MutableProperty<Set<CalendarEvent>>(Set())
     
     var onReorder: (() -> ())?
-    var onCreate: (() -> ())?
+    var onCreate: ((_ plannedFor: Date?) -> ())?
     
     var config = PlanConfig.defaultConfig {
         didSet {
@@ -329,7 +329,7 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     // -----------------------------------------------------------------------
     
     @IBAction func createAction(_ sender: Any) {
-        onCreate?()
+        onCreate?(nil)
     }
     
     func removeSelectedTasks() {
@@ -413,7 +413,7 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
             
         }
         
-        if let entry = selectedEntries.first, selectedEntries.count == 1, selectedTasks.count == 0 {
+        if selectedEntries.count == 1, selectedTasks.count == 0 {
             menu.addItem(withTitle: "Remove entry", action: #selector(removeSelectedEntries), keyEquivalent: "")
         }
     }
@@ -433,10 +433,8 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
         case .hybrid, .entries:
             createEntry(startTime: date)
         case .plan:
-            break
+            createTask(plannedFor: date)
         }
-        
-        
     }
     
     func createEntry(startTime: Date) {
@@ -449,9 +447,6 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     }
     
     func createTask(plannedFor date: Date) {
-        
+        onCreate?(date)
     }
-    
 }
-
-
