@@ -23,6 +23,8 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
     
     @IBOutlet weak var planMenuItem: NSMenuItem!
     @IBOutlet weak var unplanMenuItem: NSMenuItem!
+    @IBOutlet weak var archiveMenuItem: NSMenuItem!
+    
     
     
     let rootItem = RootItem()
@@ -36,6 +38,10 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
     let draggedType = "TaskRow"
     
     let selectedTasks = MutableProperty<Set<Task>>(Set())
+    
+    @IBOutlet var listMenu: NSMenu!
+    @IBOutlet weak var listOptionsButton: NSButton!
+    
     
     var onCreate: (() -> ())?
     
@@ -166,8 +172,6 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
             view?.controller = self
             
             view?.onTabOut = {
-                Swift.print("Tabbed out! estimate text field: \(self.estimateCellViews[task]?.textField)")
-                
                 self.estimateCellViews[task]?.startEditing()
 
             }
@@ -249,7 +253,14 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
         undo?.endUndoGrouping()
     }
     
-    // MARK: - Planning
+    @IBAction func archiveSelectedTasks(_ sender: Any) {
+        for task in findSelectedTasks() {
+            task.isArchived = true
+        }
+    }
+    
+    
+    // MARK: - Actions
     // -----------------------------------------------------------------------
     
     @IBAction func planForToday(_ sender: Any) {
@@ -264,6 +275,16 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
         }
     }
     
+    @IBAction func showListMenu(_ sender: Any) {
+        let view = listOptionsButton
+        listMenu.popUp(positioning: nil, at: NSPoint(x: 0, y: view!.frame.size.height + 6), in: view)
+    }
+    
+    @IBAction func archiveFinished(_ sender: Any) {
+        for task in tasks where task.isFinished == true {
+            task.isArchived = true
+        }
+    }
     
     
     // MARK: - Reordering
@@ -405,7 +426,9 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
     // -----------------------------------------------------------------------
     
     func menuNeedsUpdate(_ menu: NSMenu) {
-        guard let task = findSelectedTasks().first else { return }
+        let tasks = findSelectedTasks()
+        
+        guard let task = tasks.first else { return }
         
         if task.isPlanned {
             planMenuItem.isHidden = true
@@ -414,6 +437,9 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
             planMenuItem.isHidden = false
             unplanMenuItem.isHidden = true
         }
+        
+        let hasUnfinished = tasks.filter { !$0.isFinished }.count > 0
+        archiveMenuItem.isHidden = hasUnfinished
         
     }
 }

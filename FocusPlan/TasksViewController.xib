@@ -9,7 +9,10 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TasksViewController" customModule="FocusPlan" customModuleProvider="target">
             <connections>
+                <outlet property="archiveMenuItem" destination="Ona-eO-BYG" id="i9A-12-YIs"/>
                 <outlet property="estimateColumn" destination="eOx-Kj-WaP" id="2De-jw-sC0"/>
+                <outlet property="listMenu" destination="dlm-KG-7qt" id="is8-rP-STr"/>
+                <outlet property="listOptionsButton" destination="TsK-Ep-kbQ" id="d97-ap-oa1"/>
                 <outlet property="outlineView" destination="g5R-kG-AVj" id="wld-fX-P17"/>
                 <outlet property="planMenuItem" destination="xjs-cc-ef8" id="Hlz-ZY-xkI"/>
                 <outlet property="projectColumn" destination="w7Q-oj-gdW" id="4KX-ta-zQz"/>
@@ -244,12 +247,31 @@
                         <action selector="create:" target="-2" id="3Lf-Vw-Oa2"/>
                     </connections>
                 </button>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="TsK-Ep-kbQ">
+                    <rect key="frame" x="481" y="4" width="16" height="16"/>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="16" id="MMv-5M-SUy"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="16" id="Ns2-3g-E0n"/>
+                        <constraint firstAttribute="height" constant="16" id="gXl-ev-kpb"/>
+                        <constraint firstAttribute="width" constant="16" id="nEX-mK-ZK8"/>
+                    </constraints>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSActionTemplate" imagePosition="only" alignment="center" inset="2" id="Fl0-BN-LH8">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="showListMenu:" target="-2" id="2NE-q5-Yur"/>
+                        <outlet property="menu" destination="dlm-KG-7qt" id="Gvq-ij-mC4"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
                 <constraint firstItem="aZk-FI-3t9" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="5OE-IG-rNW"/>
                 <constraint firstAttribute="trailing" secondItem="k2S-Ko-gCv" secondAttribute="trailing" id="Aep-g2-3ch"/>
+                <constraint firstAttribute="trailing" secondItem="TsK-Ep-kbQ" secondAttribute="trailing" constant="8" id="BZp-UL-kVL"/>
                 <constraint firstItem="k2S-Ko-gCv" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="DZc-GO-zg3"/>
                 <constraint firstItem="aZk-FI-3t9" firstAttribute="top" secondItem="k2S-Ko-gCv" secondAttribute="bottom" id="RcL-5z-HoG"/>
+                <constraint firstAttribute="bottom" secondItem="TsK-Ep-kbQ" secondAttribute="bottom" constant="4" id="Vxp-oj-QdK"/>
                 <constraint firstAttribute="trailing" secondItem="aZk-FI-3t9" secondAttribute="trailing" id="b4H-j5-88K"/>
                 <constraint firstAttribute="bottom" secondItem="aZk-FI-3t9" secondAttribute="bottom" constant="24" id="cTA-6A-ySl"/>
                 <constraint firstItem="k2S-Ko-gCv" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="iQs-5z-zXy"/>
@@ -273,10 +295,16 @@
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="nh6-dv-Tyt"/>
-                <menuItem title="Remove" id="Ona-eO-BYG">
+                <menuItem title="Archive" id="Ona-eO-BYG">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="removeTask:" target="-2" id="XJV-NK-Aa7"/>
+                        <action selector="archiveSelectedTasks:" target="-2" id="QOD-fl-O77"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Remove" id="Eyn-WZ-V3N">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="removeTask:" target="-2" id="OB2-0S-oYW"/>
                     </connections>
                 </menuItem>
             </items>
@@ -285,8 +313,20 @@
             </connections>
             <point key="canvasLocation" x="144" y="518"/>
         </menu>
+        <menu id="dlm-KG-7qt">
+            <items>
+                <menuItem title="Archive finished" id="cAL-3P-tVH">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="archiveFinished:" target="-2" id="GJz-e6-KAr"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <point key="canvasLocation" x="302" y="448"/>
+        </menu>
     </objects>
     <resources>
+        <image name="NSActionTemplate" width="14" height="14"/>
         <image name="NSAddTemplate" width="11" height="11"/>
         <image name="TaskUnchecked" width="18" height="18"/>
     </resources>
