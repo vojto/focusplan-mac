@@ -26,9 +26,14 @@ class Formatting {
     }
     
     public static func format(estimate minutes: Int?) -> String {
-        guard let minutes = minutes, minutes > 0 else {
-            return ""
-        }
+        return longFormat(timeInterval: Double(minutes ?? 0) * 60)
+    }
+    
+    public static func longFormat(timeInterval: TimeInterval?) -> String {
+        guard let interval = timeInterval else { return "" }
+        let minutes = Int(round(interval / 60))
+        
+        guard minutes > 0 else { return "" }
         
         let hours = minutes / 60
         let extraMinutes = minutes - (hours*60)

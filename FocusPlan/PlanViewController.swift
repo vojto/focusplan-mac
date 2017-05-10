@@ -94,8 +94,6 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
     }
     
     func updateObservers() {
-        Swift.print("🌈 Updating observers")
-        
         updateTimerEntriesObserver()
         updateTasksObserver()
     }
@@ -234,6 +232,7 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
     
         
         calendarController.events.reset(sectionsCount: config.range.dayCount)
+        calendarController.summaryRowController.events = events
         
         for (_, event) in events.enumerated() {
             // For now, stick them all in one section

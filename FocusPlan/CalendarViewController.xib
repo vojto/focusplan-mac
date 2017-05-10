@@ -9,6 +9,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="CalendarViewController" customModule="FocusPlan" customModuleProvider="target">
             <connections>
                 <outlet property="collectionView" destination="gkq-od-ez8" id="Gwk-1G-M5j"/>
+                <outlet property="summaryContainer" destination="SEb-Z5-6VO" id="MHK-fL-OXN"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -71,13 +72,20 @@
                         <action selector="createAction:" target="-2" id="1sx-Ah-Y4c"/>
                     </connections>
                 </button>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="SEb-Z5-6VO">
+                    <rect key="frame" x="32" y="0.0" width="448" height="25"/>
+                </customView>
             </subviews>
             <constraints>
+                <constraint firstItem="SEb-Z5-6VO" firstAttribute="top" secondItem="GfK-j7-Vvf" secondAttribute="bottom" id="6uL-yy-sNq"/>
                 <constraint firstAttribute="bottom" secondItem="TRo-xk-II9" secondAttribute="bottom" constant="24" id="Dj1-hv-LLq"/>
+                <constraint firstItem="SEb-Z5-6VO" firstAttribute="leading" secondItem="Qwh-zb-LwX" secondAttribute="trailing" constant="8" id="Hyd-g5-stc"/>
                 <constraint firstAttribute="trailing" secondItem="TRo-xk-II9" secondAttribute="trailing" id="LK1-Yg-3eO"/>
                 <constraint firstItem="GfK-j7-Vvf" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="M1j-s9-ENy"/>
                 <constraint firstAttribute="bottom" secondItem="Qwh-zb-LwX" secondAttribute="bottom" constant="4" id="OjC-xz-bMH"/>
+                <constraint firstAttribute="bottom" secondItem="SEb-Z5-6VO" secondAttribute="bottom" id="Qd5-vd-I9G"/>
                 <constraint firstItem="TRo-xk-II9" firstAttribute="top" secondItem="GfK-j7-Vvf" secondAttribute="bottom" id="QzD-jS-lIv"/>
+                <constraint firstAttribute="trailing" secondItem="SEb-Z5-6VO" secondAttribute="trailing" id="SIQ-mi-OSL"/>
                 <constraint firstAttribute="trailing" secondItem="GfK-j7-Vvf" secondAttribute="trailing" id="fEX-yh-gsE"/>
                 <constraint firstItem="TRo-xk-II9" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="iRt-Rf-UTJ"/>
                 <constraint firstItem="GfK-j7-Vvf" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="ueO-RH-pMh"/>

@@ -90,6 +90,10 @@
 		99D8C8151EB3B6B600EA5001 /* CalendarCollectionItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 99D8C8131EB3B6B600EA5001 /* CalendarCollectionItem.xib */; };
 		99D8C8171EB3B81900EA5001 /* CalendarCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D8C8161EB3B81900EA5001 /* CalendarCollectionLayout.swift */; };
 		99DA93591EC317B500817AF5 /* chime_reveal.aif in Resources */ = {isa = PBXBuildFile; fileRef = 99DA93581EC317B500817AF5 /* chime_reveal.aif */; };
+		99DA935D1EC32E5900817AF5 /* SummaryRowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DA935B1EC32E5900817AF5 /* SummaryRowViewController.swift */; };
+		99DA935E1EC32E5900817AF5 /* SummaryRowViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 99DA935C1EC32E5900817AF5 /* SummaryRowViewController.xib */; };
+		99DA93601EC32FE700817AF5 /* SummaryRowItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 99DA935F1EC32FE700817AF5 /* SummaryRowItem.xib */; };
+		99DA93621EC349CC00817AF5 /* SummaryRowItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DA93611EC349CC00817AF5 /* SummaryRowItem.swift */; };
 		99E6CD861EB6FEA0002A7966 /* Task+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E6CD851EB6FEA0002A7966 /* Task+Extensions.swift */; };
 		99EEDE391EAF855400662DED /* NiceData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99EEDE371EAF854200662DED /* NiceData.framework */; };
 		99EEDE3A1EAF855400662DED /* NiceData.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 99EEDE371EAF854200662DED /* NiceData.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -195,6 +199,10 @@
 		99D8C8131EB3B6B600EA5001 /* CalendarCollectionItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarCollectionItem.xib; sourceTree = "<group>"; };
 		99D8C8161EB3B81900EA5001 /* CalendarCollectionLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarCollectionLayout.swift; sourceTree = "<group>"; };
 		99DA93581EC317B500817AF5 /* chime_reveal.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = chime_reveal.aif; sourceTree = "<group>"; };
+		99DA935B1EC32E5900817AF5 /* SummaryRowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SummaryRowViewController.swift; sourceTree = "<group>"; };
+		99DA935C1EC32E5900817AF5 /* SummaryRowViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SummaryRowViewController.xib; sourceTree = "<group>"; };
+		99DA935F1EC32FE700817AF5 /* SummaryRowItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SummaryRowItem.xib; sourceTree = "<group>"; };
+		99DA93611EC349CC00817AF5 /* SummaryRowItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SummaryRowItem.swift; sourceTree = "<group>"; };
 		99E6CD851EB6FEA0002A7966 /* Task+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Task+Extensions.swift"; sourceTree = "<group>"; };
 		99EEDE371EAF854200662DED /* NiceData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NiceData.framework; path = Carthage/Build/Mac/NiceData.framework; sourceTree = "<group>"; };
 		99EEDE591EAF866A00662DED /* FocusPlan.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FocusPlan.entitlements; sourceTree = "<group>"; };
@@ -451,6 +459,7 @@
 				99B026D71EBC940100533FE3 /* Edit Task */,
 				9983F9061EC0B503005E624A /* Edit Timer Entry */,
 				994063D21EB75E4A00E09165 /* Timer */,
+				99DA935A1EC32E2E00817AF5 /* Summary */,
 			);
 			name = "User Interface";
 			sourceTree = "<group>";
@@ -482,6 +491,17 @@
 				9933E4A11EBA176500B1CE85 /* CalendarSectionLabel.swift */,
 			);
 			name = Calendar;
+			sourceTree = "<group>";
+		};
+		99DA935A1EC32E2E00817AF5 /* Summary */ = {
+			isa = PBXGroup;
+			children = (
+				99DA935B1EC32E5900817AF5 /* SummaryRowViewController.swift */,
+				99DA935C1EC32E5900817AF5 /* SummaryRowViewController.xib */,
+				99DA935F1EC32FE700817AF5 /* SummaryRowItem.xib */,
+				99DA93611EC349CC00817AF5 /* SummaryRowItem.swift */,
+			);
+			name = Summary;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -552,7 +572,9 @@
 			files = (
 				99D8C8151EB3B6B600EA5001 /* CalendarCollectionItem.xib in Resources */,
 				99078BFC1EAF1CD000C3B789 /* Assets.xcassets in Resources */,
+				99DA935E1EC32E5900817AF5 /* SummaryRowViewController.xib in Resources */,
 				999E650E1EB362780001AAB7 /* PlanViewController.xib in Resources */,
+				99DA93601EC32FE700817AF5 /* SummaryRowItem.xib in Resources */,
 				991E7B241EB071C20086A9D9 /* TasksViewController.xib in Resources */,
 				999E65091EB361B20001AAB7 /* BacklogViewController.xib in Resources */,
 				994063CB1EB70ECA00E09165 /* CalendarHourHeader.xib in Resources */,
@@ -600,11 +622,13 @@
 				994063D41EB75E5D00E09165 /* TimerFrameView.swift in Sources */,
 				99D8C8171EB3B81900EA5001 /* CalendarCollectionLayout.swift in Sources */,
 				998746CA1EB360320079215B /* BacklogViewController.swift in Sources */,
+				99DA93621EC349CC00817AF5 /* SummaryRowItem.swift in Sources */,
 				99D8C8101EB3B51800EA5001 /* CalendarViewController.swift in Sources */,
 				994063D11EB72B2A00E09165 /* TaskProjectTableCellView.swift in Sources */,
 				99B610161EB0602A0098F69C /* ProjectTableCellView.swift in Sources */,
 				994063CD1EB70F6400E09165 /* CalendarHourHeader.swift in Sources */,
 				99B026DA1EBC941100533FE3 /* EditTaskViewController.swift in Sources */,
+				99DA935D1EC32E5900817AF5 /* SummaryRowViewController.swift in Sources */,
 				998156171EB77DAE0057ECD0 /* ProjectColorView.swift in Sources */,
 				99E6CD861EB6FEA0002A7966 /* Task+Extensions.swift in Sources */,
 				99078BF51EAF1CD000C3B789 /* AppDelegate.swift in Sources */,

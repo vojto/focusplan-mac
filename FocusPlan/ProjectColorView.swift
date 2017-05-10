@@ -60,6 +60,10 @@ class ProjectColorView: NSView {
         
     }
     
+    override var intrinsicContentSize: NSSize {
+        return NSSize(width: 11, height: 11)
+    }
+    
     /*
     func updateCorner() {
         layer?.cornerRadius = frame.size.width / 2 + 0.5

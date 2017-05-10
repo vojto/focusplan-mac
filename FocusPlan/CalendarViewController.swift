@@ -21,6 +21,9 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     @IBOutlet var collectionView: CalendarCollectionView!
     let collectionLayout = CalendarCollectionLayout()
     
+    @IBOutlet weak var summaryContainer: NSView!
+    let summaryRowController = SummaryRowViewController()
+    
     var editTaskController: EditTaskViewController?
     var editTaskPopover: NSPopover?
     
@@ -91,6 +94,7 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
             self.view.window?.resetCursorRects()
         }
 
+        summaryContainer.include(summaryRowController.view)
     }
     
     func reloadData() {
