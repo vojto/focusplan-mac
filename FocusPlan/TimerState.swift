@@ -92,8 +92,8 @@ class TimerState: NSObject, NSUserNotificationCenterDelegate {
         generalLane.start(task: task)
     }
     
-    func startPomodoro(type: PomodoroType) {
-        let task = selectedTask.value
+    func startPomodoro(type: PomodoroType, task: Task? = nil) {
+        let task = task ?? selectedTask.value
      
         // When starting Pomodoro, just ensure that regular tracking is running.
         if !generalLane.isRunning.value {

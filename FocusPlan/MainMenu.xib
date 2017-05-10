@@ -756,6 +756,7 @@
         </window>
         <customObject id="1AV-ZW-ri2" customClass="AppDelegate" customModule="FocusPlan" customModuleProvider="target">
             <connections>
+                <outlet property="mainWindow" destination="F0z-JX-Cv5" id="hFm-r1-la5"/>
                 <outlet property="timerWindow" destination="NhO-AT-Y6e" id="an0-gB-oSs"/>
             </connections>
         </customObject>

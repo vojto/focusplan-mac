@@ -14,6 +14,7 @@ import NiceData
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     
+    @IBOutlet weak var mainWindow: MainWindow!
     @IBOutlet weak var timerWindow: NSWindow!
     
     static var instance: AppDelegate?
@@ -60,6 +61,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationWillTerminate(_ aNotification: Notification) {
         
+    }
+    
+    func showMainWindow() {
+        NSApp.activate(ignoringOtherApps: true)
+        mainWindow.makeKeyAndOrderFront(self)
+    }
+    
+    func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+        mainWindow.makeKeyAndOrderFront(self)
+        
+        return true
     }
     
     
