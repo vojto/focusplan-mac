@@ -57,7 +57,6 @@ class CalendarCollectionItem: NSCollectionViewItem {
             
             switch event.type {
             case .project:
-                Swift.print("Updating calendar item for project: \(project)")
                 let colorName = event.project?.color
                 guard let color = Palette.decode(colorName: colorName) else { return }
                 let color1 = color.addHue(0, saturation: -0.3, brightness: 0.2, alpha: -0.9)
