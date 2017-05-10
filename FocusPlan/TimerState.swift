@@ -152,7 +152,7 @@ class TimerState: NSObject, NSUserNotificationCenterDelegate {
         
         notif.hasActionButton = true
         notif.actionButtonTitle = "Later"
-        notif.soundName = NSUserNotificationDefaultSoundName
+        notif.soundName = nil
         
         center.scheduleNotification(notif)
         
@@ -161,6 +161,12 @@ class TimerState: NSObject, NSUserNotificationCenterDelegate {
     
     func userNotificationCenter(_ center: NSUserNotificationCenter, shouldPresent notification: NSUserNotification) -> Bool {
         return true
+    }
+    
+    let sound = NSSound(named: "chime_reveal")
+    
+    func userNotificationCenter(_ center: NSUserNotificationCenter, didDeliver notification: NSUserNotification) {
+        sound?.play()
     }
     
     func userNotificationCenter(_ center: NSUserNotificationCenter, didActivate notification: NSUserNotification) {
