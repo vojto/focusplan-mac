@@ -240,17 +240,10 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
     
     @IBAction func removeTask(_ sender: Any) {
         let context = AppDelegate.viewContext
-        let undo = context.undoManager
-        
-        context.processPendingChanges()
-        undo?.beginUndoGrouping()
         
         for task in findSelectedTasks() {
-            context.delete(task)
+            task.remove(in: context)
         }
-        
-        context.processPendingChanges()
-        undo?.endUndoGrouping()
     }
     
     @IBAction func archiveSelectedTasks(_ sender: Any) {

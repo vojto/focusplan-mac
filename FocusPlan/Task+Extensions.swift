@@ -44,7 +44,11 @@ extension Task {
     }
     
     func remove(in context: NSManagedObjectContext) {
-        context.delete(self)
+        if (timerEntries ?? NSSet()).count > 0 {
+            self.isRemoved = true
+        } else {
+            context.delete(self)
+        }
     }
     
     static func create(in context: NSManagedObjectContext, weight: Int64, plannedFor: Date? = nil) -> Task {
