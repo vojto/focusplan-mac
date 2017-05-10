@@ -429,19 +429,28 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
         let time = collectionLayout.time(pointValue: location.y)
         let date = (config.range.start + section.section.days).startOf(component: .day).addingTimeInterval(time)
         
-        let context = AppDelegate.viewContext
-        let entry = TimerEntry(entity: TimerEntry.entity(), insertInto: context)
-        
-        entry.lane = LaneId.general.rawValue
-        entry.startedAt = date as NSDate
-        entry.endedAt = (date + 15.minutes) as NSDate
+        switch config.style {
+        case .hybrid, .entries:
+            createEntry(startTime: date)
+        case .plan:
+            break
+        }
         
         
     }
     
+    func createEntry(startTime: Date) {
+        let context = AppDelegate.viewContext
+        let entry = TimerEntry(entity: TimerEntry.entity(), insertInto: context)
+        
+        entry.lane = LaneId.general.rawValue
+        entry.startedAt = startTime as NSDate
+        entry.endedAt = (startTime + 15.minutes) as NSDate
+    }
     
-    
-    
+    func createTask(plannedFor date: Date) {
+        
+    }
     
 }
 

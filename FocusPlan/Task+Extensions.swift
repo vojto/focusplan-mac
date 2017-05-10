@@ -46,4 +46,15 @@ extension Task {
     func remove(in context: NSManagedObjectContext) {
         context.delete(self)
     }
+    
+    static func create(in context: NSManagedObjectContext, weight: Int64) -> Task {
+        let project: Project? = context.findFirst()
+        
+        let task = Task(entity: Task.entity(), insertInto: context)
+        task.project = project
+        task.plannedFor = Date() as NSDate
+        task.weightForPlan = weight
+        
+        return task
+    }
 }
