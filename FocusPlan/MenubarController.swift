@@ -32,6 +32,8 @@ class MenubarController: NSObject {
     
     var nextTask: Task?
     
+    let projectColorView = ProjectColorView(frame: NSRect(x: 0, y: 0, width: 10, height: 10))
+    
     lazy var now = timer(interval: .seconds(1), on: QueueScheduler.main)
     
     lazy var state = {
@@ -74,6 +76,25 @@ class MenubarController: NSObject {
                 self.taskItem.title = "Current task: \(task.title ?? "")"
             } else {
                 self.taskItem.title = "No task"
+            }
+        }
+        
+        // Bind current project
+        state.runningProject.producer.startWithValues { project in
+            if let project = project {
+                let view = self.projectColorView
+                view.project.value = project
+                view.needsDisplay = true
+                
+                let rep = view.bitmapImageRepForCachingDisplay(in: view.bounds)!
+                view.cacheDisplay(in: view.bounds, to: rep)
+                
+                let img = NSImage(size: view.bounds.size)
+                img.addRepresentation(rep)
+                
+                self.statusItem.button?.image = img
+            } else {
+                self.statusItem.button?.image = nil
             }
         }
         
