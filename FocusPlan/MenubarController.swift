@@ -79,7 +79,7 @@ class MenubarController: NSObject {
         
         // Bind next task title
         if let controller = PlanViewController.instance {
-            let nextTask = controller.tasksObserver.sortedTasksForPlan.map { $0.first }
+            let nextTask = controller.tasksObserver.sortedTasksForPlan.map({ $0.filter({ !$0.isFinished }).first })
             
             nextTask.startWithValues { task in
                 self.nextTask = task
