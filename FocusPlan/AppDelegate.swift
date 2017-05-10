@@ -17,6 +17,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var timerWindow: NSWindow!
     
     static var instance: AppDelegate?
+    
+    let menubarController = MenubarController()
 
     static let allProjectsObserver: ReactiveObserver<Project> = {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Project")
@@ -52,6 +54,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         setupAutosave()
         
         setupTimerWindow()
+        
+        menubarController.setup()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

@@ -11,6 +11,12 @@ import ReactiveSwift
 import NiceData
 import AppKit
 
+enum TimerRunningStatus {
+    case stopped
+    case pomodoro(type: PomodoroType, since: Date, duration: TimeInterval)
+    case general(since: Date)
+}
+
 class TimerState: NSObject, NSUserNotificationCenterDelegate {
     static let instance = TimerState()
     
@@ -23,6 +29,8 @@ class TimerState: NSObject, NSUserNotificationCenterDelegate {
     
     let isRunning = MutableProperty<Bool>(false)
     
+    var runningStatus = MutableProperty<TimerRunningStatus>(.stopped)
+    
     override init() {
         super.init()
         
@@ -30,6 +38,25 @@ class TimerState: NSObject, NSUserNotificationCenterDelegate {
         
         runningProject <~ generalLane.runningEntry.producer.pick { $0.reactive.project }
         runningTask <~ generalLane.runningEntry.producer.pick { $0.reactive.task }
+        
+        runningStatus <~ SignalProducer.combineLatest(
+            generalLane.runningEntry.producer,
+            pomodoroLane.runningEntry.producer
+            ).map { general, pomodoro -> TimerRunningStatus in
+                
+                if let pomodoro = pomodoro,
+                    let since = pomodoro.startedAt,
+                    let type = PomodoroType(rawValue: pomodoro.type ?? "") {
+                    
+                    return .pomodoro(type: type, since: since as Date, duration: pomodoro.targetDuration)
+                } else if let general = general, let since = general.startedAt {
+                    
+                    return .general(since: since as Date)
+                } else {
+                    
+                    return .stopped
+                }
+        }
         
         pomodoroLane.runningTill.producer.startWithValues { projectedEnd in
             self.handleProjectedEndChanged(projectedEnd)

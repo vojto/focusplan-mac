@@ -22,7 +22,7 @@ class TimerLane {
     let currentEntry = MutableProperty<TimerEntry?>(nil)
     let runningEntry = MutableProperty<TimerEntry?>(nil)
     let isRunning = MutableProperty<Bool>(false)
-    let runningSince = MutableProperty<Date?>(nil)
+    
     /**
      If there is a running entry and it has a projected end, then `runningTill`
      contains projected end of that running entry.
@@ -62,10 +62,6 @@ class TimerLane {
     
         
         isRunning <~ isCurrentEntryRunning
-        
-        runningSince <~ runningEntry.producer.map { entry -> Date? in
-            return entry?.startedAt as Date?
-        }
         
         runningTill <~ runningEntry.producer.map({ entry -> Date? in
             return entry?.projectedEnd

@@ -57,24 +57,17 @@ class TimerViewController: NSViewController {
                 self.toggleButton.setImage(#imageLiteral(resourceName: "StartTemplate"), forSegment: 0)
             }
         }
-        
 
-        let status = SignalProducer.combineLatest(state.isRunning.producer, currentTime.producer).map { running, date -> String in
-            
-            if !running {
-                return "No timer running."
-            }
-            
-            if let pomodoroStart = self.state.pomodoroLane.runningSince.value as Date?,
-                let entry = self.state.pomodoroLane.currentEntry.value {
+        
+        let textStatus = SignalProducer.combineLatest(
+            state.runningStatus.producer,
+            currentTime.producer
+        ).map { status, date -> String in
+            switch status {
                 
-                let elapsed: TimeInterval = date.timeIntervalSince(pomodoroStart)
-                let remaining = Double(entry.targetDuration) - elapsed
-                
-                guard let type = PomodoroType(rawValue: entry.type ?? "") else {
-                    assertionFailure()
-                    return ""
-                }
+            case .pomodoro(type: let type, since: let since, duration: let duration):
+                let elapsed: TimeInterval = date.timeIntervalSince(since)
+                let remaining = duration - elapsed
                 
                 let icon: String
                 switch type {
@@ -86,6 +79,24 @@ class TimerViewController: NSViewController {
                 
                 return "\(icon) \(Formatting.format(timeInterval: remaining))"
                 
+            case .general(since: let since):
+                let time = date.timeIntervalSince(since)
+                return Formatting.format(timeInterval: time)
+                
+            case .stopped:
+                return "No timer running."
+        
+            }
+        }
+        
+        /*
+        let status = SignalProducer.combineLatest(state.isRunning.producer, currentTime.producer).map { running, date -> String in
+            
+            if let pomodoroStart = self.state.pomodoroLane.runningSince.value as Date?,
+                let entry = self.state.pomodoroLane.currentEntry.value {
+                
+         
+                
             } else if let generalStart = self.state.generalLane.runningSince.value as Date? {
                 
                 let time = date.timeIntervalSince(generalStart)
@@ -95,8 +106,9 @@ class TimerViewController: NSViewController {
                 return "No timer running."
             }
         }
+        */
         
-        statusLabel.reactive.stringValue <~ status
+        statusLabel.reactive.stringValue <~ textStatus
         
         projectSection.reactive.isHidden <~ state.isRunning.map({ !$0 })
         projectLabel.reactive.stringValue <~ state.runningProject.producer.pick({ $0.reactive.name.producer }).map({ $0 ?? "" })
@@ -105,8 +117,7 @@ class TimerViewController: NSViewController {
         
         taskPopup.reactive.isHidden <~ state.isRunning.map({ !$0 })
 //        taskLabel.reactive.stringValue <~ state.runningTask.producer.pick({ $0.reactive.title.producer }).map({ $0 ?? "" })
-    
-        
+
     }
     
     
