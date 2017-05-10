@@ -113,7 +113,7 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
         
         // Assign starting date to first task event in case we want exact numbers
         
-        if config.style != .durations {
+        if config.style != .plan {
             var markedFirstEvent = false
             
             for path in paths {
@@ -136,16 +136,12 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
         // Events
         for path in paths {
             if let attribute = layoutAttributesForItem(at: path) {
-                let event = controller.event(atIndexPath: path)
-                
-//                Swift.print("💤 Event at [\(path)]: \(event)")
-
                 attributes.append(attribute)
             }
         }
         
 
-        if config.style != .durations {
+        if config.style != .plan {
             // Hour labels
             let countLabels = Int(dayDuration / labelEvery)
             for i in 0...countLabels {

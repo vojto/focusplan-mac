@@ -138,7 +138,7 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
         switch config.style {
         case .hybrid, .entries:
             styleControl.selectedSegment = 1
-        case .durations:
+        case .plan:
             styleControl.selectedSegment = 0
         }
         
@@ -192,7 +192,7 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
     @IBAction func changeStyle(_ sender: Any) {
         switch styleControl.selectedSegment {
         case 0:
-            self.config.style = .durations
+            self.config.style = .plan
         case 1:
             self.config.style = .entries
         default: break
@@ -226,7 +226,9 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
         switch config.style {
         case .entries:
             events = timerEvents
-        default:
+        case .plan:
+            events = taskEvents
+        case .hybrid:
             events = timerEvents + taskEvents
         }
     
@@ -329,7 +331,7 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
             
             let duration = endedAt.timeIntervalSince(startedAt as Date)
             
-            let startTime = config.style != .durations ? (startedAt as Date).timeIntervalSinceStartOfDay : nil
+            let startTime = config.style != .plan ? (startedAt as Date).timeIntervalSinceStartOfDay : nil
             
             let event = CalendarEvent(timerEntry: entry, startsAt: startTime, duration: duration)
             events.append(event)

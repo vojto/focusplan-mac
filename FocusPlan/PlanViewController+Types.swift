@@ -27,7 +27,7 @@ struct PlanRange {
 
 enum PlanStyle {
     case hybrid
-    case durations
+    case plan
     case entries
 }
 
@@ -57,7 +57,7 @@ struct PlanConfig {
             range: range,
             lanes: [.task],
             detail: .weekly,
-            style: .durations
+            style: .plan
         )
     }
 }
