@@ -41,6 +41,7 @@
 		994063D11EB72B2A00E09165 /* TaskProjectTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994063D01EB72B2A00E09165 /* TaskProjectTableCellView.swift */; };
 		994063D41EB75E5D00E09165 /* TimerFrameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994063D31EB75E5D00E09165 /* TimerFrameView.swift */; };
 		994063D61EB761D000E09165 /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994063D51EB761D000E09165 /* TimerViewController.swift */; };
+		994208351EC2EE4800CB4D4E /* PlanViewController+Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994208341EC2EE4800CB4D4E /* PlanViewController+Types.swift */; };
 		997FFBCE1EAF7DB200ABEA01 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 997FFBC61EAF7DA900ABEA01 /* ReactiveCocoa.framework */; };
 		997FFBCF1EAF7DB200ABEA01 /* ReactiveCocoa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 997FFBC61EAF7DA900ABEA01 /* ReactiveCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		997FFBD01EAF7DB200ABEA01 /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 997FFBC71EAF7DA900ABEA01 /* ReactiveSwift.framework */; };
@@ -153,6 +154,7 @@
 		994063D01EB72B2A00E09165 /* TaskProjectTableCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskProjectTableCellView.swift; sourceTree = "<group>"; };
 		994063D31EB75E5D00E09165 /* TimerFrameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerFrameView.swift; sourceTree = "<group>"; };
 		994063D51EB761D000E09165 /* TimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
+		994208341EC2EE4800CB4D4E /* PlanViewController+Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PlanViewController+Types.swift"; sourceTree = "<group>"; };
 		997FFBC61EAF7DA900ABEA01 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/Mac/ReactiveCocoa.framework; sourceTree = "<group>"; };
 		997FFBC71EAF7DA900ABEA01 /* ReactiveSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveSwift.framework; path = Carthage/Build/Mac/ReactiveSwift.framework; sourceTree = "<group>"; };
 		997FFBC81EAF7DA900ABEA01 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/Mac/Result.framework; sourceTree = "<group>"; };
@@ -401,6 +403,7 @@
 			isa = PBXGroup;
 			children = (
 				999E650B1EB362780001AAB7 /* PlanViewController.swift */,
+				994208341EC2EE4800CB4D4E /* PlanViewController+Types.swift */,
 				999E650C1EB362780001AAB7 /* PlanViewController.xib */,
 			);
 			name = Plan;
@@ -597,6 +600,7 @@
 				99B026DD1EBCA13200533FE3 /* SelectingTextField.swift in Sources */,
 				99B026E11EBCBA4D00533FE3 /* BackgroundView.swift in Sources */,
 				9933E4A21EBA176500B1CE85 /* CalendarSectionLabel.swift in Sources */,
+				994208351EC2EE4800CB4D4E /* PlanViewController+Types.swift in Sources */,
 				99B026D41EBC675F00533FE3 /* CalendarEventsCollection.swift in Sources */,
 				994063CF1EB715DA00E09165 /* CalendarTimeLine.swift in Sources */,
 				991E7B2B1EB082FE0086A9D9 /* Task+Reactive.swift in Sources */,
@@ -711,7 +715,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = FocusPlan/FocusPlan.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 31;
+				CURRENT_PROJECT_VERSION = 32;
 				DEVELOPMENT_TEAM = Q4C48EKH9Z;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -719,7 +723,7 @@
 				);
 				INFOPLIST_FILE = FocusPlan/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = t3ch.m3dian.FocusPlan;
+				PRODUCT_BUNDLE_IDENTIFIER = tech.median.FocusPlan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -732,7 +736,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = FocusPlan/FocusPlan.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 31;
+				CURRENT_PROJECT_VERSION = 32;
 				DEVELOPMENT_TEAM = Q4C48EKH9Z;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -740,7 +744,7 @@
 				);
 				INFOPLIST_FILE = FocusPlan/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = t3ch.m3dian.FocusPlan;
+				PRODUCT_BUNDLE_IDENTIFIER = tech.median.FocusPlan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};

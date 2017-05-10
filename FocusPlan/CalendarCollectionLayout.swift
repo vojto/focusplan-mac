@@ -112,6 +112,7 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
         let paths = controller.allIndexPaths()
         
         // Assign starting date to first task event in case we want exact numbers
+        
         if config.style != .durations {
             var markedFirstEvent = false
             
@@ -126,7 +127,6 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
                         markedFirstEvent = true
                     }
                 }
-                
             }
         }
         
@@ -136,6 +136,10 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
         // Events
         for path in paths {
             if let attribute = layoutAttributesForItem(at: path) {
+                let event = controller.event(atIndexPath: path)
+                
+//                Swift.print("💤 Event at [\(path)]: \(event)")
+
                 attributes.append(attribute)
             }
         }
@@ -241,26 +245,6 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
         return frame
     }
     
-    func endTime(forEventAt indexPath: IndexPath) -> TimeInterval {
-        let event = controller.event(atIndexPath: indexPath)!
-        
-        return startTime(forEventAt: indexPath) + event.duration
-    }
-    
-    // TODO: Memoize
-    func startTime(forEventAt indexPath: IndexPath) -> TimeInterval {
-        let event = controller.event(atIndexPath: indexPath)!
-    
-        if let start = event.startsAt {
-            return start
-        } else if indexPath.item == 0 {
-            return dayStart
-        } else {
-            let previousPath = IndexPath(item: indexPath.item - 1, section: indexPath.section)
-            return endTime(forEventAt: previousPath)
-        }
-    }
-    
     override func layoutAttributesForSupplementaryView(ofKind elementKind: String, at indexPath: IndexPath) -> NSCollectionViewLayoutAttributes? {
         
         let contentSize = collectionViewContentSize
@@ -322,6 +306,29 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
         let x = marginLeft + sectionWidth * CGFloat(index)
         
         return NSRect(x: x, y: 0, width: sectionWidth, height: innerFrame.size.height)
+    }
+    
+    // MARK: - Timestamps for events
+    // ------------------------------------------------------------------------
+    
+    func endTime(forEventAt indexPath: IndexPath) -> TimeInterval {
+        let event = controller.event(atIndexPath: indexPath)!
+        
+        return startTime(forEventAt: indexPath) + event.duration
+    }
+    
+    func startTime(forEventAt indexPath: IndexPath) -> TimeInterval {
+        let event = controller.event(atIndexPath: indexPath)!
+        
+        if let start = event.startsAt {
+            return start
+        } else if indexPath.item == 0 {
+            return dayStart
+        } else {
+            let previousPath = IndexPath(item: indexPath.item - 1, section: indexPath.section)
+            let time = endTime(forEventAt: previousPath)
+            return time
+        }
     }
     
     // MARK: - Getting labels

@@ -11,62 +11,6 @@ import ReactiveSwift
 import NiceData
 import SwiftDate
 
-struct PlanRange {
-    var start: Date
-    var dayCount: Int
-    
-    var lastDay: Date {
-        return start + (dayCount - 1).days
-    }
-}
-
-enum PlanStyle {
-    case hybrid
-    case durations
-    case entries
-}
-
-struct PlanConfig {
-    var range: PlanRange
-    var lanes: [PlanLane]
-    var detail: PlanDetail
-    var style = PlanStyle.hybrid
-    
-    static var defaultConfig = PlanConfig.daily(date: Date())
-    
-    public static func daily(date: Date) -> PlanConfig {
-        let range = PlanRange(start: date.startOf(component: .day), dayCount: 1)
-        
-        return PlanConfig(
-            range: range,
-            lanes: [.task, .pomodoro],
-            detail: .daily,
-            style: .hybrid
-        )
-    }
-    
-    public static func weekly(date: Date) -> PlanConfig {
-        let range = PlanRange(start: date.startOf(component: .weekOfYear), dayCount: 7)
-        
-        return PlanConfig(
-            range: range,
-            lanes: [.task],
-            detail: .weekly,
-            style: .durations
-        )
-    }
-}
-
-enum PlanLane {
-    case project
-    case task
-    case pomodoro
-}
-
-enum PlanDetail {
-    case daily
-    case weekly
-}
 
 class PlanViewController: NSViewController, NSSplitViewDelegate {
     
@@ -113,10 +57,7 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
         tasksObserver = TasksObserver(wantsPlannedOnly: true, in: context)
         let sortedTasks = tasksObserver.sortedTasksForPlan
         
-        timerEntriesObserver = {
-            let request: NSFetchRequest<NSFetchRequestResult> = TimerEntry.fetchRequest()
-            return ReactiveObserver<TimerEntry>(context: context, request: request)
-        }()
+        timerEntriesObserver = ReactiveObserver<TimerEntry>(context: context, request: nil)
         
         updateObservers()
         
@@ -153,17 +94,33 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
     }
     
     func updateObservers() {
+        Swift.print("🌈 Updating observers")
+        
+        updateTimerEntriesObserver()
+        updateTasksObserver()
+    }
+    
+    func updateTimerEntriesObserver() {
         let request: NSFetchRequest<NSFetchRequestResult> = TimerEntry.fetchRequest()
         
-        let range = config.range
-        let start = range.start.startOf(component: .day)
-        let end = range.lastDay.endOf(component: .day)
+        // Create the time predicate
+        let (start, end) = config.range.dateRange
+        let timePredicate = NSPredicate(format: "startedAt >= %@ and startedAt < %@", start as NSDate, end as NSDate)
         
-        request.predicate = NSPredicate(format: "startedAt >= %@ and startedAt < %@", start as NSDate, end as NSDate)
+        // Create the lane predicate
+        let laneIds = config.lanes.map { $0.laneId.rawValue }
+        let lanePredicate = NSPredicate(format: "lane IN %@", laneIds)
+        
+        request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
+            lanePredicate,
+            timePredicate
+        ])
         
         timerEntriesObserver.request = request
-        
-        tasksObserver.range = (start, end)
+    }
+    
+    func updateTasksObserver() {
+        tasksObserver.range = config.range.dateRange
     }
     
     func updateLayout() {
@@ -298,8 +255,10 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
     }
     
     /**
-     Takes timer entries so it can calculate how much time was spent already
-     on a task.
+     Create events from planned tasks.
+     
+     Takes also timer entries as an argument, so it can calculate how much time
+     was spent already on every task.
      */
     func createEvents(fromTasks tasks: [Task], timerEntries: [TimerEntry]) -> [CalendarEvent] {
         var events = [CalendarEvent]()
@@ -348,6 +307,9 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
         return total
     }
     
+    /**
+     Creates events from timer entries
+    */
     func createEvents(fromEntries entries: [TimerEntry]) -> [CalendarEvent] {
         var events = [CalendarEvent]()
         
