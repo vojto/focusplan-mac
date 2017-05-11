@@ -79,7 +79,7 @@ class CalendarCollectionItem: NSCollectionViewItem {
                 self.field.textColor = textColor
                 self.field.stringValue = self.event.value?.task?.title ?? ""
                 
-                let total = Formatting.longFormat(timeInterval: event.duration)
+                let total = Formatting.longFormat(timeInterval: event.plannedDuration)
                 let spent = Formatting.longFormat(timeInterval: event.spentDuration)
                 
                 self.secondaryField.isHidden = false
@@ -181,9 +181,9 @@ class CalendarCollectionItem: NSCollectionViewItem {
         switch handle {
         case .top:
             event.value!.startsAt = initialStartTime + durationDelta
-            event.value!.duration = initialDuration - durationDelta
+            event.value!.plannedDuration = initialDuration - durationDelta
         case .bottom:
-            event.value!.duration = initialDuration + durationDelta
+            event.value!.plannedDuration = initialDuration + durationDelta
         }
         
 

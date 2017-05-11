@@ -25,8 +25,16 @@ class CalendarEvent: CustomStringConvertible, Hashable {
     
     var startsAt: TimeInterval?
     
-    var duration: TimeInterval
+    var duration: TimeInterval {
+        if spentDuration > plannedDuration {
+            return spentDuration
+        } else {
+            return plannedDuration
+        }
+    }
+    
     var spentDuration: TimeInterval = 0
+    var plannedDuration: TimeInterval = 0
     
     var isHidden = false
     
@@ -94,7 +102,7 @@ class CalendarEvent: CustomStringConvertible, Hashable {
         self.date = date
 //        self.projectEntryDate = date
         self.startsAt = startsAt
-        self.duration = duration
+        self.plannedDuration = duration
     }
     
     init(task: Task, startsAt: TimeInterval?, duration: TimeInterval) {
@@ -102,7 +110,7 @@ class CalendarEvent: CustomStringConvertible, Hashable {
         self.task = task
         self.date = task.plannedFor as Date?
         self.startsAt = startsAt
-        self.duration = duration
+        self.plannedDuration = duration
     }
     
     init(timerEntry: TimerEntry, startsAt: TimeInterval?, duration: TimeInterval) {
@@ -110,7 +118,7 @@ class CalendarEvent: CustomStringConvertible, Hashable {
         self.timerEntry = timerEntry
         self.date = timerEntry.startedAt as Date?
         self.startsAt = startsAt
-        self.duration = duration
+        self.plannedDuration = duration
     }
     
     var description: String {

@@ -283,7 +283,7 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
                     // Event already exists, but it was created for another entry.
                     // In that case we just increase duration by this entry
                     event = existing
-                    event.duration += entry.duration ?? 0
+                    event.plannedDuration += entry.duration ?? 0
                     
                 } else if let existing = events.filter({ $0.task == task }).first {
                     // Event for the same task already exist. All we have to do is
@@ -294,15 +294,12 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
                     event = createEvent(fromTask: task)
                     event.timerEntry = entry
                     event.date = entry.startedAt as Date?
-                    event.duration = entry.duration ?? 0
+                    event.plannedDuration = entry.duration ?? 0
                     events.insert(event, at: 0)
                 }
                 
                 event.spentDuration += entry.duration ?? 0
-                
-                if event.spentDuration > event.duration {
-                    event.duration = event.spentDuration
-                }
+            
             }
             
             Swift.print("  Tasks: \(tasks.count)")
@@ -348,11 +345,11 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
             for (_, task) in tasks.enumerated() {
                 let event = createEvent(fromTask: task)
                 
-                event.duration -= TimerEntry.durationSpentToday(onTask: task, timerEntries: timerEntries)
+                event.plannedDuration -= TimerEntry.durationSpentToday(onTask: task, timerEntries: timerEntries)
                 
                 if event.duration < 0 || task.isFinished {
                     event.isHidden = true
-                    event.duration = 0
+                    event.plannedDuration = 0
                 }
 
                 events.append(event)
