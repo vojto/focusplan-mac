@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12118"/>
@@ -19,17 +19,17 @@
             <rect key="frame" x="0.0" y="0.0" width="259" height="441"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="29" horizontalPageScroll="10" verticalLineScroll="29" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wnS-oV-gKD">
+                <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="32" horizontalPageScroll="10" verticalLineScroll="32" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wnS-oV-gKD">
                     <rect key="frame" x="0.0" y="0.0" width="259" height="441"/>
                     <clipView key="contentView" drawsBackground="NO" id="Nt5-Xc-HGe">
                         <rect key="frame" x="0.0" y="0.0" width="259" height="441"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="29" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="14" outlineTableColumn="xwc-hO-G0q" id="Tx9-BQ-pkP" customClass="ProjectsOutlineView" customModule="FocusPlan" customModuleProvider="target">
+                            <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" columnReordering="NO" columnResizing="NO" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="29" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="xwc-hO-G0q" id="Tx9-BQ-pkP" customClass="ProjectsOutlineView" customModule="FocusPlan" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="259" height="441"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <size key="intercellSpacing" width="3" height="0.0"/>
-                                <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                <size key="intercellSpacing" width="2" height="3"/>
+                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
                                     <tableColumn width="256" minWidth="40" maxWidth="1000" id="xwc-hO-G0q">
@@ -45,8 +45,12 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
+                                            <customView identifier="NSTableViewRowViewKey" id="Pdk-Tq-adq" customClass="CustomTableRowView" customModule="FocusPlan" customModuleProvider="target">
+                                                <rect key="frame" x="1" y="1" width="256" height="29"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            </customView>
                                             <tableCellView identifier="HeaderCell" id="Ufj-4H-VP1">
-                                                <rect key="frame" x="1" y="0.0" width="256" height="30"/>
+                                                <rect key="frame" x="1" y="33" width="256" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qM6-xi-Utn">
@@ -68,11 +72,11 @@
                                                 </connections>
                                             </tableCellView>
                                             <tableCellView identifier="ProjectCell" id="Crx-Sa-5pw" customClass="ProjectTableCellView" customModule="FocusPlan" customModuleProvider="target">
-                                                <rect key="frame" x="1" y="30" width="256" height="29"/>
+                                                <rect key="frame" x="1" y="66" width="256" height="29"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SiK-Vi-47n">
-                                                        <rect key="frame" x="0.0" y="6" width="229" height="17"/>
+                                                        <rect key="frame" x="0.0" y="6" width="224" height="17"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="Mk6-4T-g3b">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -80,7 +84,7 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="Ket-35-kwK" customClass="ColorPicker" customModule="NiceUI">
-                                                        <rect key="frame" x="235" y="6" width="18" height="18"/>
+                                                        <rect key="frame" x="230" y="6" width="18" height="18"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="18" id="3LF-7a-FTd"/>
                                                             <constraint firstAttribute="width" constant="18" id="N8A-bg-PA5"/>
@@ -89,7 +93,7 @@
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstItem="Ket-35-kwK" firstAttribute="leading" secondItem="SiK-Vi-47n" secondAttribute="trailing" constant="8" id="4ed-eM-Nr2"/>
-                                                    <constraint firstAttribute="trailing" secondItem="Ket-35-kwK" secondAttribute="trailing" constant="3" id="KEY-in-Nwz"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Ket-35-kwK" secondAttribute="trailing" constant="8" id="KEY-in-Nwz"/>
                                                     <constraint firstItem="SiK-Vi-47n" firstAttribute="centerY" secondItem="Crx-Sa-5pw" secondAttribute="centerY" id="cqt-BE-zE7"/>
                                                     <constraint firstItem="Ket-35-kwK" firstAttribute="centerY" secondItem="Crx-Sa-5pw" secondAttribute="centerY" id="jaT-OX-WtY"/>
                                                     <constraint firstItem="SiK-Vi-47n" firstAttribute="leading" secondItem="Crx-Sa-5pw" secondAttribute="leading" constant="2" id="jsc-Pw-jFZ"/>
@@ -97,27 +101,6 @@
                                                 <connections>
                                                     <outlet property="colorPicker" destination="Ket-35-kwK" id="nZI-pN-TOz"/>
                                                     <outlet property="textField" destination="SiK-Vi-47n" id="RXF-Uk-2qq"/>
-                                                </connections>
-                                            </tableCellView>
-                                            <tableCellView identifier="PlanCell" id="QHJ-rB-EZP">
-                                                <rect key="frame" x="1" y="59" width="256" height="29"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                <subviews>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qGF-6N-jWK">
-                                                        <rect key="frame" x="0.0" y="6" width="97" height="17"/>
-                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="dQG-qv-3UV">
-                                                            <font key="font" metaFont="system"/>
-                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                        </textFieldCell>
-                                                    </textField>
-                                                </subviews>
-                                                <constraints>
-                                                    <constraint firstItem="qGF-6N-jWK" firstAttribute="centerY" secondItem="QHJ-rB-EZP" secondAttribute="centerY" id="SRr-D0-mcm"/>
-                                                    <constraint firstItem="qGF-6N-jWK" firstAttribute="leading" secondItem="QHJ-rB-EZP" secondAttribute="leading" constant="2" id="vX4-Uv-ubK"/>
-                                                </constraints>
-                                                <connections>
-                                                    <outlet property="textField" destination="qGF-6N-jWK" id="tBr-CC-cdc"/>
                                                 </connections>
                                             </tableCellView>
                                         </prototypeCellViews>

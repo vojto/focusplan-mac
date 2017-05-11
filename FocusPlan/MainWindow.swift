@@ -17,8 +17,6 @@ class MainWindow: NSWindow, NSToolbarDelegate {
     
     let tabBarController = TabBarController()
     
-    let projectsController = ProjectsViewController()
-    
     let planController = PlanViewController()
     
     let backlogController = BacklogViewController()
@@ -42,9 +40,6 @@ class MainWindow: NSWindow, NSToolbarDelegate {
 //        planController.view.isHidden = true
 //        mainView2.isHidden = true
     
-        projectsController.onSelect = { item in
-            self.showSection(forItem: item)
-        }
         
         TimerState.instance.selectedTask <~ planController.tasksController.selectedTasks.producer.map { $0.first }
         
@@ -89,7 +84,7 @@ class MainWindow: NSWindow, NSToolbarDelegate {
     }
     
     @IBAction func showProjects(_ sender: Any) {
-        showProject()
+        tabBarController.selectedIndex.value = 1
     }
     
     func showProject(_ project: Project? = nil) {

@@ -15,7 +15,12 @@ class BacklogViewController: NSViewController {
         return TasksViewController(nibName: "TasksViewController", bundle: nil)!
     }()
     
+    @IBOutlet weak var mainView: NSView!
+    @IBOutlet weak var sidebarView: NSView!
+    
     let selectedProject = MutableProperty<Project?>(nil)
+    
+    let projectsController = ProjectsViewController()
     
     var tasksObserver: TasksObserver!
     
@@ -32,6 +37,10 @@ class BacklogViewController: NSViewController {
         tasksObserver.skipsArchived = true
         
         tasksObserver.sortedForProject.producer.startWithValues { tasks in
+            if self.selectedProject.value == nil {
+                return
+            }
+            
             self.tasksController.tasks = tasks
             self.tasksController.reloadData()
         }
@@ -50,7 +59,15 @@ class BacklogViewController: NSViewController {
         }
         
         // Setup the view
-        view.include(tasksController.view)
+        mainView.include(tasksController.view)
+        sidebarView.include(projectsController.view)
+        
+        // Handling selecting project in projects controller
+        projectsController.onSelect = { item in
+            if let project = item as? Project {
+                self.selectedProject.value = project
+            }
+        }
         
     }
     

@@ -48,7 +48,7 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     
     let rootItem = RootItem()
     
-    let headerItems = [HeaderItem(type: .plan), HeaderItem(type: .backlog)]
+    let headerItems = [/*HeaderItem(type: .plan), */HeaderItem(type: .backlog)]
     var planItems = [PlanItem(type: .today), PlanItem(type: .thisWeek)]
     
     var projects = [Project]()
@@ -69,9 +69,15 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     
     override func viewDidAppear() {
         disposable += observer.objects.producer.startWithValues { projects in
+            
+            
             self.projects = projects.sorted { $0.weight < $1.weight }
             
             self.outlineView.reloadData()
+            
+            DispatchQueue.main.async {
+                self.ensureSelection()
+            }
         }
         
         // Do view setup here.
@@ -80,6 +86,14 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
         outlineView.register(forDraggedTypes: [draggedType])
         
         menuNeedsUpdate(contextMenu)
+    }
+    
+    func ensureSelection() {
+        let selectedRow = outlineView.selectedRow
+        
+        if selectedRow < 0, outlineView.numberOfRows > 1 {
+            select(row: 1)
+        }
     }
     
     deinit {

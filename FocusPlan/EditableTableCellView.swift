@@ -39,8 +39,6 @@ class EditableTableCellView: NSTableCellView, NSTextFieldDelegate {
     func startEditing() {
         guard let field = textField else { return }
         
-        Swift.print("Starting editing \(field) in window \(window)")
-        
         field.isEditable = true
         window?.makeFirstResponder(field)
         
