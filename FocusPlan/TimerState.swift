@@ -171,7 +171,7 @@ class TimerState: NSObject, NSUserNotificationCenterDelegate {
     
     func userNotificationCenter(_ center: NSUserNotificationCenter, didActivate notification: NSUserNotification) {
         
-        // Dismiss... Nothing to do.
+        stop()
         
     }
     
