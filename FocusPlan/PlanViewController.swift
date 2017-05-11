@@ -86,7 +86,7 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
         
         updateLayout()
         
-        let now = timer(interval: .seconds(10), on: QueueScheduler.main)
+        let now = timer(interval: .seconds(60), on: QueueScheduler.main)
         
         now.startWithValues { _ in
             self.updateCalendarWithLastValues()
