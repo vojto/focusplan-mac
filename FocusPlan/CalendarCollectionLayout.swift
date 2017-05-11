@@ -32,8 +32,8 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
         return controller.config
     }
     
-    var dayStart: TimeInterval = 8 * 60 * 60
-    let dayEnd: TimeInterval = 20 * 60 * 60
+    var dayStart: TimeInterval = 7 * 60 * 60
+    let dayEnd: TimeInterval = 24 * 60 * 60
     var dayDuration: TimeInterval { return dayEnd - dayStart }
     
     let labelEvery: TimeInterval = 1 * 60 * 60
@@ -109,6 +109,9 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
     // ------------------------------------------------------------------------
     
     override func layoutAttributesForElements(in rect: NSRect) -> [NSCollectionViewLayoutAttributes] {
+        // Flush memoized
+        startTimes = [:]
+        
         let paths = controller.allIndexPaths()
         
         if config.style == .hybrid {
@@ -338,18 +341,29 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
         return startTime(forEventAt: indexPath) + event.duration
     }
     
+    var startTimes = [IndexPath: TimeInterval]()
+    
     func startTime(forEventAt indexPath: IndexPath) -> TimeInterval {
+        if let memoized = startTimes[indexPath] {
+            return memoized
+        }
+        
         let event = controller.event(atIndexPath: indexPath)!
+        let result: TimeInterval
         
         if let start = event.startsAt {
-            return start
+            result = start
         } else if indexPath.item == 0 {
-            return dayStart
+            result = dayStart
         } else {
             let previousPath = IndexPath(item: indexPath.item - 1, section: indexPath.section)
             let time = endTime(forEventAt: previousPath)
-            return time
+            result = time
         }
+        
+        startTimes[indexPath] = result
+        
+        return result
     }
     
     // MARK: - Getting labels
