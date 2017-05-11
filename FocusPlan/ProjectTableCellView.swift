@@ -14,7 +14,7 @@ import ReactiveSwift
 import NiceReactive
 
 
-class ProjectTableCellView: NSTableCellView {
+class ProjectTableCellView: EditableTableCellView {
     let project = MutableProperty<Project?>(nil)
     
     @IBOutlet var colorPicker: ColorPicker!
