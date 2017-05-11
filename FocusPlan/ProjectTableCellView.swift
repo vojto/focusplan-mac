@@ -33,7 +33,5 @@ class ProjectTableCellView: EditableTableCellView {
             guard let nsColor = Palette.decode(colorName: colorName) else { return }
             self.colorPicker.selectedColor = nsColor
         }
-        
-    
     }
 }

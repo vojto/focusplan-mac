@@ -68,10 +68,12 @@ class MainWindow: NSWindow, NSToolbarDelegate {
     }
     
     @IBAction func showDailyPlan(_ sender: Any) {
+        tabBarController.selectedIndex.value = 0
         showPlan(detail: .daily)
     }
     
     @IBAction func showWeeklyPlan(_ sender: Any) {
+        tabBarController.selectedIndex.value = 0
         showPlan(detail: .weekly)
     }
     

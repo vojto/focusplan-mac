@@ -16,14 +16,10 @@ class ProjectsOutlineView: NSOutlineView {
         let point    = convert(event.locationInWindow, from: nil)
         let rowIndex = row(at: point)
         
-        if rowIndex <= 0 {
-            // TODO: Finish editing
-            self.window!.makeFirstResponder(nil)
-        }
-        
-        if rowIndex < 0 { // We didn't click any row
-            deselectAll(nil)
-        }
+//        if rowIndex <= 0 {
+//            // TODO: Finish editing
+//            self.window!.makeFirstResponder(nil)
+//        }
         
         
         if event.clickCount == 2 {

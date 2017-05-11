@@ -37,7 +37,10 @@ class EditableTableCellView: NSTableCellView, NSTextFieldDelegate {
     }
     
     func startEditing() {
+
         guard let field = textField else { return }
+        
+        field.delegate = self
         
         field.isEditable = true
         window?.makeFirstResponder(field)
@@ -48,6 +51,8 @@ class EditableTableCellView: NSTableCellView, NSTextFieldDelegate {
     }
     
     func finishEditing() {
+        Swift.print("Finishing editing")
+        
         guard let field = textField else { return }
         
         field.resignFirstResponder()
