@@ -57,6 +57,7 @@
 		998156101EB7761F0057ECD0 /* TimerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9981560F1EB7761F0057ECD0 /* TimerState.swift */; };
 		998156131EB778020057ECD0 /* NSButton+Reactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998156121EB778020057ECD0 /* NSButton+Reactive.swift */; };
 		998156171EB77DAE0057ECD0 /* ProjectColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998156161EB77DAE0057ECD0 /* ProjectColorView.swift */; };
+		998352D51EC4597300303E7D /* ClickableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998352D41EC4597300303E7D /* ClickableLabel.swift */; };
 		9983F9091EC0B5B0005E624A /* EditTimerEntryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9983F9071EC0B5B0005E624A /* EditTimerEntryController.swift */; };
 		9983F90A1EC0B5B0005E624A /* EditTimerEntryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9983F9081EC0B5B0005E624A /* EditTimerEntryController.xib */; };
 		998746CA1EB360320079215B /* BacklogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998746C91EB360320079215B /* BacklogViewController.swift */; };
@@ -169,6 +170,7 @@
 		9981560F1EB7761F0057ECD0 /* TimerState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerState.swift; sourceTree = "<group>"; };
 		998156121EB778020057ECD0 /* NSButton+Reactive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSButton+Reactive.swift"; sourceTree = "<group>"; };
 		998156161EB77DAE0057ECD0 /* ProjectColorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectColorView.swift; sourceTree = "<group>"; };
+		998352D41EC4597300303E7D /* ClickableLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClickableLabel.swift; sourceTree = "<group>"; };
 		9983F9071EC0B5B0005E624A /* EditTimerEntryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditTimerEntryController.swift; sourceTree = "<group>"; };
 		9983F9081EC0B5B0005E624A /* EditTimerEntryController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditTimerEntryController.xib; sourceTree = "<group>"; };
 		998746C91EB360320079215B /* BacklogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BacklogViewController.swift; sourceTree = "<group>"; };
@@ -321,6 +323,7 @@
 				991E7B3B1EB0E80A0086A9D9 /* EditableTableCellView.swift */,
 				99B026E01EBCBA4D00533FE3 /* BackgroundView.swift */,
 				9933E31D1EC047CE00774BD4 /* YellowView.swift */,
+				998352D41EC4597300303E7D /* ClickableLabel.swift */,
 			);
 			name = "Shared Views";
 			sourceTree = "<group>";
@@ -622,6 +625,7 @@
 				994063D41EB75E5D00E09165 /* TimerFrameView.swift in Sources */,
 				99D8C8171EB3B81900EA5001 /* CalendarCollectionLayout.swift in Sources */,
 				998746CA1EB360320079215B /* BacklogViewController.swift in Sources */,
+				998352D51EC4597300303E7D /* ClickableLabel.swift in Sources */,
 				99DA93621EC349CC00817AF5 /* SummaryRowItem.swift in Sources */,
 				99D8C8101EB3B51800EA5001 /* CalendarViewController.swift in Sources */,
 				994063D11EB72B2A00E09165 /* TaskProjectTableCellView.swift in Sources */,

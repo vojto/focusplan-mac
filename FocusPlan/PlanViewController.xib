@@ -27,7 +27,7 @@
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="uig-5h-bVa" customClass="BackgroundView" customModule="FocusPlan" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="566" width="648" height="45"/>
                     <subviews>
-                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jiw-ea-Nj1">
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jiw-ea-Nj1" customClass="ClickableLabel" customModule="FocusPlan" customModuleProvider="target">
                             <rect key="frame" x="305" y="13" width="39" height="19"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Title" id="o5B-Ud-ULf">
                                 <font key="font" metaFont="systemMedium" size="15"/>

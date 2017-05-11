@@ -17,7 +17,7 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
     @IBOutlet var primaryView: NSView!
     @IBOutlet var secondaryView: NSView!
     
-    @IBOutlet weak var titleField: NSTextField!
+    @IBOutlet weak var titleField: ClickableLabel!
     @IBOutlet weak var detailControl: NSSegmentedControl!
     @IBOutlet weak var styleControl: NSSegmentedControl!
     
@@ -91,6 +91,8 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
         now.startWithValues { _ in
             self.updateCalendarWithLastValues()
         }
+        
+        titleField.onDoubleClick = switchToToday
     }
     
     func updateObservers() {
@@ -185,6 +187,10 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
             config.detail = .weekly
         default: break
         }
+    }
+    
+    func switchToToday() {
+        config.date = Date()
     }
     
     @IBAction func changeStyle(_ sender: Any) {
