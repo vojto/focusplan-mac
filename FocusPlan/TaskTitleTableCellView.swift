@@ -37,6 +37,7 @@ class TaskTitleTableCellView: EditableTableCellView {
             
             if (isFinished ?? false) {
                 attributes[NSStrikethroughStyleAttributeName] = NSUnderlineStyle.styleSingle.rawValue
+                attributes[NSForegroundColorAttributeName] = NSColor.secondaryLabelColor
             }
             
             return NSAttributedString(string: title, attributes: attributes)
@@ -69,6 +70,19 @@ class TaskTitleTableCellView: EditableTableCellView {
             }
         }
         
+//        SignalProducer.combineLatest(
+//            isEditing.producer,
+//            isFinished.producer
+//        ).startWithValues { editing, finished in
+//            
+//            if (finished ?? false) {
+//                self.textField?.textColor = NSColor.quaternaryLabelColor
+//            } else {
+//                self.textField?.textColor = NSColor.labelColor
+//            }
+//            
+//        }
+//        
         
         /*
         SignalProducer.combineLatest(isEditing.producer, isPlanned.producer, project.producer)

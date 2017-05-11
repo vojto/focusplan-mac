@@ -70,7 +70,7 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <customView wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vnr-lY-iA5">
-                                                        <rect key="frame" x="4" y="8" width="18" height="18"/>
+                                                        <rect key="frame" x="4" y="6" width="18" height="18"/>
                                                         <subviews>
                                                             <button translatesAutoresizingMaskIntoConstraints="NO" id="a5J-Ue-YtU">
                                                                 <rect key="frame" x="0.0" y="0.0" width="18" height="18"/>
@@ -96,7 +96,7 @@
                                                     </customView>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="vnr-lY-iA5" firstAttribute="centerY" secondItem="J4t-Kv-rM7" secondAttribute="centerY" id="S4L-z1-RzX"/>
+                                                    <constraint firstItem="vnr-lY-iA5" firstAttribute="centerY" secondItem="J4t-Kv-rM7" secondAttribute="centerY" constant="1" id="S4L-z1-RzX"/>
                                                     <constraint firstItem="ecr-hF-tNw" firstAttribute="leading" secondItem="vnr-lY-iA5" secondAttribute="trailing" constant="4" id="U5Z-Vo-18D"/>
                                                     <constraint firstAttribute="trailing" secondItem="ecr-hF-tNw" secondAttribute="trailing" constant="8" id="Xni-9E-CDm"/>
                                                     <constraint firstItem="vnr-lY-iA5" firstAttribute="leading" secondItem="J4t-Kv-rM7" secondAttribute="leading" constant="4" id="ht4-YK-nyb"/>
