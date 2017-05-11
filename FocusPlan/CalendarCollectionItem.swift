@@ -15,6 +15,8 @@ class CalendarCollectionItem: NSCollectionViewItem {
     
     let event = MutableProperty<CalendarEvent?>(nil)
     @IBOutlet weak var field: NSTextField!
+    @IBOutlet weak var secondaryField: NSTextField!
+    
     
     var onEdit: ((CalendarCollectionItem) -> ())?
     
@@ -51,6 +53,7 @@ class CalendarCollectionItem: NSCollectionViewItem {
             guard let event = event else { return }
             
             self.field.alpha = 1
+            self.secondaryField.isHidden = true
             view.isDashed = false
             
             view.backgroundProgress = event.spentDuration / event.duration
@@ -75,6 +78,13 @@ class CalendarCollectionItem: NSCollectionViewItem {
                 
                 self.field.textColor = textColor
                 self.field.stringValue = self.event.value?.task?.title ?? ""
+                
+                let total = Formatting.longFormat(timeInterval: event.duration)
+                let spent = Formatting.longFormat(timeInterval: event.spentDuration)
+                
+                self.secondaryField.isHidden = false
+                self.secondaryField.textColor = textColor.withAlphaComponent(0.5)
+                self.secondaryField.stringValue = "\(spent)/\(total)"
                 
                 break
             case .timerEntry:
