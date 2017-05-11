@@ -37,13 +37,10 @@ extension TimerEntry {
         }
     }
     
-    static func durationSpentToday(onTask task: Task, timerEntries: [TimerEntry]) -> TimeInterval {
-        let taskEntries = timerEntries.filter { $0.task == task }
-        let entriesToday = taskEntries.filter { ($0.startedAt! as Date).isToday }
-        
+    static func sumDurationsIncludingCurrent(timerEntries: [TimerEntry]) -> TimeInterval {
         var total: TimeInterval = 0
         
-        for entry in entriesToday {
+        for entry in timerEntries {
             if let duration = entry.duration {
                 total += duration
             } else if let startedAt = entry.startedAt, entry.endedAt == nil {

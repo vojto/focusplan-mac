@@ -345,11 +345,17 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
             for (_, task) in tasks.enumerated() {
                 let event = createEvent(fromTask: task)
                 
-                event.plannedDuration -= TimerEntry.durationSpentToday(onTask: task, timerEntries: timerEntries)
+                let relevantEntries = TimerEntry.filter(entries: timerEntries, onDay: config.date).filter { $0.task == task }
+//                
+                let spent = TimerEntry.sumDurationsIncludingCurrent(timerEntries: relevantEntries)
+                
+                event.spentDuration += spent
+                event.subtractsSpentDuration = true
                 
                 if event.duration < 0 || task.isFinished {
                     event.isHidden = true
-                    event.plannedDuration = 0
+//                    event.plannedDuration = 0
+//                    event.spentDuration = 0
                 }
 
                 events.append(event)

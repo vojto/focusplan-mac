@@ -26,12 +26,23 @@ class CalendarEvent: CustomStringConvertible, Hashable {
     var startsAt: TimeInterval?
     
     var duration: TimeInterval {
-        if spentDuration > plannedDuration {
-            return spentDuration
+        if subtractsSpentDuration {
+            let duration = plannedDuration - spentDuration
+            if duration >= 0 {
+                return duration
+            } else {
+                return 0
+            }
         } else {
-            return plannedDuration
+            if spentDuration > plannedDuration {
+                return spentDuration
+            } else {
+                return plannedDuration
+            }
         }
     }
+    
+    var subtractsSpentDuration = false
     
     var spentDuration: TimeInterval = 0
     var plannedDuration: TimeInterval = 0
