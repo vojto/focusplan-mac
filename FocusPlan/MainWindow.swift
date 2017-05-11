@@ -53,19 +53,19 @@ class MainWindow: NSWindow, NSToolbarDelegate {
         } else if let planItem = item as? ProjectsViewController.PlanItem {
             switch planItem.type {
             case .today:
-                showPlan(detail: .daily, date: Date())
+                showPlan(detail: .daily)
             case .thisWeek:
-                showPlan(detail: .weekly, date: Date())
+                showPlan(detail: .weekly)
             }
         }
     }
     
     @IBAction func showDailyPlan(_ sender: Any) {
-        showPlan(detail: .daily, date: Date())
+        showPlan(detail: .daily)
     }
     
     @IBAction func showWeeklyPlan(_ sender: Any) {
-        showPlan(detail: .weekly, date: Date())
+        showPlan(detail: .weekly)
     }
     
     @IBAction func nextUnit(_ sender: Any) {
@@ -83,17 +83,17 @@ class MainWindow: NSWindow, NSToolbarDelegate {
         backlogController.view.isHidden = false
     }
     
-    func showPlan(detail: PlanDetail, date: Date) {
+    func showPlan(detail: PlanDetail) {
         backlogController.view.isHidden = true
         mainView.isHidden = false
         planController.view.isHidden = false
         
         switch detail {
         case .daily:
-            planController.config = PlanConfig.daily(date: Date())
+            planController.config.detail = .daily
             
         case .weekly:
-            planController.config = PlanConfig.weekly(date: Date())
+            planController.config.detail = .weekly
             
             planController.calendarController.collectionView.scroll(NSPoint(x: 0, y: 0))
         }

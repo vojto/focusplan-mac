@@ -102,7 +102,7 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
         let request: NSFetchRequest<NSFetchRequestResult> = TimerEntry.fetchRequest()
         
         // Create the time predicate
-        let (start, end) = config.range.dateRange
+        let (start, end) = config.queryRange
         let timePredicate = NSPredicate(format: "startedAt >= %@ and startedAt < %@", start as NSDate, end as NSDate)
         
         // Create the lane predicate
@@ -118,7 +118,7 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
     }
     
     func updateTasksObserver() {
-        tasksObserver.range = config.range.dateRange
+        tasksObserver.range = config.queryRange
     }
     
     func updateLayout() {
@@ -141,7 +141,7 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
         }
         
         // Update the title too while we're at it
-        let date = config.range.start
+        let date = config.firstDay
         var title = ""
         
         switch config.detail {
@@ -180,9 +180,9 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
     @IBAction func changeDetail(_ sender: Any) {
         switch detailControl.selectedSegment {
         case 0:
-            self.config = PlanConfig.daily(date: config.range.start)
+            config.detail = .daily
         case 1:
-            self.config = PlanConfig.weekly(date: config.range.start)
+            config.detail = .weekly
         default: break
         }
     }
@@ -224,20 +224,16 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
         case .hybrid:
             events = createEvents(fromEntries: timerEntries) + createEventsForHybrid(fromTasks: tasks, timerEntries: timerEntries)
         }
-    
-        Swift.print("⚓️ Updating with \(events.count) events")
         
-        calendarController.events.reset(sectionsCount: config.range.dayCount)
+        calendarController.events.reset(sectionsCount: config.dayCount)
         calendarController.summaryRowController.events = events
         
         for (_, event) in events.enumerated() {
             // For now, stick them all in one section
             
-            let rangeStart = config.range.start.startOf(component: .day)
+            let rangeStart = config.queryRange.0
             
             guard let date = event.date else { continue }
-            
-            Swift.print("  💊 Event date: \(date)")
             
             let interval = date.timeIntervalSince(rangeStart)
             
@@ -259,7 +255,7 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
     func createEventsForPlan(tasks: [Task], entries: [TimerEntry]) -> [CalendarEvent] {
         var allEvents = [CalendarEvent]()
         
-        for date in config.range.days {
+        for date in config.days {
 //            let dayStart = date.startOf(component: .day)
 //            let dayEnd = date.endOf(component: .day)
             
@@ -447,7 +443,7 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
                     task.weightForPlan = Int64(weight)
                     weight += 1
                     
-                    task.plannedFor = (config.range.start + i.days) as NSDate
+                    task.plannedFor = (config.firstDay + i.days) as NSDate
                 }
                 
             }
@@ -467,16 +463,15 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
     
     func updateRange(change units: Int) {
         let date: Date
-        let config = self.config
         
         switch config.detail {
         case .daily:
-            date = config.range.start + units.days
+            date = config.date + units.days
         case .weekly:
-            date = config.range.start + units.weeks
+            date = config.date + units.weeks
         }
         
-        self.config.range.start = date
+        config.date = date
     }
     
 }

@@ -9,32 +9,6 @@
 import Foundation
 import SwiftDate
 
-struct PlanRange {
-    var start: Date
-    var dayCount: Int
-    
-    var lastDay: Date {
-        return start + (dayCount - 1).days
-    }
-    
-    var days: [Date] {
-        var days = [Date]()
-        
-        for i in 0...(dayCount - 1) {
-            days.append(start + i.days)
-        }
-        
-        return days
-    }
-    
-    var dateRange: (Date, Date) {
-        let start = self.start.startOf(component: .day)
-        let end = lastDay.endOf(component: .day)
-        
-        return (start, end)
-    }
-}
-
 enum PlanStyle {
     case hybrid
     case plan
@@ -42,33 +16,60 @@ enum PlanStyle {
 }
 
 struct PlanConfig {
-    var range: PlanRange
+    var date: Date
     var lanes: [PlanLane]
     var detail: PlanDetail
     var style = PlanStyle.hybrid
     
-    static var defaultConfig = PlanConfig.daily(date: Date())
+    static var defaultConfig = PlanConfig(
+        date: Date(),
+        lanes: [.task, .pomodoro],
+        detail: .daily,
+        style: .hybrid
+    )
     
-    public static func daily(date: Date) -> PlanConfig {
-        let range = PlanRange(start: date.startOf(component: .day), dayCount: 1)
-        
-        return PlanConfig(
-            range: range,
-            lanes: [.task, .pomodoro],
-            detail: .daily,
-            style: .hybrid
-        )
+    var dayCount: Int {
+        switch detail {
+        case .daily:
+            return 1
+        case .weekly:
+            return 7
+        }
     }
     
-    public static func weekly(date: Date) -> PlanConfig {
-        let range = PlanRange(start: date.startOf(component: .weekOfYear), dayCount: 7)
+    var firstDay: Date {
+        switch detail {
+        case .daily:
+            return date.startOf(component: .day)
+        case .weekly:
+            return date.startOf(component: .weekOfYear)
+        }
+    }
+    
+    var lastDay: Date {
+        switch detail {
+        case .daily:
+            return firstDay
+        case .weekly:
+            return firstDay + 6.days
+        }
+    }
+    
+    var days: [Date] {
+        var days = [Date]()
         
-        return PlanConfig(
-            range: range,
-            lanes: [.task],
-            detail: .weekly,
-            style: .plan
-        )
+        for i in 0...(dayCount - 1) {
+            days.append(firstDay + i.days)
+        }
+        
+        return days
+    }
+    
+    /**
+     Range to be used when building queries.
+    */
+    var queryRange: (Date, Date) {
+        return (firstDay.startOf(component: .day), lastDay.endOf(component: .day))
     }
 }
 

@@ -36,8 +36,6 @@ class SummaryRowViewController: NSViewController {
     func update() {
         // Calculate summary per project
         
-        Swift.print("Updating with \(events.count) events!")
-        
         var totals = [Project: ProjectSummary]()
         for event in events {
             guard let project = event.task?.project ?? event.timerEntry?.project else { continue }

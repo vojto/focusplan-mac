@@ -116,9 +116,7 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     // ------------------------------------------------------------------------
     
     func numberOfSections(in collectionView: NSCollectionView) -> Int {
-        let count = config.range.dayCount
-        
-        return count
+        return config.dayCount
     }
     
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -431,7 +429,7 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
         guard let section = collectionLayout.sectionIndexPath(atPoint: location) else { return }
         
         let time = collectionLayout.time(pointValue: location.y)
-        let date = (config.range.start + section.section.days).startOf(component: .day).addingTimeInterval(time)
+        let date = (config.firstDay + section.section.days).startOf(component: .day).addingTimeInterval(time)
         
         switch config.style {
         case .hybrid, .entries:

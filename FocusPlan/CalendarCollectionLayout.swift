@@ -144,12 +144,12 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
         
         if config.detail == .weekly {
             // Section lines & labels
-            for i in 0...config.range.dayCount {
+            for i in 0...config.dayCount {
                 if let attribute = layoutAttributesForDecorationView(ofKind: kSectionLine, at: IndexPath(item: i, section: CalendarDecorationSection.sectionLine.rawValue)) {
                     attributes.append(attribute)
                 }
                 
-                if config.range.dayCount > 1 {
+                if config.dayCount > 1 {
                     if let attribute = layoutAttributesForDecorationView(ofKind: kSectionLabel, at: IndexPath(item: i, section: CalendarDecorationSection.sectionLabel.rawValue)) {
                         attributes.append(attribute)
                     }
@@ -226,7 +226,7 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
             return nil
         }
         
-        let sections = controller.config.range.dayCount
+        let sections = controller.config.dayCount
         let sectionWidth = innerFrame.size.width / CGFloat(sections)
         
         var x = CGFloat(indexPath.section) * sectionWidth + innerFrame.origin.x
@@ -320,7 +320,7 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
     }
     
     func sectionFrame(at index: Int) -> NSRect {
-        let sections = controller.config.range.dayCount
+        let sections = controller.config.dayCount
         let sectionWidth = innerFrame.size.width / CGFloat(sections)
         
         let marginLeft = innerFrame.origin.x

@@ -32,25 +32,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Fetch the project
-        
-        
-        let context = AppDelegate.viewContext
-        let request = NSFetchRequest<Project>(entityName: "Project")
-        let results = try! context.fetch(request)
-        
-        if let project = results.first {
-//            Swift.print("Tasks: \(project.tasks)")
-            
-            /*
-            let task = NSEntityDescription.insertNewObject(forEntityName: "Task", into: context) as! Task
-            task.title = "build this app in 2 weeks"
-            task.text = "and be awesome while doing it"
-            task.project = project
-            task.estimatedMinutes = 4800    
-            */
-        }
-        
+
         
         setupAutosave()
         
