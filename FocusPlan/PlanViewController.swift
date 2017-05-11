@@ -66,7 +66,7 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
         secondaryView.include(calendarController.view)
         
         sortedTasks.startWithValues { tasks in
-            self.tasksController.tasks = tasks.filter { !$0.isArchived }
+            self.tasksController.tasks = tasks.filter { !$0.isArchived } // <- TODO: Move this filter to observer
             self.tasksController.heading = "Planned tasks"
             self.tasksController.reloadData()
         }

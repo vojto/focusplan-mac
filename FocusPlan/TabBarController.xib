@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12118"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+        <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="TabBarController" customModule="FocusPlan" customModuleProvider="target">
+            <connections>
+                <outlet property="stackView" destination="hLD-Bj-iCb" id="9jq-s7-pfk"/>
+                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="Hz6-mo-xeY">
+            <rect key="frame" x="0.0" y="0.0" width="90" height="340"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" material="light" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="koE-1N-qE3">
+                    <rect key="frame" x="0.0" y="0.0" width="90" height="340"/>
+                    <subviews>
+                        <stackView distribution="fill" orientation="vertical" alignment="centerX" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hLD-Bj-iCb">
+                            <rect key="frame" x="0.0" y="0.0" width="90" height="328"/>
+                        </stackView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="hLD-Bj-iCb" secondAttribute="bottom" id="cRu-HI-Iwv"/>
+                        <constraint firstAttribute="trailing" secondItem="hLD-Bj-iCb" secondAttribute="trailing" id="hEj-9e-657"/>
+                        <constraint firstItem="hLD-Bj-iCb" firstAttribute="top" secondItem="koE-1N-qE3" secondAttribute="top" constant="12" id="nHm-mo-q3F"/>
+                        <constraint firstItem="hLD-Bj-iCb" firstAttribute="leading" secondItem="koE-1N-qE3" secondAttribute="leading" id="rel-FN-QCm"/>
+                    </constraints>
+                </visualEffectView>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="koE-1N-qE3" secondAttribute="trailing" id="BCm-bG-uK5"/>
+                <constraint firstItem="koE-1N-qE3" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="Do0-bV-D9g"/>
+                <constraint firstItem="koE-1N-qE3" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="Opn-CF-eYZ"/>
+                <constraint firstAttribute="bottom" secondItem="koE-1N-qE3" secondAttribute="bottom" id="R0N-Qa-jQz"/>
+            </constraints>
+            <point key="canvasLocation" x="-56" y="203"/>
+        </customView>
+    </objects>
+</document>

@@ -620,6 +620,11 @@
                                     <action selector="showWeeklyPlan:" target="F0z-JX-Cv5" id="0o9-7r-nDS"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Projects" keyEquivalent="3" id="lln-S2-O8E">
+                                <connections>
+                                    <action selector="showProjects:" target="F0z-JX-Cv5" id="vyg-F9-o9h"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="xa7-Hw-RpX"/>
                             <menuItem title="Next" keyEquivalent="" id="gqB-3w-fIZ">
                                 <connections>
@@ -712,9 +717,12 @@
                     <splitView arrangesAllSubviews="NO" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YIz-VL-OgP">
                         <rect key="frame" x="0.0" y="0.0" width="940" height="626"/>
                         <subviews>
-                            <customView fixedFrame="YES" id="jhW-E1-K5O">
+                            <customView id="jhW-E1-K5O">
                                 <rect key="frame" x="0.0" y="0.0" width="145" height="626"/>
                                 <autoresizingMask key="autoresizingMask"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="64" id="ADK-AZ-chm"/>
+                                </constraints>
                             </customView>
                             <customView fixedFrame="YES" id="yIS-zi-HPh">
                                 <rect key="frame" x="146" y="0.0" width="794" height="626"/>

@@ -15,6 +15,8 @@ import enum Result.NoError
 class TasksObserver: ReactiveObserver<Task> {
     let wantsPlannedOnly: Bool
     let wantsUnfinishedOnly: Bool
+    var skipsArchived = false
+    var project: Project?
     let context: NSManagedObjectContext
     
     var range: (Date, Date)? {
@@ -38,12 +40,20 @@ class TasksObserver: ReactiveObserver<Task> {
         
         predicates.append(NSPredicate(format: "isRemoved != YES"))
         
+        if skipsArchived {
+            predicates.append(NSPredicate(format: "isArchived != YES"))
+        }
+        
         if wantsPlannedOnly {
             predicates.append(NSPredicate(format: "plannedFor != nil"))
         }
         
         if wantsUnfinishedOnly {
             predicates.append(NSPredicate(format: "isFinished = false"))
+        }
+        
+        if let project = self.project {
+            predicates.append(NSPredicate(format: "project = %@", project))
         }
         
         if let range = self.range {
@@ -67,6 +77,14 @@ class TasksObserver: ReactiveObserver<Task> {
         return objects.producer.map { tasks in
             return tasks.sorted { task1, task2 in
                 return task1.weightForPlan < task2.weightForPlan
+            }
+        }
+    }
+    
+    public var sortedForProject: SignalProducer<[Task], NoError> {
+        return objects.producer.map { tasks in
+            return tasks.sorted { task1, task2 in
+                return task1.weight < task2.weight
             }
         }
     }

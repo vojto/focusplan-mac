@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12118"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+        <capability name="system font weights other than Regular or Bold" minToolsVersion="7.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="c22-O7-iKe" customClass="TabBarItemView" customModule="FocusPlan" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="113" height="97"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="mN2-fG-g1E">
+                    <rect key="frame" x="4" y="4" width="105" height="89"/>
+                    <buttonCell key="cell" type="square" title="123" bezelStyle="shadowlessSquare" image="ProjectsIconTemplate" imagePosition="above" alignment="center" inset="2" id="TZO-Qt-I7o">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="systemMedium" size="11"/>
+                    </buttonCell>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="mN2-fG-g1E" secondAttribute="trailing" constant="4" id="1FG-Wi-Hsl"/>
+                <constraint firstItem="mN2-fG-g1E" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="4" id="MRx-Ho-Orz"/>
+                <constraint firstAttribute="bottom" secondItem="mN2-fG-g1E" secondAttribute="bottom" constant="4" id="Sca-Sv-CaS"/>
+                <constraint firstItem="mN2-fG-g1E" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="4" id="sud-Oi-ude"/>
+            </constraints>
+            <connections>
+                <outlet property="button" destination="mN2-fG-g1E" id="bgb-2p-uNT"/>
+            </connections>
+            <point key="canvasLocation" x="-36" y="82"/>
+        </customView>
+    </objects>
+    <resources>
+        <image name="ProjectsIconTemplate" width="30" height="30"/>
+    </resources>
+</document>

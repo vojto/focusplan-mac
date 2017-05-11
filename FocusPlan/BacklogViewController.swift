@@ -17,29 +17,41 @@ class BacklogViewController: NSViewController {
     
     let selectedProject = MutableProperty<Project?>(nil)
     
+    var tasksObserver: TasksObserver!
+    
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // Force tasks controller to load the view
+        _ = tasksController.view
+        
+        let context = AppDelegate.viewContext
+        
+        // Creating the observer
+        tasksObserver = TasksObserver(wantsPlannedOnly: false, in: context)
+        tasksObserver.skipsArchived = true
+        
+        tasksObserver.sortedForProject.producer.startWithValues { tasks in
+            self.tasksController.tasks = tasks
+            self.tasksController.reloadData()
+        }
+        
+        // Handling changing of project
+        selectedProject.producer.startWithValues { project in
+            self.tasksObserver.project = project
+            self.tasksObserver.update()
+            
+            self.tasksController.heading = project?.name ?? ""
+        }
+        
+        // Tasks controller actions
         tasksController.onCreate = {
             self.createTask()
         }
         
+        // Setup the view
         view.include(tasksController.view)
         
-        selectedProject.producer.startWithValues { project in
-            self.tasksController.heading = project?.name ?? ""
-            
-            self.tasksController.reloadData()
-        }
-        
-        let tasks = selectedProject.producer.pick({ $0.reactive.tasks.producer })
-        tasks.startWithValues { tasks in
-            if let tasks = tasks as? Set<Task> {
-                self.tasksController.tasks = Array(tasks)
-            } else {
-                self.tasksController.tasks = []
-            }
-            
-            self.tasksController.reloadData()
-        }
     }
     
     func createTask() {

@@ -15,6 +15,8 @@ class MainWindow: NSWindow, NSToolbarDelegate {
     @IBOutlet weak var secondaryView: NSView!
     @IBOutlet weak var mainView: NSView!
     
+    let tabBarController = TabBarController()
+    
     let projectsController = ProjectsViewController()
     
     let planController = PlanViewController()
@@ -30,7 +32,7 @@ class MainWindow: NSWindow, NSToolbarDelegate {
         
         self.delegate = myDelegate
 
-        secondaryView.include(projectsController.view)
+        secondaryView.include(tabBarController.view)
         
         mainView.include(backlogController.view)
         
@@ -45,6 +47,16 @@ class MainWindow: NSWindow, NSToolbarDelegate {
         }
         
         TimerState.instance.selectedTask <~ planController.tasksController.selectedTasks.producer.map { $0.first }
+        
+        _ = tabBarController.view
+        tabBarController.selectedIndex.producer.startWithValues { index in
+            if index == 0 { // Plan
+                self.showPlan()
+            } else {
+                self.showProject()
+            }
+        }
+        
     }
     
     func showSection(forItem item: Any?) {
@@ -76,24 +88,32 @@ class MainWindow: NSWindow, NSToolbarDelegate {
         planController.updateRange(change: -1)
     }
     
-    func showProject(_ project: Project) {
+    @IBAction func showProjects(_ sender: Any) {
+        showProject()
+    }
+    
+    func showProject(_ project: Project? = nil) {
         planController.view.isHidden = true
         mainView.isHidden = false
-        backlogController.selectedProject.value = project
+        if let project = project {
+            backlogController.selectedProject.value = project
+        }
         backlogController.view.isHidden = false
     }
     
-    func showPlan(detail: PlanDetail) {
+    func showPlan(detail: PlanDetail? = nil) {
         backlogController.view.isHidden = true
         mainView.isHidden = false
         planController.view.isHidden = false
         
-        switch detail {
-        case .daily:
-            planController.config.detail = .daily
-            
-        case .weekly:
-            planController.config.detail = .weekly
+        if let detail = detail {
+            switch detail {
+            case .daily:
+                planController.config.detail = .daily
+                
+            case .weekly:
+                planController.config.detail = .weekly
+            }
         }
     }
     
