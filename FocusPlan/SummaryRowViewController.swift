@@ -26,6 +26,8 @@ class SummaryRowViewController: NSViewController {
     var stackView: NSStackView {
         return view as! NSStackView
     }
+    
+    var config = PlanConfig.defaultConfig
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,14 +48,18 @@ class SummaryRowViewController: NSViewController {
             
             let summary = totals[project]!
             
-            if event.type == .task, let task = event.task {
-                summary.planned += event.plannedDuration
-                summary.spent += event.spentDuration
+            switch config.style {
+            case .hybrid, .plan:
+                if event.type == .task, let task = event.task {
+                    summary.planned += event.plannedDuration
+                    summary.spent += event.spentDuration
+                }
+            case .entries:
+                if event.type == .timerEntry, let entry = event.timerEntry, let duration = entry.duration {
+                    summary.spent += duration
+                }
             }
             
-            if event.type == .timerEntry, let entry = event.timerEntry, let duration = entry.duration {
-                summary.spent += duration
-            }
         }
         
         let views = totals.map { (project, summary) -> NSView in

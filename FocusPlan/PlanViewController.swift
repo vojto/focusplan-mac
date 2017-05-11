@@ -31,6 +31,7 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
             updateObservers()
             updateLayout()
             calendarController.config = config
+            calendarController.summaryRowController.config = config
             updateCalendarWithLastValues()
         }
     }
