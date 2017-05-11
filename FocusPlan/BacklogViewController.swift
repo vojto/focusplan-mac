@@ -29,6 +29,8 @@ class BacklogViewController: NSViewController {
         
         // Force tasks controller to load the view
         _ = tasksController.view
+        tasksController.wantsProjectColumn = false
+        tasksController.wantsPlanColumn = true
         
         let context = AppDelegate.viewContext
         

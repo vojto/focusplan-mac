@@ -51,8 +51,6 @@ class EditableTableCellView: NSTableCellView, NSTextFieldDelegate {
     }
     
     func finishEditing() {
-        Swift.print("Finishing editing")
-        
         guard let field = textField else { return }
         
         field.resignFirstResponder()

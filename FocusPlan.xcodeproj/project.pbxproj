@@ -63,6 +63,8 @@
 		998352DC1EC48F1600303E7D /* TabBarItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998352DB1EC48F1600303E7D /* TabBarItemView.swift */; };
 		998352DE1EC48F2800303E7D /* TabBarItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 998352DD1EC48F2800303E7D /* TabBarItemView.xib */; };
 		998352E01EC4A28200303E7D /* CustomTableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998352DF1EC4A28200303E7D /* CustomTableRowView.swift */; };
+		998352E21EC4BAEF00303E7D /* TaskPlanTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998352E11EC4BAEF00303E7D /* TaskPlanTableCellView.swift */; };
+		998352E41EC4C12000303E7D /* TaskPlanWrapperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998352E31EC4C12000303E7D /* TaskPlanWrapperView.swift */; };
 		9983F9091EC0B5B0005E624A /* EditTimerEntryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9983F9071EC0B5B0005E624A /* EditTimerEntryController.swift */; };
 		9983F90A1EC0B5B0005E624A /* EditTimerEntryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9983F9081EC0B5B0005E624A /* EditTimerEntryController.xib */; };
 		998746CA1EB360320079215B /* BacklogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998746C91EB360320079215B /* BacklogViewController.swift */; };
@@ -181,6 +183,8 @@
 		998352DB1EC48F1600303E7D /* TabBarItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarItemView.swift; sourceTree = "<group>"; };
 		998352DD1EC48F2800303E7D /* TabBarItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TabBarItemView.xib; sourceTree = "<group>"; };
 		998352DF1EC4A28200303E7D /* CustomTableRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableRowView.swift; sourceTree = "<group>"; };
+		998352E11EC4BAEF00303E7D /* TaskPlanTableCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskPlanTableCellView.swift; sourceTree = "<group>"; };
+		998352E31EC4C12000303E7D /* TaskPlanWrapperView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskPlanWrapperView.swift; sourceTree = "<group>"; };
 		9983F9071EC0B5B0005E624A /* EditTimerEntryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditTimerEntryController.swift; sourceTree = "<group>"; };
 		9983F9081EC0B5B0005E624A /* EditTimerEntryController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditTimerEntryController.xib; sourceTree = "<group>"; };
 		998746C91EB360320079215B /* BacklogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BacklogViewController.swift; sourceTree = "<group>"; };
@@ -300,10 +304,12 @@
 				991E7B211EB071C20086A9D9 /* TasksViewController.swift */,
 				991E7B221EB071C20086A9D9 /* TasksViewController.xib */,
 				991E7B2C1EB085EF0086A9D9 /* TasksOutlineView.swift */,
+				991E7B331EB093690086A9D9 /* TasksRowView.swift */,
 				991E7B281EB082C60086A9D9 /* TaskTitleTableCellView.swift */,
 				991E7B351EB0B9660086A9D9 /* TaskEstimateTableCellView.swift */,
 				994063D01EB72B2A00E09165 /* TaskProjectTableCellView.swift */,
-				991E7B331EB093690086A9D9 /* TasksRowView.swift */,
+				998352E11EC4BAEF00303E7D /* TaskPlanTableCellView.swift */,
+				998352E31EC4C12000303E7D /* TaskPlanWrapperView.swift */,
 			);
 			name = Tasks;
 			sourceTree = "<group>";
@@ -622,6 +628,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				998352E41EC4C12000303E7D /* TaskPlanWrapperView.swift in Sources */,
 				991E7B341EB093690086A9D9 /* TasksRowView.swift in Sources */,
 				99BBB0271EB8C270002C603F /* Formatting.swift in Sources */,
 				9933E49C1EB9BC6200B1CE85 /* PomodoroType.swift in Sources */,
@@ -630,6 +637,7 @@
 				998352E01EC4A28200303E7D /* CustomTableRowView.swift in Sources */,
 				99EEDE5D1EAF931500662DED /* ProjectsOutlineView.swift in Sources */,
 				9983F9091EC0B5B0005E624A /* EditTimerEntryController.swift in Sources */,
+				998352E21EC4BAEF00303E7D /* TaskPlanTableCellView.swift in Sources */,
 				994063C91EB7035400E09165 /* Date+Extensions.swift in Sources */,
 				9981560D1EB76ECB0057ECD0 /* TimerEntry+Reactive.swift in Sources */,
 				99A24EA71EB3591300C3F229 /* Palette.swift in Sources */,
@@ -787,7 +795,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = FocusPlan/FocusPlan.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 50;
+				CURRENT_PROJECT_VERSION = 51;
 				DEVELOPMENT_TEAM = Q4C48EKH9Z;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -808,7 +816,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = FocusPlan/FocusPlan.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 50;
+				CURRENT_PROJECT_VERSION = 51;
 				DEVELOPMENT_TEAM = Q4C48EKH9Z;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

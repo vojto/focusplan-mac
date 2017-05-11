@@ -20,11 +20,19 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
     @IBOutlet weak var taskColumn: NSTableColumn!
     @IBOutlet weak var estimateColumn: NSTableColumn!
     @IBOutlet weak var projectColumn: NSTableColumn!
+    @IBOutlet weak var planColumn: NSTableColumn!
     
     @IBOutlet weak var planMenuItem: NSMenuItem!
     @IBOutlet weak var unplanMenuItem: NSMenuItem!
     @IBOutlet weak var archiveMenuItem: NSMenuItem!
     
+    var wantsProjectColumn = true {
+        didSet { updateColumns() }
+    }
+    
+    var wantsPlanColumn = false {
+        didSet { updateColumns() }
+    }
     
     
     let rootItem = RootItem()
@@ -50,6 +58,8 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        updateColumns()
     }
     
     func reloadData() {
@@ -70,6 +80,7 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
         }
         
         outlineView.selectRowIndexes(indexes, byExtendingSelection: false)
+        
     }
     
     override func viewDidAppear() {
@@ -101,6 +112,14 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
         }
         
         return tasks
+    }
+    
+    // MARK: - Updating columns
+    // ------------------------------------------------------------------------
+    
+    func updateColumns() {
+        projectColumn.isHidden = !wantsProjectColumn
+        planColumn.isHidden = !wantsPlanColumn
     }
     
     // MARK: - Outline view basics
@@ -190,6 +209,12 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
         
         if column == projectColumn {
             let view = outlineView.make(withIdentifier: "ProjectCell", owner: self) as! TaskProjectTableCellView
+            view.task.value = task
+            return view
+        }
+        
+        if column == planColumn {
+            let view = outlineView.make(withIdentifier: "PlanCell", owner: self) as! TaskPlanTableCellView
             view.task.value = task
             return view
         }
@@ -436,4 +461,6 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
         archiveMenuItem.isHidden = hasUnfinished
         
     }
+    
+    
 }

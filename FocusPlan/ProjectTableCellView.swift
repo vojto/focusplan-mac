@@ -34,4 +34,13 @@ class ProjectTableCellView: EditableTableCellView {
             self.colorPicker.selectedColor = nsColor
         }
     }
+    
+    override func controlTextDidEndEditing(_ obj: Notification) {
+        super.controlTextDidEndEditing(obj)
+        
+        guard let field = obj.object as? NSTextField else { return }
+        let value = field.stringValue
+        
+        project.value?.name = value
+    }
 }
