@@ -94,8 +94,6 @@ class MainWindow: NSWindow, NSToolbarDelegate {
             
         case .weekly:
             planController.config.detail = .weekly
-            
-            planController.calendarController.collectionView.scroll(NSPoint(x: 0, y: 0))
         }
     }
     

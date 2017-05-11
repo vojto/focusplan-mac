@@ -37,9 +37,25 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     var onReorder: (() -> ())?
     var onCreate: ((_ plannedFor: Date?) -> ())?
     
+    var scrollingPositions = [Int: CGFloat]()
+    
     var config = PlanConfig.defaultConfig {
+        willSet {
+            if let scrollView = collectionView.enclosingScrollView {
+                let rect = scrollView.documentVisibleRect
+                
+                scrollingPositions[config.scrollingPositionIdentifier] = rect.origin.y
+            }
+        }
+        
         didSet {
             reloadData()
+            
+            if let scrollView = collectionView.enclosingScrollView {
+                let position = scrollingPositions[config.scrollingPositionIdentifier] ?? 0.0
+                scrollView.contentView.scroll(to: NSPoint(x: 0, y: position))
+                
+            }
         }
     }
     

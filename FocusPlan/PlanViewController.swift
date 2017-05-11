@@ -263,8 +263,6 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
             
 //            var dayEvents = [(Date, CalendarEvent)]()
             
-            Swift.print("Aggregating for date \(date)")
-            
             let tasks = Task.filter(tasks: tasks, onDay: date)
             
             var events = tasks.map { task in
@@ -299,12 +297,8 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
                 }
                 
                 event.spentDuration += entry.duration ?? 0
-            
             }
-            
-            Swift.print("  Tasks: \(tasks.count)")
-            Swift.print("  Entries: \(entries.count)")
-            Swift.print("  Events: \(events)")
+
             
             allEvents += events
         }

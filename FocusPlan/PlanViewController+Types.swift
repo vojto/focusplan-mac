@@ -26,6 +26,10 @@ struct PlanConfig {
         self.detail = detail
     }
     
+    var scrollingPositionIdentifier: Int {
+        return detail.hashValue
+    }
+    
     var style: PlanStyle {
         get {
             switch detail {
