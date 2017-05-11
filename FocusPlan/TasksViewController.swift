@@ -298,6 +298,7 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
     }
     
     func outlineView(_ outlineView: NSOutlineView, validateDrop info: NSDraggingInfo, proposedItem item: Any?, proposedChildIndex index: Int) -> NSDragOperation {
+        
         if item is RootItem {
             if index != NSOutlineViewDropOnItemIndex {
                 return .move
@@ -307,7 +308,7 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
         } else if item is Task {
             let itemIndex = outlineView.childIndex(forItem: item!)
             if index == NSOutlineViewDropOnItemIndex {
-                outlineView.setDropItem(rootItem, dropChildIndex: itemIndex)
+                outlineView.setDropItem(rootItem, dropChildIndex: itemIndex+1)
             } else if index == 0 {
                 outlineView.setDropItem(rootItem, dropChildIndex: itemIndex+1)
             }
