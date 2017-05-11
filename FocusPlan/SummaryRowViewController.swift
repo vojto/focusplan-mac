@@ -47,7 +47,8 @@ class SummaryRowViewController: NSViewController {
             let summary = totals[project]!
             
             if event.type == .task, let task = event.task {
-                summary.planned += Double(task.estimatedMinutes) * 60
+                summary.planned += event.plannedDuration
+                summary.spent += event.spentDuration
             }
             
             if event.type == .timerEntry, let entry = event.timerEntry, let duration = entry.duration {
