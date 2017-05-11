@@ -17,16 +17,42 @@ enum PlanStyle {
 
 struct PlanConfig {
     var date: Date
-    var lanes: [PlanLane]
     var detail: PlanDetail
-    var style = PlanStyle.hybrid
+
+    var selectedStyle = PlanStyle.plan
+    
+    init(date: Date, detail: PlanDetail) {
+        self.date = date
+        self.detail = detail
+    }
+    
+    var style: PlanStyle {
+        get {
+            switch detail {
+            case .daily:
+                return .hybrid
+            case .weekly:
+                return selectedStyle
+            }
+        }
+        set {
+            selectedStyle = newValue
+        }
+    }
     
     static var defaultConfig = PlanConfig(
         date: Date(),
-        lanes: [.task, .pomodoro],
-        detail: .daily,
-        style: .hybrid
+        detail: .daily
     )
+    
+    var lanes: [PlanLane] {
+        switch detail {
+        case .daily:
+            return [.task, .pomodoro]
+        case .weekly:
+            return [.task]
+        }
+    }
     
     var dayCount: Int {
         switch detail {
