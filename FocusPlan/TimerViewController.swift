@@ -116,9 +116,8 @@ class TimerViewController: NSViewController {
         let context = AppDelegate.viewContext
         let popup = taskPopup
         
-//        popup?.reactive.isHidden <~ 
-        
         tasksObserver = TasksObserver(wantsPlannedOnly: true, wantsUnfinishedOnly: true, in: context)
+        tasksObserver.range = (Date().startOf(component: .day), Date().endOf(component: .day))
         
         tasksObserver.sortedTasksForPlan.producer.startWithValues { tasks in
             self.nextTasks = tasks
