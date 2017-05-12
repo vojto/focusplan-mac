@@ -107,7 +107,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Create the coordinator and store
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
         let url = self.applicationDocumentsDirectory.appendingPathComponent("FocusPlan.sqlite")
-        let storeOptions = [NSPersistentStoreUbiquitousContentNameKey: "FocusListStore"]
+        let storeOptions = [
+            NSPersistentStoreUbiquitousContentNameKey: "FocusPlanStore"
+//            NSPersistentStoreUbiquitousContentURLKey: "Path/",
+//            NSPersistentStoreUbiquitousPeerTokenOption: "foo"
+        ]
         do {
             try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: storeOptions)
         } catch let error as NSError{
