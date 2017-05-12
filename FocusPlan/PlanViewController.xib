@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12118"/>
@@ -105,13 +105,19 @@
                 <splitView arrangesAllSubviews="NO" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L4c-sH-ca8">
                     <rect key="frame" x="0.0" y="0.0" width="648" height="566"/>
                     <subviews>
-                        <customView fixedFrame="YES" id="HeY-1b-gau">
+                        <customView id="HeY-1b-gau">
                             <rect key="frame" x="0.0" y="0.0" width="339" height="566"/>
                             <autoresizingMask key="autoresizingMask"/>
+                            <constraints>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="aQ8-sZ-bEM"/>
+                            </constraints>
                         </customView>
-                        <customView fixedFrame="YES" id="OQX-XL-9Fk">
+                        <customView id="OQX-XL-9Fk">
                             <rect key="frame" x="340" y="0.0" width="308" height="566"/>
                             <autoresizingMask key="autoresizingMask"/>
+                            <constraints>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="ysw-NN-Jx2"/>
+                            </constraints>
                         </customView>
                     </subviews>
                     <holdingPriorities>

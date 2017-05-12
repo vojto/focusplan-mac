@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12118"/>
@@ -19,18 +19,24 @@
             <rect key="frame" x="0.0" y="0.0" width="611" height="469"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <customView fixedFrame="YES" id="yAr-vP-AX9">
+                <customView id="yAr-vP-AX9">
                     <rect key="frame" x="0.0" y="0.0" width="153" height="469"/>
                     <autoresizingMask key="autoresizingMask"/>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="6qQ-dj-8Eh"/>
+                    </constraints>
                 </customView>
-                <customView fixedFrame="YES" id="SDF-M7-2cw">
+                <customView id="SDF-M7-2cw">
                     <rect key="frame" x="154" y="0.0" width="457" height="469"/>
                     <autoresizingMask key="autoresizingMask"/>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="MzA-BR-Hon"/>
+                    </constraints>
                 </customView>
             </subviews>
             <holdingPriorities>
-                <real value="250"/>
-                <real value="250"/>
+                <real value="232"/>
+                <real value="85"/>
             </holdingPriorities>
             <point key="canvasLocation" x="160.5" y="201.5"/>
         </splitView>
