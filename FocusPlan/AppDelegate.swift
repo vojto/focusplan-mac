@@ -56,6 +56,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         setupTimerWindow()
         
         menubarController.setup()
+        
+        let notif = NotificationCenter.default.reactive.notifications(forName: NSNotification.Name.NSPersistentStoreDidImportUbiquitousContentChanges)
+        
+        notif.observeValues { notif in
+            self.viewContext.mergeChanges(fromContextDidSave: notif)
+        }
+        
+        
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
