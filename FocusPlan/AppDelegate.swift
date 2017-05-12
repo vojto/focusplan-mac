@@ -128,6 +128,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         var managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = coordinator
         
+        managedObjectContext.mergePolicy = NSMergePolicy(merge: .mergeByPropertyStoreTrumpMergePolicyType )
+
+        
         managedObjectContext.undoManager = UndoManager()
         
         return managedObjectContext
