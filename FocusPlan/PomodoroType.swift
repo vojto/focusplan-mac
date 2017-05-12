@@ -13,26 +13,20 @@ enum PomodoroType: String {
     case shortBreak = "shortBreak"
     case longBreak = "longBreak"
     
-//    var duration: TimeInterval {
-//        switch self {
-//        case .pomodoro:
-//            return 25 * 60
-//        case .shortBreak:
-//            return 5 * 60
-//        case .longBreak:
-//            return 15 * 60
-//        }
-//    }
-    
-    
     var duration: TimeInterval {
+        let defaults = UserDefaults.standard
+        
         switch self {
         case .pomodoro:
-            return 60
+            return Double(defaults.integer(forKey: PreferencesKeys.pomodoroMinutes) * 60)
+
         case .shortBreak:
-            return 15
+            return Double(defaults.integer(forKey: PreferencesKeys.shortBreakMinutes) * 60)
+            
         case .longBreak:
-            return 30
+            return Double(defaults.integer(forKey: PreferencesKeys.longBreakMinutes) * 60)
         }
     }
+    
+
 }

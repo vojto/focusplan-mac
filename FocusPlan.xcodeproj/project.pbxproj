@@ -44,6 +44,12 @@
 		994208351EC2EE4800CB4D4E /* PlanViewController+Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994208341EC2EE4800CB4D4E /* PlanViewController+Types.swift */; };
 		994208381EC2FF5600CB4D4E /* MenubarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994208371EC2FF5600CB4D4E /* MenubarController.swift */; };
 		994F0A211EC5750B00562B7A /* ProjectsViewController+Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994F0A201EC5750B00562B7A /* ProjectsViewController+Types.swift */; };
+		994F0A251EC588DE00562B7A /* PreferencesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994F0A231EC588DE00562B7A /* PreferencesController.swift */; };
+		994F0A261EC588DE00562B7A /* PreferencesController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 994F0A241EC588DE00562B7A /* PreferencesController.xib */; };
+		994F0A281EC5939000562B7A /* SwiftyUserDefaults.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 994F0A271EC5939000562B7A /* SwiftyUserDefaults.framework */; };
+		994F0A291EC5939600562B7A /* SwiftyUserDefaults.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 994F0A271EC5939000562B7A /* SwiftyUserDefaults.framework */; };
+		994F0A2A1EC5939600562B7A /* SwiftyUserDefaults.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 994F0A271EC5939000562B7A /* SwiftyUserDefaults.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		994F0A2C1EC5957200562B7A /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994F0A2B1EC5957200562B7A /* UserDefaults+Extensions.swift */; };
 		997FFBCE1EAF7DB200ABEA01 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 997FFBC61EAF7DA900ABEA01 /* ReactiveCocoa.framework */; };
 		997FFBCF1EAF7DB200ABEA01 /* ReactiveCocoa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 997FFBC61EAF7DA900ABEA01 /* ReactiveCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		997FFBD01EAF7DB200ABEA01 /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 997FFBC71EAF7DA900ABEA01 /* ReactiveSwift.framework */; };
@@ -124,6 +130,7 @@
 				997FFBD91EAF7DB200ABEA01 /* NiceKit.framework in Embed Frameworks */,
 				99B610121EB05D570098F69C /* Hue.framework in Embed Frameworks */,
 				994063C71EB7028A00E09165 /* SwiftDate.framework in Embed Frameworks */,
+				994F0A2A1EC5939600562B7A /* SwiftyUserDefaults.framework in Embed Frameworks */,
 				99A7626A1EB1C2D000A90AE9 /* NiceUI.framework in Embed Frameworks */,
 				997FFBD11EAF7DB200ABEA01 /* ReactiveSwift.framework in Embed Frameworks */,
 			);
@@ -172,6 +179,10 @@
 		994208341EC2EE4800CB4D4E /* PlanViewController+Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PlanViewController+Types.swift"; sourceTree = "<group>"; };
 		994208371EC2FF5600CB4D4E /* MenubarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenubarController.swift; sourceTree = "<group>"; };
 		994F0A201EC5750B00562B7A /* ProjectsViewController+Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ProjectsViewController+Types.swift"; sourceTree = "<group>"; };
+		994F0A231EC588DE00562B7A /* PreferencesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesController.swift; sourceTree = "<group>"; };
+		994F0A241EC588DE00562B7A /* PreferencesController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesController.xib; sourceTree = "<group>"; };
+		994F0A271EC5939000562B7A /* SwiftyUserDefaults.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyUserDefaults.framework; path = Carthage/Build/Mac/SwiftyUserDefaults.framework; sourceTree = "<group>"; };
+		994F0A2B1EC5957200562B7A /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
 		997FFBC61EAF7DA900ABEA01 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/Mac/ReactiveCocoa.framework; sourceTree = "<group>"; };
 		997FFBC71EAF7DA900ABEA01 /* ReactiveSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveSwift.framework; path = Carthage/Build/Mac/ReactiveSwift.framework; sourceTree = "<group>"; };
 		997FFBC81EAF7DA900ABEA01 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/Mac/Result.framework; sourceTree = "<group>"; };
@@ -241,8 +252,10 @@
 				997FFBCE1EAF7DB200ABEA01 /* ReactiveCocoa.framework in Frameworks */,
 				997FFBD81EAF7DB200ABEA01 /* NiceKit.framework in Frameworks */,
 				997FFBD01EAF7DB200ABEA01 /* ReactiveSwift.framework in Frameworks */,
+				994F0A281EC5939000562B7A /* SwiftyUserDefaults.framework in Frameworks */,
 				99A762681EB1C2CD00A90AE9 /* NiceUI.framework in Frameworks */,
 				99EEDE391EAF855400662DED /* NiceData.framework in Frameworks */,
+				994F0A291EC5939600562B7A /* SwiftyUserDefaults.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,6 +292,7 @@
 				990A180B1EAF3D9700DCE839 /* MainWindow.swift */,
 				99D122EE1EB8A6C500D495DC /* MainWindowDelegate.swift */,
 				99A24EA61EB3591300C3F229 /* Palette.swift */,
+				994F0A2B1EC5957200562B7A /* UserDefaults+Extensions.swift */,
 				99BBB0291EB8C50F002C603F /* Extensions */,
 				99BBB0281EB8C505002C603F /* User Interface */,
 				9981560E1EB776150057ECD0 /* Logic */,
@@ -351,6 +365,7 @@
 		9922F1181EAF654800BFA01F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				994F0A271EC5939000562B7A /* SwiftyUserDefaults.framework */,
 				994063C51EB7028500E09165 /* SwiftDate.framework */,
 				99A762671EB1C2CD00A90AE9 /* NiceUI.framework */,
 				991E7B1D1EB06A340086A9D9 /* NiceReactive.framework */,
@@ -380,6 +395,15 @@
 				994208371EC2FF5600CB4D4E /* MenubarController.swift */,
 			);
 			name = Menubar;
+			sourceTree = "<group>";
+		};
+		994F0A221EC588C900562B7A /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				994F0A231EC588DE00562B7A /* PreferencesController.swift */,
+				994F0A241EC588DE00562B7A /* PreferencesController.xib */,
+			);
+			name = Preferences;
 			sourceTree = "<group>";
 		};
 		997FFBC31EAF699A00ABEA01 /* Models */ = {
@@ -484,6 +508,7 @@
 		99BBB0281EB8C505002C603F /* User Interface */ = {
 			isa = PBXGroup;
 			children = (
+				994F0A221EC588C900562B7A /* Preferences */,
 				998352D61EC48A0A00303E7D /* Tab Bar */,
 				994208361EC2FF4800CB4D4E /* Menubar */,
 				991E7B201EB071AB0086A9D9 /* Projects */,
@@ -616,6 +641,7 @@
 				994063CB1EB70ECA00E09165 /* CalendarHourHeader.xib in Resources */,
 				998352DE1EC48F2800303E7D /* TabBarItemView.xib in Resources */,
 				990A180A1EAF3D2300DCE839 /* ProjectsViewController.xib in Resources */,
+				994F0A261EC588DE00562B7A /* PreferencesController.xib in Resources */,
 				99B026DB1EBC941100533FE3 /* EditTaskViewController.xib in Resources */,
 				990A18061EAF3C5A00DCE839 /* MainMenu.xib in Resources */,
 				99D8C8111EB3B51800EA5001 /* CalendarViewController.xib in Resources */,
@@ -643,6 +669,8 @@
 				998352E21EC4BAEF00303E7D /* TaskPlanTableCellView.swift in Sources */,
 				994063C91EB7035400E09165 /* Date+Extensions.swift in Sources */,
 				9981560D1EB76ECB0057ECD0 /* TimerEntry+Reactive.swift in Sources */,
+				994F0A251EC588DE00562B7A /* PreferencesController.swift in Sources */,
+				994F0A2C1EC5957200562B7A /* UserDefaults+Extensions.swift in Sources */,
 				99A24EA71EB3591300C3F229 /* Palette.swift in Sources */,
 				991E7B231EB071C20086A9D9 /* TasksViewController.swift in Sources */,
 				99D8C80C1EB3A16D00EA5001 /* NSManagedObjectModel+Extensions.swift in Sources */,

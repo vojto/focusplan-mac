@@ -116,18 +116,19 @@ class MainWindow: NSWindow, NSToolbarDelegate {
     let kTimerItem = "Timer"
     let kAddButton = "AddButton"
     let kTimerButton = "TimerButton"
+    let kPreferencesButton = "PreferencesButton"
     
     func toolbarAllowedItemIdentifiers(_ toolbar: NSToolbar) -> [String] {
         return [
             NSToolbarFlexibleSpaceItemIdentifier,
             kTimerItem,
             kAddButton,
-            kTimerButton
+            kPreferencesButton
         ]
     }
     
     func toolbarDefaultItemIdentifiers(_ toolbar: NSToolbar) -> [String] {
-        return [NSToolbarFlexibleSpaceItemIdentifier, kTimerItem, NSToolbarFlexibleSpaceItemIdentifier, kTimerButton]
+        return [NSToolbarFlexibleSpaceItemIdentifier, kTimerItem, NSToolbarFlexibleSpaceItemIdentifier, kPreferencesButton]
     }
     
     class BlueView: NSView {
@@ -164,6 +165,15 @@ class MainWindow: NSWindow, NSToolbarDelegate {
             item.view = button
             
             return item
+        case kPreferencesButton:
+            item.label = "Preferences"
+            let image = NSImage(named: NSImageNameActionTemplate)!
+            let button = NSButton(image: image, target: self, action: #selector(showPreferences))
+            button.bezelStyle = .texturedRounded
+            button.setContentHuggingPriority(125, for: .vertical)
+            item.view = button
+            return item
+            
         default:
             return nil
         }
@@ -171,6 +181,10 @@ class MainWindow: NSWindow, NSToolbarDelegate {
     
     func toggleTimer() {
         AppDelegate.instance?.toggleTimerWindow()
+    }
+    
+    func showPreferences() {
+        AppDelegate.instance?.showPreferences()
     }
     
 }

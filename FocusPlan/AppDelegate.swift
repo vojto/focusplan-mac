@@ -11,6 +11,7 @@ import ReactiveSwift
 import ReactiveCocoa
 import NiceData
 
+
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     
@@ -20,6 +21,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     static var instance: AppDelegate?
     
     let menubarController = MenubarController()
+    
+    lazy var preferencesController: PreferencesController = PreferencesController(windowNibName: "PreferencesController")
 
     static let allProjectsObserver: ReactiveObserver<Project> = {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Project")
@@ -28,12 +31,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }()
     
     func applicationWillFinishLaunching(_ notification: Notification) {
+        let defaults = UserDefaults.standard
+        let preferences: [String: Any] = [
+            PreferencesKeys.wantsPomodoro: true,
+            PreferencesKeys.pomodoroMinutes: 25,
+            PreferencesKeys.shortBreakMinutes: 5,
+            PreferencesKeys.longBreakMinutes: 15,
+            PreferencesKeys.longBreakEach: 4
+        ]
+        
+        defaults.register(defaults: preferences)
+        
         AppDelegate.instance = self
     }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
 
-        
         setupAutosave()
         
         setupTimerWindow()
@@ -175,7 +188,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         context.undoManager?.enableUndoRegistration()
     }
     
-    // MARK: - Window management
+    // MARK: - Timer window
     // ------------------------------------------------------------------------
     
     func setupTimerWindow() {
@@ -188,6 +201,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         } else {
             timerWindow.orderFront(self)
         }
+    }
+    
+    // MARK: - Preferences window
+    // ------------------------------------------------------------------------
+    
+    func showPreferences() {
+        preferencesController.showWindow(self)
+    }
+    
+    @IBAction func preferencesAction(_ sender: Any) {
+        showPreferences()
     }
 }
 
