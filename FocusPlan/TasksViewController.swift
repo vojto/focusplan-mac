@@ -251,6 +251,10 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
     func edit(task: Task) {
         let row = outlineView.row(forItem: task)
         
+        if row == -1 {
+            return
+        }
+        
         guard let columnIndex = outlineView.tableColumns.index(of: taskColumn) else { return assertionFailure() }
         guard let view = outlineView.view(atColumn: columnIndex, row: row, makeIfNecessary: false) as? NSTableCellView else { return assertionFailure() }
         guard let textField = view.textField else { return assertionFailure() }

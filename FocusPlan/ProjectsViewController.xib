@@ -10,6 +10,7 @@
             <connections>
                 <outlet property="contextMenu" destination="VzZ-ji-yID" id="pap-3i-jII"/>
                 <outlet property="outlineView" destination="Tx9-BQ-pkP" id="pvB-DC-4uw"/>
+                <outlet property="treeController" destination="MYY-at-32m" id="Wae-0b-QfB"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -19,13 +20,13 @@
             <rect key="frame" x="0.0" y="0.0" width="259" height="441"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="32" horizontalPageScroll="10" verticalLineScroll="32" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wnS-oV-gKD">
+                <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="34" horizontalPageScroll="10" verticalLineScroll="34" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wnS-oV-gKD">
                     <rect key="frame" x="0.0" y="0.0" width="259" height="441"/>
                     <clipView key="contentView" drawsBackground="NO" id="Nt5-Xc-HGe">
                         <rect key="frame" x="0.0" y="0.0" width="259" height="441"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" columnReordering="NO" columnResizing="NO" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="29" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="xwc-hO-G0q" id="Tx9-BQ-pkP" customClass="ProjectsOutlineView" customModule="FocusPlan" customModuleProvider="target">
+                            <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" columnReordering="NO" columnResizing="NO" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="31" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="xwc-hO-G0q" id="Tx9-BQ-pkP" customClass="ProjectsOutlineView" customModule="FocusPlan" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="259" height="441"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="2" height="3"/>
@@ -45,12 +46,12 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
-                                            <customView identifier="NSTableViewRowViewKey" id="Pdk-Tq-adq" customClass="CustomTableRowView" customModule="FocusPlan" customModuleProvider="target">
-                                                <rect key="frame" x="1" y="1" width="256" height="29"/>
+                                            <customView identifier="NSTableViewRowViewKey" id="ApB-Xw-uzo" customClass="CustomTableRowView" customModule="FocusPlan" customModuleProvider="target">
+                                                <rect key="frame" x="1" y="1" width="256" height="31"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             </customView>
                                             <tableCellView identifier="HeaderCell" id="Ufj-4H-VP1">
-                                                <rect key="frame" x="1" y="33" width="256" height="30"/>
+                                                <rect key="frame" x="1" y="35" width="256" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qM6-xi-Utn">
@@ -72,12 +73,12 @@
                                                 </connections>
                                             </tableCellView>
                                             <tableCellView identifier="ProjectCell" id="Crx-Sa-5pw" customClass="ProjectTableCellView" customModule="FocusPlan" customModuleProvider="target">
-                                                <rect key="frame" x="1" y="66" width="256" height="29"/>
+                                                <rect key="frame" x="1" y="68" width="256" height="29"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SiK-Vi-47n">
+                                                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SiK-Vi-47n">
                                                         <rect key="frame" x="0.0" y="6" width="224" height="17"/>
-                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="Mk6-4T-g3b">
+                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" focusRingType="none" title="Table View Cell" id="Mk6-4T-g3b">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -107,6 +108,8 @@
                                     </tableColumn>
                                 </tableColumns>
                                 <connections>
+                                    <binding destination="MYY-at-32m" name="content" keyPath="arrangedObjects" id="CMH-EO-aBm"/>
+                                    <binding destination="MYY-at-32m" name="selectionIndexPaths" keyPath="selectionIndexPaths" previousBinding="CMH-EO-aBm" id="3wc-TC-9F3"/>
                                     <outlet property="dataSource" destination="-2" id="Inp-ow-DkR"/>
                                     <outlet property="delegate" destination="-2" id="G14-dH-OOZ"/>
                                     <outlet property="menu" destination="VzZ-ji-yID" id="96l-E4-Pdv"/>
@@ -166,6 +169,7 @@
             </connections>
             <point key="canvasLocation" x="151" y="591"/>
         </menu>
+        <treeController childrenKeyPath="children" countKeyPath="childCount" leafKeyPath="isLeaf" id="MYY-at-32m"/>
     </objects>
     <resources>
         <image name="NSAddTemplate" width="11" height="11"/>

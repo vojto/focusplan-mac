@@ -65,10 +65,8 @@ class BacklogViewController: NSViewController {
         sidebarView.include(projectsController.view)
         
         // Handling selecting project in projects controller
-        projectsController.onSelect = { item in
-            if let project = item as? Project {
-                self.selectedProject.value = project
-            }
+        projectsController.onSelect = { project in
+            self.selectedProject.value = project
         }
         
     }

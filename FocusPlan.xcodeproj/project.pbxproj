@@ -43,6 +43,7 @@
 		994063D61EB761D000E09165 /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994063D51EB761D000E09165 /* TimerViewController.swift */; };
 		994208351EC2EE4800CB4D4E /* PlanViewController+Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994208341EC2EE4800CB4D4E /* PlanViewController+Types.swift */; };
 		994208381EC2FF5600CB4D4E /* MenubarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994208371EC2FF5600CB4D4E /* MenubarController.swift */; };
+		994F0A211EC5750B00562B7A /* ProjectsViewController+Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994F0A201EC5750B00562B7A /* ProjectsViewController+Types.swift */; };
 		997FFBCE1EAF7DB200ABEA01 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 997FFBC61EAF7DA900ABEA01 /* ReactiveCocoa.framework */; };
 		997FFBCF1EAF7DB200ABEA01 /* ReactiveCocoa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 997FFBC61EAF7DA900ABEA01 /* ReactiveCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		997FFBD01EAF7DB200ABEA01 /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 997FFBC71EAF7DA900ABEA01 /* ReactiveSwift.framework */; };
@@ -170,6 +171,7 @@
 		994063D51EB761D000E09165 /* TimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
 		994208341EC2EE4800CB4D4E /* PlanViewController+Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PlanViewController+Types.swift"; sourceTree = "<group>"; };
 		994208371EC2FF5600CB4D4E /* MenubarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenubarController.swift; sourceTree = "<group>"; };
+		994F0A201EC5750B00562B7A /* ProjectsViewController+Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ProjectsViewController+Types.swift"; sourceTree = "<group>"; };
 		997FFBC61EAF7DA900ABEA01 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/Mac/ReactiveCocoa.framework; sourceTree = "<group>"; };
 		997FFBC71EAF7DA900ABEA01 /* ReactiveSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveSwift.framework; path = Carthage/Build/Mac/ReactiveSwift.framework; sourceTree = "<group>"; };
 		997FFBC81EAF7DA900ABEA01 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/Mac/Result.framework; sourceTree = "<group>"; };
@@ -291,6 +293,7 @@
 			isa = PBXGroup;
 			children = (
 				990A18071EAF3D2300DCE839 /* ProjectsViewController.swift */,
+				994F0A201EC5750B00562B7A /* ProjectsViewController+Types.swift */,
 				990A18081EAF3D2300DCE839 /* ProjectsViewController.xib */,
 				99EEDE5C1EAF931500662DED /* ProjectsOutlineView.swift */,
 				99B610151EB0602A0098F69C /* ProjectTableCellView.swift */,
@@ -648,6 +651,7 @@
 				99D122ED1EB8729A00D495DC /* TimerEntry+Extensions.swift in Sources */,
 				99D122EB1EB86D6C00D495DC /* CalendarEvent.swift in Sources */,
 				99D122F11EB8A9D600D495DC /* TasksObserver.swift in Sources */,
+				994F0A211EC5750B00562B7A /* ProjectsViewController+Types.swift in Sources */,
 				991E7B381EB0BEF00086A9D9 /* String+Extensions.swift in Sources */,
 				990A180C1EAF3D9700DCE839 /* MainWindow.swift in Sources */,
 				990A18091EAF3D2300DCE839 /* ProjectsViewController.swift in Sources */,

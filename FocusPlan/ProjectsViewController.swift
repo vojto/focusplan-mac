@@ -10,74 +10,80 @@ import Cocoa
 import NiceData
 import ReactiveSwift
 
+extension NSTreeController {
+    
+    func indexPathOfObject(anObject:NSObject) -> NSIndexPath? {
+        return self.indexPathOfObject(anObject: anObject, nodes: (self.arrangedObjects as AnyObject).children)
+    }
+    
+    func indexPathOfObject(anObject:NSObject, nodes:[NSTreeNode]!) -> NSIndexPath? {
+        for node in nodes {
+            if (anObject == node.representedObject as! NSObject)  {
+                return node.indexPath as NSIndexPath
+            }
+            if (node.children != nil) {
+                if let path:NSIndexPath = self.indexPathOfObject(anObject: anObject, nodes: node.children)
+                {
+                    return path
+                }
+            }
+        }
+        return nil
+    }
+}
+
 class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutlineViewDelegate, NSTextFieldDelegate, NSMenuDelegate {
     
     lazy var observer: ReactiveObserver<Project> = {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Project")
         return ReactiveObserver<Project>(context: AppDelegate.viewContext, request: request)
     }()
+    
+    
+    
+    @IBOutlet var treeController: NSTreeController!
+    
+    var rootItem: RootItem!
+    var backlogHeaderItem: HeaderItem!
 
-    class RootItem {
-    }
     
-    enum HeaderItemType: String {
-        case plan = "PLAN"
-        case backlog = "BACKLOG"
-    }
-    
-    class HeaderItem {
-        var type: HeaderItemType
-        
-        init(type: HeaderItemType) {
-            self.type = type
+    var projects = [Project]() {
+        didSet {
+
+            backlogHeaderItem.children = projects.map { ProjectItem(project: $0) }
+            let paths = treeController.selectionIndexPaths
+            treeController.content = rootItem.children
+            treeController.setSelectionIndexPaths(paths)
+
         }
     }
-    
-    enum PlanItemType: String {
-        case today = "Today"
-        case thisWeek = "This week"
-    }
-    
-    class PlanItem {
-        var type: PlanItemType
-        
-        init(type: PlanItemType) {
-            self.type = type
-        }
-    }
-    
-    let rootItem = RootItem()
-    
-    let headerItems = [/*HeaderItem(type: .plan), */HeaderItem(type: .backlog)]
-    var planItems = [PlanItem(type: .today), PlanItem(type: .thisWeek)]
-    
-    var projects = [Project]()
     
     let draggedType = "ProjectRow"
     
-    var onSelect: ((Any?) -> ())?
+    var onSelect: ((Project?) -> ())?
     
     @IBOutlet weak var outlineView: NSOutlineView!
     
     var disposable = CompositeDisposable()
     
-//    let selectedProject = MutableProperty<Project?>(nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        backlogHeaderItem = HeaderItem(type: .backlog)
+        rootItem = RootItem(children: [backlogHeaderItem])
     }
     
     override func viewDidAppear() {
         disposable += observer.objects.producer.startWithValues { projects in
             
-            
             self.projects = projects.sorted { $0.weight < $1.weight }
             
-            self.outlineView.reloadData()
+//            self.outlineView.reloadData()
             
-            DispatchQueue.main.async {
-                self.ensureSelection()
-            }
+//            DispatchQueue.main.async {
+//                self.ensureSelection()
+//            }
         }
         
         // Do view setup here.
@@ -103,6 +109,7 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     // MARK: - Outline view data source
     // ------------------------------------------------------------------------
     
+    /*
     func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
         if item == nil {
             return headerItems.count
@@ -132,6 +139,7 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
             fatalError()
         }
     }
+    */
     
     func outlineView(_ outlineView: NSOutlineView, isItemExpandable item: Any) -> Bool {
         return true
@@ -141,20 +149,16 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     // ------------------------------------------------------------------------
     
     func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
+        guard let node = item as? NSTreeNode else { return nil }
+        let item = node.representedObject
+        
         if let header = item as? HeaderItem {
             let view = outlineView.make(withIdentifier: "HeaderCell", owner: self) as? NSTableCellView
             
             view?.textField?.stringValue = header.type.rawValue
             
             return view
-        } else if let planItem = item as? PlanItem {
-            let view = outlineView.make(withIdentifier: "PlanCell", owner: self) as? NSTableCellView
-            
-            view?.textField?.stringValue = planItem.type.rawValue
-            
-            return view
-        } else if let project = item as? Project {
-            
+        } else if let project = (item as? ProjectItem)?.project {
             let view = outlineView.make(withIdentifier: "ProjectCell", owner: self) as! ProjectTableCellView
             
 //            view.page.value = page
@@ -171,7 +175,6 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
             }
             
             view.textField?.stringValue = name
-            view.textField?.delegate = self
             
             return view
         }
@@ -180,31 +183,15 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     }
     
     
-    /*
-    func outlineView(_ outlineView: NSOutlineView, rowViewForItem item: Any) -> NSTableRowView? {
-        let id = "RowView"
-        
-        var rowView = outlineView.make(withIdentifier: id, owner: self) as! PagesOutlineRowView?
-        
-        if rowView == nil {
-            rowView = PagesOutlineRowView(frame: NSZeroRect)
-            rowView!.identifier = id
-        }
-        
-        return rowView
-    }
-    */
-    
-    
     // Hides expansion arrows
     func outlineView(_ outlineView: NSOutlineView, shouldShowOutlineCellForItem item: Any) -> Bool {
         return false
     }
     
     func outlineView(_ outlineView: NSOutlineView, shouldSelectItem item: Any) -> Bool {
-        if item is Project {
-            return true
-        } else if item is PlanItem {
+        let obj = (item as? NSTreeNode)?.representedObject
+        
+        if obj is ProjectItem {
             return true
         } else {
             return false
@@ -219,7 +206,9 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
         let row = outlineView.selectedRow
         let item = outlineView.item(atRow: row)
         
-        onSelect?(item)
+        if let item = (item as? NSTreeNode)?.representedObject as? ProjectItem {
+            onSelect?(item.project)
+        }
     }
     
     func findSelectedProject() -> Project? {
@@ -227,28 +216,6 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
         let item = outlineView.item(atRow: row)
         
         return item as? Project
-    }
-    
-    // MARK: - NSTextFieldDelegate
-    
-    override func controlTextDidBeginEditing(_ obj: Notification) {
-        guard let field = obj.object as? NSTextField else { return }
-        field.alpha = 1
-    }
-    
-    override func controlTextDidEndEditing(_ obj: Notification) {
-        guard let field = obj.object as? NSTextField else { return }
-        field.isEditable = false
-        let value = field.stringValue
-        
-        let row = outlineView.row(for: field)
-        let item = outlineView.item(atRow: row)
-        
-        if let project = item as? Project {
-            project.name = value
-            
-            select(project: project)
-        }
     }
     
     // MARK: - Actions
@@ -279,13 +246,16 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     
     
     func edit(project: Project) {
-        let row = outlineView.row(forItem: project)
-        guard let view = outlineView.view(atColumn: 0, row: row, makeIfNecessary: false) as? NSTableCellView else { return assertionFailure() }
-        guard let textField = view.textField else { return assertionFailure() }
+        guard let item = backlogHeaderItem.children.filter({ ($0 as? ProjectItem)?.project == project }).first else { return }
         
-        textField.isEditable = true
+        guard let path = treeController.indexPathOfObject(anObject: item) else { return }
         
-        outlineView.window!.makeFirstResponder(textField)
+        treeController.setSelectionIndexPaths([path as IndexPath])
+        
+        let index = outlineView.selectedRow
+        if let view = outlineView.view(atColumn: 0, row: index, makeIfNecessary: false) as? EditableTableCellView {
+            view.startEditing()
+        }
     }
     
     func select(project: Project) {
@@ -319,9 +289,9 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
         
         contextMenu.removeAllItems()
         
-        let item = outlineView.item(atRow: row)
+        let item = (outlineView.item(atRow: row) as? NSTreeNode)?.representedObject
         
-        if item is Project {
+        if item is ProjectItem {
             let menuItem = NSMenuItem(title: "Remove", action: #selector(deleteProjectAction(_:)), keyEquivalent: "")
             menuItem.target = self
             contextMenu.addItem(menuItem)
@@ -333,7 +303,7 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     @IBAction func deleteProjectAction(_ sender: Any) {
         let row = outlineView.clickedRow
         
-        if let project = outlineView.item(atRow: row) as? Project {
+        if let project = ((outlineView.item(atRow: row) as? NSTreeNode)?.representedObject as? ProjectItem)?.project {
             deleteProject(project)
         }
     }

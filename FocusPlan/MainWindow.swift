@@ -53,19 +53,7 @@ class MainWindow: NSWindow, NSToolbarDelegate {
         }
         
     }
-    
-    func showSection(forItem item: Any?) {
-        if let project = item as? Project {
-            showProject(project)
-        } else if let planItem = item as? ProjectsViewController.PlanItem {
-            switch planItem.type {
-            case .today:
-                showPlan(detail: .daily)
-            case .thisWeek:
-                showPlan(detail: .weekly)
-            }
-        }
-    }
+
     
     @IBAction func showDailyPlan(_ sender: Any) {
         tabBarController.selectedIndex.value = 0
