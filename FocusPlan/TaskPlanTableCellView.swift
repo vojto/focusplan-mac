@@ -63,9 +63,8 @@ class TaskPlanTableCellView: NSTableCellView {
         select.rac_selectedValue <~ date
         
         select.onChange = { date in
-            Swift.print("Changed to: \(date)")
-            
             self.task.value?.plannedFor = date as NSDate?
+            self.task.value?.moveToEndInPlannedList(in: AppDelegate.viewContext)
         }
         
         date.producer.startWithValues { date in

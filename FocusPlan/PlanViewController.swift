@@ -432,7 +432,7 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
     @discardableResult
     func createTask(plannedFor date: Date? = nil) -> Task {
         let context = AppDelegate.viewContext
-        return Task.create(in: context, weight: tasksController.nextWeight, plannedFor: date)
+        return Task.create(in: context, plannedFor: date)
     }
     
     // MARK: - Reordering tasks
