@@ -231,9 +231,7 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     @IBAction func addProject(_ sender: Any) {
         let context = AppDelegate.viewContext
         
-        let project = NSEntityDescription.insertNewObject(forEntityName: "Project", into: context) as! Project
-        project.name = ""
-        project.weight = Int32(projects.count + 1)
+        let project = Project.create(in: context, weight: projects.count + 1)
         
         try! context.save()
         
