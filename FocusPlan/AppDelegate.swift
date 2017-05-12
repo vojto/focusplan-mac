@@ -30,6 +30,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return ReactiveObserver<Project>(context: AppDelegate.viewContext, request: request)
     }()
     
+    override init() {
+        super.init()
+        
+        AppDelegate.instance = self
+    }
+    
     func applicationWillFinishLaunching(_ notification: Notification) {
         let defaults = UserDefaults.standard
         let preferences: [String: Any] = [
@@ -41,8 +47,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         ]
         
         defaults.register(defaults: preferences)
-        
-        AppDelegate.instance = self
     }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
@@ -73,24 +77,67 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // MARK: - Core Data stack
     // ------------------------------------------------------------------------
     
-    lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "FocusPlan")
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
-            if let error = error {
-                fatalError("Unresolved error \(error)")
-            }
-        })
-        
-        container.viewContext.undoManager = UndoManager()
-        
-        return container
+//    lazy var persistentContainer: NSPersistentContainer = {
+//        let container = NSPersistentContainer(name: "FocusPlan")
+//        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+//            if let error = error {
+//                fatalError("Unresolved error \(error)")
+//            }
+//        })
+//        
+//        container.viewContext.undoManager = UndoManager()
+//        
+//        return container
+//    }()
+    
+    lazy var managedObjectModel: NSManagedObjectModel = {
+        // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
+        let modelURL = Bundle.main.url(forResource: "FocusPlan", withExtension: "momd")!
+        return NSManagedObjectModel(contentsOf: modelURL)!
     }()
+    
+    lazy var applicationDocumentsDirectory: URL = {
+        // The directory the application uses to store the Core Data store file. This code uses a directory named "kalafun.asdfasfasdf" in the application's documents Application Support directory.
+        let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return urls[urls.count-1]
+    }()
+    
+    lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
+        // The persistent store coordinator for the application. This implementation creates and returns a coordinator, having added the store for the application to it. This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.
+        // Create the coordinator and store
+        let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
+        let url = self.applicationDocumentsDirectory.appendingPathComponent("FocusPlan.sqlite")
+        let storeOptions = [NSPersistentStoreUbiquitousContentNameKey: "FocusListStore"]
+        do {
+            try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: storeOptions)
+        } catch let error as NSError{
+            print("Error adding persistentstore to coordinator with error: \(error.localizedDescription)")
+            abort()
+        }
+        
+        return coordinator
+    }()
+    
+    lazy var viewContext: NSManagedObjectContext = {
+        // Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.) This property is optional since there are legitimate error conditions that could cause the creation of the context to fail.
+        let coordinator = self.persistentStoreCoordinator
+        var managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+        managedObjectContext.persistentStoreCoordinator = coordinator
+        
+        managedObjectContext.undoManager = UndoManager()
+        
+        return managedObjectContext
+    }()
+    
+    static var viewContext: NSManagedObjectContext {
+        return AppDelegate.instance!.viewContext
+    }
     
     // MARK: Core Data Saving and Undo support
     
     
     @IBAction func saveAction(_ sender: AnyObject?) {
-        let context = persistentContainer.viewContext
+        let context = viewContext
         
         if !context.commitEditing() {
             NSLog("\(NSStringFromClass(type(of: self))) unable to commit editing before saving")
@@ -106,22 +153,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
         }
     }
-    
-    public static var viewContext: NSManagedObjectContext {
-        let delegate = NSApplication.shared().delegate as! AppDelegate
-        return delegate.persistentContainer.viewContext
-    }
+
     
     public static var undoManager: UndoManager {
         return viewContext.undoManager!
     }
     
     func windowWillReturnUndoManager(window: NSWindow) -> UndoManager? {
-        return persistentContainer.viewContext.undoManager
+        return viewContext.undoManager
     }
     
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplicationTerminateReply {
-        let context = persistentContainer.viewContext
+        let context = viewContext
         
         if !context.commitEditing() {
             NSLog("\(NSStringFromClass(type(of: self))) unable to commit editing to terminate")
