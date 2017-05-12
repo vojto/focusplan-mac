@@ -307,6 +307,32 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     }
     
     func deleteProject(_ project: Project) {
+        if let tasks = project.tasks as? Set<Task> {
+            let tasks = tasks.filter { !$0.isRemoved && !$0.isArchived }
+            
+            if tasks.count > 0 {
+                let alert = NSAlert()
+                
+                alert.messageText = "Delete project?"
+                alert.informativeText = "You still have \(tasks.count) tasks in this project. Deleting this project will delete your tasks too. Are you sure?"
+                alert.icon = nil
+                
+                alert.alertStyle = .warning
+                
+                alert.addButton(withTitle: "Delete")
+                alert.addButton(withTitle: "Cancel")
+                
+                alert.buttons[1].keyEquivalent = "\r"
+                alert.buttons[0].keyEquivalent = ""
+                
+                let result = alert.runModal()
+                
+                if result != NSAlertFirstButtonReturn {
+                    return
+                }
+            }
+        }
+        
         AppDelegate.viewContext.delete(project)
     }
     
