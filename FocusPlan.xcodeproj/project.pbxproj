@@ -73,6 +73,8 @@
 		9983F90A1EC0B5B0005E624A /* EditTimerEntryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9983F9081EC0B5B0005E624A /* EditTimerEntryController.xib */; };
 		998746CA1EB360320079215B /* BacklogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998746C91EB360320079215B /* BacklogViewController.swift */; };
 		998A0C3C1EC05712006CC99E /* CalendarCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998A0C3B1EC05712006CC99E /* CalendarCollectionView.swift */; };
+		998AC3681EC61B1600559CB6 /* ReadOmnifocus.scpt in Resources */ = {isa = PBXBuildFile; fileRef = 998AC3671EC61B0A00559CB6 /* ReadOmnifocus.scpt */; };
+		998AC36A1EC61D7200559CB6 /* ScriptingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998AC3691EC61D7200559CB6 /* ScriptingManager.swift */; };
 		999890BD1EC5E2F600CAD209 /* Project+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999890BC1EC5E2F600CAD209 /* Project+Extensions.swift */; };
 		999E65091EB361B20001AAB7 /* BacklogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 999E65081EB361B20001AAB7 /* BacklogViewController.xib */; };
 		999E650D1EB362780001AAB7 /* PlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999E650B1EB362780001AAB7 /* PlanViewController.swift */; };
@@ -198,6 +200,8 @@
 		9983F9081EC0B5B0005E624A /* EditTimerEntryController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditTimerEntryController.xib; sourceTree = "<group>"; };
 		998746C91EB360320079215B /* BacklogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BacklogViewController.swift; sourceTree = "<group>"; };
 		998A0C3B1EC05712006CC99E /* CalendarCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarCollectionView.swift; sourceTree = "<group>"; };
+		998AC3671EC61B0A00559CB6 /* ReadOmnifocus.scpt */ = {isa = PBXFileReference; lastKnownFileType = file; path = ReadOmnifocus.scpt; sourceTree = "<group>"; };
+		998AC3691EC61D7200559CB6 /* ScriptingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScriptingManager.swift; sourceTree = "<group>"; };
 		999890BC1EC5E2F600CAD209 /* Project+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Project+Extensions.swift"; sourceTree = "<group>"; };
 		999E65081EB361B20001AAB7 /* BacklogViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BacklogViewController.xib; sourceTree = "<group>"; };
 		999E650B1EB362780001AAB7 /* PlanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanViewController.swift; sourceTree = "<group>"; };
@@ -277,6 +281,7 @@
 		99078BF31EAF1CD000C3B789 /* FocusPlan */ = {
 			isa = PBXGroup;
 			children = (
+				998AC3661EC61B0000559CB6 /* Scripts */,
 				99DA93581EC317B500817AF5 /* chime_reveal.aif */,
 				99BBB0251EB8C269002C603F /* Helpers */,
 				998156151EB77DA40057ECD0 /* Component Views */,
@@ -288,6 +293,7 @@
 				99D122EE1EB8A6C500D495DC /* MainWindowDelegate.swift */,
 				99A24EA61EB3591300C3F229 /* Palette.swift */,
 				994F0A2B1EC5957200562B7A /* UserDefaults+Extensions.swift */,
+				998AC3691EC61D7200559CB6 /* ScriptingManager.swift */,
 				99BBB0291EB8C50F002C603F /* Extensions */,
 				99BBB0281EB8C505002C603F /* User Interface */,
 				9981560E1EB776150057ECD0 /* Logic */,
@@ -473,6 +479,14 @@
 			name = Backlog;
 			sourceTree = "<group>";
 		};
+		998AC3661EC61B0000559CB6 /* Scripts */ = {
+			isa = PBXGroup;
+			children = (
+				998AC3671EC61B0A00559CB6 /* ReadOmnifocus.scpt */,
+			);
+			name = Scripts;
+			sourceTree = "<group>";
+		};
 		999E650A1EB362570001AAB7 /* Plan */ = {
 			isa = PBXGroup;
 			children = (
@@ -632,6 +646,7 @@
 				99DA93601EC32FE700817AF5 /* SummaryRowItem.xib in Resources */,
 				991E7B241EB071C20086A9D9 /* TasksViewController.xib in Resources */,
 				999E65091EB361B20001AAB7 /* BacklogViewController.xib in Resources */,
+				998AC3681EC61B1600559CB6 /* ReadOmnifocus.scpt in Resources */,
 				998352DA1EC48A1F00303E7D /* TabBarController.xib in Resources */,
 				994063CB1EB70ECA00E09165 /* CalendarHourHeader.xib in Resources */,
 				998352DE1EC48F2800303E7D /* TabBarItemView.xib in Resources */,
@@ -677,6 +692,7 @@
 				99D122F11EB8A9D600D495DC /* TasksObserver.swift in Sources */,
 				994F0A211EC5750B00562B7A /* ProjectsViewController+Types.swift in Sources */,
 				991E7B381EB0BEF00086A9D9 /* String+Extensions.swift in Sources */,
+				998AC36A1EC61D7200559CB6 /* ScriptingManager.swift in Sources */,
 				990A180C1EAF3D9700DCE839 /* MainWindow.swift in Sources */,
 				990A18091EAF3D2300DCE839 /* ProjectsViewController.swift in Sources */,
 				991E7B291EB082C60086A9D9 /* TaskTitleTableCellView.swift in Sources */,

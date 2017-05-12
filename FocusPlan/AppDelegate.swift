@@ -49,6 +49,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         defaults.register(defaults: preferences)
     }
 
+    
+    
+    let scripting = ScriptingManager()
+    
     func applicationDidFinishLaunching(_ aNotification: Notification) {
 
         setupAutosave()
@@ -57,11 +61,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         menubarController.setup()
         
-        let notif = NotificationCenter.default.reactive.notifications(forName: NSNotification.Name.NSPersistentStoreDidImportUbiquitousContentChanges)
+        setupCloudMerging()
         
-        notif.observeValues { notif in
-            self.viewContext.mergeChanges(fromContextDidSave: notif)
-        }
+        scripting.installScripts()
         
         
     }
@@ -146,7 +148,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return AppDelegate.instance!.viewContext
     }
     
-    // MARK: Core Data Saving and Undo support
+    func setupCloudMerging() {
+        let notif = NotificationCenter.default.reactive.notifications(forName: NSNotification.Name.NSPersistentStoreDidImportUbiquitousContentChanges)
+        notif.observeValues { notif in
+            self.viewContext.mergeChanges(fromContextDidSave: notif)
+        }
+    }
     
     
     @IBAction func saveAction(_ sender: AnyObject?) {
