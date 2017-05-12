@@ -77,16 +77,7 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
         
         return NSSize(width: width, height: height)
     }
-    
-    func duration(pointValue: CGFloat) -> TimeInterval {
-        let secondHeight = hourHeight / 3600
-        
-        return Double(pointValue) / secondHeight
-    }
-    
-    func time(pointValue: CGFloat) -> TimeInterval {
-        return duration(pointValue: pointValue - topMargin) + dayStart
-    }
+
     
     let leftMargin: CGFloat = 50.0
     let topMargin: CGFloat = 20.0
@@ -234,17 +225,16 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
         
         var x = CGFloat(indexPath.section) * sectionWidth + innerFrame.origin.x
         
-        let startingInterval: TimeInterval
         let durationInterval: TimeInterval
         
-        
-        startingInterval = startTime(forEventAt: indexPath) - dayStart
+    
         durationInterval = event.duration
 
-        let relativeStart = startingInterval / dayDuration
+
         
-        let y = innerFrame.origin.y + CGFloat(relativeStart) * innerFrame.size.height
+        let y = points(forTime: startTime(forEventAt: indexPath))
         
+
         let height = CGFloat(durationInterval / dayDuration) * innerFrame.size.height
         
         // Offset x by lane number
@@ -268,6 +258,7 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
         
         return frame
     }
+    
     
     override func layoutAttributesForSupplementaryView(ofKind elementKind: String, at indexPath: IndexPath) -> NSCollectionViewLayoutAttributes? {
         
@@ -428,5 +419,26 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
     
     override func shouldInvalidateLayout(forBoundsChange newBounds: NSRect) -> Bool {
         return true
+    }
+    
+    // MARK: - Conversion helpers
+    // ------------------------------------------------------------------------
+    
+    func duration(pointValue: CGFloat) -> TimeInterval {
+        let secondHeight = hourHeight / 3600
+        
+        return Double(pointValue) / secondHeight
+    }
+    
+    func time(pointValue: CGFloat) -> TimeInterval {
+        return duration(pointValue: pointValue - topMargin) + dayStart
+    }
+    
+    // Converts time interval since midnight to display points inside
+    // collection view
+    func points(forTime time: TimeInterval) -> CGFloat {
+        let timeSinceDayStart = time - dayStart
+        let relativeStart = timeSinceDayStart / dayDuration
+        return innerFrame.origin.y + CGFloat(relativeStart) * innerFrame.size.height
     }
 }

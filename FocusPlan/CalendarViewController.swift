@@ -41,21 +41,13 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     
     var config = PlanConfig.defaultConfig {
         willSet {
-            if let scrollView = collectionView.enclosingScrollView {
-                let rect = scrollView.documentVisibleRect
-                
-                scrollingPositions[config.scrollingPositionIdentifier] = rect.origin.y
-            }
+            saveScrollPosition()
         }
         
         didSet {
             reloadData()
             
-            if let scrollView = collectionView.enclosingScrollView {
-                let position = scrollingPositions[config.scrollingPositionIdentifier] ?? 0.0
-                scrollView.contentView.scroll(to: NSPoint(x: 0, y: position))
-                
-            }
+            restoreScrollPosition()
         }
     }
     
@@ -111,6 +103,10 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
         }
 
         summaryContainer.include(summaryRowController.view)
+        
+        DispatchQueue.main.async {
+            self.restoreScrollPosition()
+        }
     }
     
     func reloadData() {
@@ -126,6 +122,35 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
         
         NSAnimationContext.current().duration = 0
         self.collectionView.reloadData()
+    }
+    
+    // MARK: - Scrolling
+    // ------------------------------------------------------------------------
+    
+    func saveScrollPosition() {
+        if let scrollView = collectionView.enclosingScrollView {
+            let rect = scrollView.documentVisibleRect
+            
+            scrollingPositions[config.scrollingPositionIdentifier] = rect.origin.y
+        }
+    }
+    
+    func restoreScrollPosition() {
+        var initialPosition: CGFloat = 0
+        
+        if config.style == .hybrid {
+            let time = Date().timeIntervalSinceStartOfDay
+            initialPosition = max(0, collectionLayout.points(forTime: time) - 50)
+        }
+        
+        if let scrollView = collectionView.enclosingScrollView {
+            let position = scrollingPositions[config.scrollingPositionIdentifier] ?? initialPosition
+            
+//            Swift.print("🏀 set config, so scrolling down to \(position)")
+            
+            scrollView.contentView.scroll(to: NSPoint(x: 0, y: position))
+            
+        }
     }
     
     // MARK: - Feeding data to the collection view
