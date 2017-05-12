@@ -12,6 +12,7 @@ import AppKit
 class ScriptingManager {
     
     var allScriptNames = [
+        "json",
         "ReadOmnifocus"
     ]
     
@@ -126,46 +127,36 @@ class ScriptingManager {
     func importOmniFocus() {
         // Just try playing with the script
         
-        let url = Bundle.main.url(forResource: "ReadOmnifocus", withExtension: "scpt")!
-        script = NSAppleScript(contentsOf: url, error: nil)!
+//        let url = Bundle.main.url(forResource: "ReadOmnifocus", withExtension: "scpt")!
+        guard let url = scriptInstalledURL(named: "ReadOmnifocus") else { return }
+        
+        guard let task = try? NSUserAppleScriptTask(url: url) else { return }
+        
+        task.execute(withAppleEvent: nil) { (result, error) in
+            Swift.print("Error: \(error)")
+            Swift.print("Result: \(result)")
+            
+            let str = result?.stringValue
+            
+            Swift.print("Result string: \(str)")
+        }
+        
+        
+        /*
+//        guard let script = NSAppleScript(contentsOf: url, error: nil) else { return }
+        
+        Swift.print("Running script at: \(url)")
         
         var err: NSDictionary?
         let result = script.executeAndReturnError(&err)
         let str = result.stringValue
         
-        Swift.print("Err: \(err)")
+        Swift.print("Error: \(err)")
         Swift.print("Result: \(str)")
+        */
+        
+        
     }
     
     
-    /*
- 
- NSURL *destinationURL = [selectedURL URLByAppendingPathComponent:@"Automation.scpt"];
- NSFileManager *fileManager = [NSFileManager defaultManager];
- NSURL *sourceURL = [[NSBundle mainBundle] URLForResource:@"Automation" withExtension:@"scpt"];
- NSError *error;
- BOOL success = [fileManager copyItemAtURL:sourceURL toURL:destinationURL error:&error];
- if (success) {
- NSAlert *alert = [NSAlert alertWithMessageText:@"Script Installed" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"The Automation script was installed succcessfully."];
- [alert runModal];
- }
- else {
- NSLog(@"%s error = %@", __PRETTY_FUNCTION__, error);
- if ([error code] == NSFileWriteFileExistsError) {
- // this is where you could update the script, by removing the old one and copying in a new one
- }
- else {
- // the item couldn't be copied, try again
- [self performSelector:@selector(installAutomationScript:) withObject:self afterDelay:0.0];
- }
- }
- }
- else {
- // try again because the user changed the folder path
- [self performSelector:@selector(installAutomationScript:) withObject:self afterDelay:0.0];
- }
- }
- }];
- 
- */
 }

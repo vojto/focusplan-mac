@@ -65,6 +65,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         scripting.installScripts()
         
+        scripting.importOmniFocus()
         
     }
 
