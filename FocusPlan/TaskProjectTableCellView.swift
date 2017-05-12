@@ -14,12 +14,15 @@ import NiceData
 class TaskProjectTableCellView: NSTableCellView {
 
     @IBOutlet var popup: NSPopUpButton!
+    @IBOutlet var colorView: ProjectColorView!
+    
     
     let projects = MutableProperty<[Project]>([])
     
     let task = MutableProperty<Task?>(nil)
     
     override func awakeFromNib() {
+        
         projects <~ AppDelegate.allProjectsObserver.objects.producer
         
         projects.producer.take(during: reactive.lifetime).startWithValues { projects in
@@ -46,6 +49,7 @@ class TaskProjectTableCellView: NSTableCellView {
             }
         }
         
+        colorView.project <~ project
         
 //        AppDelegate.allProjectsObserver.objects.producer.startWithValues { projects in
 //            

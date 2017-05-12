@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12118"/>
@@ -185,8 +185,8 @@
                                                 <rect key="frame" x="318" y="2" width="86" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <popUpButton translatesAutoresizingMaskIntoConstraints="NO" id="ihV-QU-hLW">
-                                                        <rect key="frame" x="4" y="-1" width="78" height="20"/>
+                                                    <popUpButton horizontalHuggingPriority="100" translatesAutoresizingMaskIntoConstraints="NO" id="ihV-QU-hLW">
+                                                        <rect key="frame" x="9" y="-1" width="73" height="20"/>
                                                         <popUpButtonCell key="cell" type="square" title="Item 1" bezelStyle="shadowlessSquare" alignment="left" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" selectedItem="jOt-hL-iYg" id="fmG-51-NMf">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" size="12" name=".AppleSystemUIFont"/>
@@ -199,13 +199,23 @@
                                                             </menu>
                                                         </popUpButtonCell>
                                                     </popUpButton>
+                                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="iZb-Q6-l6B" customClass="ProjectColorView" customModule="FocusPlan" customModuleProvider="target">
+                                                        <rect key="frame" x="2" y="3" width="11" height="11"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="11" id="Sir-41-PR7"/>
+                                                            <constraint firstAttribute="width" constant="11" id="t5L-zo-iOp"/>
+                                                        </constraints>
+                                                    </customView>
                                                 </subviews>
                                                 <constraints>
+                                                    <constraint firstItem="iZb-Q6-l6B" firstAttribute="centerY" secondItem="nig-Tx-Ehh" secondAttribute="centerY" id="8nW-ok-hCb"/>
                                                     <constraint firstItem="ihV-QU-hLW" firstAttribute="centerY" secondItem="nig-Tx-Ehh" secondAttribute="centerY" id="JYi-57-08T"/>
-                                                    <constraint firstItem="ihV-QU-hLW" firstAttribute="leading" secondItem="nig-Tx-Ehh" secondAttribute="leading" constant="4" id="NEj-I0-LjC"/>
                                                     <constraint firstAttribute="trailing" secondItem="ihV-QU-hLW" secondAttribute="trailing" constant="4" id="PST-HR-TAM"/>
+                                                    <constraint firstItem="iZb-Q6-l6B" firstAttribute="leading" secondItem="nig-Tx-Ehh" secondAttribute="leading" constant="2" id="PvK-ZX-lJG"/>
+                                                    <constraint firstItem="ihV-QU-hLW" firstAttribute="leading" secondItem="iZb-Q6-l6B" secondAttribute="trailing" constant="-4" id="lYA-fh-EPL"/>
                                                 </constraints>
                                                 <connections>
+                                                    <outlet property="colorView" destination="iZb-Q6-l6B" id="X8s-Zn-nMN"/>
                                                     <outlet property="popup" destination="ihV-QU-hLW" id="oA5-EW-fHP"/>
                                                 </connections>
                                             </tableCellView>
