@@ -32,6 +32,7 @@
 		9933E49E1EB9C84600B1CE85 /* CalendarCollectionItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9933E49D1EB9C84600B1CE85 /* CalendarCollectionItemView.swift */; };
 		9933E4A01EBA13CF00B1CE85 /* CalendarSectionLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9933E49F1EBA13CF00B1CE85 /* CalendarSectionLine.swift */; };
 		9933E4A21EBA176500B1CE85 /* CalendarSectionLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9933E4A11EBA176500B1CE85 /* CalendarSectionLabel.swift */; };
+		993550321EC99D33004B6D23 /* AlertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993550311EC99D33004B6D23 /* AlertHelper.swift */; };
 		994063C61EB7028500E09165 /* SwiftDate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 994063C51EB7028500E09165 /* SwiftDate.framework */; };
 		994063C71EB7028A00E09165 /* SwiftDate.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 994063C51EB7028500E09165 /* SwiftDate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		994063C91EB7035400E09165 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994063C81EB7035400E09165 /* Date+Extensions.swift */; };
@@ -172,6 +173,7 @@
 		9933E49D1EB9C84600B1CE85 /* CalendarCollectionItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarCollectionItemView.swift; sourceTree = "<group>"; };
 		9933E49F1EBA13CF00B1CE85 /* CalendarSectionLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarSectionLine.swift; sourceTree = "<group>"; };
 		9933E4A11EBA176500B1CE85 /* CalendarSectionLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarSectionLabel.swift; sourceTree = "<group>"; };
+		993550311EC99D33004B6D23 /* AlertHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertHelper.swift; sourceTree = "<group>"; };
 		994063C51EB7028500E09165 /* SwiftDate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftDate.framework; path = Carthage/Build/Mac/SwiftDate.framework; sourceTree = "<group>"; };
 		994063C81EB7035400E09165 /* Date+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		994063CA1EB70ECA00E09165 /* CalendarHourHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarHourHeader.xib; sourceTree = "<group>"; };
@@ -303,6 +305,7 @@
 				99A24EA61EB3591300C3F229 /* Palette.swift */,
 				994F0A2B1EC5957200562B7A /* UserDefaults+Extensions.swift */,
 				998AC3691EC61D7200559CB6 /* ScriptingManager.swift */,
+				993550311EC99D33004B6D23 /* AlertHelper.swift */,
 				99BBB0291EB8C50F002C603F /* Extensions */,
 				99BBB0281EB8C505002C603F /* User Interface */,
 				9981560E1EB776150057ECD0 /* Logic */,
@@ -691,6 +694,7 @@
 				9983F9091EC0B5B0005E624A /* EditTimerEntryController.swift in Sources */,
 				998352E21EC4BAEF00303E7D /* TaskPlanTableCellView.swift in Sources */,
 				994063C91EB7035400E09165 /* Date+Extensions.swift in Sources */,
+				993550321EC99D33004B6D23 /* AlertHelper.swift in Sources */,
 				9981560D1EB76ECB0057ECD0 /* TimerEntry+Reactive.swift in Sources */,
 				994F0A251EC588DE00562B7A /* PreferencesController.swift in Sources */,
 				994F0A2C1EC5957200562B7A /* UserDefaults+Extensions.swift in Sources */,

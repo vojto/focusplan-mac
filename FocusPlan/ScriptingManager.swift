@@ -13,7 +13,6 @@ import SwiftCSV
 class ScriptingManager {
     
     var allScriptNames = [
-        "json",
         "ReadOmnifocus"
     ]
     
@@ -21,7 +20,7 @@ class ScriptingManager {
     
     var fileManager: FileManager { return FileManager.default }
     
-    func installScripts() {
+    func installScripts(_ callback: @escaping (() -> ())) {
         let scripts = selectScriptsThatNeedInstalling()
         
         if scripts.count == 0  {
@@ -32,7 +31,13 @@ class ScriptingManager {
             for script in scripts {
                 self.installScript(named: script)
             }
+            
+            callback()
         }
+    }
+    
+    var allScriptsInstalled: Bool {
+        return selectScriptsThatNeedInstalling().count == 0
     }
     
     func selectScriptsThatNeedInstalling() -> [String] {
@@ -184,9 +189,5 @@ class ScriptingManager {
             task?.estimatedMinutes = Int64(estimateMinutes ?? 0)
             task?.moveToEndInProjectList(in: context)
         }
-        
-        Swift.print("Imported \(rows.count) rows!")
-        
-
     }
 }

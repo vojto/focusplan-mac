@@ -117,18 +117,20 @@ class MainWindow: NSWindow, NSToolbarDelegate {
     let kAddButton = "AddButton"
     let kTimerButton = "TimerButton"
     let kPreferencesButton = "PreferencesButton"
+    let kImportButton = "ImportButton"
     
     func toolbarAllowedItemIdentifiers(_ toolbar: NSToolbar) -> [String] {
         return [
             NSToolbarFlexibleSpaceItemIdentifier,
             kTimerItem,
             kAddButton,
-            kPreferencesButton
+            kPreferencesButton,
+            kImportButton
         ]
     }
     
     func toolbarDefaultItemIdentifiers(_ toolbar: NSToolbar) -> [String] {
-        return [NSToolbarFlexibleSpaceItemIdentifier, kTimerItem, NSToolbarFlexibleSpaceItemIdentifier, kPreferencesButton]
+        return [kImportButton, NSToolbarFlexibleSpaceItemIdentifier, kTimerItem, NSToolbarFlexibleSpaceItemIdentifier, kPreferencesButton]
     }
     
     class BlueView: NSView {
@@ -174,6 +176,15 @@ class MainWindow: NSWindow, NSToolbarDelegate {
             item.view = button
             return item
             
+        case kImportButton:
+            item.label = "Import from OmniFocus"
+            let image = #imageLiteral(resourceName: "ImportIconTemplate")
+            let button = NSButton(image: image, target: self, action: #selector(importFromOmnifocus))
+            button.bezelStyle = .texturedRounded
+            button.setContentHuggingPriority(125, for: .vertical)
+            item.view = button
+            return item
+            
         default:
             return nil
         }
@@ -185,6 +196,10 @@ class MainWindow: NSWindow, NSToolbarDelegate {
     
     func showPreferences() {
         AppDelegate.instance?.showPreferences()
+    }
+    
+    func importFromOmnifocus() {
+        AppDelegate.instance?.importFromOmnifocus()
     }
     
 }

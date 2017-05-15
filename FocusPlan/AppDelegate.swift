@@ -62,11 +62,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         menubarController.setup()
         
         setupCloudMerging()
-        
-        scripting.installScripts()
-        
-        scripting.importOmniFocus()
-        
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -277,6 +272,49 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBAction func preferencesAction(_ sender: Any) {
         showPreferences()
+    }
+    
+    // MARK: - Importing
+    // ------------------------------------------------------------------------
+    
+    func importFromOmnifocus() {
+        if !scripting.allScriptsInstalled {
+            confirmInstallingScripts() {
+                self.scripting.installScripts() {
+                    self.scripting.importOmniFocus()
+                    
+                    self.mainWindow.showProjects(self)
+                    
+                    AlertHelper.info(title: "Import finished", description: "If you don't see any tasks imported, make sure you have OmniFocus installed and that are any unchecked tasks.")
+                }
+            }
+        } else {
+            scripting.importOmniFocus()
+        }
+    }
+    
+    func confirmInstallingScripts(_ callback: (() -> ())) {
+        let alert = NSAlert()
+        
+        alert.messageText = "Install importing script for OmniFocus"
+        alert.informativeText = "In order to import your data from OmniFocus, we need to install script that will copy your tasks over.\n\nWe need your permission to write to your '~/Library/Application Scripts/tech.median.FocusPlan' directory. This is a one time request.\n\nKeep it mind that with that you are giving are access to any running application on your computer. You can review installed script to how exactly we access your data."
+        alert.icon = nil
+        
+        alert.alertStyle = .warning
+        
+        alert.addButton(withTitle: "Continue with installation")
+        alert.addButton(withTitle: "Cancel")
+        
+//        alert.buttons[1].keyEquivalent = "\r"
+//        alert.buttons[0].keyEquivalent = ""
+        
+        let result = alert.runModal()
+        
+        if result != NSAlertFirstButtonReturn {
+            return
+        }
+        
+        callback()
     }
 }
 
