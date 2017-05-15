@@ -40,7 +40,6 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     }()
     
     
-    
     @IBOutlet var treeController: NSTreeController!
     
     var rootItem: RootItem!
@@ -49,12 +48,10 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     
     var projects = [Project]() {
         didSet {
-
             backlogHeaderItem.children = projects.map { ProjectItem(project: $0) }
             let paths = treeController.selectionIndexPaths
             treeController.content = rootItem.children
             treeController.setSelectionIndexPaths(paths)
-
         }
     }
     
