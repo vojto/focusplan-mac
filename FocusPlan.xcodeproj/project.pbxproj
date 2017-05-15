@@ -95,6 +95,9 @@
 		99B610161EB0602A0098F69C /* ProjectTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B610151EB0602A0098F69C /* ProjectTableCellView.swift */; };
 		99BBB0241EB8BFB5002C603F /* TimerLane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BBB0231EB8BFB5002C603F /* TimerLane.swift */; };
 		99BBB0271EB8C270002C603F /* Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BBB0261EB8C270002C603F /* Formatting.swift */; };
+		99C9A4241EC988D200AFF489 /* SwiftCSV.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99C9A4231EC988D200AFF489 /* SwiftCSV.framework */; };
+		99C9A4251EC988D600AFF489 /* SwiftCSV.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99C9A4231EC988D200AFF489 /* SwiftCSV.framework */; };
+		99C9A4261EC988D600AFF489 /* SwiftCSV.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 99C9A4231EC988D200AFF489 /* SwiftCSV.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		99D122EB1EB86D6C00D495DC /* CalendarEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D122EA1EB86D6C00D495DC /* CalendarEvent.swift */; };
 		99D122ED1EB8729A00D495DC /* TimerEntry+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D122EC1EB8729A00D495DC /* TimerEntry+Extensions.swift */; };
 		99D122EF1EB8A6C500D495DC /* MainWindowDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D122EE1EB8A6C500D495DC /* MainWindowDelegate.swift */; };
@@ -131,6 +134,7 @@
 				997FFBD91EAF7DB200ABEA01 /* NiceKit.framework in Embed Frameworks */,
 				99B610121EB05D570098F69C /* Hue.framework in Embed Frameworks */,
 				994063C71EB7028A00E09165 /* SwiftDate.framework in Embed Frameworks */,
+				99C9A4261EC988D600AFF489 /* SwiftCSV.framework in Embed Frameworks */,
 				99A7626A1EB1C2D000A90AE9 /* NiceUI.framework in Embed Frameworks */,
 				997FFBD11EAF7DB200ABEA01 /* ReactiveSwift.framework in Embed Frameworks */,
 			);
@@ -220,6 +224,7 @@
 		99B610151EB0602A0098F69C /* ProjectTableCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectTableCellView.swift; sourceTree = "<group>"; };
 		99BBB0231EB8BFB5002C603F /* TimerLane.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerLane.swift; sourceTree = "<group>"; };
 		99BBB0261EB8C270002C603F /* Formatting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Formatting.swift; sourceTree = "<group>"; };
+		99C9A4231EC988D200AFF489 /* SwiftCSV.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftCSV.framework; path = Carthage/Build/Mac/SwiftCSV.framework; sourceTree = "<group>"; };
 		99D122EA1EB86D6C00D495DC /* CalendarEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarEvent.swift; sourceTree = "<group>"; };
 		99D122EC1EB8729A00D495DC /* TimerEntry+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TimerEntry+Extensions.swift"; sourceTree = "<group>"; };
 		99D122EE1EB8A6C500D495DC /* MainWindowDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainWindowDelegate.swift; sourceTree = "<group>"; };
@@ -249,10 +254,12 @@
 				997FFBD21EAF7DB200ABEA01 /* Result.framework in Frameworks */,
 				991E7B1E1EB06A340086A9D9 /* NiceReactive.framework in Frameworks */,
 				99B610101EB05D550098F69C /* Hue.framework in Frameworks */,
+				99C9A4251EC988D600AFF489 /* SwiftCSV.framework in Frameworks */,
 				99A762691EB1C2D000A90AE9 /* NiceUI.framework in Frameworks */,
 				994063C61EB7028500E09165 /* SwiftDate.framework in Frameworks */,
 				997FFBD61EAF7DB200ABEA01 /* Cartography.framework in Frameworks */,
 				997FFBCE1EAF7DB200ABEA01 /* ReactiveCocoa.framework in Frameworks */,
+				99C9A4241EC988D200AFF489 /* SwiftCSV.framework in Frameworks */,
 				997FFBD81EAF7DB200ABEA01 /* NiceKit.framework in Frameworks */,
 				997FFBD01EAF7DB200ABEA01 /* ReactiveSwift.framework in Frameworks */,
 				99A762681EB1C2CD00A90AE9 /* NiceUI.framework in Frameworks */,
@@ -368,6 +375,7 @@
 		9922F1181EAF654800BFA01F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				99C9A4231EC988D200AFF489 /* SwiftCSV.framework */,
 				994063C51EB7028500E09165 /* SwiftDate.framework */,
 				99A762671EB1C2CD00A90AE9 /* NiceUI.framework */,
 				991E7B1D1EB06A340086A9D9 /* NiceReactive.framework */,

@@ -54,6 +54,16 @@ extension Task {
         return task
     }
     
+    static func findBy(externalId: String, in context: NSManagedObjectContext) -> Task? {
+        let request = NSFetchRequest<Task>(entityName: self.entity().name!)
+        
+        request.predicate = NSPredicate(format: "externalId = %@", externalId)
+        request.fetchLimit = 1
+        
+        let results = try! context.fetch(request)
+        return results.first
+    }
+    
     func moveToEndInPlannedList(in context: NSManagedObjectContext) {
         guard let date = (plannedFor as Date?) else { return }
         

@@ -8,6 +8,7 @@
 
 import Foundation
 import AppKit
+import SwiftCSV
 
 class ScriptingManager {
     
@@ -60,10 +61,10 @@ class ScriptingManager {
             return false
         }
         
-        guard let existingData = try? Data(contentsOf: installedURL) else { return false }
-        guard let bundleData = try? Data(contentsOf: bundleURL) else { return false }
+        guard let existingScript = NSAppleScript(contentsOf: installedURL, error: nil)?.source else { return false }
+        guard let bundleScript = NSAppleScript(contentsOf: bundleURL, error: nil)?.source else { return false }
         
-        if existingData == bundleData {
+        if existingScript == bundleScript {
             return true
         } else {
             return false
@@ -133,30 +134,59 @@ class ScriptingManager {
         guard let task = try? NSUserAppleScriptTask(url: url) else { return }
         
         task.execute(withAppleEvent: nil) { (result, error) in
-            Swift.print("Error: \(error)")
-            Swift.print("Result: \(result)")
+            // TODO: Handle error
             
-            let str = result?.stringValue
-            
-            Swift.print("Result string: \(str)")
+            if let str = result?.stringValue {
+                self.handleImportedCSV(str)
+            }
         }
-        
-        
-        /*
-//        guard let script = NSAppleScript(contentsOf: url, error: nil) else { return }
-        
-        Swift.print("Running script at: \(url)")
-        
-        var err: NSDictionary?
-        let result = script.executeAndReturnError(&err)
-        let str = result.stringValue
-        
-        Swift.print("Error: \(err)")
-        Swift.print("Result: \(str)")
-        */
-        
-        
     }
     
-    
+    func handleImportedCSV(_ data: String) {
+        let csv = CSV(string: data)
+        
+        let context = AppDelegate.viewContext
+        
+        let rows = csv.enumeratedRows
+        
+        for row in rows {
+            guard let id = row.at(0) else { continue }
+            guard let projectId = row.at(1) else { continue }
+            guard let projectName = row.at(2) else { continue }
+            guard let name = row.at(3) else { continue }
+            let estimate = row.at(4)
+            let estimateMinutes = Int(estimate ?? "")
+            
+            if name == projectName {
+                continue
+            }
+            
+            var project = Project.findBy(externalId: projectId, in: context)
+            
+            if project == nil {
+                project = Project.create(in: context)
+                project?.externalId = projectId
+                project?.moveToEndOfList(in: context)
+            }
+            
+            project?.name = projectName
+            
+            var task = Task.findBy(externalId: id, in: context)
+            
+            if task == nil {
+                task = Task.create(in: context)
+                task?.plannedFor = nil
+                task?.externalId = id
+            }
+            
+            task?.project = project
+            task?.title = name
+            task?.estimatedMinutes = Int64(estimateMinutes ?? 0)
+            task?.moveToEndInProjectList(in: context)
+        }
+        
+        Swift.print("Imported \(rows.count) rows!")
+        
+
+    }
 }

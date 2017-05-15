@@ -116,7 +116,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
         let url = self.applicationDocumentsDirectory.appendingPathComponent("FocusPlan.sqlite")
-        let storeOptions = [
+        
+        let storeOptions: [String: Any] = [
             NSPersistentStoreUbiquitousContentNameKey: "FocusPlanStore"
 //            NSPersistentStoreUbiquitousContentURLKey: "Path/",
 //            NSPersistentStoreUbiquitousPeerTokenOption: "foo"

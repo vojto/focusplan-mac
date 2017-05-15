@@ -21,4 +21,26 @@ extension Project {
         
         return project
     }
+    
+    func moveToEndOfList(in context: NSManagedObjectContext) {
+        let request = NSFetchRequest<Project>(entityName: Project.entity().name!)
+        
+        request.sortDescriptors = [NSSortDescriptor(key: "weight", ascending: false)]
+        request.fetchLimit = 1
+        
+        let results = try! context.fetch(request)
+        
+        self.weight = (results.first?.weight ?? 0) + 1
+    }
+    
+    static func findBy(externalId: String, in context: NSManagedObjectContext) -> Project? {
+        let request = NSFetchRequest<Project>(entityName: Project.entity().name!)
+        
+        request.predicate = NSPredicate(format: "externalId = %@", externalId)
+        request.fetchLimit = 1
+        
+        let results = try! context.fetch(request)
+        
+        return results.first
+    }
 }
