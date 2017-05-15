@@ -20,6 +20,20 @@
 	<string>1.0.0</string>
 	<key>CFBundleVersion</key>
 	<string>58</string>
+	<key>Fabric</key>
+	<dict>
+		<key>APIKey</key>
+		<string>db06f38191134c3a84f59ca00eb465bfd13d37fa</string>
+		<key>Kits</key>
+		<array>
+			<dict>
+				<key>KitInfo</key>
+				<dict/>
+				<key>KitName</key>
+				<string>Answers</string>
+			</dict>
+		</array>
+	</dict>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.productivity</string>
 	<key>LSMinimumSystemVersion</key>
