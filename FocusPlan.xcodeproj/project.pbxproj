@@ -34,7 +34,9 @@
 		9933E4A21EBA176500B1CE85 /* CalendarSectionLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9933E4A11EBA176500B1CE85 /* CalendarSectionLabel.swift */; };
 		993550321EC99D33004B6D23 /* AlertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993550311EC99D33004B6D23 /* AlertHelper.swift */; };
 		993550391EC9C6D4004B6D23 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 993550371EC9C6D4004B6D23 /* Fabric.framework */; };
-		9935503A1EC9C6D4004B6D23 /* Answers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 993550381EC9C6D4004B6D23 /* Answers.framework */; };
+		9935503C1EC9CDA7004B6D23 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9935503B1EC9CDA7004B6D23 /* Crashlytics.framework */; };
+		9935503D1EC9CDB9004B6D23 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9935503B1EC9CDA7004B6D23 /* Crashlytics.framework */; };
+		9935503E1EC9CDB9004B6D23 /* Crashlytics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9935503B1EC9CDA7004B6D23 /* Crashlytics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		994063C61EB7028500E09165 /* SwiftDate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 994063C51EB7028500E09165 /* SwiftDate.framework */; };
 		994063C71EB7028A00E09165 /* SwiftDate.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 994063C51EB7028500E09165 /* SwiftDate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		994063C91EB7035400E09165 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994063C81EB7035400E09165 /* Date+Extensions.swift */; };
@@ -139,6 +141,7 @@
 				994063C71EB7028A00E09165 /* SwiftDate.framework in Embed Frameworks */,
 				99C9A4261EC988D600AFF489 /* SwiftCSV.framework in Embed Frameworks */,
 				99A7626A1EB1C2D000A90AE9 /* NiceUI.framework in Embed Frameworks */,
+				9935503E1EC9CDB9004B6D23 /* Crashlytics.framework in Embed Frameworks */,
 				997FFBD11EAF7DB200ABEA01 /* ReactiveSwift.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -177,7 +180,7 @@
 		9933E4A11EBA176500B1CE85 /* CalendarSectionLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarSectionLabel.swift; sourceTree = "<group>"; };
 		993550311EC99D33004B6D23 /* AlertHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertHelper.swift; sourceTree = "<group>"; };
 		993550371EC9C6D4004B6D23 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
-		993550381EC9C6D4004B6D23 /* Answers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Answers.framework; sourceTree = "<group>"; };
+		9935503B1EC9CDA7004B6D23 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		994063C51EB7028500E09165 /* SwiftDate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftDate.framework; path = Carthage/Build/Mac/SwiftDate.framework; sourceTree = "<group>"; };
 		994063C81EB7035400E09165 /* Date+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		994063CA1EB70ECA00E09165 /* CalendarHourHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarHourHeader.xib; sourceTree = "<group>"; };
@@ -257,8 +260,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9935503A1EC9C6D4004B6D23 /* Answers.framework in Frameworks */,
 				997FFBD21EAF7DB200ABEA01 /* Result.framework in Frameworks */,
+				9935503C1EC9CDA7004B6D23 /* Crashlytics.framework in Frameworks */,
 				991E7B1E1EB06A340086A9D9 /* NiceReactive.framework in Frameworks */,
 				99B610101EB05D550098F69C /* Hue.framework in Frameworks */,
 				99C9A4251EC988D600AFF489 /* SwiftCSV.framework in Frameworks */,
@@ -267,6 +270,7 @@
 				997FFBD61EAF7DB200ABEA01 /* Cartography.framework in Frameworks */,
 				993550391EC9C6D4004B6D23 /* Fabric.framework in Frameworks */,
 				997FFBCE1EAF7DB200ABEA01 /* ReactiveCocoa.framework in Frameworks */,
+				9935503D1EC9CDB9004B6D23 /* Crashlytics.framework in Frameworks */,
 				99C9A4241EC988D200AFF489 /* SwiftCSV.framework in Frameworks */,
 				997FFBD81EAF7DB200ABEA01 /* NiceKit.framework in Frameworks */,
 				997FFBD01EAF7DB200ABEA01 /* ReactiveSwift.framework in Frameworks */,
@@ -384,8 +388,8 @@
 		9922F1181EAF654800BFA01F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9935503B1EC9CDA7004B6D23 /* Crashlytics.framework */,
 				993550371EC9C6D4004B6D23 /* Fabric.framework */,
-				993550381EC9C6D4004B6D23 /* Answers.framework */,
 				99C9A4231EC988D200AFF489 /* SwiftCSV.framework */,
 				994063C51EB7028500E09165 /* SwiftDate.framework */,
 				99A762671EB1C2CD00A90AE9 /* NiceUI.framework */,
@@ -880,7 +884,7 @@
 				CODE_SIGN_ENTITLEMENTS = FocusPlan/FocusPlan.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 58;
+				CURRENT_PROJECT_VERSION = 60;
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -904,7 +908,7 @@
 				CODE_SIGN_ENTITLEMENTS = FocusPlan/FocusPlan.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 58;
+				CURRENT_PROJECT_VERSION = 60;
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

@@ -11,7 +11,7 @@ import ReactiveSwift
 import ReactiveCocoa
 import NiceData
 import Fabric
-import Answers
+import Crashlytics
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -56,7 +56,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
-        Fabric.with([Answers.self])
+        Fabric.with([Answers.self, Crashlytics.self])
 
 //        BITHockeyManager.shared().configure(withIdentifier: "adb84588f78d456c9cb6fe62e76b7481")
 //        // Do some additional configuration if needed here

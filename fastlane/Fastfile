@@ -79,15 +79,15 @@ platform :ios do
 
     # system("open #{build_dir}")
 
-    zip_path = app_path + ".zip"
-    app_filename = File.basename(app_path)
-    Actions.sh("pushd #{build_dir} && zip -y -r #{zip_path} #{app_filename}/* && popd")
+    # zip_path = app_path + ".zip"
+    # app_filename = File.basename(app_path)
+    # Actions.sh("pushd #{build_dir} && zip -y -r #{zip_path} #{app_filename}/* && popd")
 
-    hockey(
-      :api_token => "aec6fd6f1ad54a5686fca0b5a7916710",
-      :ipa => zip_path,
-      :dsym => dsym_path
-    )
+    # hockey(
+    #   :api_token => "aec6fd6f1ad54a5686fca0b5a7916710",
+    #   :ipa => zip_path,
+    #   :dsym => dsym_path
+    # )
     
     Actions.sh "mv #{app_path} /Applications"
   end
