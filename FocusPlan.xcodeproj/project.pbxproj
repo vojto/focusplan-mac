@@ -33,6 +33,8 @@
 		9933E4A01EBA13CF00B1CE85 /* CalendarSectionLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9933E49F1EBA13CF00B1CE85 /* CalendarSectionLine.swift */; };
 		9933E4A21EBA176500B1CE85 /* CalendarSectionLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9933E4A11EBA176500B1CE85 /* CalendarSectionLabel.swift */; };
 		993550321EC99D33004B6D23 /* AlertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993550311EC99D33004B6D23 /* AlertHelper.swift */; };
+		993550351EC9AE9D004B6D23 /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 993550341EC9AE9D004B6D23 /* HockeySDK.framework */; };
+		993550361EC9AEA3004B6D23 /* HockeySDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 993550341EC9AE9D004B6D23 /* HockeySDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		994063C61EB7028500E09165 /* SwiftDate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 994063C51EB7028500E09165 /* SwiftDate.framework */; };
 		994063C71EB7028A00E09165 /* SwiftDate.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 994063C51EB7028500E09165 /* SwiftDate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		994063C91EB7035400E09165 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994063C81EB7035400E09165 /* Date+Extensions.swift */; };
@@ -135,6 +137,7 @@
 				997FFBD91EAF7DB200ABEA01 /* NiceKit.framework in Embed Frameworks */,
 				99B610121EB05D570098F69C /* Hue.framework in Embed Frameworks */,
 				994063C71EB7028A00E09165 /* SwiftDate.framework in Embed Frameworks */,
+				993550361EC9AEA3004B6D23 /* HockeySDK.framework in Embed Frameworks */,
 				99C9A4261EC988D600AFF489 /* SwiftCSV.framework in Embed Frameworks */,
 				99A7626A1EB1C2D000A90AE9 /* NiceUI.framework in Embed Frameworks */,
 				997FFBD11EAF7DB200ABEA01 /* ReactiveSwift.framework in Embed Frameworks */,
@@ -174,6 +177,7 @@
 		9933E49F1EBA13CF00B1CE85 /* CalendarSectionLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarSectionLine.swift; sourceTree = "<group>"; };
 		9933E4A11EBA176500B1CE85 /* CalendarSectionLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarSectionLabel.swift; sourceTree = "<group>"; };
 		993550311EC99D33004B6D23 /* AlertHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertHelper.swift; sourceTree = "<group>"; };
+		993550341EC9AE9D004B6D23 /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HockeySDK.framework; path = "HockeySDK-Mac/HockeySDK.framework"; sourceTree = "<group>"; };
 		994063C51EB7028500E09165 /* SwiftDate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftDate.framework; path = Carthage/Build/Mac/SwiftDate.framework; sourceTree = "<group>"; };
 		994063C81EB7035400E09165 /* Date+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		994063CA1EB70ECA00E09165 /* CalendarHourHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarHourHeader.xib; sourceTree = "<group>"; };
@@ -259,6 +263,7 @@
 				99C9A4251EC988D600AFF489 /* SwiftCSV.framework in Frameworks */,
 				99A762691EB1C2D000A90AE9 /* NiceUI.framework in Frameworks */,
 				994063C61EB7028500E09165 /* SwiftDate.framework in Frameworks */,
+				993550351EC9AE9D004B6D23 /* HockeySDK.framework in Frameworks */,
 				997FFBD61EAF7DB200ABEA01 /* Cartography.framework in Frameworks */,
 				997FFBCE1EAF7DB200ABEA01 /* ReactiveCocoa.framework in Frameworks */,
 				99C9A4241EC988D200AFF489 /* SwiftCSV.framework in Frameworks */,
@@ -378,6 +383,7 @@
 		9922F1181EAF654800BFA01F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				993550341EC9AE9D004B6D23 /* HockeySDK.framework */,
 				99C9A4231EC988D200AFF489 /* SwiftCSV.framework */,
 				994063C51EB7028500E09165 /* SwiftDate.framework */,
 				99A762671EB1C2CD00A90AE9 /* NiceUI.framework */,
@@ -598,6 +604,7 @@
 				99078BEE1EAF1CD000C3B789 /* Frameworks */,
 				99078BEF1EAF1CD000C3B789 /* Resources */,
 				997FFBDA1EAF7DB300ABEA01 /* Embed Frameworks */,
+				993550331EC9AE88004B6D23 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -676,6 +683,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		993550331EC9AE88004B6D23 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "FILE=\"${SRCROOT}/HockeySDK-Mac/BuildAgent\"\nif [ -f \"$FILE\" ]; then\n\"$FILE\"\nfi";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		99078BED1EAF1CD000C3B789 /* Sources */ = {
@@ -860,6 +883,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
+					"$(PROJECT_DIR)/HockeySDK-Mac",
 				);
 				INFOPLIST_FILE = FocusPlan/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -882,6 +906,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
+					"$(PROJECT_DIR)/HockeySDK-Mac",
 				);
 				INFOPLIST_FILE = FocusPlan/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";

@@ -186,6 +186,9 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     }
     
     func outlineView(_ outlineView: NSOutlineView, shouldSelectItem item: Any) -> Bool {
+//        var arr = [Int]()
+//        _ = arr[5]
+        
         let obj = (item as? NSTreeNode)?.representedObject
         
         if obj is ProjectItem {

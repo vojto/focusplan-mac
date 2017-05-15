@@ -10,7 +10,7 @@ import Cocoa
 import ReactiveSwift
 import ReactiveCocoa
 import NiceData
-
+import HockeySDK
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -55,6 +55,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
 
+        BITHockeyManager.shared().configure(withIdentifier: "adb84588f78d456c9cb6fe62e76b7481")
+        // Do some additional configuration if needed here
+        BITHockeyManager.shared().start()
+
+        
         setupAutosave()
         
         setupTimerWindow()
