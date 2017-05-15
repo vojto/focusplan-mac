@@ -38,13 +38,13 @@ platform :ios do
     end
   end
 
-  lane :switch_to_beta do
-    rewrite_from_all(files_with_suite_id, suite_id_beta)
-  end
+  # lane :switch_to_beta do
+  #   rewrite_from_all(files_with_suite_id, suite_id_beta)
+  # end
 
-  lane :switch_to_dev do
-    rewrite_from_all(files_with_suite_id, suite_id_dev)
-  end
+  # lane :switch_to_dev do
+  #   rewrite_from_all(files_with_suite_id, suite_id_dev)
+  # end
 
   lane :beta do
     increment_build_number
@@ -55,7 +55,7 @@ platform :ios do
 
     system("rm -rf #{build_dir}")
 
-    switch_to_beta
+    # switch_to_beta
 
     build_dir = gym(
       scheme: "FocusPlan",
@@ -69,7 +69,7 @@ platform :ios do
     build_dir = File.dirname(app_path)
     dsym_path = File.join(build_dir, "FocusPlan.app.dSYM.zip")
 
-    switch_to_dev
+    # switch_to_dev
 
 
     # Deploy locally...
