@@ -340,7 +340,7 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
     func createEventsForHybrid(fromTasks tasks: [Task], timerEntries: [TimerEntry]) -> [CalendarEvent] {
         var events = [CalendarEvent]()
         
-        let tasksByDays = tasks.group { ($0.plannedFor! as Date).string(format: .custom("yyyyMMdd")) }
+        let tasksByDays = tasks.group { ($0.plannedFor as Date?)?.string(format: .custom("yyyyMMdd")) ?? "" }
 
         for (_, tasks) in tasksByDays {
             for (_, task) in tasks.enumerated() {

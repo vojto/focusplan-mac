@@ -142,7 +142,9 @@ class ScriptingManager {
             // TODO: Handle error
             
             if let str = result?.stringValue {
-                self.handleImportedCSV(str)
+                DispatchQueue.main.async {
+                    self.handleImportedCSV(str)
+                }
             }
         }
     }
@@ -188,6 +190,10 @@ class ScriptingManager {
             task?.title = name
             task?.estimatedMinutes = Int64(estimateMinutes ?? 0)
             task?.moveToEndInProjectList(in: context)
+        }
+        
+        DispatchQueue.main.async {
+            AppDelegate.instance?.mainWindow.showProjects(self)
         }
     }
 }

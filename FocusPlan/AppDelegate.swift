@@ -291,8 +291,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 self.scripting.installScripts() {
                     self.scripting.importOmniFocus()
                     
-                    self.mainWindow.showProjects(self)
-                    
                     AlertHelper.info(title: "Import finished", description: "If you don't see any tasks imported, make sure you have OmniFocus installed and that are any unchecked tasks.")
                 }
             }
