@@ -6,3 +6,4 @@ github "ReactiveCocoa/ReactiveSwift" ~> 1.1
 github "ReactiveCocoa/ReactiveCocoa" ~> 5.0
 github "vojto/SwiftDate" "master"
 github "radex/SwiftyUserDefaults" ~> 3.0.1
+github "naoty/SwiftCSV" "develop"
