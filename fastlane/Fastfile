@@ -46,6 +46,10 @@ platform :ios do
   #   rewrite_from_all(files_with_suite_id, suite_id_dev)
   # end
 
+  lane :bump do
+    increment_build_number
+  end
+
   lane :beta do
     increment_build_number
 
@@ -88,7 +92,7 @@ platform :ios do
       :ipa => zip_path,
       :dsym => dsym_path
     )
-    
+
     Actions.sh "mv #{app_path} /Applications"
   end
 

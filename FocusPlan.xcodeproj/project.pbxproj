@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		728EC0C6A600767FB2C10561 /* Pods_FocusPlan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE19EC429800EA42F114C446 /* Pods_FocusPlan.framework */; };
 		99078BF51EAF1CD000C3B789 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99078BF41EAF1CD000C3B789 /* AppDelegate.swift */; };
 		99078BFA1EAF1CD000C3B789 /* FocusPlan.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 99078BF81EAF1CD000C3B789 /* FocusPlan.xcdatamodeld */; };
 		99078BFC1EAF1CD000C3B789 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99078BFB1EAF1CD000C3B789 /* Assets.xcassets */; };
@@ -33,10 +34,6 @@
 		9933E4A01EBA13CF00B1CE85 /* CalendarSectionLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9933E49F1EBA13CF00B1CE85 /* CalendarSectionLine.swift */; };
 		9933E4A21EBA176500B1CE85 /* CalendarSectionLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9933E4A11EBA176500B1CE85 /* CalendarSectionLabel.swift */; };
 		993550321EC99D33004B6D23 /* AlertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993550311EC99D33004B6D23 /* AlertHelper.swift */; };
-		993550391EC9C6D4004B6D23 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 993550371EC9C6D4004B6D23 /* Fabric.framework */; };
-		9935503C1EC9CDA7004B6D23 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9935503B1EC9CDA7004B6D23 /* Crashlytics.framework */; };
-		9935503D1EC9CDB9004B6D23 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9935503B1EC9CDA7004B6D23 /* Crashlytics.framework */; };
-		9935503E1EC9CDB9004B6D23 /* Crashlytics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9935503B1EC9CDA7004B6D23 /* Crashlytics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		994063C61EB7028500E09165 /* SwiftDate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 994063C51EB7028500E09165 /* SwiftDate.framework */; };
 		994063C71EB7028A00E09165 /* SwiftDate.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 994063C51EB7028500E09165 /* SwiftDate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		994063C91EB7035400E09165 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994063C81EB7035400E09165 /* Date+Extensions.swift */; };
@@ -141,7 +138,6 @@
 				994063C71EB7028A00E09165 /* SwiftDate.framework in Embed Frameworks */,
 				99C9A4261EC988D600AFF489 /* SwiftCSV.framework in Embed Frameworks */,
 				99A7626A1EB1C2D000A90AE9 /* NiceUI.framework in Embed Frameworks */,
-				9935503E1EC9CDB9004B6D23 /* Crashlytics.framework in Embed Frameworks */,
 				997FFBD11EAF7DB200ABEA01 /* ReactiveSwift.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -150,6 +146,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0465F2043DDDB30A3E16505C /* Pods-FocusPlan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FocusPlan.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FocusPlan/Pods-FocusPlan.debug.xcconfig"; sourceTree = "<group>"; };
+		7F46BF0B2D66AB30F28190F6 /* Pods-FocusPlan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FocusPlan.release.xcconfig"; path = "Pods/Target Support Files/Pods-FocusPlan/Pods-FocusPlan.release.xcconfig"; sourceTree = "<group>"; };
 		99078BF11EAF1CD000C3B789 /* FocusPlan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FocusPlan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99078BF41EAF1CD000C3B789 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		99078BF91EAF1CD000C3B789 /* FocusPlan.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FocusPlan.xcdatamodel; sourceTree = "<group>"; };
@@ -179,8 +177,6 @@
 		9933E49F1EBA13CF00B1CE85 /* CalendarSectionLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarSectionLine.swift; sourceTree = "<group>"; };
 		9933E4A11EBA176500B1CE85 /* CalendarSectionLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarSectionLabel.swift; sourceTree = "<group>"; };
 		993550311EC99D33004B6D23 /* AlertHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertHelper.swift; sourceTree = "<group>"; };
-		993550371EC9C6D4004B6D23 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
-		9935503B1EC9CDA7004B6D23 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		994063C51EB7028500E09165 /* SwiftDate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftDate.framework; path = Carthage/Build/Mac/SwiftDate.framework; sourceTree = "<group>"; };
 		994063C81EB7035400E09165 /* Date+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		994063CA1EB70ECA00E09165 /* CalendarHourHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarHourHeader.xib; sourceTree = "<group>"; };
@@ -253,6 +249,7 @@
 		99EEDE371EAF854200662DED /* NiceData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NiceData.framework; path = Carthage/Build/Mac/NiceData.framework; sourceTree = "<group>"; };
 		99EEDE591EAF866A00662DED /* FocusPlan.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FocusPlan.entitlements; sourceTree = "<group>"; };
 		99EEDE5C1EAF931500662DED /* ProjectsOutlineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectsOutlineView.swift; sourceTree = "<group>"; };
+		FE19EC429800EA42F114C446 /* Pods_FocusPlan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FocusPlan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -261,21 +258,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				997FFBD21EAF7DB200ABEA01 /* Result.framework in Frameworks */,
-				9935503C1EC9CDA7004B6D23 /* Crashlytics.framework in Frameworks */,
 				991E7B1E1EB06A340086A9D9 /* NiceReactive.framework in Frameworks */,
 				99B610101EB05D550098F69C /* Hue.framework in Frameworks */,
 				99C9A4251EC988D600AFF489 /* SwiftCSV.framework in Frameworks */,
 				99A762691EB1C2D000A90AE9 /* NiceUI.framework in Frameworks */,
 				994063C61EB7028500E09165 /* SwiftDate.framework in Frameworks */,
 				997FFBD61EAF7DB200ABEA01 /* Cartography.framework in Frameworks */,
-				993550391EC9C6D4004B6D23 /* Fabric.framework in Frameworks */,
 				997FFBCE1EAF7DB200ABEA01 /* ReactiveCocoa.framework in Frameworks */,
-				9935503D1EC9CDB9004B6D23 /* Crashlytics.framework in Frameworks */,
 				99C9A4241EC988D200AFF489 /* SwiftCSV.framework in Frameworks */,
 				997FFBD81EAF7DB200ABEA01 /* NiceKit.framework in Frameworks */,
 				997FFBD01EAF7DB200ABEA01 /* ReactiveSwift.framework in Frameworks */,
 				99A762681EB1C2CD00A90AE9 /* NiceUI.framework in Frameworks */,
 				99EEDE391EAF855400662DED /* NiceData.framework in Frameworks */,
+				728EC0C6A600767FB2C10561 /* Pods_FocusPlan.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,6 +283,7 @@
 				99078BF31EAF1CD000C3B789 /* FocusPlan */,
 				99078BF21EAF1CD000C3B789 /* Products */,
 				9922F1181EAF654800BFA01F /* Frameworks */,
+				A31B13E7F81C6EC670404828 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -388,8 +384,6 @@
 		9922F1181EAF654800BFA01F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				9935503B1EC9CDA7004B6D23 /* Crashlytics.framework */,
-				993550371EC9C6D4004B6D23 /* Fabric.framework */,
 				99C9A4231EC988D200AFF489 /* SwiftCSV.framework */,
 				994063C51EB7028500E09165 /* SwiftDate.framework */,
 				99A762671EB1C2CD00A90AE9 /* NiceUI.framework */,
@@ -401,6 +395,7 @@
 				997FFBC81EAF7DA900ABEA01 /* Result.framework */,
 				9922F1191EAF656000BFA01F /* Cartography.framework */,
 				9922F11A1EAF656000BFA01F /* NiceKit.framework */,
+				FE19EC429800EA42F114C446 /* Pods_FocusPlan.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -599,6 +594,15 @@
 			name = Summary;
 			sourceTree = "<group>";
 		};
+		A31B13E7F81C6EC670404828 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				0465F2043DDDB30A3E16505C /* Pods-FocusPlan.debug.xcconfig */,
+				7F46BF0B2D66AB30F28190F6 /* Pods-FocusPlan.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -606,10 +610,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 99078C031EAF1CD000C3B789 /* Build configuration list for PBXNativeTarget "FocusPlan" */;
 			buildPhases = (
+				A96D7E1D35A6749814E068D6 /* [CP] Check Pods Manifest.lock */,
 				99078BED1EAF1CD000C3B789 /* Sources */,
 				99078BEE1EAF1CD000C3B789 /* Frameworks */,
 				99078BEF1EAF1CD000C3B789 /* Resources */,
 				997FFBDA1EAF7DB300ABEA01 /* Embed Frameworks */,
+				D564DBCD85F3123ED3B28563 /* [CP] Embed Pods Frameworks */,
+				ECF6369E2A511BE9DC9F8358 /* [CP] Copy Pods Resources */,
 				993550331EC9AE88004B6D23 /* ShellScript */,
 			);
 			buildRules = (
@@ -702,7 +709,52 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./Fabric.framework/run db06f38191134c3a84f59ca00eb465bfd13d37fa 08851423d88e1f9922560e95d2bfc05993240846af66f2806de050b2923b2634";
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" db06f38191134c3a84f59ca00eb465bfd13d37fa 08851423d88e1f9922560e95d2bfc05993240846af66f2806de050b2923b2634";
+		};
+		A96D7E1D35A6749814E068D6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D564DBCD85F3123ED3B28563 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FocusPlan/Pods-FocusPlan-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		ECF6369E2A511BE9DC9F8358 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FocusPlan/Pods-FocusPlan-resources.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -879,12 +931,13 @@
 		};
 		99078C041EAF1CD000C3B789 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0465F2043DDDB30A3E16505C /* Pods-FocusPlan.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = FocusPlan/FocusPlan.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 63;
+				CURRENT_PROJECT_VERSION = 64;
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -903,12 +956,13 @@
 		};
 		99078C051EAF1CD000C3B789 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7F46BF0B2D66AB30F28190F6 /* Pods-FocusPlan.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = FocusPlan/FocusPlan.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 63;
+				CURRENT_PROJECT_VERSION = 64;
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

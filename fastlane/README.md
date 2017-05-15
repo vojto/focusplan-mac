@@ -30,6 +30,11 @@ xcode-select --install
 
 # Available Actions
 ## iOS
+### ios bump
+```
+fastlane ios bump
+```
+
 ### ios beta
 ```
 fastlane ios beta
