@@ -937,8 +937,8 @@
 				CODE_SIGN_ENTITLEMENTS = FocusPlan/FocusPlan.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 64;
-				DEVELOPMENT_TEAM = Q4C48EKH9Z;
+				CURRENT_PROJECT_VERSION = 65;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
@@ -963,8 +963,8 @@
 				CODE_SIGN_ENTITLEMENTS = FocusPlan/FocusPlan.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 64;
-				DEVELOPMENT_TEAM = Q4C48EKH9Z;
+				CURRENT_PROJECT_VERSION = 65;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
