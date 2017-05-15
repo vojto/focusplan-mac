@@ -44,7 +44,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             PreferencesKeys.pomodoroMinutes: 25,
             PreferencesKeys.shortBreakMinutes: 5,
             PreferencesKeys.longBreakMinutes: 15,
-            PreferencesKeys.longBreakEach: 4
+            PreferencesKeys.longBreakEach: 4,
+            "NSApplicationCrashOnExceptions": true
         ]
         
         defaults.register(defaults: preferences)
@@ -57,6 +58,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
         Fabric.with([Answers.self, Crashlytics.self])
+        
+        Answers.logCustomEvent(withName: "launch", customAttributes: nil)
+        
+        
 
 //        BITHockeyManager.shared().configure(withIdentifier: "adb84588f78d456c9cb6fe62e76b7481")
 //        // Do some additional configuration if needed here
