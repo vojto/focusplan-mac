@@ -10,28 +10,6 @@ import Cocoa
 import NiceData
 import ReactiveSwift
 
-extension NSTreeController {
-    
-    func indexPathOfObject(anObject:NSObject) -> NSIndexPath? {
-        return self.indexPathOfObject(anObject: anObject, nodes: (self.arrangedObjects as AnyObject).children)
-    }
-    
-    func indexPathOfObject(anObject:NSObject, nodes:[NSTreeNode]!) -> NSIndexPath? {
-        for node in nodes {
-            if (anObject == node.representedObject as! NSObject)  {
-                return node.indexPath as NSIndexPath
-            }
-            if (node.children != nil) {
-                if let path:NSIndexPath = self.indexPathOfObject(anObject: anObject, nodes: node.children)
-                {
-                    return path
-                }
-            }
-        }
-        return nil
-    }
-}
-
 class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutlineViewDelegate, NSTextFieldDelegate, NSMenuDelegate {
     
     lazy var observer: ReactiveObserver<Project> = {
@@ -232,29 +210,32 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
         let context = AppDelegate.viewContext
         
         let project = Project.create(in: context, weight: projects.count + 1)
+        project.moveToEndOfList(in: context)
         
         try! context.save()
         
-        select(project: project)
-        
         DispatchQueue.main.async {
-            self.edit(project: project)
+            if let index: Int = self.projects.index(of: project) {
+                let indexes: [Int] = [0, index]
+                let path = IndexPath(indexes: indexes)
+                
+                self.treeController.setSelectionIndexPath(path)
+                
+                self.editSelected()
+            }
         }
     }
     
     
-    func edit(project: Project) {
-        guard let item = backlogHeaderItem.children.filter({ ($0 as? ProjectItem)?.project == project }).first else { return }
-        
-        guard let path = treeController.indexPathOfObject(anObject: item) else { return }
-        
-        treeController.setSelectionIndexPaths([path as IndexPath])
+    
+    func editSelected() {
         
         let index = outlineView.selectedRow
         if let view = outlineView.view(atColumn: 0, row: index, makeIfNecessary: false) as? EditableTableCellView {
             view.startEditing()
         }
     }
+    
     
     func select(project: Project) {
         let index = outlineView.row(forItem: project)

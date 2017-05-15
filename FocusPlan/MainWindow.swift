@@ -182,6 +182,7 @@ class MainWindow: NSWindow, NSToolbarDelegate {
             let button = NSButton(image: image, target: self, action: #selector(importFromOmnifocus))
             button.bezelStyle = .texturedRounded
             button.setContentHuggingPriority(125, for: .vertical)
+            button.toolTip = "Import from OmniFocus"
             item.view = button
             return item
             
