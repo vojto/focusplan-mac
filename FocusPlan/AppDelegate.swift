@@ -292,32 +292,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func importFromOmnifocus() {
         if !scripting.allScriptsInstalled {
-            confirmInstallingScripts() {
-                self.scripting.installScripts() {
-                    self.scripting.importOmniFocus()
-                    
-                    AlertHelper.info(title: "Import finished", description: "If you don't see any tasks imported, make sure you have OmniFocus installed and that are any unchecked tasks.")
-                }
-            }
+            requestScriptsInstallation()
         } else {
             scripting.importOmniFocus()
         }
     }
     
-    func confirmInstallingScripts(_ callback: (() -> ())) {
+    func requestScriptsInstallation() {
         let alert = NSAlert()
         
-        alert.messageText = "Install importing script for OmniFocus"
-        alert.informativeText = "In order to import your data from OmniFocus, we need to install script that will copy your tasks over.\n\nWe need your permission to write to your '~/Library/Application Scripts/tech.median.FocusPlan' directory. This is a one time request.\n\nKeep it mind that with that you are giving are access to any running application on your computer. You can review installed script to how exactly we access your data."
+        alert.messageText = "Download importing package"
+        alert.informativeText = "For your security, the importing package needs to be downloaded and installed separately. It only takes a few seconds.\n\nCome back here once you've installed the package."
         alert.icon = nil
         
         alert.alertStyle = .warning
         
-        alert.addButton(withTitle: "Continue with installation")
+        alert.addButton(withTitle: "Download package")
         alert.addButton(withTitle: "Cancel")
-        
-//        alert.buttons[1].keyEquivalent = "\r"
-//        alert.buttons[0].keyEquivalent = ""
         
         let result = alert.runModal()
         
@@ -325,7 +316,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             return
         }
         
-        callback()
+        let workspace = NSWorkspace.shared()
+        let url = URL(string: "https://storage.googleapis.com/focusplan-74d7e.appspot.com/installer-20170516-085959.dmg")!
+        
+        workspace.open(url)
     }
 }
-

@@ -29,3 +29,4 @@ fastlane/test_output
 Cartfile.resolved
 
 script_installer/installer.dmg
+script_installer/installer-*.dmg
