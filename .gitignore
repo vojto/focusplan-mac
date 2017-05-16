@@ -27,3 +27,5 @@ fastlane/report.xml
 fastlane/test_output
 
 Cartfile.resolved
+
+script_installer/installer.dmg

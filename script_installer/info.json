@@ -1,0 +1,8 @@
+{
+  "title": "OmniFocus script",
+  "background": "background.png",
+  "contents": [
+    { "x": 498, "y": 340, "type": "link", "path": "/Users/vojto/Library/Application Scripts/tech.median.FocusPlan" },
+    { "x": 242, "y": 340, "type": "file", "path": "../FocusPlan/ReadOmnifocus.scpt" }
+  ]
+}
