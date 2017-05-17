@@ -317,7 +317,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         
         let workspace = NSWorkspace.shared()
-        let url = URL(string: "https://storage.googleapis.com/focusplan-74d7e.appspot.com/installer-20170516-085959.dmg")!
+        let url = URL(string: "http://focuslist.co/plan/omnifocus.html")!
         
         workspace.open(url)
     }
