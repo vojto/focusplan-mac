@@ -329,7 +329,7 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
     func endTime(forEventAt indexPath: IndexPath) -> TimeInterval {
         let event = controller.event(atIndexPath: indexPath)!
         
-        return startTime(forEventAt: indexPath) + event.duration
+        return startTime(forEventAt: indexPath) + (event.isHidden ? 0 :  event.duration)
     }
     
     var startTimes = [IndexPath: TimeInterval]()
