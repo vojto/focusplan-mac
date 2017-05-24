@@ -44,6 +44,4 @@ class AlertHelper {
         
         alert.runModal()
     }
-
-    
 }

@@ -21,6 +21,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     static var instance: AppDelegate?
     
+    let expirationDate = MutableProperty<Date?>(nil)
+    
     let menubarController = MenubarController()
     
     lazy var preferencesController: PreferencesController = PreferencesController(windowNibName: "PreferencesController")
@@ -49,6 +51,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         ]
         
         defaults.register(defaults: preferences)
+        
+        checkTrial()
     }
 
     
