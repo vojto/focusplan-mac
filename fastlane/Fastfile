@@ -38,6 +38,24 @@ platform :ios do
     end
   end
 
+  lane :enable_trial do
+    project_dir = File.expand_path(File.join(File.dirname(__FILE__), '..'))
+    file = File.join(project_dir, 'FocusPlan', 'Config.swift')
+    from = "isTrial = false"
+    to = "isTrial = true"
+
+    Actions.sh("sed -i '' 's/#{from}/#{to}/g' #{file}")
+  end
+
+  lane :disable_trial do
+    project_dir = File.expand_path(File.join(File.dirname(__FILE__), '..'))
+    file = File.join(project_dir, 'FocusPlan', 'Config.swift')
+    from = "isTrial = true"
+    to = "isTrial = false"
+
+    Actions.sh("sed -i '' 's/#{from}/#{to}/g' #{file}")
+  end
+
   # lane :switch_to_beta do
   #   rewrite_from_all(files_with_suite_id, suite_id_beta)
   # end
@@ -50,7 +68,7 @@ platform :ios do
     increment_build_number
   end
 
-  lane :beta do
+  lane :trial do
     increment_build_number
 
     project_dir = File.expand_path(File.join(File.dirname(__FILE__), '..'))

@@ -30,14 +30,19 @@ xcode-select --install
 
 # Available Actions
 ## iOS
+### ios switch_to_trial
+```
+fastlane ios switch_to_trial
+```
+
 ### ios bump
 ```
 fastlane ios bump
 ```
 
-### ios beta
+### ios trial
 ```
-fastlane ios beta
+fastlane ios trial
 ```
 
 
