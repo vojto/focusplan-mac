@@ -71,6 +71,8 @@ platform :ios do
   lane :trial do
     increment_build_number
 
+    enable_trial
+
     project_dir = File.expand_path(File.join(File.dirname(__FILE__), '..'))
 
     build_dir = File.join(project_dir, "build")
@@ -93,10 +95,9 @@ platform :ios do
 
     # switch_to_dev
 
-
     # Deploy locally...
-    Actions.sh "killall FocusPlan || date"
-    Actions.sh "rm -rf /Applications/FocusPlan.app"
+    # Actions.sh "killall FocusPlan || date"
+    # Actions.sh "rm -rf /Applications/FocusPlan.app"
     # puts "Copying " + "cp #{app_path} /Applications"
 
     # system("open #{build_dir}")
@@ -111,7 +112,9 @@ platform :ios do
       :dsym => dsym_path
     )
 
-    Actions.sh "mv #{app_path} /Applications"
+    disable_trial
+
+    # Actions.sh "mv #{app_path} /Applications"
   end
 
   # You can define as many lanes as you want
