@@ -79,6 +79,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         menubarController.setup()
         
         setupCloudMerging()
+        
+        Swift.print("Finished launching!")
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

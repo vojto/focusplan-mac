@@ -30,7 +30,7 @@ class TrialButtonViewController: NSTitlebarAccessoryViewController {
                 days = 0
             }
             
-            return "\(days) days left in trial"
+            return "Trial expires in \(days) days"
         }
         
     }

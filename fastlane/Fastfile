@@ -69,7 +69,7 @@ platform :ios do
   end
 
   lane :trial do
-    increment_build_number
+    number = increment_build_number
 
     enable_trial
 
@@ -84,8 +84,9 @@ platform :ios do
     build_dir = gym(
       scheme: "FocusPlan",
       output_directory: build_dir,
-      codesigning_identity: "Developer ID",
-      archive_path: File.join(project_dir, "build", "archive")
+      codesigning_identity: "Developer ID Application: Median Tech, s.r.o. (Q4C48EKH9Z)",
+      archive_path: File.join(project_dir, "build", "archive"),
+      provisioning_profile_path: File.join(project_dir, "XC_OSX_techmedianFocusPlan.provisionprofile")
     )
 
     app_path = File.join(build_dir, "FocusPlan.app")
@@ -102,15 +103,35 @@ platform :ios do
 
     # system("open #{build_dir}")
 
-    zip_path = app_path + ".zip"
-    app_filename = File.basename(app_path)
-    Actions.sh("pushd #{build_dir} && zip -y -r #{zip_path} #{app_filename}/* && popd")
+    # zip_path = app_path + ".zip"
+    # app_filename = File.basename(app_path)
+    # Actions.sh("pushd #{build_dir} && zip -y -r #{zip_path} #{app_filename}/* && popd")
 
-    hockey(
-      :api_token => "aec6fd6f1ad54a5686fca0b5a7916710",
-      :ipa => zip_path,
-      :dsym => dsym_path
-    )
+    # hockey(
+    #   :api_token => "aec6fd6f1ad54a5686fca0b5a7916710",
+    #   :ipa => zip_path,
+    #   :dsym => dsym_path
+    # )
+
+
+    # Prepare a DMG
+
+    build_template_dir = File.join(project_dir, "build_template")
+
+    Actions.sh("cp #{File.join(build_template_dir, "info.json")} #{build_dir}")
+    Actions.sh("cp #{File.join(build_template_dir, "background.png")} #{build_dir}")
+
+    dmg_name = "FocusPlan_Trial_build#{number}.dmg"
+
+    Actions.sh("appdmg #{File.join(build_dir, "info.json")} '#{File.join(build_dir, dmg_name)}'")
+
+    Actions.sh("gsutil cp -r '#{File.join(build_dir, dmg_name)}' gs://focusplan-74d7e.appspot.com/")
+    Actions.sh("gsutil acl ch -u AllUsers:R 'gs://focusplan-74d7e.appspot.com/#{dmg_name}'")
+
+    puts "https://storage.googleapis.com/focusplan-74d7e.appspot.com/#{dmg_name}"
+
+    # gsutil cp script_installer/$FILENAME gs://focusplan-74d7e.appspot.com/
+# gsutil acl ch -u AllUsers:R gs://focusplan-74d7e.appspot.com/$FILENAME
 
     disable_trial
 

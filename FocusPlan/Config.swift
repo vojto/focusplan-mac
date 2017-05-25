@@ -10,5 +10,5 @@ import Foundation
 
 
 struct Config {
-    static var isTrial = true
+    static var isTrial = false
 }

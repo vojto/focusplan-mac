@@ -19,8 +19,6 @@ extension AppDelegate {
         
         let trialPeriod = 7.days
         
-        Swift.print("🌈🌈 Checking for trial!")
-        
         let keychain = Keychain(service: "com.apple.account.IdentityServices.access-key")
         let key = "AppleIdMatchedUser"
         
