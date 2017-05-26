@@ -11,6 +11,8 @@ import AppKit
 import ReactiveSwift
 
 class EditableTableCellView: NSTableCellView, NSTextFieldDelegate {
+    var node: NSTreeNode?
+    var outlineView: NSOutlineView?
     let isEditing = MutableProperty<Bool>(false)
     
     override func awakeFromNib() {
@@ -37,7 +39,6 @@ class EditableTableCellView: NSTableCellView, NSTextFieldDelegate {
     }
     
     func startEditing() {
-
         guard let field = textField else { return }
         
         field.delegate = self

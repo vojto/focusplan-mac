@@ -15,6 +15,12 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     lazy var observer: ReactiveObserver<Project> = {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Project")
         request.predicate = NSPredicate(format: "parent == nil")
+    
+        request.sortDescriptors = [
+            NSSortDescriptor(key: "isFolder", ascending: false),
+            NSSortDescriptor(key: "weight", ascending: true)
+        ]
+        
         return ReactiveObserver<Project>(context: AppDelegate.viewContext, request: request)
     }()
     
@@ -52,7 +58,7 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     override func viewDidAppear() {
         disposable += observer.objects.producer.startWithValues { projects in
             
-            self.projects = projects.sorted { $0.weight < $1.weight }
+            self.projects = projects
             
 //            self.outlineView.reloadData()
             
@@ -84,37 +90,6 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     // MARK: - Outline view data source
     // ------------------------------------------------------------------------
     
-    /*
-    func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
-        if item == nil {
-            return headerItems.count
-        } else if let header = item as? HeaderItem {
-            switch header.type {
-            case .backlog:
-                return projects.count
-            case .plan:
-                return planItems.count
-            }
-        }
-        
-        return 0
-    }
-    
-    func outlineView(_ outlineView: NSOutlineView, child index: Int, ofItem item: Any?) -> Any {
-        if item == nil {
-            return headerItems[index]
-        } else if let header = item as? HeaderItem {
-            switch header.type {
-            case .backlog:
-                return projects[index]
-            case .plan:
-                return planItems[index]
-            }
-        } else {
-            fatalError()
-        }
-    }
-    */
     
     func outlineView(_ outlineView: NSOutlineView, isItemExpandable item: Any) -> Bool {
         return true
@@ -136,8 +111,8 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
         } else if let project = (item as? ProjectItem)?.project {
             let view = outlineView.make(withIdentifier: "ProjectCell", owner: self) as! ProjectTableCellView
             
-//            view.page.value = page
-            
+            view.outlineView = outlineView
+            view.node = node
             view.project.value = project
             
             var name = project.name ?? ""

@@ -14,19 +14,36 @@ class ProjectsOutlineView: NSOutlineView {
         super.mouseDown(with: event)
         
         let point    = convert(event.locationInWindow, from: nil)
+        let columnIndex = self.column(at: point)
         let rowIndex = row(at: point)
+        
+        if columnIndex < 0 || rowIndex < 0 {
+            return
+        }
         
 //        if rowIndex <= 0 {
 //            // TODO: Finish editing
 //            self.window!.makeFirstResponder(nil)
 //        }
         
+        Swift.print("Clicked at [\(columnIndex), \(rowIndex)]")
         
+        let view = self.view(atColumn: columnIndex, row: rowIndex, makeIfNecessary: false)
+        
+        if let cellView = view as? ProjectTableCellView {
+            // tell the cell view to edit or do whatever it wants to do
+        }
+        
+//        Swift.print("view is: \(view)")
+        
+        /*
         if event.clickCount == 2 {
             if rowIndex >= 1 {
                 edit(at: rowIndex, column: 0)
             }
         }
+        */
     }
-
+ 
+ 
 }

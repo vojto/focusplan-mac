@@ -17,9 +17,36 @@ import NiceReactive
 class ProjectTableCellView: EditableTableCellView {
     let project = MutableProperty<Project?>(nil)
     
-    @IBOutlet var colorPicker: ColorPicker!
+    @IBOutlet var colorPicker: ColorPicker?
+    @IBOutlet var colorView: ProjectColorView?
+    @IBOutlet var folderIcon: NSImageView?
     
     override func awakeFromNib() {
+        setupColorPicker()
+        
+        colorView!.project <~ project.producer
+        
+        setupIcon()
+    }
+    
+    func setupIcon() {
+        project.producer.startWithValues { project in
+            self.colorView?.isHidden = true
+            self.folderIcon?.isHidden = true
+        
+            if let project = project {
+                if project.isFolder {
+                    self.folderIcon?.isHidden = false
+                } else {
+                    self.colorView?.isHidden = false
+                }
+            }
+        }
+    }
+    
+    func setupColorPicker() {
+        guard let colorPicker = self.colorPicker else { return }
+        
         colorPicker.colors = Palette.colors.map { NSColor(hexString: $0.area0)! }
         colorPicker.selectedColor = colorPicker.colors.first
         colorPicker.wantsAuto = false
@@ -31,7 +58,7 @@ class ProjectTableCellView: EditableTableCellView {
         let color = project.producer.pick { $0.reactive.color }
         color.startWithValues { colorName in
             guard let nsColor = Palette.decode(colorName: colorName) else { return }
-            self.colorPicker.selectedColor = nsColor
+            colorPicker.selectedColor = nsColor
         }
     }
     
@@ -42,5 +69,14 @@ class ProjectTableCellView: EditableTableCellView {
         let value = field.stringValue
         
         project.value?.name = value
+    }
+    
+    override func mouseUp(with event: NSEvent) {
+        guard let folderIcon = self.folderIcon else { return }
+        
+        let point = convert(event.locationInWindow, from: nil)
+        let wantsExpand = folderIcon.hitTest(point)
+        
+        Swift.print("Wants to expand/collapse? \(wantsExpand)")
     }
 }

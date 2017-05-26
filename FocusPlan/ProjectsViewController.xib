@@ -28,7 +28,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="259" height="441"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" columnReordering="NO" columnResizing="NO" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="31" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="xwc-hO-G0q" id="Tx9-BQ-pkP" customClass="ProjectsOutlineView" customModule="FocusPlan" customModuleProvider="target">
+                            <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="31" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="xwc-hO-G0q" id="Tx9-BQ-pkP" customClass="ProjectsOutlineView" customModule="FocusPlan" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="259" height="441"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="2" height="3"/>
@@ -79,30 +79,37 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SiK-Vi-47n">
-                                                        <rect key="frame" x="0.0" y="6" width="224" height="17"/>
+                                                        <rect key="frame" x="18" y="6" width="97" height="17"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" focusRingType="none" title="Table View Cell" id="Mk6-4T-g3b">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
-                                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="Ket-35-kwK" customClass="ColorPicker" customModule="NiceUI">
-                                                        <rect key="frame" x="230" y="6" width="18" height="18"/>
+                                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7qf-Xq-Euk">
+                                                        <rect key="frame" x="2" y="6" width="16" height="14"/>
+                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="FolderCollapsedTemplate" id="HTc-H7-IVv"/>
+                                                    </imageView>
+                                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="RXH-9k-yjw" customClass="ProjectColorView" customModule="FocusPlan" customModuleProvider="target">
+                                                        <rect key="frame" x="5" y="8" width="13" height="13"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="18" id="3LF-7a-FTd"/>
-                                                            <constraint firstAttribute="width" constant="18" id="N8A-bg-PA5"/>
+                                                            <constraint firstAttribute="width" constant="13" id="69D-Pb-yRJ"/>
+                                                            <constraint firstAttribute="height" constant="13" id="wJJ-Ho-lKX"/>
                                                         </constraints>
                                                     </customView>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="Ket-35-kwK" firstAttribute="leading" secondItem="SiK-Vi-47n" secondAttribute="trailing" constant="8" id="4ed-eM-Nr2"/>
-                                                    <constraint firstAttribute="trailing" secondItem="Ket-35-kwK" secondAttribute="trailing" constant="8" id="KEY-in-Nwz"/>
+                                                    <constraint firstItem="7qf-Xq-Euk" firstAttribute="leading" secondItem="Crx-Sa-5pw" secondAttribute="leading" constant="2" id="MAZ-QQ-8Cv"/>
+                                                    <constraint firstItem="7qf-Xq-Euk" firstAttribute="centerY" secondItem="Crx-Sa-5pw" secondAttribute="centerY" constant="2" id="NV4-et-IGc"/>
                                                     <constraint firstItem="SiK-Vi-47n" firstAttribute="centerY" secondItem="Crx-Sa-5pw" secondAttribute="centerY" id="cqt-BE-zE7"/>
-                                                    <constraint firstItem="Ket-35-kwK" firstAttribute="centerY" secondItem="Crx-Sa-5pw" secondAttribute="centerY" id="jaT-OX-WtY"/>
-                                                    <constraint firstItem="SiK-Vi-47n" firstAttribute="leading" secondItem="Crx-Sa-5pw" secondAttribute="leading" constant="2" id="jsc-Pw-jFZ"/>
+                                                    <constraint firstItem="RXH-9k-yjw" firstAttribute="centerY" secondItem="Crx-Sa-5pw" secondAttribute="centerY" id="csJ-O4-FgN"/>
+                                                    <constraint firstItem="SiK-Vi-47n" firstAttribute="leading" secondItem="7qf-Xq-Euk" secondAttribute="trailing" constant="2" id="dO5-dj-KYz"/>
+                                                    <constraint firstItem="SiK-Vi-47n" firstAttribute="leading" secondItem="RXH-9k-yjw" secondAttribute="trailing" constant="2" id="iFU-Pd-wzs"/>
+                                                    <constraint firstItem="SiK-Vi-47n" firstAttribute="leading" secondItem="Crx-Sa-5pw" secondAttribute="leading" constant="20" id="jsc-Pw-jFZ"/>
                                                 </constraints>
                                                 <connections>
-                                                    <outlet property="colorPicker" destination="Ket-35-kwK" id="nZI-pN-TOz"/>
+                                                    <outlet property="colorView" destination="RXH-9k-yjw" id="ddO-uG-LAN"/>
+                                                    <outlet property="folderIcon" destination="7qf-Xq-Euk" id="8qm-w4-C8l"/>
                                                     <outlet property="textField" destination="SiK-Vi-47n" id="RXF-Uk-2qq"/>
                                                 </connections>
                                             </tableCellView>
@@ -171,7 +178,7 @@
             </connections>
             <point key="canvasLocation" x="151" y="591"/>
         </menu>
-        <treeController childrenKeyPath="children" countKeyPath="childCount" leafKeyPath="isLeaf" id="MYY-at-32m"/>
+        <treeController childrenKeyPath="children" countKeyPath="childCount" leafKeyPath="isLeaf" avoidsEmptySelection="NO" id="MYY-at-32m"/>
         <menu id="riQ-aK-NLd">
             <items>
                 <menuItem title="New Project" id="hYw-dT-8T6">
@@ -191,6 +198,7 @@
         </menu>
     </objects>
     <resources>
+        <image name="FolderCollapsedTemplate" width="18" height="14"/>
         <image name="NSAddTemplate" width="11" height="11"/>
     </resources>
 </document>

@@ -49,7 +49,13 @@ extension ProjectsViewController {
         
         init(project: Project) {
             self.project = project
-            super.init(children: [])
+            
+            if project.isFolder, let children = project.children as? Set<Project> {
+                let items = Array(children).map({ ProjectItem(project: $0) })
+                super.init(children: items)
+            } else {
+                super.init(children: [])
+            }
         }
     }
     
