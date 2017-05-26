@@ -14,6 +14,7 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     
     lazy var observer: ReactiveObserver<Project> = {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Project")
+        request.predicate = NSPredicate(format: "parent == nil")
         return ReactiveObserver<Project>(context: AppDelegate.viewContext, request: request)
     }()
     
@@ -40,7 +41,6 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     @IBOutlet weak var outlineView: NSOutlineView!
     
     var disposable = CompositeDisposable()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -203,14 +203,36 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     //    }
     
     
+    @IBOutlet weak var addProjectButton: NSButton!
+    @IBOutlet var addProjectMenu: NSMenu!
+    
+    @IBAction func showAddProjectMenu(_ sender: Any) {
+        addProjectMenu.popUp(positioning: nil, at: NSPoint(x: 0, y: addProjectButton.frame.size.height + 4), in: addProjectButton)
+    }
+    
     @IBAction func addProject(_ sender: Any) {
         let context = AppDelegate.viewContext
         
-        let project = Project.create(in: context, weight: projects.count + 1)
+        let project = Project.create(in: context)
         project.moveToEndOfList(in: context)
         
         try! context.save()
         
+        selectAndEdit(project: project)
+    }
+    
+    @IBAction func addFolder(_ sender: Any) {
+        let context = AppDelegate.viewContext
+        
+        let project = Project.create(in: context)
+        project.moveToEndOfList(in: context)
+        project.isFolder = true
+        
+        try! context.save()
+        
+    }
+    
+    func selectAndEdit(project: Project) {
         DispatchQueue.main.async {
             if let index: Int = self.projects.index(of: project) {
                 let indexes: [Int] = [0, index]
@@ -222,8 +244,6 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
             }
         }
     }
-    
-    
     
     func editSelected() {
         

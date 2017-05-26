@@ -200,6 +200,7 @@
 		994063D51EB761D000E09165 /* TimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
 		994208341EC2EE4800CB4D4E /* PlanViewController+Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PlanViewController+Types.swift"; sourceTree = "<group>"; };
 		994208371EC2FF5600CB4D4E /* MenubarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenubarController.swift; sourceTree = "<group>"; };
+		994999E71ED861D7008044C6 /* FocusPlan 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "FocusPlan 2.xcdatamodel"; sourceTree = "<group>"; };
 		994F0A201EC5750B00562B7A /* ProjectsViewController+Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ProjectsViewController+Types.swift"; sourceTree = "<group>"; };
 		994F0A231EC588DE00562B7A /* PreferencesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesController.swift; sourceTree = "<group>"; };
 		994F0A241EC588DE00562B7A /* PreferencesController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesController.xib; sourceTree = "<group>"; };
@@ -1042,9 +1043,10 @@
 		99078BF81EAF1CD000C3B789 /* FocusPlan.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				994999E71ED861D7008044C6 /* FocusPlan 2.xcdatamodel */,
 				99078BF91EAF1CD000C3B789 /* FocusPlan.xcdatamodel */,
 			);
-			currentVersion = 99078BF91EAF1CD000C3B789 /* FocusPlan.xcdatamodel */;
+			currentVersion = 994999E71ED861D7008044C6 /* FocusPlan 2.xcdatamodel */;
 			path = FocusPlan.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

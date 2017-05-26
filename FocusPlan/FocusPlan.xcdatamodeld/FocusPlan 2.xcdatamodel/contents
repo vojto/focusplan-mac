@@ -3,8 +3,11 @@
     <entity name="Project" representedClassName="Project" syncable="YES" codeGenerationType="class">
         <attribute name="color" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="externalId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isFolder" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="weight" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="children" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Project" inverseName="parent" inverseEntity="Project" syncable="YES"/>
+        <relationship name="parent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Project" inverseName="children" inverseEntity="Project" syncable="YES"/>
         <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Task" inverseName="project" inverseEntity="Task" syncable="YES"/>
         <relationship name="timerEntries" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TimerEntry" inverseName="project" inverseEntity="TimerEntry" syncable="YES"/>
     </entity>
@@ -33,7 +36,7 @@
         <relationship name="task" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Task" inverseName="timerEntries" inverseEntity="Task" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Project" positionX="-63" positionY="-18" width="128" height="135"/>
+        <element name="Project" positionX="-63" positionY="-18" width="128" height="180"/>
         <element name="Task" positionX="-63" positionY="9" width="128" height="225"/>
         <element name="TimerEntry" positionX="-54" positionY="63" width="128" height="165"/>
     </elements>

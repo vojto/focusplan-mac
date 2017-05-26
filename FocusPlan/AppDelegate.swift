@@ -132,7 +132,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let url = self.applicationDocumentsDirectory.appendingPathComponent("FocusPlan.sqlite")
         
         let storeOptions: [String: Any] = [
-            NSPersistentStoreUbiquitousContentNameKey: "FocusPlanStore"
+//            NSPersistentStoreUbiquitousContentNameKey: "FocusPlanStore",
+            NSMigratePersistentStoresAutomaticallyOption: true,
+            NSInferMappingModelAutomaticallyOption: true
 //            NSPersistentStoreUbiquitousContentURLKey: "Path/",
 //            NSPersistentStoreUbiquitousPeerTokenOption: "foo"
         ]

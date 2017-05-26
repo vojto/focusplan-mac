@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12118"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12120"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="ProjectsViewController" customModule="FocusPlan" customModuleProvider="target">
             <connections>
+                <outlet property="addProjectButton" destination="Rzm-Wn-fdg" id="fHY-E6-NHk"/>
+                <outlet property="addProjectMenu" destination="riQ-aK-NLd" id="epv-p3-ykU"/>
                 <outlet property="contextMenu" destination="VzZ-ji-yID" id="pap-3i-jII"/>
                 <outlet property="outlineView" destination="Tx9-BQ-pkP" id="pvB-DC-4uw"/>
                 <outlet property="treeController" destination="MYY-at-32m" id="Wae-0b-QfB"/>
@@ -141,7 +143,7 @@
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <action selector="addProject:" target="-2" id="rak-Vd-R5Y"/>
+                        <action selector="showAddProjectMenu:" target="-2" id="pdr-C7-roi"/>
                     </connections>
                 </button>
             </subviews>
@@ -170,6 +172,23 @@
             <point key="canvasLocation" x="151" y="591"/>
         </menu>
         <treeController childrenKeyPath="children" countKeyPath="childCount" leafKeyPath="isLeaf" id="MYY-at-32m"/>
+        <menu id="riQ-aK-NLd">
+            <items>
+                <menuItem title="New Project" id="hYw-dT-8T6">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="addProject:" target="-2" id="eoT-OM-G5t"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="New Folder" id="FWV-VQ-TNs">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="addFolder:" target="-2" id="9qK-cp-2uh"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <point key="canvasLocation" x="438" y="285"/>
+        </menu>
     </objects>
     <resources>
         <image name="NSAddTemplate" width="11" height="11"/>
