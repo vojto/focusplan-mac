@@ -24,7 +24,11 @@ class TrialButtonViewController: NSTitlebarAccessoryViewController {
             guard let date = date else { return "" }
             
             let diff = date.startOf(component: .day) - Date().startOf(component: .day)
-            let days = Int(diff / (3600 * 24))
+            var days = Int(diff / (3600 * 24))
+            
+            if days < 0 {
+                days = 0
+            }
             
             return "\(days) days left in trial"
         }

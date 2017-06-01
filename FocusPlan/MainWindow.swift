@@ -54,14 +54,11 @@ class MainWindow: NSWindow, NSToolbarDelegate {
         
         
         if Config.isTrial {
-            
             let trialButtonController = TrialButtonViewController()
             trialButtonController.layoutAttribute = .right
             
             self.addTitlebarAccessoryViewController(trialButtonController)
-            
         }
-        
     }
 
     

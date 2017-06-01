@@ -84,7 +84,7 @@ platform :ios do
     build_dir = gym(
       scheme: "FocusPlan",
       output_directory: build_dir,
-      # codesigning_identity: identity,
+      codesigning_identity: "Developer ID",
       archive_path: File.join(project_dir, "build", "archive")
     )
 
