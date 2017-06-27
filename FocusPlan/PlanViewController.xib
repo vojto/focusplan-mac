@@ -20,7 +20,7 @@
             <rect key="frame" x="0.0" y="0.0" width="648" height="611"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
-                <splitView arrangesAllSubviews="NO" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L4c-sH-ca8">
+                <splitView arrangesAllSubviews="NO" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L4c-sH-ca8" customClass="NiceSplitView" customModule="FocusPlan" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="648" height="611"/>
                     <subviews>
                         <customView id="HeY-1b-gau">

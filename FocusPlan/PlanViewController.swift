@@ -17,11 +17,6 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
     @IBOutlet var primaryView: NSView!
     @IBOutlet var secondaryView: NSView!
     
-    @IBOutlet weak var titleField: ClickableLabel!
-    @IBOutlet weak var detailControl: NSSegmentedControl!
-    @IBOutlet weak var styleControl: NSSegmentedControl!
-    
-    
     let tasksController = TasksViewController()
     let calendarController = CalendarViewController()
     
@@ -92,8 +87,6 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
         now.startWithValues { _ in
             self.updateCalendarWithLastValues()
         }
-        
-        titleField.onDoubleClick = switchToToday
     }
     
     func updateObservers() {
@@ -128,19 +121,17 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
         switch config.detail {
         case .daily:
             primaryView.isHidden = false
-            detailControl.selectedSegment = 0
-            styleControl.isHidden = true
+            
         case .weekly:
             primaryView.isHidden = true
-            detailControl.selectedSegment = 1
-            styleControl.isHidden = false
+            
         }
         
         switch config.style {
         case .hybrid, .entries:
-            styleControl.selectedSegment = 1
+            break
         case .plan:
-            styleControl.selectedSegment = 0
+            break
         }
         
         // Update the title too while we're at it
@@ -176,34 +167,12 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
                 title = "Week of " + date.startOf(component: .weekOfYear).string(custom: "MMM d, YYYY")
             }
         }
-        
-        titleField.stringValue = title
     }
     
-    @IBAction func changeDetail(_ sender: Any) {
-        switch detailControl.selectedSegment {
-        case 0:
-            config.detail = .daily
-        case 1:
-            config.detail = .weekly
-        default: break
-        }
-    }
     
     func switchToToday() {
         config.date = Date()
     }
-    
-    @IBAction func changeStyle(_ sender: Any) {
-        switch styleControl.selectedSegment {
-        case 0:
-            self.config.style = .plan
-        case 1:
-            self.config.style = .entries
-        default: break
-        }
-    }
-
     
     
     func splitView(_ splitView: NSSplitView, shouldHideDividerAt dividerIndex: Int) -> Bool {
