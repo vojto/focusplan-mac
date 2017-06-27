@@ -10,6 +10,7 @@ import Foundation
 import AppKit
 import ReactiveSwift
 import ReactiveCocoa
+import NiceKit
 
 class TaskEstimateTableCellView: EditableTableCellView {
     var task = MutableProperty<Task?>(nil)

@@ -76,12 +76,12 @@ class TabBarController: NSViewController {
     }
     
     func createView() -> TabBarItemView {
-        var objects = NSArray()
+        var objects: NSArray? = NSMutableArray()
         
         let nib = NSNib(nibNamed: "TabBarItemView", bundle: nil)!
         nib.instantiate(withOwner: self, topLevelObjects: &objects)
         
-        return objects.filter({ $0 is TabBarItemView }).first as! TabBarItemView
+        return objects!.filter({ $0 is TabBarItemView }).first as! TabBarItemView
     }
     
     func selectTab(sender: Any) {

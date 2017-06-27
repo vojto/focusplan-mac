@@ -9,6 +9,7 @@
 import Foundation
 import AppKit
 import ReactiveSwift
+import NiceKit
 
 class TaskTitleTableCellView: EditableTableCellView {
     var task = MutableProperty<Task?>(nil)

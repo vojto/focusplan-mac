@@ -8,8 +8,9 @@
 
 import Foundation
 import AppKit
+import NiceKit
 
 
-class TasksRowView: CustomTableRowView {
+class TasksRowView: EditableTableRowView {
     
 }

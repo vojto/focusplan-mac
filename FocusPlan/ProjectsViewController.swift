@@ -9,6 +9,7 @@
 import Cocoa
 import NiceData
 import ReactiveSwift
+import NiceKit
 
 class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutlineViewDelegate, NSTextFieldDelegate, NSMenuDelegate {
     
