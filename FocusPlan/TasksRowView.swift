@@ -11,6 +11,6 @@ import AppKit
 import NiceKit
 
 
-class TasksRowView: EditableTableRowView {
+class TasksRowView: CustomTableRowView {
     
 }

@@ -29,6 +29,9 @@ class MainWindow: NSWindow, NSToolbarDelegate {
     override func awakeFromNib() {
         
         self.delegate = myDelegate
+        
+        self.titlebarAppearsTransparent = true
+        self.titleVisibility = .hidden
 
         secondaryView.include(tabBarController.view)
         
