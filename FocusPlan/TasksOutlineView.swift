@@ -15,7 +15,6 @@ class TasksOutlineView: NSOutlineView {
     }
     
     override func mouseDown(with event: NSEvent) {
-        
         let point    = convert(event.locationInWindow, from: nil)
         let rowIndex = row(at: point)
         let columnIndex = column(at: point)
