@@ -16,10 +16,11 @@ import NiceReactive
 
 class ProjectTableCellView: EditableTableCellView {
     let project = MutableProperty<Project?>(nil)
+    var node: NSTreeNode?
     
     @IBOutlet var colorPicker: ColorPicker?
     @IBOutlet var colorView: ProjectColorView?
-    @IBOutlet var folderIcon: NSImageView?
+    @IBOutlet var folderIcon: NSButton?
     
     override func awakeFromNib() {
         setupColorPicker()
@@ -71,12 +72,23 @@ class ProjectTableCellView: EditableTableCellView {
         project.value?.name = value
     }
     
-    override func mouseUp(with event: NSEvent) {
-        guard let folderIcon = self.folderIcon else { return }
+    @IBAction func toggleExpand(_ sender: AnyObject) {
+        guard let outlineView = self.outlineView else { return }
+        guard let item = self.node else { return }
         
-        let point = convert(event.locationInWindow, from: nil)
-        let wantsExpand = folderIcon.hitTest(point)
+        // TODO: find out why we have to do it throug main
+        DispatchQueue.main.async {
+            if outlineView.isItemExpanded(item) {
+                outlineView.collapseItem(item)
+            } else {
+                outlineView.expandItem(item)
+            }
+        }
         
-        Swift.print("Wants to expand/collapse? \(wantsExpand)")
+        
+        
+//        outlineView?.expandItem(item)
+        
+//        Swift.print("Expanding/collapsing!")
     }
 }

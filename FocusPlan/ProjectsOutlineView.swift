@@ -26,23 +26,20 @@ class ProjectsOutlineView: NSOutlineView {
 //            self.window!.makeFirstResponder(nil)
 //        }
         
-        Swift.print("Clicked at [\(columnIndex), \(rowIndex)]")
-        
-        let view = self.view(atColumn: columnIndex, row: rowIndex, makeIfNecessary: false)
-        
-        if let cellView = view as? ProjectTableCellView {
-            // tell the cell view to edit or do whatever it wants to do
-        }
+//        let view = self.view(atColumn: columnIndex, row: rowIndex, makeIfNecessary: false)
+//        
+//        if let cellView = view as? ProjectTableCellView {
+//            // tell the cell view to edit or do whatever it wants to do
+//            Swift.print("gonna let cell view handle the click: \(cellView)")
+//        }
         
 //        Swift.print("view is: \(view)")
         
-        /*
         if event.clickCount == 2 {
             if rowIndex >= 1 {
                 edit(at: rowIndex, column: 0)
             }
         }
-        */
     }
  
  

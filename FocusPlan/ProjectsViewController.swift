@@ -95,6 +95,12 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
         return true
     }
     
+    func outlineView(_ outlineView: NSOutlineView, shouldCollapseItem item: Any) -> Bool {
+        Swift.print("Should collapse item [\(item)]?")
+        
+        return true
+    }
+    
     // MARK: - Making views for outline view
     // ------------------------------------------------------------------------
     
@@ -135,7 +141,7 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     
     // Hides expansion arrows
     func outlineView(_ outlineView: NSOutlineView, shouldShowOutlineCellForItem item: Any) -> Bool {
-        return false
+        return true
     }
     
     func outlineView(_ outlineView: NSOutlineView, shouldSelectItem item: Any) -> Bool {        

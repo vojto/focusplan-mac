@@ -11,7 +11,6 @@ import AppKit
 import ReactiveSwift
 
 class EditableTableCellView: NSTableCellView, NSTextFieldDelegate {
-    var node: NSTreeNode?
     var outlineView: NSOutlineView?
     let isEditing = MutableProperty<Bool>(false)
     

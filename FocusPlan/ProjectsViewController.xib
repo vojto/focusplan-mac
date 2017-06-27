@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12120"/>
@@ -78,6 +78,16 @@
                                                 <rect key="frame" x="1" y="68" width="256" height="29"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
+                                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="av8-ds-QVk">
+                                                        <rect key="frame" x="0.0" y="8" width="18" height="14"/>
+                                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="FolderCollapsedTemplate" imagePosition="only" alignment="center" inset="2" id="odK-fl-CZS">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <action selector="toggleExpand:" target="Crx-Sa-5pw" id="0KG-zr-asf"/>
+                                                        </connections>
+                                                    </button>
                                                     <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SiK-Vi-47n">
                                                         <rect key="frame" x="18" y="6" width="97" height="17"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" focusRingType="none" title="Table View Cell" id="Mk6-4T-g3b">
@@ -86,10 +96,6 @@
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
-                                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7qf-Xq-Euk">
-                                                        <rect key="frame" x="2" y="6" width="16" height="14"/>
-                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="FolderCollapsedTemplate" id="HTc-H7-IVv"/>
-                                                    </imageView>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="RXH-9k-yjw" customClass="ProjectColorView" customModule="FocusPlan" customModuleProvider="target">
                                                         <rect key="frame" x="5" y="8" width="13" height="13"/>
                                                         <constraints>
@@ -99,17 +105,16 @@
                                                     </customView>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="7qf-Xq-Euk" firstAttribute="leading" secondItem="Crx-Sa-5pw" secondAttribute="leading" constant="2" id="MAZ-QQ-8Cv"/>
-                                                    <constraint firstItem="7qf-Xq-Euk" firstAttribute="centerY" secondItem="Crx-Sa-5pw" secondAttribute="centerY" constant="2" id="NV4-et-IGc"/>
+                                                    <constraint firstItem="SiK-Vi-47n" firstAttribute="leading" secondItem="av8-ds-QVk" secondAttribute="trailing" constant="2" id="AY8-qK-BlZ"/>
                                                     <constraint firstItem="SiK-Vi-47n" firstAttribute="centerY" secondItem="Crx-Sa-5pw" secondAttribute="centerY" id="cqt-BE-zE7"/>
                                                     <constraint firstItem="RXH-9k-yjw" firstAttribute="centerY" secondItem="Crx-Sa-5pw" secondAttribute="centerY" id="csJ-O4-FgN"/>
-                                                    <constraint firstItem="SiK-Vi-47n" firstAttribute="leading" secondItem="7qf-Xq-Euk" secondAttribute="trailing" constant="2" id="dO5-dj-KYz"/>
+                                                    <constraint firstItem="av8-ds-QVk" firstAttribute="centerY" secondItem="Crx-Sa-5pw" secondAttribute="centerY" id="hLe-27-8VB"/>
                                                     <constraint firstItem="SiK-Vi-47n" firstAttribute="leading" secondItem="RXH-9k-yjw" secondAttribute="trailing" constant="2" id="iFU-Pd-wzs"/>
                                                     <constraint firstItem="SiK-Vi-47n" firstAttribute="leading" secondItem="Crx-Sa-5pw" secondAttribute="leading" constant="20" id="jsc-Pw-jFZ"/>
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="colorView" destination="RXH-9k-yjw" id="ddO-uG-LAN"/>
-                                                    <outlet property="folderIcon" destination="7qf-Xq-Euk" id="8qm-w4-C8l"/>
+                                                    <outlet property="folderIcon" destination="av8-ds-QVk" id="tbI-cE-ntQ"/>
                                                     <outlet property="textField" destination="SiK-Vi-47n" id="RXF-Uk-2qq"/>
                                                 </connections>
                                             </tableCellView>
