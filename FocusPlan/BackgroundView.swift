@@ -14,4 +14,5 @@ class BackgroundView: NSView {
         NSColor.white.set()
         NSRectFill(bounds)
     }
+    
 }

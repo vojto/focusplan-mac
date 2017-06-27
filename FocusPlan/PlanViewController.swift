@@ -62,7 +62,7 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
         
         sortedTasks.startWithValues { tasks in
             self.tasksController.tasks = tasks.filter { !$0.isArchived } // <- TODO: Move this filter to observer
-            self.tasksController.heading = "Planned tasks"
+            self.tasksController.heading = "Today"
             self.tasksController.reloadData()
         }
         

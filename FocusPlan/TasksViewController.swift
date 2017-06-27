@@ -162,8 +162,7 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
     
     func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
         if item is RootItem {
-            return nil
-//            return createHeaderView(outlineView, column: tableColumn)
+            return createHeaderView(outlineView, column: tableColumn)
         } else if let task = item as? Task {
             return createTaskView(outlineView, column: tableColumn, task: task)
         }
@@ -173,8 +172,8 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
     
     func createHeaderView(_ outlineView: NSOutlineView, column: NSTableColumn?) -> NSView? {
         if column === taskColumn {
-            let view = outlineView.make(withIdentifier: "HeaderCell", owner: self) as? NSTableCellView
-            view?.textField?.stringValue = self.heading
+            guard let view = outlineView.make(withIdentifier: "HeaderCell", owner: self) as? TasksHeaderTableCellView else { assertionFailure(); return nil }
+            view.textField?.stringValue = self.heading
             return view
         }
         return nil // no header view for now
@@ -390,7 +389,6 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
     
     func outlineView(_ outlineView: NSOutlineView, heightOfRowByItem item: Any) -> CGFloat {
         if let task = item as? Task {
-            
 
             if dummyTitleCellView == nil {
                 dummyTitleCellView = outlineView.make(withIdentifier: "TaskCell", owner: self) as! TaskTitleTableCellView
@@ -398,7 +396,6 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
                 dummyTitleCellView.setContentHuggingPriority(1, for: .vertical)
                 dummyTitleCellView.setContentHuggingPriority(NSLayoutPriorityRequired, for: .horizontal)
             }
-            
             
             dummyTitleCellView.task.value = task
             
@@ -420,7 +417,7 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
             
             return size.height
         } else if item is RootItem {
-            return 1
+            return 90
         }
         
         return 32

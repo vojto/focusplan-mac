@@ -22,7 +22,6 @@ class MainWindow: NSWindow, NSToolbarDelegate {
     
     let myDelegate = MainWindowDelegate()
     
-    
     override func awakeFromNib() {
         
         self.delegate = myDelegate
