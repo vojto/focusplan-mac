@@ -20,8 +20,6 @@ class BacklogViewController: NSViewController {
     
     let selectedProject = MutableProperty<Project?>(nil)
     
-    let projectsController = ProjectsViewController()
-    
     var tasksObserver: TasksObserver!
     
     override func viewDidLoad() {
@@ -62,12 +60,6 @@ class BacklogViewController: NSViewController {
         
         // Setup the view
         mainView.include(tasksController.view)
-        sidebarView.include(projectsController.view)
-        
-        // Handling selecting project in projects controller
-        projectsController.onSelect = { project in
-            self.selectedProject.value = project
-        }
         
     }
     
