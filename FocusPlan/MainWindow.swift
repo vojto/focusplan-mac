@@ -17,6 +17,7 @@ class MainWindow: NSWindow, NSToolbarDelegate {
     
     let planController = PlanViewController()
     let backlogController = BacklogViewController()
+    let projectsController = ProjectsViewController()
     
     @IBOutlet weak var timerController: TimerViewController!
     
@@ -32,6 +33,8 @@ class MainWindow: NSWindow, NSToolbarDelegate {
         mainView.include(backlogController.view)
         
         mainView.include(planController.view)
+        
+        secondaryView.include(projectsController.view)
         
         backlogController.view.isHidden = true
 //        planController.view.isHidden = true
