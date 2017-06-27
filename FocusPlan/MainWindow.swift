@@ -25,6 +25,8 @@ class MainWindow: NSWindow, NSToolbarDelegate {
     
     override func awakeFromNib() {
         
+        self.isMovableByWindowBackground = true
+        
         self.delegate = myDelegate
         
         self.titlebarAppearsTransparent = true
@@ -34,7 +36,8 @@ class MainWindow: NSWindow, NSToolbarDelegate {
         
         mainView.include(planController.view)
         
-        secondaryView.include(projectsController.view)
+//        secondaryView.include(projectsController.view)
+        secondaryView.include(projectsController.view, insets: EdgeInsets(top: 40.0, left: 0, bottom: 0, right: 0))
         
         backlogController.view.isHidden = true
 //        planController.view.isHidden = true

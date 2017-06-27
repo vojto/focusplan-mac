@@ -110,6 +110,7 @@
 		99D122F11EB8A9D600D495DC /* TasksObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D122F01EB8A9D600D495DC /* TasksObserver.swift */; };
 		99D7ED781F02945800E1512C /* SecondaryBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D7ED771F02945800E1512C /* SecondaryBackgroundView.swift */; };
 		99D7ED7A1F029A2D00E1512C /* TasksHeaderTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D7ED791F029A2D00E1512C /* TasksHeaderTableCellView.swift */; };
+		99D7ED7C1F02A1BB00E1512C /* ProjectsActionHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D7ED7B1F02A1BB00E1512C /* ProjectsActionHeaderCell.swift */; };
 		99D8C80C1EB3A16D00EA5001 /* NSManagedObjectModel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D8C80B1EB3A16D00EA5001 /* NSManagedObjectModel+Extensions.swift */; };
 		99D8C8101EB3B51800EA5001 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D8C80E1EB3B51800EA5001 /* CalendarViewController.swift */; };
 		99D8C8111EB3B51800EA5001 /* CalendarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 99D8C80F1EB3B51800EA5001 /* CalendarViewController.xib */; };
@@ -246,6 +247,7 @@
 		99D122F01EB8A9D600D495DC /* TasksObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksObserver.swift; sourceTree = "<group>"; };
 		99D7ED771F02945800E1512C /* SecondaryBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryBackgroundView.swift; sourceTree = "<group>"; };
 		99D7ED791F029A2D00E1512C /* TasksHeaderTableCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksHeaderTableCellView.swift; sourceTree = "<group>"; };
+		99D7ED7B1F02A1BB00E1512C /* ProjectsActionHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsActionHeaderCell.swift; sourceTree = "<group>"; };
 		99D8C80B1EB3A16D00EA5001 /* NSManagedObjectModel+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectModel+Extensions.swift"; sourceTree = "<group>"; };
 		99D8C80E1EB3B51800EA5001 /* CalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		99D8C80F1EB3B51800EA5001 /* CalendarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarViewController.xib; sourceTree = "<group>"; };
@@ -356,6 +358,7 @@
 				990A18081EAF3D2300DCE839 /* ProjectsViewController.xib */,
 				99EEDE5C1EAF931500662DED /* ProjectsOutlineView.swift */,
 				99B610151EB0602A0098F69C /* ProjectTableCellView.swift */,
+				99D7ED7B1F02A1BB00E1512C /* ProjectsActionHeaderCell.swift */,
 			);
 			name = Projects;
 			sourceTree = "<group>";
@@ -801,6 +804,7 @@
 				9983F9091EC0B5B0005E624A /* EditTimerEntryController.swift in Sources */,
 				998352E21EC4BAEF00303E7D /* TaskPlanTableCellView.swift in Sources */,
 				994063C91EB7035400E09165 /* Date+Extensions.swift in Sources */,
+				99D7ED7C1F02A1BB00E1512C /* ProjectsActionHeaderCell.swift in Sources */,
 				99169FE91ED5EBFF00BFB4F2 /* TrialButtonViewController.swift in Sources */,
 				993550321EC99D33004B6D23 /* AlertHelper.swift in Sources */,
 				9981560D1EB76ECB0057ECD0 /* TimerEntry+Reactive.swift in Sources */,

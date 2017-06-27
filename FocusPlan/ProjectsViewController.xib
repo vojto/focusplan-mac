@@ -74,8 +74,12 @@
                                                     <outlet property="textField" destination="qM6-xi-Utn" id="ipi-QS-mQT"/>
                                                 </connections>
                                             </tableCellView>
+                                            <tableCellView identifier="ActionHeaderCell" id="eA1-SN-3hK" customClass="ProjectsActionHeaderCell" customModule="FocusPlan" customModuleProvider="target">
+                                                <rect key="frame" x="1" y="68" width="256" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </tableCellView>
                                             <tableCellView identifier="ProjectCell" id="Crx-Sa-5pw" customClass="ProjectTableCellView" customModule="FocusPlan" customModuleProvider="target">
-                                                <rect key="frame" x="1" y="68" width="256" height="29"/>
+                                                <rect key="frame" x="1" y="101" width="256" height="29"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="av8-ds-QVk">

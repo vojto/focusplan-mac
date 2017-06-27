@@ -11,6 +11,7 @@ import AppKit
 
 class ProjectsOutlineView: NSOutlineView {
     override open func mouseDown(with event: NSEvent) {
+        
         super.mouseDown(with: event)
         
         let point    = convert(event.locationInWindow, from: nil)

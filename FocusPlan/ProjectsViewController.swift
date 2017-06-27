@@ -52,8 +52,12 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let todayHeaderItem = HeaderItem(type: .today)
+        let nextHeaderItem = HeaderItem(type: .next)
+        
         backlogHeaderItem = HeaderItem(type: .backlog)
-        rootItem = RootItem(children: [backlogHeaderItem])
+        
+        rootItem = RootItem(children: [todayHeaderItem, nextHeaderItem, backlogHeaderItem])
     }
     
     override func viewDidAppear() {
@@ -110,11 +114,25 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
         let item = node.representedObject
         
         if let header = item as? HeaderItem {
-            let view = outlineView.make(withIdentifier: "HeaderCell", owner: self) as? NSTableCellView
+            switch header.type {
+            case .today, .next:
+                let view = outlineView.make(withIdentifier: "ActionHeaderCell", owner: self) as! ProjectsActionHeaderCell
+                
+                view.field.stringValue = header.type.rawValue
+                
+                if header.type == .today {
+                    view.type = .today
+                } else if header.type == .next {
+                    view.type = .next
+                }
+                
+                return view
+            case .backlog:
+                let view = outlineView.make(withIdentifier: "HeaderCell", owner: self) as? NSTableCellView
+                view?.textField?.stringValue = header.type.rawValue
+                return view
+            }
             
-            view?.textField?.stringValue = header.type.rawValue
-            
-            return view
         } else if let project = (item as? ProjectItem)?.project {
             let view = outlineView.make(withIdentifier: "ProjectCell", owner: self) as! ProjectTableCellView
             
