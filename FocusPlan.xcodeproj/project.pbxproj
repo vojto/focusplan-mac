@@ -71,10 +71,6 @@
 		998156131EB778020057ECD0 /* NSButton+Reactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998156121EB778020057ECD0 /* NSButton+Reactive.swift */; };
 		998156171EB77DAE0057ECD0 /* ProjectColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998156161EB77DAE0057ECD0 /* ProjectColorView.swift */; };
 		998352D51EC4597300303E7D /* ClickableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998352D41EC4597300303E7D /* ClickableLabel.swift */; };
-		998352D91EC48A1F00303E7D /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998352D71EC48A1F00303E7D /* TabBarController.swift */; };
-		998352DA1EC48A1F00303E7D /* TabBarController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 998352D81EC48A1F00303E7D /* TabBarController.xib */; };
-		998352DC1EC48F1600303E7D /* TabBarItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998352DB1EC48F1600303E7D /* TabBarItemView.swift */; };
-		998352DE1EC48F2800303E7D /* TabBarItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 998352DD1EC48F2800303E7D /* TabBarItemView.xib */; };
 		998352E01EC4A28200303E7D /* CustomTableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998352DF1EC4A28200303E7D /* CustomTableRowView.swift */; };
 		998352E21EC4BAEF00303E7D /* TaskPlanTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998352E11EC4BAEF00303E7D /* TaskPlanTableCellView.swift */; };
 		998352E41EC4C12000303E7D /* TaskPlanWrapperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998352E31EC4C12000303E7D /* TaskPlanWrapperView.swift */; };
@@ -213,10 +209,6 @@
 		998156121EB778020057ECD0 /* NSButton+Reactive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSButton+Reactive.swift"; sourceTree = "<group>"; };
 		998156161EB77DAE0057ECD0 /* ProjectColorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectColorView.swift; sourceTree = "<group>"; };
 		998352D41EC4597300303E7D /* ClickableLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClickableLabel.swift; sourceTree = "<group>"; };
-		998352D71EC48A1F00303E7D /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
-		998352D81EC48A1F00303E7D /* TabBarController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TabBarController.xib; sourceTree = "<group>"; };
-		998352DB1EC48F1600303E7D /* TabBarItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarItemView.swift; sourceTree = "<group>"; };
-		998352DD1EC48F2800303E7D /* TabBarItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TabBarItemView.xib; sourceTree = "<group>"; };
 		998352DF1EC4A28200303E7D /* CustomTableRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableRowView.swift; sourceTree = "<group>"; };
 		998352E11EC4BAEF00303E7D /* TaskPlanTableCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskPlanTableCellView.swift; sourceTree = "<group>"; };
 		998352E31EC4C12000303E7D /* TaskPlanWrapperView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskPlanWrapperView.swift; sourceTree = "<group>"; };
@@ -498,17 +490,6 @@
 			name = "Component Views";
 			sourceTree = "<group>";
 		};
-		998352D61EC48A0A00303E7D /* Tab Bar */ = {
-			isa = PBXGroup;
-			children = (
-				998352D71EC48A1F00303E7D /* TabBarController.swift */,
-				998352D81EC48A1F00303E7D /* TabBarController.xib */,
-				998352DB1EC48F1600303E7D /* TabBarItemView.swift */,
-				998352DD1EC48F2800303E7D /* TabBarItemView.xib */,
-			);
-			name = "Tab Bar";
-			sourceTree = "<group>";
-		};
 		9983F9061EC0B503005E624A /* Edit Timer Entry */ = {
 			isa = PBXGroup;
 			children = (
@@ -568,7 +549,6 @@
 			children = (
 				99169FE61ED5EBED00BFB4F2 /* TrialButton */,
 				994F0A221EC588C900562B7A /* Preferences */,
-				998352D61EC48A0A00303E7D /* Tab Bar */,
 				994208361EC2FF4800CB4D4E /* Menubar */,
 				991E7B201EB071AB0086A9D9 /* Projects */,
 				999E650A1EB362570001AAB7 /* Plan */,
@@ -710,10 +690,8 @@
 				991E7B241EB071C20086A9D9 /* TasksViewController.xib in Resources */,
 				999E65091EB361B20001AAB7 /* BacklogViewController.xib in Resources */,
 				998AC3681EC61B1600559CB6 /* ReadOmnifocus.scpt in Resources */,
-				998352DA1EC48A1F00303E7D /* TabBarController.xib in Resources */,
 				994063CB1EB70ECA00E09165 /* CalendarHourHeader.xib in Resources */,
 				998AC36C1EC628F300559CB6 /* json.scpt in Resources */,
-				998352DE1EC48F2800303E7D /* TabBarItemView.xib in Resources */,
 				990A180A1EAF3D2300DCE839 /* ProjectsViewController.xib in Resources */,
 				99169FEA1ED5EBFF00BFB4F2 /* TrialButtonViewController.xib in Resources */,
 				994F0A261EC588DE00562B7A /* PreferencesController.xib in Resources */,
@@ -814,7 +792,6 @@
 				991E7B231EB071C20086A9D9 /* TasksViewController.swift in Sources */,
 				99D8C80C1EB3A16D00EA5001 /* NSManagedObjectModel+Extensions.swift in Sources */,
 				994208381EC2FF5600CB4D4E /* MenubarController.swift in Sources */,
-				998352DC1EC48F1600303E7D /* TabBarItemView.swift in Sources */,
 				99D122ED1EB8729A00D495DC /* TimerEntry+Extensions.swift in Sources */,
 				99D122EB1EB86D6C00D495DC /* CalendarEvent.swift in Sources */,
 				99169FE11ED5DEBE00BFB4F2 /* AppDelegate+TrialChecking.swift in Sources */,
@@ -828,7 +805,6 @@
 				991E7AFA1EB064FE0086A9D9 /* Project+Reactive.swift in Sources */,
 				99B026D61EBC7E9300533FE3 /* Sequence+Extensions.swift in Sources */,
 				994063D61EB761D000E09165 /* TimerViewController.swift in Sources */,
-				998352D91EC48A1F00303E7D /* TabBarController.swift in Sources */,
 				991E7B301EB0865F0086A9D9 /* NSOutlineView+Extensions.swift in Sources */,
 				998156101EB7761F0057ECD0 /* TimerState.swift in Sources */,
 				994063D41EB75E5D00E09165 /* TimerFrameView.swift in Sources */,

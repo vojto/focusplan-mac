@@ -15,8 +15,6 @@ class MainWindow: NSWindow, NSToolbarDelegate {
     @IBOutlet weak var secondaryView: NSView!
     @IBOutlet weak var mainView: NSView!
     
-    let tabBarController = TabBarController()
-    
     let planController = PlanViewController()
     
     let backlogController = BacklogViewController()
@@ -33,8 +31,6 @@ class MainWindow: NSWindow, NSToolbarDelegate {
         self.titlebarAppearsTransparent = true
         self.titleVisibility = .hidden
 
-        secondaryView.include(tabBarController.view)
-        
         mainView.include(backlogController.view)
         
         mainView.include(planController.view)
@@ -45,15 +41,6 @@ class MainWindow: NSWindow, NSToolbarDelegate {
     
         
         TimerState.instance.selectedTask <~ planController.tasksController.selectedTasks.producer.map { $0.first }
-        
-        _ = tabBarController.view
-        tabBarController.selectedIndex.producer.startWithValues { index in
-            if index == 0 { // Plan
-                self.showPlan()
-            } else {
-                self.showProject()
-            }
-        }
         
         
         if Config.isTrial {
@@ -66,12 +53,10 @@ class MainWindow: NSWindow, NSToolbarDelegate {
 
     
     @IBAction func showDailyPlan(_ sender: Any) {
-        tabBarController.selectedIndex.value = 0
         showPlan(detail: .daily)
     }
     
     @IBAction func showWeeklyPlan(_ sender: Any) {
-        tabBarController.selectedIndex.value = 0
         showPlan(detail: .weekly)
     }
     
@@ -84,7 +69,6 @@ class MainWindow: NSWindow, NSToolbarDelegate {
     }
     
     @IBAction func showProjects(_ sender: Any) {
-        tabBarController.selectedIndex.value = 1
     }
     
     func showProject(_ project: Project? = nil) {
