@@ -56,6 +56,7 @@
 		994F0A251EC588DE00562B7A /* PreferencesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994F0A231EC588DE00562B7A /* PreferencesController.swift */; };
 		994F0A261EC588DE00562B7A /* PreferencesController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 994F0A241EC588DE00562B7A /* PreferencesController.xib */; };
 		994F0A2C1EC5957200562B7A /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994F0A2B1EC5957200562B7A /* UserDefaults+Extensions.swift */; };
+		997BAE151F0290D70072681B /* NiceSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997BAE141F0290D70072681B /* NiceSplitView.swift */; };
 		997FFBCE1EAF7DB200ABEA01 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 997FFBC61EAF7DA900ABEA01 /* ReactiveCocoa.framework */; };
 		997FFBCF1EAF7DB200ABEA01 /* ReactiveCocoa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 997FFBC61EAF7DA900ABEA01 /* ReactiveCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		997FFBD01EAF7DB200ABEA01 /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 997FFBC71EAF7DA900ABEA01 /* ReactiveSwift.framework */; };
@@ -201,6 +202,7 @@
 		994F0A231EC588DE00562B7A /* PreferencesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesController.swift; sourceTree = "<group>"; };
 		994F0A241EC588DE00562B7A /* PreferencesController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesController.xib; sourceTree = "<group>"; };
 		994F0A2B1EC5957200562B7A /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
+		997BAE141F0290D70072681B /* NiceSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NiceSplitView.swift; sourceTree = "<group>"; };
 		997FFBC61EAF7DA900ABEA01 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/Mac/ReactiveCocoa.framework; sourceTree = "<group>"; };
 		997FFBC71EAF7DA900ABEA01 /* ReactiveSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveSwift.framework; path = Carthage/Build/Mac/ReactiveSwift.framework; sourceTree = "<group>"; };
 		997FFBC81EAF7DA900ABEA01 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/Mac/Result.framework; sourceTree = "<group>"; };
@@ -306,6 +308,7 @@
 		99078BF31EAF1CD000C3B789 /* FocusPlan */ = {
 			isa = PBXGroup;
 			children = (
+				997BAE131F0290C60072681B /* NiceKit Views */,
 				998AC3661EC61B0000559CB6 /* Scripts */,
 				99DA93581EC317B500817AF5 /* chime_reveal.aif */,
 				99BBB0251EB8C269002C603F /* Helpers */,
@@ -444,6 +447,14 @@
 				994F0A241EC588DE00562B7A /* PreferencesController.xib */,
 			);
 			name = Preferences;
+			sourceTree = "<group>";
+		};
+		997BAE131F0290C60072681B /* NiceKit Views */ = {
+			isa = PBXGroup;
+			children = (
+				997BAE141F0290D70072681B /* NiceSplitView.swift */,
+			);
+			path = "NiceKit Views";
 			sourceTree = "<group>";
 		};
 		997FFBC31EAF699A00ABEA01 /* Models */ = {
@@ -805,6 +816,7 @@
 				991E7AFA1EB064FE0086A9D9 /* Project+Reactive.swift in Sources */,
 				99B026D61EBC7E9300533FE3 /* Sequence+Extensions.swift in Sources */,
 				994063D61EB761D000E09165 /* TimerViewController.swift in Sources */,
+				997BAE151F0290D70072681B /* NiceSplitView.swift in Sources */,
 				991E7B301EB0865F0086A9D9 /* NSOutlineView+Extensions.swift in Sources */,
 				998156101EB7761F0057ECD0 /* TimerState.swift in Sources */,
 				994063D41EB75E5D00E09165 /* TimerFrameView.swift in Sources */,

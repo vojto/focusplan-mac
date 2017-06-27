@@ -700,14 +700,14 @@
                 <rect key="frame" x="0.0" y="0.0" width="940" height="626"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <splitView arrangesAllSubviews="NO" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YIz-VL-OgP">
+                    <splitView arrangesAllSubviews="NO" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YIz-VL-OgP" customClass="NiceSplitView" customModule="FocusPlan" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="940" height="626"/>
                         <subviews>
-                            <customView id="jhW-E1-K5O">
+                            <customView id="jhW-E1-K5O" customClass="BackgroundView" customModule="FocusPlan" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="145" height="626"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="64" id="ADK-AZ-chm"/>
+                                    <constraint firstAttribute="width" constant="200" id="Wvg-mG-HGX"/>
                                 </constraints>
                             </customView>
                             <customView id="yIS-zi-HPh">

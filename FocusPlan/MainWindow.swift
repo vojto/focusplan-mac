@@ -16,7 +16,6 @@ class MainWindow: NSWindow, NSToolbarDelegate {
     @IBOutlet weak var mainView: NSView!
     
     let planController = PlanViewController()
-    
     let backlogController = BacklogViewController()
     
     @IBOutlet weak var timerController: TimerViewController!

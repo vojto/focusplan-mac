@@ -60,7 +60,6 @@ class BacklogViewController: NSViewController {
         
         // Setup the view
         mainView.include(tasksController.view)
-        
     }
     
     func createTask() {
