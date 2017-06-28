@@ -339,11 +339,20 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
         
         let item = (outlineView.item(atRow: row) as? NSTreeNode)?.representedObject
         
-        if item is ProjectItem {
+        if let projectItem = item as? ProjectItem {
+            
+            if projectItem.project.isFolder {
+                let addProjectItem = NSMenuItem(title: "New Project", action: #selector(createProjectInClickedFolder(_:)), keyEquivalent: "")
+                contextMenu.addItem(addProjectItem)
+            }
+            
+            
+            contextMenu.addItem(NSMenuItem.separator())
+            
+            
             let menuItem = NSMenuItem(title: "Remove", action: #selector(deleteProjectAction(_:)), keyEquivalent: "")
             menuItem.target = self
             contextMenu.addItem(menuItem)
-
         }
         
     }
@@ -353,6 +362,20 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
         
         if let project = ((outlineView.item(atRow: row) as? NSTreeNode)?.representedObject as? ProjectItem)?.project {
             deleteProject(project)
+        }
+    }
+    
+    func createProjectInClickedFolder(_ sender: Any) {
+        let row = outlineView.clickedRow
+        
+        if let folder = ((outlineView.item(atRow: row) as? NSTreeNode)?.representedObject as? ProjectItem)?.project {
+            
+            guard let project = NSEntityDescription.insertNewObject(forEntityName: "Project", into: AppDelegate.viewContext) as? Project else { return }
+            
+            project.parent = folder
+            project.moveToEndInGroup(in: AppDelegate.viewContext)
+            
+            self.selectAndEdit(project: project)
         }
     }
     

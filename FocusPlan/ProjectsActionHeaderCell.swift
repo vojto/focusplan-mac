@@ -49,7 +49,7 @@ class ProjectsActionHeaderCell: NSTableCellView {
         field.isEditable = false
         field.isSelectable = false
         field.drawsBackground = false
-        field.font = NSFont.systemFont(ofSize: 13, weight: NSFontWeightMedium)
+        field.font = NSFont.systemFont(ofSize: 14, weight: NSFontWeightMedium)
         addSubview(field)
         
         constrain(field, imageView) { field, image in

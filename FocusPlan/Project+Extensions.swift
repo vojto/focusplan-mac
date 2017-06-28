@@ -62,5 +62,12 @@ extension Project {
         self.weight = (results.first?.weight ?? 0) + 1
     }
     
-    
+    func moveToEndInGroup(in context: NSManagedObjectContext) {
+        guard let folder = self.parent else { return }
+        if let lastWeight = folder.sortedChildren.last?.weight {
+            self.weight = lastWeight + 1
+        } else {
+            self.weight = 0
+        }
+    }
 }
