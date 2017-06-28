@@ -93,7 +93,7 @@
                                                         </connections>
                                                     </button>
                                                     <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="SiK-Vi-47n">
-                                                        <rect key="frame" x="18" y="6" width="97" height="17"/>
+                                                        <rect key="frame" x="18" y="6" width="238" height="17"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" focusRingType="none" title="Table View Cell" id="Mk6-4T-g3b">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -106,6 +106,7 @@
                                                     <constraint firstItem="SiK-Vi-47n" firstAttribute="centerY" secondItem="Crx-Sa-5pw" secondAttribute="centerY" id="cqt-BE-zE7"/>
                                                     <constraint firstItem="av8-ds-QVk" firstAttribute="centerY" secondItem="Crx-Sa-5pw" secondAttribute="centerY" id="hLe-27-8VB"/>
                                                     <constraint firstItem="SiK-Vi-47n" firstAttribute="leading" secondItem="Crx-Sa-5pw" secondAttribute="leading" constant="20" id="jsc-Pw-jFZ"/>
+                                                    <constraint firstAttribute="trailing" secondItem="SiK-Vi-47n" secondAttribute="trailing" constant="2" id="vHR-Jt-F3Q"/>
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="iconButton" destination="av8-ds-QVk" id="tbI-cE-ntQ"/>

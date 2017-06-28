@@ -190,6 +190,13 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
         
         if obj is ProjectItem {
             return true
+        } else if let header = obj as? HeaderItem {
+            switch header.type {
+            case .today, .next:
+                return true
+            default:
+                return false
+            }
         } else {
             return false
         }

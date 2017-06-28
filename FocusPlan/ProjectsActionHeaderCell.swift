@@ -48,6 +48,7 @@ class ProjectsActionHeaderCell: NSTableCellView {
         field.isBordered = false
         field.isEditable = false
         field.isSelectable = false
+        field.drawsBackground = false
         field.font = NSFont.systemFont(ofSize: 13, weight: NSFontWeightMedium)
         addSubview(field)
         

@@ -40,16 +40,28 @@ class ProjectsOutlineView: NSOutlineView {
     }
     
     override open func mouseDown(with event: NSEvent) {
-        
-        super.mouseDown(with: event)
-        
         let point    = convert(event.locationInWindow, from: nil)
         let columnIndex = self.column(at: point)
         let rowIndex = row(at: point)
         
+        let item = self.item(atRow: rowIndex)
+        
+        var canSelect = false
+        
+        if let delegate = self.delegate, let item = item {
+            canSelect = delegate.outlineView?(self, shouldSelectItem: item) ?? false
+        }
+        
         if columnIndex < 0 || rowIndex < 0 {
+            self.deselectAll(self)
             return
         }
+        
+        if canSelect {
+            self.select(row: rowIndex)
+        }
+        
+        super.mouseDown(with: event)
         
 //        if rowIndex <= 0 {
 //            // TODO: Finish editing
