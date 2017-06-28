@@ -38,7 +38,6 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     
     var projects = [Project]() {
         didSet {
-            Swift.print("🌈 Setting projects!")
             backlogHeaderItem.children = projects.map { ProjectItem(project: $0) }
             let paths = treeController.selectionIndexPaths
             treeController.content = rootItem.children
@@ -275,15 +274,27 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     
     func selectAndEdit(project: Project) {
         DispatchQueue.main.async {
-            if let index: Int = self.projects.index(of: project) {
-                let indexes: [Int] = [0, index]
-                let path = IndexPath(indexes: indexes)
-                
-                self.treeController.setSelectionIndexPath(path)
+            if let indexPath = self.indexPath(forProject: project) {
+                self.treeController.setSelectionIndexPath(indexPath)
                 
                 self.editSelected()
             }
         }
+    }
+    
+    func indexPath(forProject project: Project) -> IndexPath? {
+        for i in 0...(outlineView.numberOfRows-1) {
+            guard let node = outlineView.item(atRow: i) as? NSTreeNode else { continue }
+            let item = node.representedObject
+            
+            if let projectItem = item as? ProjectItem {
+                if projectItem.project == project {
+                    return node.indexPath
+                }
+            }
+        }
+        
+        return nil
     }
     
     func editSelected() {
@@ -499,6 +510,12 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
         undoManager.endUndoGrouping()
         
         observer.fetch()
+        
+        DispatchQueue.main.async {
+            if let indexPath = self.indexPath(forProject: project) {
+                self.treeController.setSelectionIndexPath(indexPath)
+            }
+        }
         
         return true
     }
