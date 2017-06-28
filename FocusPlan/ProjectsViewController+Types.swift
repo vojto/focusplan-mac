@@ -43,6 +43,8 @@ extension ProjectsViewController {
             self.type = type
             super.init(children: [])
         }
+        
+        
     }
     
     class ProjectItem: Item {
@@ -58,6 +60,15 @@ extension ProjectsViewController {
                 super.init(children: [])
             }
         }
+        
+        override func isEqual(_ object: Any?) -> Bool {
+            if let other = object as? ProjectItem {
+                return other.project == self.project
+            }
+            
+            return false
+        }
     }
     
 }
+

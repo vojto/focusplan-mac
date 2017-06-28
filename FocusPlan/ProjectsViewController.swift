@@ -22,7 +22,11 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
             NSSortDescriptor(key: "weight", ascending: true)
         ]
         
-        return ReactiveObserver<Project>(context: AppDelegate.viewContext, request: request)
+        let observer = ReactiveObserver<Project>(context: AppDelegate.viewContext, request: request)
+        
+//        let observer = ReactiveObserver<Project>(context: AppDelegate.viewContext, request: request, includeChanges: .none, callback: nil)
+        
+        return observer
     }()
     
     
@@ -34,6 +38,7 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     
     var projects = [Project]() {
         didSet {
+            Swift.print("🌈 Setting projects!")
             backlogHeaderItem.children = projects.map { ProjectItem(project: $0) }
             let paths = treeController.selectionIndexPaths
             treeController.content = rootItem.children
@@ -63,6 +68,8 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     override func viewDidAppear() {
         disposable += observer.objects.producer.startWithValues { projects in
             
+            Swift.print("🦋 Projects changed!")
+            
             self.projects = projects
             
 //            self.outlineView.reloadData()
@@ -73,6 +80,7 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
         }
         
         // Do view setup here.
+        
         outlineView.expandItem(nil, expandChildren: true)
         
         outlineView.register(forDraggedTypes: [draggedType])
@@ -160,7 +168,8 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     
     // Hides expansion arrows
     func outlineView(_ outlineView: NSOutlineView, shouldShowOutlineCellForItem item: Any) -> Bool {
-        return false
+//        return false
+        return true
     }
     
     func outlineView(_ outlineView: NSOutlineView, heightOfRowByItem item: Any) -> CGFloat {

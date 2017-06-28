@@ -81,9 +81,9 @@ class ProjectTableCellView: EditableTableCellView {
         // TODO: find out why we have to do it throug main
         DispatchQueue.main.async {
             if outlineView.isItemExpanded(item) {
-                outlineView.collapseItem(item)
+                outlineView.animator().collapseItem(item)
             } else {
-                outlineView.expandItem(item)
+                outlineView.animator().expandItem(item)
             }
         }
         

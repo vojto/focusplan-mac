@@ -31,7 +31,13 @@ class ProjectsOutlineView: NSOutlineView {
         return frame
     }
  
-    
+    override func make(withIdentifier identifier: String, owner: Any?) -> NSView? {
+        if identifier == NSOutlineViewDisclosureButtonKey {
+            return nil
+        }
+        
+        return super.make(withIdentifier: identifier, owner: owner)
+    }
     
     override open func mouseDown(with event: NSEvent) {
         
