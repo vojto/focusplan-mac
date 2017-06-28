@@ -118,6 +118,7 @@
 		99D8C8141EB3B6B600EA5001 /* CalendarCollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D8C8121EB3B6B600EA5001 /* CalendarCollectionItem.swift */; };
 		99D8C8151EB3B6B600EA5001 /* CalendarCollectionItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 99D8C8131EB3B6B600EA5001 /* CalendarCollectionItem.xib */; };
 		99D8C8171EB3B81900EA5001 /* CalendarCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D8C8161EB3B81900EA5001 /* CalendarCollectionLayout.swift */; };
+		99D972261F04023500A18BC4 /* FocusPlanUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D972251F04023500A18BC4 /* FocusPlanUITests.swift */; };
 		99DA93591EC317B500817AF5 /* chime_reveal.aif in Resources */ = {isa = PBXBuildFile; fileRef = 99DA93581EC317B500817AF5 /* chime_reveal.aif */; };
 		99DA935D1EC32E5900817AF5 /* SummaryRowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DA935B1EC32E5900817AF5 /* SummaryRowViewController.swift */; };
 		99DA935E1EC32E5900817AF5 /* SummaryRowViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 99DA935C1EC32E5900817AF5 /* SummaryRowViewController.xib */; };
@@ -128,6 +129,16 @@
 		99EEDE3A1EAF855400662DED /* NiceData.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 99EEDE371EAF854200662DED /* NiceData.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		99EEDE5D1EAF931500662DED /* ProjectsOutlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99EEDE5C1EAF931500662DED /* ProjectsOutlineView.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		99D972281F04023500A18BC4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 99078BE91EAF1CD000C3B789 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 99078BF01EAF1CD000C3B789;
+			remoteInfo = FocusPlan;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		997FFBDA1EAF7DB300ABEA01 /* Embed Frameworks */ = {
@@ -256,6 +267,9 @@
 		99D8C8121EB3B6B600EA5001 /* CalendarCollectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarCollectionItem.swift; sourceTree = "<group>"; };
 		99D8C8131EB3B6B600EA5001 /* CalendarCollectionItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarCollectionItem.xib; sourceTree = "<group>"; };
 		99D8C8161EB3B81900EA5001 /* CalendarCollectionLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarCollectionLayout.swift; sourceTree = "<group>"; };
+		99D972231F04023500A18BC4 /* FocusPlanUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FocusPlanUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		99D972251F04023500A18BC4 /* FocusPlanUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusPlanUITests.swift; sourceTree = "<group>"; };
+		99D972271F04023500A18BC4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		99DA93581EC317B500817AF5 /* chime_reveal.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = chime_reveal.aif; sourceTree = "<group>"; };
 		99DA935B1EC32E5900817AF5 /* SummaryRowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SummaryRowViewController.swift; sourceTree = "<group>"; };
 		99DA935C1EC32E5900817AF5 /* SummaryRowViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SummaryRowViewController.xib; sourceTree = "<group>"; };
@@ -292,6 +306,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		99D972201F04023500A18BC4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -299,6 +320,7 @@
 			isa = PBXGroup;
 			children = (
 				99078BF31EAF1CD000C3B789 /* FocusPlan */,
+				99D972241F04023500A18BC4 /* FocusPlanUITests */,
 				99078BF21EAF1CD000C3B789 /* Products */,
 				9922F1181EAF654800BFA01F /* Frameworks */,
 				A31B13E7F81C6EC670404828 /* Pods */,
@@ -309,6 +331,7 @@
 			isa = PBXGroup;
 			children = (
 				99078BF11EAF1CD000C3B789 /* FocusPlan.app */,
+				99D972231F04023500A18BC4 /* FocusPlanUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -615,6 +638,15 @@
 			name = Calendar;
 			sourceTree = "<group>";
 		};
+		99D972241F04023500A18BC4 /* FocusPlanUITests */ = {
+			isa = PBXGroup;
+			children = (
+				99D972251F04023500A18BC4 /* FocusPlanUITests.swift */,
+				99D972271F04023500A18BC4 /* Info.plist */,
+			);
+			path = FocusPlanUITests;
+			sourceTree = "<group>";
+		};
 		99DA935A1EC32E2E00817AF5 /* Summary */ = {
 			isa = PBXGroup;
 			children = (
@@ -660,13 +692,31 @@
 			productReference = 99078BF11EAF1CD000C3B789 /* FocusPlan.app */;
 			productType = "com.apple.product-type.application";
 		};
+		99D972221F04023500A18BC4 /* FocusPlanUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 99D9722C1F04023500A18BC4 /* Build configuration list for PBXNativeTarget "FocusPlanUITests" */;
+			buildPhases = (
+				99D9721F1F04023500A18BC4 /* Sources */,
+				99D972201F04023500A18BC4 /* Frameworks */,
+				99D972211F04023500A18BC4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				99D972291F04023500A18BC4 /* PBXTargetDependency */,
+			);
+			name = FocusPlanUITests;
+			productName = FocusPlanUITests;
+			productReference = 99D972231F04023500A18BC4 /* FocusPlanUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		99078BE91EAF1CD000C3B789 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0830;
+				LastSwiftUpdateCheck = 0900;
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = Median;
 				TargetAttributes = {
@@ -679,6 +729,10 @@
 								enabled = 1;
 							};
 						};
+					};
+					99D972221F04023500A18BC4 = {
+						CreatedOnToolsVersion = 9.0;
+						TestTargetID = 99078BF01EAF1CD000C3B789;
 					};
 				};
 			};
@@ -696,6 +750,7 @@
 			projectRoot = "";
 			targets = (
 				99078BF01EAF1CD000C3B789 /* FocusPlan */,
+				99D972221F04023500A18BC4 /* FocusPlanUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -723,6 +778,13 @@
 				99D8C8111EB3B51800EA5001 /* CalendarViewController.xib in Resources */,
 				99DA93591EC317B500817AF5 /* chime_reveal.aif in Resources */,
 				9983F90A1EC0B5B0005E624A /* EditTimerEntryController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		99D972211F04023500A18BC4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -871,7 +933,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		99D9721F1F04023500A18BC4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				99D972261F04023500A18BC4 /* FocusPlanUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		99D972291F04023500A18BC4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 99078BF01EAF1CD000C3B789 /* FocusPlan */;
+			targetProxy = 99D972281F04023500A18BC4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		99078C011EAF1CD000C3B789 /* Debug */ = {
@@ -1022,6 +1100,46 @@
 			};
 			name = Release;
 		};
+		99D9722A1F04023500A18BC4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = FocusPlanUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = tech.median.FocusPlanUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TEST_TARGET_NAME = FocusPlan;
+			};
+			name = Debug;
+		};
+		99D9722B1F04023500A18BC4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = FocusPlanUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = tech.median.FocusPlanUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TEST_TARGET_NAME = FocusPlan;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1042,6 +1160,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		99D9722C1F04023500A18BC4 /* Build configuration list for PBXNativeTarget "FocusPlanUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				99D9722A1F04023500A18BC4 /* Debug */,
+				99D9722B1F04023500A18BC4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 
