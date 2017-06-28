@@ -74,8 +74,6 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
         
         outlineView.expandItem(nil, expandChildren: true)
         
-        
-        
         outlineView.register(forDraggedTypes: [draggedType])
         
         menuNeedsUpdate(contextMenu)
@@ -379,7 +377,9 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     
     func outlineView(_ outlineView: NSOutlineView, writeItems items: [Any], to pasteboard: NSPasteboard) -> Bool {
         
-        guard let project = items.first as? Project else { return false }
+        guard let node = items.first as? NSTreeNode else { return false }
+        guard let project = (node.representedObject as? ProjectItem)?.project else { return false }
+        
         guard let index = projects.index(of: project) else {
             return false
         }
@@ -392,14 +392,20 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     }
     
     func outlineView(_ outlineView: NSOutlineView, validateDrop info: NSDraggingInfo, proposedItem item: Any?, proposedChildIndex index: Int) -> NSDragOperation {
+        guard let proposedNode = item as? NSTreeNode else { return [] }
+        guard let proposedItem = proposedNode.representedObject else { return [] }
+        
+        return .move
+        
+        /*
         if item is RootItem {
             if index != NSOutlineViewDropOnItemIndex {
                 return .move
             } else {
                 return []
             }
-        } else if item is Project {
-            let itemIndex = outlineView.childIndex(forItem: item!)
+        } else if item is ProjectItem {
+            let itemIndex = outlineView.childIndex(forItem: item)
             if index == NSOutlineViewDropOnItemIndex {
                 outlineView.setDropItem(rootItem, dropChildIndex: itemIndex)
             } else if index == 0 {
@@ -407,6 +413,7 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
             }
             return .move
         }
+         */
         
         
         return []

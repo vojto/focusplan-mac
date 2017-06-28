@@ -39,6 +39,7 @@ class ProjectsOutlineView: NSOutlineView {
         return super.make(withIdentifier: identifier, owner: owner)
     }
     
+    /*
     override open func mouseDown(with event: NSEvent) {
         let point    = convert(event.locationInWindow, from: nil)
         let columnIndex = self.column(at: point)
@@ -83,6 +84,7 @@ class ProjectsOutlineView: NSOutlineView {
             }
         }
     }
+     */
  
  
 }
