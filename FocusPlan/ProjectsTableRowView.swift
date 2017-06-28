@@ -10,15 +10,5 @@ import Cocoa
 import NiceKit
 
 class ProjectsTableRowView: CustomTableRowView {
-    /*
-    override func awakeFromNib() {
-        Swift.print("🌶 Setting up projects table row")
-        
-        self.draggingDestinationFeedbackStyle = .none
-    }
-    
-    override func drawDraggingDestinationFeedback(in dirtyRect: NSRect) {
-        
-    }
-     */
+
 }

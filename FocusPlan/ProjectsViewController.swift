@@ -75,6 +75,7 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
         outlineView.expandItem(nil, expandChildren: true)
         
         outlineView.register(forDraggedTypes: [draggedType])
+        outlineView.draggingDestinationFeedbackStyle = .sourceList
         
         menuNeedsUpdate(contextMenu)
         
@@ -403,7 +404,13 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
         
         guard let proposedNode = item as? NSTreeNode else { return [] }
         guard let proposedItem = proposedNode.representedObject as? Item else { return [] }
-        guard let draggedItem = self.draggedItem else { return [] }
+        
+        Swift.print("Destination: \(proposedItem) : \(index)")
+        
+        guard let draggedItem = self.draggedItem else { assertionFailure(); return [] }
+//        guard let draggedItemParent = draggedItem.parent else { assertionFailure(); return [] }
+        
+//        guard let draggedItemIndex = draggedItemParent.children.index(of: draggedItem) else { assertionFailure(); return [] }
         
         if proposedItem is SpaceItem {
             // There's no dropping on spaces
@@ -416,13 +423,20 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
             return []
         }
         
-        if proposedItem.parentsAndSelf.contains(draggedItem) {
-            // There's no dropping of parent items into their children
+        if let header = proposedItem as? HeaderItem, header.type != .backlog {
             return []
         }
         
-        Swift.print("Proposed drop: \(proposedItem) : \(index)")
-        Swift.print("All the parents of proposed drop: \(proposedItem.parentsAndSelf)")
+        if proposedItem.parentsAndSelf.contains(draggedItem) {
+            // There's no dropping of parent items into their children
+            Swift.print("👾 Cancelling due to family relationships!")
+            return []
+        }
+        
+//        guard let proposedItemParent = proposedItem.parent else { assertionFailure(); return [] }
+//        guard let proposedItemIndex = proposedItemParent.children.index(of: proposedItem) else { assertionFailure(); return [] }
+        
+        
         
         return .move
         

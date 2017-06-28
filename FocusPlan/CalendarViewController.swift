@@ -239,8 +239,6 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
             events.moveItem(at: sourcePath, to: proposedDropIndexPath)
             
             collectionView.animator().moveItem(at: currentIndexPath, to: proposedDropIndexPath)
-            
-            
         }
         
         return .move
