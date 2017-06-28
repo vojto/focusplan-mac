@@ -42,6 +42,7 @@ class ProjectsOutlineView: NSOutlineView {
         return super.make(withIdentifier: identifier, owner: owner)
     }
     
+    /*
     override open func mouseDown(with event: NSEvent) {
         let point    = convert(event.locationInWindow, from: nil)
         let columnIndex = self.column(at: point)
@@ -65,20 +66,7 @@ class ProjectsOutlineView: NSOutlineView {
         }
         
         super.mouseDown(with: event)
-        
-//        if rowIndex <= 0 {
-//            // TODO: Finish editing
-//            self.window!.makeFirstResponder(nil)
-//        }
-        
-//        let view = self.view(atColumn: columnIndex, row: rowIndex, makeIfNecessary: false)
-//        
-//        if let cellView = view as? ProjectTableCellView {
-//            // tell the cell view to edit or do whatever it wants to do
-//            Swift.print("gonna let cell view handle the click: \(cellView)")
-//        }
-        
-//        Swift.print("view is: \(view)")
+     
         
         if event.clickCount == 2 {
             if rowIndex >= 1 {
@@ -86,6 +74,7 @@ class ProjectsOutlineView: NSOutlineView {
             }
         }
     }
+     */
  
  
 }

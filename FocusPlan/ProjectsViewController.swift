@@ -43,6 +43,10 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
             let paths = treeController.selectionIndexPaths
             treeController.content = rootItem.children
             treeController.setSelectionIndexPaths(paths)
+            
+            DispatchQueue.main.async {
+                self.reflectCollapseStatus()
+            }
         }
     }
     
@@ -79,7 +83,7 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
         
         menuNeedsUpdate(contextMenu)
         
-        setupInitialExpandCollapseStatus()
+        reflectCollapseStatus()
     }
     
     func ensureSelection() {
@@ -405,7 +409,6 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
         guard let proposedNode = item as? NSTreeNode else { return [] }
         guard let proposedItem = proposedNode.representedObject as? Item else { return [] }
         
-        Swift.print("Destination: \(proposedItem) : \(index)")
         
         guard let draggedItem = self.draggedItem else { assertionFailure(); return [] }
 //        guard let draggedItemParent = draggedItem.parent else { assertionFailure(); return [] }
@@ -429,51 +432,25 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
         
         if proposedItem.parentsAndSelf.contains(draggedItem) {
             // There's no dropping of parent items into their children
-            Swift.print("👾 Cancelling due to family relationships!")
             return []
         }
         
-//        guard let proposedItemParent = proposedItem.parent else { assertionFailure(); return [] }
-//        guard let proposedItemIndex = proposedItemParent.children.index(of: proposedItem) else { assertionFailure(); return [] }
-        
-        
-        
         return .move
-        
-        /*
-        if item is RootItem {
-            if index != NSOutlineViewDropOnItemIndex {
-                return .move
-            } else {
-                return []
-            }
-        } else if item is ProjectItem {
-            let itemIndex = outlineView.childIndex(forItem: item)
-            if index == NSOutlineViewDropOnItemIndex {
-                outlineView.setDropItem(rootItem, dropChildIndex: itemIndex)
-            } else if index == 0 {
-                outlineView.setDropItem(rootItem, dropChildIndex: itemIndex+1)
-            }
-            return .move
-        }
-         */
-        
     }
     
     func outlineView(_ outlineView: NSOutlineView, acceptDrop info: NSDraggingInfo, item: Any?, childIndex index: Int) -> Bool {
         
-        draggedItem = nil
-        return false
+        let draggedItem = self.draggedItem
+        self.draggedItem = nil
         
-        let pasteboard = info.draggingPasteboard()
-        let data = pasteboard.data(forType: draggedType)!
-        guard let object = NSKeyedUnarchiver.unarchiveObject(with: data) as? [String: Int] else { return false }
-        guard let pageIndex = object["index"] else { return false }
+        guard let projectItem = draggedItem as? ProjectItem else { return false }
+        guard let targetItem = (item as? NSTreeNode)?.representedObject as? Item else { return false }
         
-        var projects = self.projects
-        
+        /*
         let newIndex = pageIndex >= index ? index : index-1
         projects.insert(projects.remove(at: pageIndex), at: newIndex)
+         */
+        
         
         let context = AppDelegate.viewContext
         let undoManager = AppDelegate.undoManager
@@ -481,12 +458,32 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
         context.processPendingChanges()
         undoManager.beginUndoGrouping()
         
+        // 01 Move project to the new folder
+        Swift.print("Dragged item: \(projectItem)")
+        Swift.print("Target item: \(targetItem)")
+        
+        if let targetProject = targetItem as? ProjectItem,
+            targetProject.project.isFolder == true {
+            
+            projectItem.project.parent = targetProject.project
+            
+        } else if let targetHeader = targetItem as? HeaderItem, targetHeader.type == .backlog {
+            projectItem.project.parent = nil
+        }
+        
+        
+        
+        
+        // 02 Update weights for the everything?
+        
+        /*
         var weight = 0
         for project in projects {
             project.weight = Int32(weight)
             
             weight += 1
         }
+         */
         
         context.processPendingChanges()
         undoManager.setActionName("Reorder projects")
@@ -494,14 +491,16 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
         
         observer.fetch()
         
-        select(row: newIndex + 1)
+//        select(row: newIndex + 1) // Select dragged projects
         
         return true
     }
     
     // MARK: - Passing expand/collapse status to view
     
-    func setupInitialExpandCollapseStatus() {
+    func reflectCollapseStatus() {
+        Swift.print("☂️ Reflecting collapse status!")
+        
         for i in 0...(outlineView.numberOfRows-1) {
             let item = outlineView.item(atRow: i)
             let isExpanded = outlineView.isItemExpanded(item)
@@ -515,15 +514,18 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     }
     
     func outlineViewItemDidCollapse(_ notification: Notification) {
-        if let view = self.view(forNotification: notification) as? ProjectTableCellView {
-            view.isExpanded.value = false
-        }
+        reflectCollapseStatus()
+        
+//        if let view = self.view(forNotification: notification) as? ProjectTableCellView {
+//            view.isExpanded.value = false
+//        }
     }
     
     func outlineViewItemDidExpand(_ notification: Notification) {
-        if let view = self.view(forNotification: notification) as? ProjectTableCellView {
-            view.isExpanded.value = true
-        }
+        reflectCollapseStatus()
+//        if let view = self.view(forNotification: notification) as? ProjectTableCellView {
+//            view.isExpanded.value = true
+//        }
     }
     
 }
