@@ -74,14 +74,16 @@ extension ProjectsViewController {
             get {
                 var children: [ProjectsViewController.Item] = []
                 
+                // Spacer items are disabled for now because they cause a lot
+                // of trouble when reordering
                 for child in super.children {
                     children.append(child)
                     
-                    if let projectItem = child as? ProjectItem, !projectItem.project.isFolder {
-                        continue
-                    }
-                    
-                    children.append(SpaceItem(children: []))
+//                    if let projectItem = child as? ProjectItem, !projectItem.project.isFolder {
+//                        continue
+//                    }
+//
+//                    children.append(SpaceItem(children: []))
                 }
                 
                 return children
@@ -103,8 +105,8 @@ extension ProjectsViewController {
         init(project: Project) {
             self.project = project
             
-            if project.isFolder, let children = project.children as? Set<Project> {
-                let items = Array(children).map({ ProjectItem(project: $0) })
+            if project.isFolder {
+                let items = project.sortedChildren.map({ ProjectItem(project: $0) })
                 super.init(children: items)
             } else {
                 super.init(children: [])
