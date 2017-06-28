@@ -67,25 +67,20 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     
     override func viewDidAppear() {
         disposable += observer.objects.producer.startWithValues { projects in
-            
-            Swift.print("🦋 Projects changed!")
-            
             self.projects = projects
-            
-//            self.outlineView.reloadData()
-            
-//            DispatchQueue.main.async {
-//                self.ensureSelection()
-//            }
         }
         
         // Do view setup here.
         
         outlineView.expandItem(nil, expandChildren: true)
         
+        
+        
         outlineView.register(forDraggedTypes: [draggedType])
         
         menuNeedsUpdate(contextMenu)
+        
+        setupInitialExpandCollapseStatus()
     }
     
     func ensureSelection() {
@@ -113,6 +108,17 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
         
         return true
     }
+    
+    func view(forNotification notification: Notification) -> NSView? {
+        guard let info = notification.userInfo else { return nil }
+        guard let node = info["NSObject"] as? NSTreeNode else { return nil }
+        
+        let row = outlineView.row(forItem: node)
+        
+        return outlineView.view(atColumn: 0, row: row, makeIfNecessary: false)
+    }
+    
+    
     
     // MARK: - Making views for outline view
     // ------------------------------------------------------------------------
@@ -174,11 +180,14 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     
     func outlineView(_ outlineView: NSOutlineView, heightOfRowByItem item: Any) -> CGFloat {
         guard let node = item as? NSTreeNode else { return 32 }
+        let object = node.representedObject
         
-        if let header = node.representedObject as? HeaderItem {
+        if let header = object as? HeaderItem {
             if header.type == .backlog {
                 return 64
             }
+        } else if object is SpaceItem {
+            return 10
         }
         
         
@@ -436,6 +445,33 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
         select(row: newIndex + 1)
         
         return true
+    }
+    
+    // MARK: - Passing expand/collapse status to view
+    
+    func setupInitialExpandCollapseStatus() {
+        for i in 0...(outlineView.numberOfRows-1) {
+            let item = outlineView.item(atRow: i)
+            let isExpanded = outlineView.isItemExpanded(item)
+            
+            if let view = outlineView.view(atColumn: 0, row: i, makeIfNecessary: false) as? ProjectTableCellView {
+                view.isExpanded.value = isExpanded
+            }
+        }
+        
+        
+    }
+    
+    func outlineViewItemDidCollapse(_ notification: Notification) {
+        if let view = self.view(forNotification: notification) as? ProjectTableCellView {
+            view.isExpanded.value = false
+        }
+    }
+    
+    func outlineViewItemDidExpand(_ notification: Notification) {
+        if let view = self.view(forNotification: notification) as? ProjectTableCellView {
+            view.isExpanded.value = true
+        }
     }
     
 }

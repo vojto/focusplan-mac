@@ -18,6 +18,8 @@ class ProjectTableCellView: EditableTableCellView {
     let project = MutableProperty<Project?>(nil)
     var node: NSTreeNode?
     
+    let isExpanded = MutableProperty<Bool>(false)
+    
     @IBOutlet var colorPicker: ColorPicker?
     @IBOutlet var iconButton: NSButton?
     
@@ -38,8 +40,13 @@ class ProjectTableCellView: EditableTableCellView {
     
     func setupIcon() {
         let isFolder = project.producer.map { $0?.isFolder ?? false }
-        let icon = isFolder.map {
-            $0 ? #imageLiteral(resourceName: "FolderIcon") : #imageLiteral(resourceName: "ProjectIcon")
+        
+        let icon = SignalProducer.combineLatest(isFolder, isExpanded.producer).map { folder, expanded -> NSImage in
+            if folder {
+                return expanded ? #imageLiteral(resourceName: "FolderExpandedIcon") : #imageLiteral(resourceName: "FolderIcon")
+            } else {
+                return #imageLiteral(resourceName: "ProjectIcon")
+            }
         }
         
         if let button = iconButton {

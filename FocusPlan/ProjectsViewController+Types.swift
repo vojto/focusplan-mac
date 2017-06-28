@@ -30,6 +30,10 @@ extension ProjectsViewController {
         
     }
     
+    class SpaceItem: Item {
+        
+    }
+    
     enum HeaderItemType: String {
         case today = "Today"
         case next = "Next"
@@ -44,7 +48,27 @@ extension ProjectsViewController {
             super.init(children: [])
         }
         
-        
+        override var children: [ProjectsViewController.Item] {
+            get {
+                var children: [ProjectsViewController.Item] = []
+                
+                for child in super.children {
+                    children.append(child)
+                    
+                    if let projectItem = child as? ProjectItem, !projectItem.project.isFolder {
+                        continue
+                    }
+                    
+                    children.append(SpaceItem(children: []))
+                }
+                
+                return children
+            }
+            
+            set {
+                super.children = newValue
+            }
+        }
     }
     
     class ProjectItem: Item {
