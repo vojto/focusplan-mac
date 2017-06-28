@@ -10,6 +10,29 @@ import Foundation
 import AppKit
 
 class ProjectsOutlineView: NSOutlineView {
+    
+    override func frameOfCell(atColumn column: Int, row: Int) -> NSRect {
+        var frame = super.frameOfCell(atColumn: column, row: row)
+        
+        let object = (item(atRow: row) as? NSTreeNode)?.representedObject
+        
+        if let header = object as? ProjectsViewController.HeaderItem {
+            switch header.type {
+            case .today, .next:
+                frame.origin.x = 0
+                frame.size.width = self.frame.size.width
+            case .backlog:
+                break
+            }
+        } else if object is ProjectsViewController.ProjectItem {
+            frame.origin.x -= self.indentationPerLevel
+        }
+        
+        return frame
+    }
+ 
+    
+    
     override open func mouseDown(with event: NSEvent) {
         
         super.mouseDown(with: event)

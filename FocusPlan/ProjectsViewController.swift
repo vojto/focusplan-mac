@@ -160,7 +160,20 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     
     // Hides expansion arrows
     func outlineView(_ outlineView: NSOutlineView, shouldShowOutlineCellForItem item: Any) -> Bool {
-        return true
+        return false
+    }
+    
+    func outlineView(_ outlineView: NSOutlineView, heightOfRowByItem item: Any) -> CGFloat {
+        guard let node = item as? NSTreeNode else { return 32 }
+        
+        if let header = node.representedObject as? HeaderItem {
+            if header.type == .backlog {
+                return 64
+            }
+        }
+        
+        
+        return 32
     }
     
     func outlineView(_ outlineView: NSOutlineView, shouldSelectItem item: Any) -> Bool {        

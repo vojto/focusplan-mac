@@ -19,29 +19,31 @@ class ProjectTableCellView: EditableTableCellView {
     var node: NSTreeNode?
     
     @IBOutlet var colorPicker: ColorPicker?
-    @IBOutlet var colorView: ProjectColorView?
-    @IBOutlet var folderIcon: NSButton?
+    @IBOutlet var iconButton: NSButton?
     
     override func awakeFromNib() {
-        setupColorPicker()
+        setupField()
         
-        colorView!.project <~ project.producer
+        setupColorPicker()
         
         setupIcon()
     }
     
-    func setupIcon() {
-        project.producer.startWithValues { project in
-            self.colorView?.isHidden = true
-            self.folderIcon?.isHidden = true
+    func setupField() {
+        guard let field = textField else { return }
         
-            if let project = project {
-                if project.isFolder {
-                    self.folderIcon?.isHidden = false
-                } else {
-                    self.colorView?.isHidden = false
-                }
-            }
+        field.font = NSFont.systemFont(ofSize: 14, weight: NSFontWeightRegular)
+        field.textColor = NSColor(hexString: "353535")
+    }
+    
+    func setupIcon() {
+        let isFolder = project.producer.map { $0?.isFolder ?? false }
+        let icon = isFolder.map {
+            $0 ? #imageLiteral(resourceName: "FolderIcon") : #imageLiteral(resourceName: "ProjectIcon")
+        }
+        
+        if let button = iconButton {
+            button.reactive.image <~ icon
         }
     }
     

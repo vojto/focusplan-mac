@@ -22,14 +22,14 @@
             <rect key="frame" x="0.0" y="0.0" width="259" height="441"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="34" horizontalPageScroll="10" verticalLineScroll="34" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wnS-oV-gKD">
+                <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="33" horizontalPageScroll="10" verticalLineScroll="33" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wnS-oV-gKD">
                     <rect key="frame" x="0.0" y="0.0" width="259" height="441"/>
                     <clipView key="contentView" drawsBackground="NO" id="Nt5-Xc-HGe">
                         <rect key="frame" x="0.0" y="0.0" width="259" height="441"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="31" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="xwc-hO-G0q" id="Tx9-BQ-pkP" customClass="ProjectsOutlineView" customModule="FocusPlan" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="259" height="441"/>
+                            <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="30" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="xwc-hO-G0q" id="Tx9-BQ-pkP" customClass="ProjectsOutlineView" customModule="FocusPlan" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="259" height="401"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="2" height="3"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -57,18 +57,18 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="qM6-xi-Utn">
-                                                        <rect key="frame" x="0.0" y="8" width="256" height="14"/>
+                                                        <rect key="frame" x="-2" y="8" width="258" height="14"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="PROJECTS" id="FpI-YY-1to">
                                                             <font key="font" metaFont="smallSystem"/>
-                                                            <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="textColor" red="0.72156862745098038" green="0.72156862745098038" blue="0.72156862745098038" alpha="1" colorSpace="calibratedRGB"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="qM6-xi-Utn" firstAttribute="centerY" secondItem="Ufj-4H-VP1" secondAttribute="centerY" id="JkN-kO-OlX"/>
                                                     <constraint firstAttribute="trailing" secondItem="qM6-xi-Utn" secondAttribute="trailing" constant="2" id="Ksc-ch-Lja"/>
-                                                    <constraint firstItem="qM6-xi-Utn" firstAttribute="leading" secondItem="Ufj-4H-VP1" secondAttribute="leading" constant="2" id="Oo3-eK-y5N"/>
+                                                    <constraint firstAttribute="bottom" secondItem="qM6-xi-Utn" secondAttribute="bottom" constant="8" id="NLZ-kY-3mx"/>
+                                                    <constraint firstItem="qM6-xi-Utn" firstAttribute="leading" secondItem="Ufj-4H-VP1" secondAttribute="leading" id="Oo3-eK-y5N"/>
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="textField" destination="qM6-xi-Utn" id="ipi-QS-mQT"/>
@@ -83,7 +83,7 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="av8-ds-QVk">
-                                                        <rect key="frame" x="0.0" y="8" width="18" height="14"/>
+                                                        <rect key="frame" x="-2" y="8" width="18" height="14"/>
                                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="FolderCollapsedTemplate" imagePosition="only" alignment="center" inset="2" id="odK-fl-CZS">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="system"/>
@@ -100,25 +100,15 @@
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
-                                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="RXH-9k-yjw" customClass="ProjectColorView" customModule="FocusPlan" customModuleProvider="target">
-                                                        <rect key="frame" x="5" y="8" width="13" height="13"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="13" id="69D-Pb-yRJ"/>
-                                                            <constraint firstAttribute="height" constant="13" id="wJJ-Ho-lKX"/>
-                                                        </constraints>
-                                                    </customView>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="SiK-Vi-47n" firstAttribute="leading" secondItem="av8-ds-QVk" secondAttribute="trailing" constant="2" id="AY8-qK-BlZ"/>
+                                                    <constraint firstItem="SiK-Vi-47n" firstAttribute="leading" secondItem="av8-ds-QVk" secondAttribute="trailing" constant="4" id="AY8-qK-BlZ"/>
                                                     <constraint firstItem="SiK-Vi-47n" firstAttribute="centerY" secondItem="Crx-Sa-5pw" secondAttribute="centerY" id="cqt-BE-zE7"/>
-                                                    <constraint firstItem="RXH-9k-yjw" firstAttribute="centerY" secondItem="Crx-Sa-5pw" secondAttribute="centerY" id="csJ-O4-FgN"/>
                                                     <constraint firstItem="av8-ds-QVk" firstAttribute="centerY" secondItem="Crx-Sa-5pw" secondAttribute="centerY" id="hLe-27-8VB"/>
-                                                    <constraint firstItem="SiK-Vi-47n" firstAttribute="leading" secondItem="RXH-9k-yjw" secondAttribute="trailing" constant="2" id="iFU-Pd-wzs"/>
                                                     <constraint firstItem="SiK-Vi-47n" firstAttribute="leading" secondItem="Crx-Sa-5pw" secondAttribute="leading" constant="20" id="jsc-Pw-jFZ"/>
                                                 </constraints>
                                                 <connections>
-                                                    <outlet property="colorView" destination="RXH-9k-yjw" id="ddO-uG-LAN"/>
-                                                    <outlet property="folderIcon" destination="av8-ds-QVk" id="tbI-cE-ntQ"/>
+                                                    <outlet property="iconButton" destination="av8-ds-QVk" id="tbI-cE-ntQ"/>
                                                     <outlet property="textField" destination="SiK-Vi-47n" id="RXF-Uk-2qq"/>
                                                 </connections>
                                             </tableCellView>
@@ -136,6 +126,7 @@
                         </subviews>
                         <nil key="backgroundColor"/>
                     </clipView>
+                    <edgeInsets key="contentInsets" left="0.0" right="0.0" top="40" bottom="0.0"/>
                     <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="pdn-ev-KBl">
                         <rect key="frame" x="1" y="424" width="257" height="16"/>
                         <autoresizingMask key="autoresizingMask"/>

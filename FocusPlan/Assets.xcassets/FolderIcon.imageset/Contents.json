@@ -2,16 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "FolderExpandedTemplate.png",
+      "filename" : "FolderIcon.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "FolderExpandedTemplate@2x.png",
+      "filename" : "FolderIcon@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
+      "filename" : "FolderIcon@3x.png",
       "scale" : "3x"
     }
   ],

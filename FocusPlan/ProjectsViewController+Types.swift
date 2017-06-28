@@ -33,7 +33,7 @@ extension ProjectsViewController {
     enum HeaderItemType: String {
         case today = "Today"
         case next = "Next"
-        case backlog = "Projects"
+        case backlog = "PROJECTS"
     }
     
     class HeaderItem: Item {
