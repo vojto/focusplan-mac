@@ -375,25 +375,51 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     // MARK: - Reordering
     // -----------------------------------------------------------------------
     
+    var draggedItem: Item?
+    
     func outlineView(_ outlineView: NSOutlineView, writeItems items: [Any], to pasteboard: NSPasteboard) -> Bool {
         
         guard let node = items.first as? NSTreeNode else { return false }
-        guard let project = (node.representedObject as? ProjectItem)?.project else { return false }
+        guard let item = node.representedObject as? Item else { return false }
         
-        guard let index = projects.index(of: project) else {
-            return false
+        // Ony project items (projects and folders) can be dragged
+        if item is ProjectItem {
+            // TODO: Set local variable
+            
+            // Maybe we can omit this section?
+            let data = NSKeyedArchiver.archivedData(withRootObject: ["foo": "bar"])
+            pasteboard.declareTypes([draggedType], owner: self)
+            pasteboard.setData(data, forType: draggedType)
+            
+            draggedItem = item
+            
+            return true
         }
         
-        let data = NSKeyedArchiver.archivedData(withRootObject: ["index": index])
-        pasteboard.declareTypes([draggedType], owner: self)
-        pasteboard.setData(data, forType: draggedType)
-        
-        return true
+        return false
     }
     
     func outlineView(_ outlineView: NSOutlineView, validateDrop info: NSDraggingInfo, proposedItem item: Any?, proposedChildIndex index: Int) -> NSDragOperation {
+        
         guard let proposedNode = item as? NSTreeNode else { return [] }
-        guard let proposedItem = proposedNode.representedObject else { return [] }
+        guard let proposedItem = proposedNode.representedObject as? Item else { return [] }
+        
+        if proposedItem is SpaceItem {
+            // There's no dropping on spaces
+            // TODO: We should instead drop on the following item in the structure
+            return []
+        }
+        
+        if let item = proposedItem as? ProjectItem, !item.project.isFolder {
+            // There's no dropping on projects
+            return []
+        }
+        
+        // No dropping of parents onto their children
+        
+        
+        Swift.print("Proposed drop: \(proposedItem) : \(index)")
+        // Check if we're moving it into itself?
         
         return .move
         
@@ -415,11 +441,13 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
         }
          */
         
-        
-        return []
     }
     
     func outlineView(_ outlineView: NSOutlineView, acceptDrop info: NSDraggingInfo, item: Any?, childIndex index: Int) -> Bool {
+        
+        draggedItem = nil
+        return false
+        
         let pasteboard = info.draggingPasteboard()
         let data = pasteboard.data(forType: draggedType)!
         guard let object = NSKeyedUnarchiver.unarchiveObject(with: data) as? [String: Int] else { return false }

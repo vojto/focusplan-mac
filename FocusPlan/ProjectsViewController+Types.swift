@@ -31,7 +31,9 @@ extension ProjectsViewController {
     }
     
     class SpaceItem: Item {
-        
+        override var description: String {
+            return "<🛰>"
+        }
     }
     
     enum HeaderItemType: String {
@@ -69,6 +71,10 @@ extension ProjectsViewController {
                 super.children = newValue
             }
         }
+        
+        override var description: String {
+            return "<Header type=\(type)>"
+        }
     }
     
     class ProjectItem: Item {
@@ -91,6 +97,11 @@ extension ProjectsViewController {
             }
             
             return false
+        }
+        
+        override var description: String {
+            let type = project.isFolder ? "Folder" : "Project"
+            return "<Project name=\(project.name ?? "")>"
         }
     }
     

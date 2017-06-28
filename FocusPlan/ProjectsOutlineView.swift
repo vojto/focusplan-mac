@@ -11,6 +11,8 @@ import AppKit
 
 class ProjectsOutlineView: NSOutlineView {
     
+    
+    /*
     override func frameOfCell(atColumn column: Int, row: Int) -> NSRect {
         var frame = super.frameOfCell(atColumn: column, row: row)
         
@@ -30,7 +32,8 @@ class ProjectsOutlineView: NSOutlineView {
         
         return frame
     }
- 
+     */
+    
     override func make(withIdentifier identifier: String, owner: Any?) -> NSView? {
         if identifier == NSOutlineViewDisclosureButtonKey {
             return nil
