@@ -446,13 +446,6 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
         guard let projectItem = draggedItem as? ProjectItem else { return false }
         guard let targetItem = (item as? NSTreeNode)?.representedObject as? Item else { return false }
         
-        Swift.print("Dropping inside of target item: \(targetItem) at \(index)")
-        
-        /*
-        let newIndex = pageIndex >= index ? index : index-1
-        projects.insert(projects.remove(at: pageIndex), at: newIndex)
-         */
-        
         
         let context = AppDelegate.viewContext
         let undoManager = AppDelegate.undoManager
@@ -461,10 +454,13 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
         undoManager.beginUndoGrouping()
         
         
+        let project = projectItem.project
+        
+        var finalIndex: Int?
+        
         if let targetProjectItem = targetItem as? ProjectItem,
             targetProjectItem.project.isFolder == true {
             
-            let project = projectItem.project
             let targetProject = targetProjectItem.project
             var otherProjects = targetProject.sortedChildren
             
@@ -474,6 +470,8 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
                 otherProjects = move(project: project, inGroup: otherProjects, toIndex: index)
                 saveWeights(group: otherProjects)
             }
+            
+            finalIndex = otherProjects.index(of: project)
             
             project.parent = targetProject
             
@@ -486,25 +484,15 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
                 }
             }
             
-            let project = projectItem.project
             otherProjects = move(project: project, inGroup: otherProjects, toIndex: index)
             
             saveWeights(group: otherProjects)
             
+            finalIndex = otherProjects.index(of: project)
+            
             project.parent = nil
         }
         
-        
-        // 02 Update weights for the everything?
-        
-        /*
-        var weight = 0
-        for project in projects {
-            project.weight = Int32(weight)
-            
-            weight += 1
-        }
-         */
         
         context.processPendingChanges()
         undoManager.setActionName("Reorder projects")
@@ -512,17 +500,11 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
         
         observer.fetch()
         
-//        select(row: newIndex + 1) // Select dragged projects
-        
         return true
     }
     
     func move(project: Project, inGroup group: [Project], toIndex index: Int) -> [Project] {
         var group = group
-        
-        Swift.print("Moving project \(project)")
-        Swift.print("In group \(group)")
-        Swift.print("To position \(index)")
         
         let newIndex: Int
         if let existingIndex = group.index(of: project) {
