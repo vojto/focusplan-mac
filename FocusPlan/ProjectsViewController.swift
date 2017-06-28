@@ -403,6 +403,7 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
         
         guard let proposedNode = item as? NSTreeNode else { return [] }
         guard let proposedItem = proposedNode.representedObject as? Item else { return [] }
+        guard let draggedItem = self.draggedItem else { return [] }
         
         if proposedItem is SpaceItem {
             // There's no dropping on spaces
@@ -415,11 +416,13 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
             return []
         }
         
-        // No dropping of parents onto their children
-        
+        if proposedItem.parentsAndSelf.contains(draggedItem) {
+            // There's no dropping of parent items into their children
+            return []
+        }
         
         Swift.print("Proposed drop: \(proposedItem) : \(index)")
-        // Check if we're moving it into itself?
+        Swift.print("All the parents of proposed drop: \(proposedItem.parentsAndSelf)")
         
         return .move
         

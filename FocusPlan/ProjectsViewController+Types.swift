@@ -11,7 +11,27 @@ import Foundation
 extension ProjectsViewController {
     
     @objc class Item: NSObject {
-        var children = [Item]()
+        var parent: Item?
+        
+        var children = [Item]() {
+            didSet {
+                for child in children {
+                    child.parent = self
+                }
+            }
+        }
+        
+        var parents: Set<Item> {
+            if let parent = self.parent {
+                return Set<Item>([parent]).union(parent.parents)
+            } else {
+                return Set()
+            }
+        }
+        
+        var parentsAndSelf: Set<Item> {
+            return parents.union(Set([self]))
+        }
         
         init(children: [Item]) {
             self.children = children
