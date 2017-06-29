@@ -63,8 +63,6 @@ class MainWindow: NSWindow, NSToolbarDelegate {
         TimerState.instance.selectedTask <~ planController.tasksController.selectedTasks.producer.map { $0.first }
         
         
-        
-        
         if Config.isTrial {
             let trialButtonController = TrialButtonViewController()
             trialButtonController.layoutAttribute = .right
