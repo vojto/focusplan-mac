@@ -51,7 +51,7 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     
     let draggedType = "ProjectRow"
     
-    var onSelect: ((Project?) -> ())?
+    let selectedItem = MutableProperty<Item?>(nil)
     
     @IBOutlet weak var outlineView: NSOutlineView!
     
@@ -66,6 +66,10 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
         backlogHeaderItem = HeaderItem(type: .backlog)
         
         rootItem = RootItem(children: [todayHeaderItem, nextHeaderItem, backlogHeaderItem])
+        
+        let selected = treeController.reactive.producer(forKeyPath: #keyPath(NSTreeController.selectedObjects))
+        
+        selectedItem <~ selected.map { ($0 as? [Item])?.first }
     }
     
     override func viewDidAppear() {
@@ -217,6 +221,9 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
         return true
     }
     
+    /*
+    // TODO: Maybe use bindings on NSTreeView controller instead of this
+    // delegate method?
     func outlineViewSelectionDidChange(_ notification: Notification) {
         let row = outlineView.selectedRow
         let item = outlineView.item(atRow: row)
@@ -225,6 +232,7 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
             onSelect?(item.project)
         }
     }
+     */
     
     func findSelectedProject() -> Project? {
         let row = outlineView.selectedRow

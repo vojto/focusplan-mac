@@ -36,15 +36,33 @@ class MainWindow: NSWindow, NSToolbarDelegate {
         
         mainView.include(planController.view)
         
-//        secondaryView.include(projectsController.view)
         secondaryView.include(projectsController.view, insets: EdgeInsets(top: 40.0, left: 0, bottom: 0, right: 0))
         
         backlogController.view.isHidden = true
-//        planController.view.isHidden = true
-//        mainView2.isHidden = true
-    
+        
+        // 01 Observe selected project
+        
+        projectsController.selectedItem.producer.startWithValues { item in
+            guard let item = item else { return } // nothing was selected, return
+            
+            if let projectItem = item as? ProjectsViewController.ProjectItem {
+                self.showProject(projectItem.project)
+            } else if let headerItem = item as? ProjectsViewController.HeaderItem {
+                switch headerItem.type {
+                case .today:
+                    self.showPlan(detail: .daily)
+                case .next:
+                    self.showPlan(detail: .weekly)
+                default: break
+                }
+            }
+        }
+        
+        // 02 Observe selected task
         
         TimerState.instance.selectedTask <~ planController.tasksController.selectedTasks.producer.map { $0.first }
+        
+        
         
         
         if Config.isTrial {
