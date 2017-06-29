@@ -15,7 +15,7 @@ class TasksRowView: CustomTableRowView {
     override open func drawBackground(in dirtyRect: NSRect) {
         let rect = bounds.insetBy(dx: 4, dy: 4)
         let path = NSBezierPath(roundedRect: rect, cornerRadius: 3)
-        let blue = NSColor(hexString: "A6CAFD")!.withAlphaComponent(0.3)
+        let blue = NSColor(hexString: "EBEDEE")!
         
         if isEditing {
 //            NSColor.white.set()

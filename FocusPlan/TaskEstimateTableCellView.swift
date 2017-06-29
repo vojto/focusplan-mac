@@ -20,6 +20,11 @@ class TaskEstimateTableCellView: EditableTableCellView {
         
         guard let field = textField else { return }
         
+        field.font = NSFont.systemFont(ofSize: 13, weight: NSFontWeightRegular)
+        field.textColor = NSColor(hexString: "9099A3")
+        field.drawsBackground = false
+        field.backgroundColor = NSColor.clear
+        
         let minutesLabel = task.producer.pick({ $0.reactive.estimatedMinutesFormatted.producer })
         
         field.reactive.stringValue <~ minutesLabel.map({ $0 ?? "" })

@@ -29,7 +29,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" autosaveName="Projects" rowHeight="30" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" autosaveExpandedItems="YES" outlineTableColumn="xwc-hO-G0q" id="Tx9-BQ-pkP" customClass="ProjectsOutlineView" customModule="FocusPlan" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="259" height="401"/>
+                                <rect key="frame" x="0.0" y="0.0" width="259" height="386"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="2" height="3"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -131,7 +131,7 @@
                         </subviews>
                         <nil key="backgroundColor"/>
                     </clipView>
-                    <edgeInsets key="contentInsets" left="0.0" right="0.0" top="40" bottom="0.0"/>
+                    <edgeInsets key="contentInsets" left="0.0" right="0.0" top="55" bottom="0.0"/>
                     <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="pdn-ev-KBl">
                         <rect key="frame" x="1" y="424" width="257" height="16"/>
                         <autoresizingMask key="autoresizingMask"/>

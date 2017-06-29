@@ -10,6 +10,8 @@ import Foundation
 import AppKit
 import ReactiveSwift
 import NiceKit
+import Cartography
+import Lottie
 
 class TaskTitleTableCellView: EditableTableCellView {
     var task = MutableProperty<Task?>(nil)
@@ -22,105 +24,132 @@ class TaskTitleTableCellView: EditableTableCellView {
     
     var onTabOut: (() -> ())?
     
+    let textColor = NSColor(hexString: "2F3232")
+    let finishedTextColor = NSColor(hexString: "C2C9D0")
+    let finishedOpacity: CGFloat = 0.25
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        let isFinished = task.producer.pick({ $0.reactive.isFinished.producer })
-//        let isPlanned = task.producer.pick({ $0.reactive.isPlanned.producer })
-//        let project = task.producer.pick({ $0.reactive.project.producer })
+        setupTextField()
         
-        guard let field = textField else { return assertionFailure() }
+        setupCheck()
+        
+        setupBindings()
+    }
+    
+    func setupTextField() {
+        // Text field
+        
+        let field = NSTextField()
+        field.isBordered = false
+        field.isSelectable = false
+        field.isEditable = false
+        field.font = NSFont.systemFont(ofSize: 14)
+        field.textColor = textColor
+        field.drawsBackground = false
+        field.focusRingType = .none
+        addSubview(field)
+        
+        constrain(field) { field in
+            field.top == field.superview!.top + 8
+            field.bottom == field.superview!.bottom - 8
+            
+            field.right == field.superview!.right - 4
+        }
+        
+        self.textField = field
+    }
+    
+    let checkAnim = LOTAnimationView(name: "check_fixed")!
+    
+    func setupCheck() {
+        guard let field = self.textField else { assertionFailure(); return }
+        
+        // 01 Check container
+        
+        let checkContainer = NSView()
+        addSubview(checkContainer)
+        
+        constrain(checkContainer) { view in
+            view.left == view.superview!.left + 20
+            view.width == 20
+            view.height == 20
+            view.centerY == view.superview!.centerY + 1
+        }
+        
+        // 02 Check animation
+        checkAnim.contentMode = .scaleToFill
+        
+        checkContainer.addSubview(checkAnim)
+        constrain(checkAnim) { check in
+            check.center == check.superview!.center
+            
+            check.width == 800 * 0.2
+            check.height == 600 * 0.2
+        }
+        
+        setUnfinished()
+        
+        constrain(field, checkContainer) { field, check in
+            //            check.left == field.right + 4
+            field.left == check.right + 4
+        }
+        
+        // 03 Gesture recognizer
+        
+        let recog = NiceClickGestureRecognizer(target: self, action: #selector(TaskTitleTableCellView.toggleFinished(_:)))
+        
+        checkContainer.addGestureRecognizer(recog)
+    }
+    
+    func setUnfinished() {
+        checkAnim.animationProgress = 0
+    }
+    
+    func setFinished() {
+        checkAnim.animationProgress = 1
+    }
+    
+    @IBAction func toggleFinished(_ sender: Any) {
+        guard let task = self.task.value else { return }
+        
+        if checkAnim.isAnimationPlaying {
+            return
+        }
+        
+        if !task.isFinished {
+//            self.textField?.textColor = self.finishedTextColor
+            self.textField?.animator().alphaValue = finishedOpacity
+            checkAnim.play(completion: { (_) in
+                task.isFinished = true
+            })
+        } else {
+            task.isFinished = false
+        }
+    }
+    
+    func setupBindings() {
+        guard let field = self.textField else { assertionFailure(); return }
+        
+        let isFinished = task.producer.pick({ $0.reactive.isFinished.producer })
+        //        let isPlanned = task.producer.pick({ $0.reactive.isPlanned.producer })
+        //        let project = task.producer.pick({ $0.reactive.project.producer })
+        
+        isFinished.producer.startWithValues { finished in
+            let finished = finished ?? false
+            finished ? self.setFinished() : self.setUnfinished()
+            field.textColor = finished ? self.finishedTextColor : self.textColor
+            field.alphaValue = 1
+        }
         
         let title = task.producer.pick({ $0.reactive.title.producer }).map { $0 ?? "" }
         
-        let attributedTitle = SignalProducer.combineLatest(title, isFinished).map { title, isFinished -> NSAttributedString in
-            var attributes = [String: Any]()
-            
-            if (isFinished ?? false) {
-                attributes[NSStrikethroughStyleAttributeName] = NSUnderlineStyle.styleSingle.rawValue
-                attributes[NSForegroundColorAttributeName] = NSColor.secondaryLabelColor
-            }
-            
-            return NSAttributedString(string: title, attributes: attributes)
-        }
-
-        field.reactive.attributedStringValue <~ attributedTitle
+        field.reactive.stringValue <~ title
         
-        let timer = TimerState.instance
-        
-        let isRunning = SignalProducer.combineLatest(task.producer, timer.runningTask.producer).map { task, runningTask in
-            return runningTask != nil && task == runningTask
-        }.skipRepeats()
-    
-        
-        field.reactive.textColor <~ isRunning.map { running in
-            return running ? NSColor.selectedMenuItemColor : NSColor.labelColor
-        }
-    
-        guard let button = finishedButton else { return assertionFailure() }
-        button.wantsLayer = true
-
-        
-        button.reactive.image <~ SignalProducer.combineLatest(isFinished, isRunning).map { finished, running -> NSImage in
-            if running {
-                return #imageLiteral(resourceName: "TaskRunning")
-            } else if (finished ?? false) {
-                return #imageLiteral(resourceName: "TaskChecked")
-            } else {
-                return #imageLiteral(resourceName: "TaskUnchecked")
-            }
-        }
-        
-//        SignalProducer.combineLatest(
-//            isEditing.producer,
-//            isFinished.producer
-//        ).startWithValues { editing, finished in
-//            
-//            if (finished ?? false) {
-//                self.textField?.textColor = NSColor.quaternaryLabelColor
-//            } else {
-//                self.textField?.textColor = NSColor.labelColor
-//            }
-//            
-//        }
-//        
-        
-        /*
-        SignalProducer.combineLatest(isEditing.producer, isPlanned.producer, project.producer)
-            .startWithValues { editing, planned, project in
-                
-                
-                
-                let normal = NSFont.systemFont(ofSize: 14, weight: NSFontWeightRegular)
-                let medium = NSFont.systemFont(ofSize: 14, weight: NSFontWeightMedium)
-                
-                if editing {
-                    field.font = normal
-                    field.textColor = NSColor.labelColor
-                } else if (planned ?? false) && self.wantsHighlightPlanned {
-                    field.font = medium
-                    
-                    if let color = project?.color,
-                        let nsColor = Palette.decode(colorName: color) {
-                        field.textColor = nsColor
-                    } else {
-                        field.textColor = NSColor.labelColor
-                    }
-                } else {
-                    field.font = normal
-                    field.textColor = NSColor.labelColor
-                }
-        }
-        */
-        
-        
-        
-        
-//        SignalProducer.combineLatest(isFinished, )
-    
-
         
     }
+    
     
     override func controlTextDidEndEditing(_ obj: Notification) {
         super.controlTextDidEndEditing(obj)
@@ -145,9 +174,5 @@ class TaskTitleTableCellView: EditableTableCellView {
         controller?.updateHeight(cellView: self)
     }
     
-    @IBAction func toggleFinished(_ sender: Any) {
-        if let task = self.task.value {
-            task.isFinished = !task.isFinished
-        }
-    }
+    
 }
