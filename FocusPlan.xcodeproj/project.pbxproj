@@ -130,6 +130,7 @@
 		99EEDE391EAF855400662DED /* NiceData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99EEDE371EAF854200662DED /* NiceData.framework */; };
 		99EEDE3A1EAF855400662DED /* NiceData.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 99EEDE371EAF854200662DED /* NiceData.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		99EEDE5D1EAF931500662DED /* ProjectsOutlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99EEDE5C1EAF931500662DED /* ProjectsOutlineView.swift */; };
+		99FE0A8F1F0623F5008C69A5 /* Stylesheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FE0A8E1F0623F5008C69A5 /* Stylesheet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -283,6 +284,7 @@
 		99EEDE371EAF854200662DED /* NiceData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NiceData.framework; path = Carthage/Build/Mac/NiceData.framework; sourceTree = "<group>"; };
 		99EEDE591EAF866A00662DED /* FocusPlan.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FocusPlan.entitlements; sourceTree = "<group>"; };
 		99EEDE5C1EAF931500662DED /* ProjectsOutlineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectsOutlineView.swift; sourceTree = "<group>"; };
+		99FE0A8E1F0623F5008C69A5 /* Stylesheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stylesheet.swift; sourceTree = "<group>"; };
 		FE19EC429800EA42F114C446 /* Pods_FocusPlan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FocusPlan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -356,6 +358,7 @@
 				990A180B1EAF3D9700DCE839 /* MainWindow.swift */,
 				99D122EE1EB8A6C500D495DC /* MainWindowDelegate.swift */,
 				99A24EA61EB3591300C3F229 /* Palette.swift */,
+				99FE0A8E1F0623F5008C69A5 /* Stylesheet.swift */,
 				994F0A2B1EC5957200562B7A /* UserDefaults+Extensions.swift */,
 				998AC3691EC61D7200559CB6 /* ScriptingManager.swift */,
 				993550311EC99D33004B6D23 /* AlertHelper.swift */,
@@ -892,6 +895,7 @@
 				99169FE11ED5DEBE00BFB4F2 /* AppDelegate+TrialChecking.swift in Sources */,
 				99D122F11EB8A9D600D495DC /* TasksObserver.swift in Sources */,
 				994F0A211EC5750B00562B7A /* ProjectsViewController+Types.swift in Sources */,
+				99FE0A8F1F0623F5008C69A5 /* Stylesheet.swift in Sources */,
 				991E7B381EB0BEF00086A9D9 /* String+Extensions.swift in Sources */,
 				998AC36A1EC61D7200559CB6 /* ScriptingManager.swift in Sources */,
 				990A180C1EAF3D9700DCE839 /* MainWindow.swift in Sources */,

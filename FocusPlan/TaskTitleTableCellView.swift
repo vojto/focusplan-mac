@@ -46,7 +46,6 @@ class TaskTitleTableCellView: EditableTableCellView {
         field.isSelectable = false
         field.isEditable = false
         field.font = NSFont.systemFont(ofSize: 14)
-        field.textColor = textColor
         field.drawsBackground = false
         field.focusRingType = .none
         addSubview(field)
@@ -119,7 +118,6 @@ class TaskTitleTableCellView: EditableTableCellView {
         }
         
         if !task.isFinished {
-//            self.textField?.textColor = self.finishedTextColor
             self.textField?.animator().alphaValue = finishedOpacity
             checkAnim.play(completion: { (_) in
                 task.isFinished = true
@@ -139,15 +137,58 @@ class TaskTitleTableCellView: EditableTableCellView {
         isFinished.producer.startWithValues { finished in
             let finished = finished ?? false
             finished ? self.setFinished() : self.setUnfinished()
-            field.textColor = finished ? self.finishedTextColor : self.textColor
+//            field.textColor = finished ? self.finishedTextColor : self.textColor
             field.alphaValue = 1
         }
         
+        let project = task.producer.pick({ $0.reactive.project.producer })
         let title = task.producer.pick({ $0.reactive.title.producer }).map { $0 ?? "" }
         
-        field.reactive.stringValue <~ title
+        let attributedTitle = SignalProducer.combineLatest(title.producer, project.producer, isFinished.producer).map { title, project, isFinished -> NSAttributedString in
+            let isFinished = isFinished ?? false
+            let projectName = project?.name ?? ""
+//            let projectColor = project?.color ?? Stylesheet.primaryColor
+            let projectColor = Palette.decode(colorName: project?.color) ?? NSColor(hexString: Stylesheet.primaryColor)!
+            
+            
+            Swift.print("Resulting color: \(projectColor)")
+            
+            let resultAttr = NSMutableAttributedString()
+            
+            let titleAttr = NSMutableAttributedString(string: title)
+            
+            titleAttr.textColor = isFinished ? self.finishedTextColor : self.textColor
+            
+            resultAttr += titleAttr
+            
+            if projectName == "" {
+                return resultAttr
+            }
+            
+            let spacer = NSMutableAttributedString(string: "  –  ")
+            spacer.textColor = self.finishedTextColor
+            
+            resultAttr += spacer
+            
+            let projectAttr = NSMutableAttributedString(string: projectName)
+            
+            if isFinished {
+                projectAttr.textColor = self.finishedTextColor
+            } else {
+                projectAttr.textColor = projectColor
+            }
+            
+            projectAttr.font = NSFont.systemFont(ofSize: 12)
+            
+            resultAttr += projectAttr
+            
+            return resultAttr
+            
+//            return titleAttr
+        }
         
         
+        field.reactive.attributedStringValue <~ attributedTitle
     }
     
     
