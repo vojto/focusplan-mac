@@ -8,8 +8,9 @@
 
 import Foundation
 import AppKit
+import NiceKit
 
-class TasksOutlineView: NSOutlineView {
+class TasksOutlineView: NiceOutlineView {
     override func awakeFromNib() {
         self.columnAutoresizingStyle = .firstColumnOnlyAutoresizingStyle
     }
@@ -46,6 +47,20 @@ class TasksOutlineView: NSOutlineView {
     
     override func menu(for event: NSEvent) -> NSMenu? {
         return nil
+    }
+    
+    // MARK: - Editing
+    
+    override func edit(at row: Int, column: Int) {
+        if row == -1 {
+            return
+        }
+        
+        let view = self.view(atColumn: column, row: row, makeIfNecessary: false)
+        
+        if let titleView = view as? TaskTitleTableCellView {
+            titleView.startEditing()
+        }
     }
     
 }

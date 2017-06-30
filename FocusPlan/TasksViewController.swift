@@ -16,7 +16,7 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
     class RootItem {
     }
     
-    @IBOutlet weak var outlineView: NSOutlineView!
+    @IBOutlet weak var outlineView: TasksOutlineView!
     @IBOutlet weak var taskColumn: NSTableColumn!
     @IBOutlet weak var estimateColumn: NSTableColumn!
     @IBOutlet weak var projectColumn: NSTableColumn!
@@ -63,6 +63,8 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
     }
     
     func reloadData() {
+        
+        Swift.print("🌈 Reloading")
 
         let items = outlineView.selectedRowIndexes.map {
             self.outlineView.item(atRow: $0)
@@ -350,6 +352,7 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
     }
     
     func outlineView(_ outlineView: NSOutlineView, acceptDrop info: NSDraggingInfo, item: Any?, childIndex index: Int) -> Bool {
+        
         let pasteboard = info.draggingPasteboard()
         let data = pasteboard.data(forType: draggedType)!
         guard let object = NSKeyedUnarchiver.unarchiveObject(with: data) as? [String: Int] else { return false }
@@ -379,7 +382,7 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
         
         reloadData()
         
-        outlineView.select(row: newIndex + 1)
+        self.outlineView.select(row: newIndex + 1)
         
         return true
     }
@@ -409,7 +412,13 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
             
             dummyContainer.layoutSubtreeIfNeeded()
             
-            return dummyContainer.fittingSize.height
+            var height = dummyContainer.fittingSize.height
+            
+            if let view = titleCellViews[task], view.isEditing {
+                height += 40
+            }
+            
+            return height
         } else if item is RootItem {
             return 90
         }
@@ -423,17 +432,17 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
         }).max() ?? 0) + 1
     }
     
-    func updateHeight(cellView: TaskTitleTableCellView) {
+    func updateHeight(cellView: TaskTitleTableCellView, animated: Bool = false, completion: (() -> ())? = nil) {
         let row = outlineView.row(for: cellView)
         
-        updateHeight(indexes: IndexSet([row]))
+        updateHeight(indexes: IndexSet([row]), animated: animated, completion: completion)
     }
     
-    func updateHeight(indexes: IndexSet) {
+    func updateHeight(indexes: IndexSet, animated: Bool = false, completion: (() -> ())? = nil) {
         NSAnimationContext.runAnimationGroup({ (context) in
-            context.duration = 0
+            context.duration = animated ? 0.15 : 0
             outlineView.noteHeightOfRows(withIndexesChanged: indexes)
-        }, completionHandler: nil)
+        }, completionHandler: completion)
     }
     
     // MARK: - Updating the menu

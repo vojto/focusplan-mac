@@ -53,7 +53,7 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     
     let selectedItem = MutableProperty<Item?>(nil)
     
-    @IBOutlet weak var outlineView: NSOutlineView!
+    @IBOutlet weak var outlineView: ProjectsOutlineView!
     
     var disposable = CompositeDisposable()
     

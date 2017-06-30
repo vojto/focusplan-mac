@@ -16,7 +16,8 @@ import Lottie
 class TaskTitleTableCellView: EditableTableCellView {
     var task = MutableProperty<Task?>(nil)
     
-    @IBOutlet var finishedButton: NSButton?
+    let checkContainer = NSView()
+    let checkAnim = LOTAnimationView(name: "check_fixed")!
     
     var wantsHighlightPlanned = true
     
@@ -28,12 +29,19 @@ class TaskTitleTableCellView: EditableTableCellView {
     let finishedTextColor = NSColor(hexString: "C2C9D0")
     let finishedOpacity: CGFloat = 0.25
     
+    let leftMargin: CGFloat = 20.0
+    let fieldLeftMargin: CGFloat = 44.0
+    
+    var fieldLeftConstraint: NSLayoutConstraint?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
         setupTextField()
         
         setupCheck()
+
+        setupConfigRow()
         
         setupBindings()
         
@@ -58,25 +66,20 @@ class TaskTitleTableCellView: EditableTableCellView {
         constrain(field) { field in
             field.top == field.superview!.top + 8
             field.bottom == field.superview!.bottom - 8
-            
+            self.fieldLeftConstraint = (field.left == field.superview!.left + fieldLeftMargin)
             field.right == field.superview!.right - 4
         }
         
         self.textField = field
     }
     
-    let checkAnim = LOTAnimationView(name: "check_fixed")!
     
     func setupCheck() {
-        guard let field = self.textField else { assertionFailure(); return }
         
-        // 01 Check container
-        
-        let checkContainer = NSView()
         addSubview(checkContainer)
         
         constrain(checkContainer) { view in
-            view.left == view.superview!.left + 20
+            view.left == view.superview!.left + leftMargin
             view.width == 20
             view.height == 20
             view.centerY == view.superview!.centerY + 1
@@ -95,16 +98,37 @@ class TaskTitleTableCellView: EditableTableCellView {
         
         setUnfinished()
         
-        constrain(field, checkContainer) { field, check in
-            //            check.left == field.right + 4
-            field.left == check.right + 4
-        }
         
         // 03 Gesture recognizer
         
         let recog = NiceClickGestureRecognizer(target: self, action: #selector(TaskTitleTableCellView.toggleFinished(_:)))
         
         checkContainer.addGestureRecognizer(recog)
+    }
+
+    let configRow = NSStackView()
+
+    func setupConfigRow() {
+        let projectLabel = NSTextField.label()
+        projectLabel.stringValue = "Project:"
+        projectLabel.textColor = NSColor(hexString: "ABB5C0")!
+        projectLabel.font = NSFont.systemFont(ofSize: 13)
+
+        
+
+        configRow.orientation = .horizontal
+        configRow.setViews([projectLabel], in: .leading)
+        
+        configRow.alphaValue = 0
+
+        addSubview(configRow)
+
+        constrain(configRow) { row in
+            row.bottom == row.superview!.bottom - 8
+            row.left == row.superview!.left + 20
+            row.right == row.superview!.right - 20
+            row.height == 20
+        }
     }
     
     func setUnfinished() {
@@ -198,11 +222,6 @@ class TaskTitleTableCellView: EditableTableCellView {
     override func controlTextDidEndEditing(_ obj: Notification) {
         super.controlTextDidEndEditing(obj)
         
-        guard let field = obj.object as? NSTextField else { return }
-        let value = field.stringValue
-        
-        task.value?.title = value
-        
         if let mov = obj.userInfo?["NSTextMovement"] as? Int,
             mov == NSTabTextMovement {
             
@@ -212,11 +231,72 @@ class TaskTitleTableCellView: EditableTableCellView {
         }
     }
     
+    /*
     override func controlTextDidChange(_ obj: Notification) {
         super.controlTextDidChange(obj)
-        
         controller?.updateHeight(cellView: self)
     }
+     */
     
+    override func startEditing() {
+        super.startEditing()
+        
+        textField?.stringValue = task.value?.title ?? ""
+        
+        controller?.updateHeight(cellView: self, animated: true) {
+            self.setEditingLayout()
+        }
+    }
     
+    override func finishEditing() {
+        guard let field = textField else { assertionFailure(); return }
+        let task = self.task.value
+        
+        field.resignFirstResponder()
+        field.isEditable = false
+        
+        isEditing = false
+
+        NSAnimationContext.runAnimationGroup({ context in
+            context.duration = 0.15
+            self.configRow.animator().alphaValue = 0
+        }, completionHandler: nil)
+
+        controller?.updateHeight(cellView: self, animated: true) {
+            self.rowView?.isEditing = false
+            (self.outlineView as? EditableOutlineView)?.isEditing = false
+            
+            self.setRegularLayout()
+            
+            let value = field.stringValue
+            task?.title = value
+        }
+        
+    }
+    
+    func setRegularLayout() {
+        checkContainer.animator().alphaValue = 1
+        
+        fieldLeftConstraint?.constant = fieldLeftMargin
+        
+        animateLayoutChanges(duration: 0.35)
+    }
+    
+    func setEditingLayout() {
+        checkContainer.animator().alphaValue = 0
+
+        configRow.animator().alphaValue = 1
+        
+        fieldLeftConstraint?.constant = leftMargin
+        
+        animateLayoutChanges(duration: 0.15)
+    }
+    
+    func animateLayoutChanges(duration: Double) {
+        NSAnimationContext.runAnimationGroup({ context in
+            context.duration = duration
+            context.allowsImplicitAnimation = true
+            self.layoutSubtreeIfNeeded()
+        }, completionHandler: nil)
+    }
 }

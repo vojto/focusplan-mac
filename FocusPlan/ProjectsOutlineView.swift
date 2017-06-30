@@ -8,8 +8,9 @@
 
 import Foundation
 import AppKit
+import NiceKit
 
-class ProjectsOutlineView: NSOutlineView {
+class ProjectsOutlineView: NiceOutlineView {
     
     
     override func frameOfCell(atColumn column: Int, row: Int) -> NSRect {

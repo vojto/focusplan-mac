@@ -35,7 +35,7 @@ class TasksRowView: CustomTableRowView {
         highlightView.layer = highlightLayer
         highlightView.wantsLayer = true
         
-        self.include(highlightView, inset: 4.0)
+        self.include(highlightView, insets: EdgeInsets(top: 4.0, left: 8.0, bottom: 4.0, right: 8.0))
         
     }
     
@@ -60,23 +60,15 @@ class TasksRowView: CustomTableRowView {
         highlightLayer.shadowOffset = CGSize(width: 0, height: 0)
         highlightLayer.shadowRadius = 0
         
-        Swift.print("🌼 Updating highlight layer!")
-        
         if isEditing {
-            Swift.print("Editing!")
-            
             highlightLayer.backgroundColor = white
             highlightLayer.shadowColor = NSColor(calibratedWhite: 0, alpha: 1).cgColor
             highlightLayer.shadowOffset = CGSize(width: 0, height: -2)
             highlightLayer.shadowOpacity = 0.2
             highlightLayer.shadowRadius = 3.0
         } else if isSelected {
-            Swift.print("Selected!")
-            
             highlightLayer.backgroundColor = blue
         } else {
-            Swift.print("Nothing!")
-            
             highlightLayer.backgroundColor = clear
         }
         
