@@ -119,6 +119,7 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
     
     func updateColumns() {
 //        projectColumn.isHidden = !wantsProjectColumn
+        estimateColumn.isHidden = true
         projectColumn.isHidden = true
         planColumn.isHidden = !wantsPlanColumn
     }
