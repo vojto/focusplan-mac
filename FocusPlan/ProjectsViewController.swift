@@ -156,7 +156,7 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
         } else if let project = (item as? ProjectItem)?.project {
             let view = outlineView.make(withIdentifier: "ProjectCell", owner: self) as! ProjectTableCellView
             
-            view.outlineView = outlineView
+            view.outlineView = self.outlineView
             view.node = node
             view.project.value = project
             

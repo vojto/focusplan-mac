@@ -31,6 +31,7 @@ class TaskTitleTableCellView: EditableTableCellView {
     
     let leftMargin: CGFloat = 20.0
     let fieldLeftMargin: CGFloat = 44.0
+    let configRowHeight: CGFloat = 24.0
     
     var fieldLeftConstraint: NSLayoutConstraint?
     
@@ -40,18 +41,20 @@ class TaskTitleTableCellView: EditableTableCellView {
         wantsLayer = true
         
         setupTextField()
-        
-        setupCheck()
 
         setupConfigRow()
+        setupConfigRowBindings()
+        
+        setupCheck()
         
         setupBindings()
-        
+
 //        self.layer = CALayer()
 //        self.wantsLayer = true
 //        layer?.backgroundColor = NSColor.white.cgColor
 //        layer?.cornerRadius = 4.0
     }
+
     
     func setupTextField() {
         // Text field
@@ -112,14 +115,34 @@ class TaskTitleTableCellView: EditableTableCellView {
 
     let configRow = NSStackView()
 
+    let configProjectField = NiceField()
+    let configEstimateField = NiceField()
+
     func setupConfigRow() {
+        let labelColor = NSColor(hexString: "ABB5C0")!
+        let labelFont = NSFont.systemFont(ofSize: 12)
+
         let projectLabel = NSTextField.label()
         projectLabel.stringValue = "Project:"
-        projectLabel.textColor = NSColor(hexString: "ABB5C0")!
-        projectLabel.font = NSFont.systemFont(ofSize: 13)
+        projectLabel.textColor = labelColor
+        projectLabel.font = labelFont
+
+        let configProjectField = NiceField()
+
+        let estimateLabel = NSTextField.label()
+        estimateLabel.stringValue = "Estimate:"
+        estimateLabel.textColor = labelColor
+        estimateLabel.font = labelFont
+
+        let configEstimateField = NiceField()
 
         configRow.orientation = .horizontal
-        configRow.setViews([projectLabel], in: .leading)
+        configRow.setViews([
+            projectLabel,
+            configProjectField,
+            estimateLabel,
+            configEstimateField
+        ], in: .leading)
 
         configRow.wantsLayer = true
         configRow.layer?.opacity = 0
@@ -130,8 +153,6 @@ class TaskTitleTableCellView: EditableTableCellView {
         configRow.layer?.actions = [
             "opacity": anim
         ]
-        
-//        configRow.alphaValue = 0
 
         addSubview(configRow)
 
@@ -139,7 +160,17 @@ class TaskTitleTableCellView: EditableTableCellView {
             row.bottom == row.superview!.bottom - 8
             row.left == row.superview!.left + 20
             row.right == row.superview!.right - 20
-            row.height == 20
+            row.height == configRowHeight
+        }
+    }
+
+    func setupConfigRowBindings() {
+        Swift.print("🌿 Setting up config row bindings!")
+
+        let estimate = task.producer.pick { $0.reactive.estimatedMinutesFormatted }
+
+        estimate.producer.startWithValues { estimate in
+            self.configEstimateField.stringValue = estimate ?? "None"
         }
     }
     
@@ -251,6 +282,10 @@ class TaskTitleTableCellView: EditableTableCellView {
      */
     
     override func startEditing() {
+        if isEditing {
+            return
+        }
+
         let task = self.task.value
 
         isEditing = true
@@ -267,26 +302,31 @@ class TaskTitleTableCellView: EditableTableCellView {
     }
     
     override func finishEditing() {
+        // Skip traditional finishing of editing, because finishing editing
+        // for this type of cell is done in a customized way. (global NSEvent)
+
+    }
+
+    func forceFinishEditing() {
         guard let field = textField else { assertionFailure(); return }
         let task = self.task.value
-        
+
         field.resignFirstResponder()
         field.isEditable = false
-        
+
         isEditing = false
 
         configRow.layer?.opacity = 0
 
         controller?.updateHeight(cellView: self, animated: true) {
             self.rowView?.isEditing = false
-            (self.outlineView as? EditableOutlineView)?.isEditing = false
-            
+            (self.outlineView as? EditableOutlineView)?.editedCellView = nil
+
             self.setRegularLayout()
-            
+
             let value = field.stringValue
             task?.title = value
         }
-        
     }
 
     func setEditingLayout() {

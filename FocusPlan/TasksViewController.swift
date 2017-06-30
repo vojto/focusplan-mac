@@ -187,6 +187,7 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
             
             view?.wantsHighlightPlanned = wantsHighlightPlanned
             view?.task.value = task
+            view?.outlineView = self.outlineView
             
             titleCellViews[task] = view
             view?.controller = self

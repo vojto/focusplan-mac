@@ -65,7 +65,7 @@ class TasksRowView: CustomTableRowView {
             highlightLayer.shadowColor = NSColor(calibratedWhite: 0, alpha: 1).cgColor
             highlightLayer.shadowOffset = CGSize(width: 0, height: -2)
             highlightLayer.shadowOpacity = 0.2
-            highlightLayer.shadowRadius = 3.0
+            highlightLayer.shadowRadius = 2.0
         } else if isSelected {
             highlightLayer.backgroundColor = blue
         } else {

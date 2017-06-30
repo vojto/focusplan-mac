@@ -10,11 +10,28 @@ import Foundation
 import AppKit
 import NiceKit
 
-class TasksOutlineView: NiceOutlineView {
+class TasksOutlineView: EditableOutlineView {
+    var monitor: Any?
+
     override func awakeFromNib() {
         self.columnAutoresizingStyle = .firstColumnOnlyAutoresizingStyle
+
+        self.monitor = NSEvent.addLocalMonitorForEvents(matching: [.leftMouseDown]) { event in
+            if let view = self.editedCellView {
+                let loc = view.convert(event.locationInWindow, from: nil)
+                let result = view.hitTest(loc)
+
+                if result == nil {
+                    (view as? TaskTitleTableCellView)?.forceFinishEditing()
+                }
+
+            }
+
+            return event
+        }
+
     }
-    
+
     override func mouseDown(with event: NSEvent) {
         let point    = convert(event.locationInWindow, from: nil)
         let rowIndex = row(at: point)
@@ -33,7 +50,7 @@ class TasksOutlineView: NiceOutlineView {
             edit(at: rowIndex, column: columnIndex)
         }
     }
-    
+
     override func rightMouseDown(with event: NSEvent) {
         let point    = convert(event.locationInWindow, from: nil)
         let rowIndex = row(at: point)
@@ -44,7 +61,7 @@ class TasksOutlineView: NiceOutlineView {
         
         NSMenu.popUpContextMenu(menu!, with: event, for: self)
     }
-    
+
     override func menu(for event: NSEvent) -> NSMenu? {
         return nil
     }
