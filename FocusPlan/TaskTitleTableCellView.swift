@@ -37,10 +37,10 @@ class TaskTitleTableCellView: EditableTableCellView {
         
         setupBindings()
         
-        self.layer = CALayer()
-        self.wantsLayer = true
-        layer?.backgroundColor = NSColor.white.cgColor
-        layer?.cornerRadius = 4.0
+//        self.layer = CALayer()
+//        self.wantsLayer = true
+//        layer?.backgroundColor = NSColor.white.cgColor
+//        layer?.cornerRadius = 4.0
     }
     
     func setupTextField() {

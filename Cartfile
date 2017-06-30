@@ -1,4 +1,3 @@
-github "vojto/NiceKit" "master"
 github "vojto/NiceData" "master"
 github "vojto/NiceUI" "master"
 github "vojto/NiceReactive" "master"

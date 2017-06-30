@@ -65,8 +65,6 @@
 		997FFBD31EAF7DB200ABEA01 /* Result.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 997FFBC81EAF7DA900ABEA01 /* Result.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		997FFBD61EAF7DB200ABEA01 /* Cartography.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9922F1191EAF656000BFA01F /* Cartography.framework */; };
 		997FFBD71EAF7DB200ABEA01 /* Cartography.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9922F1191EAF656000BFA01F /* Cartography.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		997FFBD81EAF7DB200ABEA01 /* NiceKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9922F11A1EAF656000BFA01F /* NiceKit.framework */; };
-		997FFBD91EAF7DB200ABEA01 /* NiceKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9922F11A1EAF656000BFA01F /* NiceKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9981560D1EB76ECB0057ECD0 /* TimerEntry+Reactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9981560C1EB76ECB0057ECD0 /* TimerEntry+Reactive.swift */; };
 		998156101EB7761F0057ECD0 /* TimerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9981560F1EB7761F0057ECD0 /* TimerState.swift */; };
 		998156131EB778020057ECD0 /* NSButton+Reactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998156121EB778020057ECD0 /* NSButton+Reactive.swift */; };
@@ -130,6 +128,8 @@
 		99EEDE391EAF855400662DED /* NiceData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99EEDE371EAF854200662DED /* NiceData.framework */; };
 		99EEDE3A1EAF855400662DED /* NiceData.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 99EEDE371EAF854200662DED /* NiceData.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		99EEDE5D1EAF931500662DED /* ProjectsOutlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99EEDE5C1EAF931500662DED /* ProjectsOutlineView.swift */; };
+		99EF84B31F06363D00B24058 /* NiceKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99EF84B21F06362300B24058 /* NiceKit.framework */; };
+		99EF84B41F06363D00B24058 /* NiceKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 99EF84B21F06362300B24058 /* NiceKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		99FE0A8F1F0623F5008C69A5 /* Stylesheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FE0A8E1F0623F5008C69A5 /* Stylesheet.swift */; };
 /* End PBXBuildFile section */
 
@@ -140,6 +140,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 99078BF01EAF1CD000C3B789;
 			remoteInfo = FocusPlan;
+		};
+		99EF84B11F06362300B24058 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 99EF84AD1F06362300B24058 /* NiceKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 990A22EF1EAF406200DCE839;
+			remoteInfo = NiceKit;
+		};
+		99EF84B51F06363D00B24058 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 99EF84AD1F06362300B24058 /* NiceKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 990A22EE1EAF406200DCE839;
+			remoteInfo = NiceKit;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -154,8 +168,8 @@
 				991E7B1F1EB06A380086A9D9 /* NiceReactive.framework in Embed Frameworks */,
 				997FFBD71EAF7DB200ABEA01 /* Cartography.framework in Embed Frameworks */,
 				997FFBCF1EAF7DB200ABEA01 /* ReactiveCocoa.framework in Embed Frameworks */,
+				99EF84B41F06363D00B24058 /* NiceKit.framework in Embed Frameworks */,
 				99EEDE3A1EAF855400662DED /* NiceData.framework in Embed Frameworks */,
-				997FFBD91EAF7DB200ABEA01 /* NiceKit.framework in Embed Frameworks */,
 				99169FE51ED5DF5E00BFB4F2 /* KeychainAccess.framework in Embed Frameworks */,
 				99B610121EB05D570098F69C /* Hue.framework in Embed Frameworks */,
 				994063C71EB7028A00E09165 /* SwiftDate.framework in Embed Frameworks */,
@@ -198,7 +212,6 @@
 		991E7B371EB0BEF00086A9D9 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		991E7B3B1EB0E80A0086A9D9 /* EditableTableCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditableTableCellView.swift; sourceTree = "<group>"; };
 		9922F1191EAF656000BFA01F /* Cartography.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cartography.framework; path = Carthage/Build/Mac/Cartography.framework; sourceTree = "<group>"; };
-		9922F11A1EAF656000BFA01F /* NiceKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NiceKit.framework; path = Carthage/Build/Mac/NiceKit.framework; sourceTree = "<group>"; };
 		9933E31D1EC047CE00774BD4 /* YellowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YellowView.swift; sourceTree = "<group>"; };
 		9933E49B1EB9BC6200B1CE85 /* PomodoroType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PomodoroType.swift; sourceTree = "<group>"; };
 		9933E49D1EB9C84600B1CE85 /* CalendarCollectionItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarCollectionItemView.swift; sourceTree = "<group>"; };
@@ -284,6 +297,7 @@
 		99EEDE371EAF854200662DED /* NiceData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NiceData.framework; path = Carthage/Build/Mac/NiceData.framework; sourceTree = "<group>"; };
 		99EEDE591EAF866A00662DED /* FocusPlan.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FocusPlan.entitlements; sourceTree = "<group>"; };
 		99EEDE5C1EAF931500662DED /* ProjectsOutlineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectsOutlineView.swift; sourceTree = "<group>"; };
+		99EF84AD1F06362300B24058 /* NiceKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = NiceKit.xcodeproj; path = ../NiceKit/NiceKit.xcodeproj; sourceTree = "<group>"; };
 		99FE0A8E1F0623F5008C69A5 /* Stylesheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stylesheet.swift; sourceTree = "<group>"; };
 		FE19EC429800EA42F114C446 /* Pods_FocusPlan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FocusPlan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -297,6 +311,7 @@
 				991E7B1E1EB06A340086A9D9 /* NiceReactive.framework in Frameworks */,
 				99169FE41ED5DF5E00BFB4F2 /* KeychainAccess.framework in Frameworks */,
 				99B610101EB05D550098F69C /* Hue.framework in Frameworks */,
+				99EF84B31F06363D00B24058 /* NiceKit.framework in Frameworks */,
 				99C9A4251EC988D600AFF489 /* SwiftCSV.framework in Frameworks */,
 				99A762691EB1C2D000A90AE9 /* NiceUI.framework in Frameworks */,
 				994063C61EB7028500E09165 /* SwiftDate.framework in Frameworks */,
@@ -304,7 +319,6 @@
 				997FFBCE1EAF7DB200ABEA01 /* ReactiveCocoa.framework in Frameworks */,
 				99C9A4241EC988D200AFF489 /* SwiftCSV.framework in Frameworks */,
 				99169FE31ED5DF5D00BFB4F2 /* KeychainAccess.framework in Frameworks */,
-				997FFBD81EAF7DB200ABEA01 /* NiceKit.framework in Frameworks */,
 				997FFBD01EAF7DB200ABEA01 /* ReactiveSwift.framework in Frameworks */,
 				99A762681EB1C2CD00A90AE9 /* NiceUI.framework in Frameworks */,
 				99EEDE391EAF855400662DED /* NiceData.framework in Frameworks */,
@@ -328,6 +342,7 @@
 				99078BF31EAF1CD000C3B789 /* FocusPlan */,
 				99D972241F04023500A18BC4 /* FocusPlanUITests */,
 				99078BF21EAF1CD000C3B789 /* Products */,
+				99EF84AC1F06361800B24058 /* Linked Projects */,
 				9922F1181EAF654800BFA01F /* Frameworks */,
 				A31B13E7F81C6EC670404828 /* Pods */,
 			);
@@ -460,7 +475,6 @@
 				997FFBC71EAF7DA900ABEA01 /* ReactiveSwift.framework */,
 				997FFBC81EAF7DA900ABEA01 /* Result.framework */,
 				9922F1191EAF656000BFA01F /* Cartography.framework */,
-				9922F11A1EAF656000BFA01F /* NiceKit.framework */,
 				FE19EC429800EA42F114C446 /* Pods_FocusPlan.framework */,
 			);
 			name = Frameworks;
@@ -667,6 +681,22 @@
 			name = Summary;
 			sourceTree = "<group>";
 		};
+		99EF84AC1F06361800B24058 /* Linked Projects */ = {
+			isa = PBXGroup;
+			children = (
+				99EF84AD1F06362300B24058 /* NiceKit.xcodeproj */,
+			);
+			name = "Linked Projects";
+			sourceTree = "<group>";
+		};
+		99EF84AE1F06362300B24058 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				99EF84B21F06362300B24058 /* NiceKit.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		A31B13E7F81C6EC670404828 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -695,6 +725,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				99EF84B61F06363D00B24058 /* PBXTargetDependency */,
 			);
 			name = FocusPlan;
 			productName = FocusPlan;
@@ -756,6 +787,12 @@
 			mainGroup = 99078BE81EAF1CD000C3B789;
 			productRefGroup = 99078BF21EAF1CD000C3B789 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 99EF84AE1F06362300B24058 /* Products */;
+					ProjectRef = 99EF84AD1F06362300B24058 /* NiceKit.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				99078BF01EAF1CD000C3B789 /* FocusPlan */,
@@ -763,6 +800,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		99EF84B21F06362300B24058 /* NiceKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = NiceKit.framework;
+			remoteRef = 99EF84B11F06362300B24058 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		99078BEF1EAF1CD000C3B789 /* Resources */ = {
@@ -961,6 +1008,11 @@
 			target = 99078BF01EAF1CD000C3B789 /* FocusPlan */;
 			targetProxy = 99D972281F04023500A18BC4 /* PBXContainerItemProxy */;
 		};
+		99EF84B61F06363D00B24058 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = NiceKit;
+			targetProxy = 99EF84B51F06363D00B24058 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
@@ -1060,6 +1112,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0465F2043DDDB30A3E16505C /* Pods-FocusPlan.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = FocusPlan/FocusPlan.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
@@ -1088,6 +1141,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7F46BF0B2D66AB30F28190F6 /* Pods-FocusPlan.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = FocusPlan/FocusPlan.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
