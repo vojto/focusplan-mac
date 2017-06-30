@@ -386,37 +386,29 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
     // MARK: - Calculating the height
     // -----------------------------------------------------------------------
     
+    
     var dummyTitleCellView: TaskTitleTableCellView!
     
     func outlineView(_ outlineView: NSOutlineView, heightOfRowByItem item: Any) -> CGFloat {
         if let task = item as? Task {
-
+            
+            let dummyContainer = NSView()
+            
+            dummyContainer.width(taskColumn.width)
+            dummyContainer.frame.size.height = 10
+            
+            
             if dummyTitleCellView == nil {
                 dummyTitleCellView = outlineView.make(withIdentifier: "TaskCell", owner: self) as! TaskTitleTableCellView
-                
-                dummyTitleCellView.setContentHuggingPriority(1, for: .vertical)
-                dummyTitleCellView.setContentHuggingPriority(NSLayoutPriorityRequired, for: .horizontal)
             }
             
             dummyTitleCellView.task.value = task
             
-            // If there is a view for this project already, copy title from
-            // there, as it may have changed
-            if let view = titleCellViews[task] {
-                dummyTitleCellView.textField?.stringValue = view.textField?.stringValue ?? ""
-            }
-        
+            dummyContainer.include(dummyTitleCellView)
             
-            dummyTitleCellView.bounds.size.width = taskColumn.width
-            dummyTitleCellView.bounds.size.height = 10
-            dummyTitleCellView.setContentHuggingPriority(NSLayoutPriorityRequired, for: .horizontal)
-
-            dummyTitleCellView.needsLayout = true
-            dummyTitleCellView.layoutSubtreeIfNeeded()
+            dummyContainer.layoutSubtreeIfNeeded()
             
-            let size = dummyTitleCellView.fittingSize
-            
-            return size.height
+            return dummyContainer.fittingSize.height
         } else if item is RootItem {
             return 90
         }
