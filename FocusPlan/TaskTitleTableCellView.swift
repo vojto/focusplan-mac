@@ -36,6 +36,8 @@ class TaskTitleTableCellView: EditableTableCellView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+
+        wantsLayer = true
         
         setupTextField()
         
@@ -60,14 +62,15 @@ class TaskTitleTableCellView: EditableTableCellView {
         field.isEditable = false
         field.font = NSFont.systemFont(ofSize: 14)
         field.drawsBackground = false
+        field.backgroundColor = NSColor.clear
         field.focusRingType = .none
         addSubview(field)
         
         constrain(field) { field in
             field.top == field.superview!.top + 8
             field.bottom == field.superview!.bottom - 8
-            self.fieldLeftConstraint = (field.left == field.superview!.left + fieldLeftMargin)
-            field.right == field.superview!.right - 4
+            field.left == field.superview!.left + fieldLeftMargin
+            field.right == field.superview!.right - 8
         }
         
         self.textField = field
@@ -82,7 +85,8 @@ class TaskTitleTableCellView: EditableTableCellView {
             view.left == view.superview!.left + leftMargin
             view.width == 20
             view.height == 20
-            view.centerY == view.superview!.centerY + 1
+//            view.centerY == view.superview!.centerY + 1
+            view.top == view.superview!.top + 8
         }
         
         // 02 Check animation
@@ -114,12 +118,20 @@ class TaskTitleTableCellView: EditableTableCellView {
         projectLabel.textColor = NSColor(hexString: "ABB5C0")!
         projectLabel.font = NSFont.systemFont(ofSize: 13)
 
-        
-
         configRow.orientation = .horizontal
         configRow.setViews([projectLabel], in: .leading)
+
+        configRow.wantsLayer = true
+        configRow.layer?.opacity = 0
+
+        let anim = CABasicAnimation(keyPath: "opacity")
+        anim.duration = 0.25
+
+        configRow.layer?.actions = [
+            "opacity": anim
+        ]
         
-        configRow.alphaValue = 0
+//        configRow.alphaValue = 0
 
         addSubview(configRow)
 
@@ -239,11 +251,17 @@ class TaskTitleTableCellView: EditableTableCellView {
      */
     
     override func startEditing() {
-        super.startEditing()
-        
-        textField?.stringValue = task.value?.title ?? ""
+        let task = self.task.value
+
+        isEditing = true
+
+        rowView?.isEditing = true
         
         controller?.updateHeight(cellView: self, animated: true) {
+            self.textField?.stringValue = task?.title ?? ""
+
+            super.startEditing()
+
             self.setEditingLayout()
         }
     }
@@ -257,10 +275,7 @@ class TaskTitleTableCellView: EditableTableCellView {
         
         isEditing = false
 
-        NSAnimationContext.runAnimationGroup({ context in
-            context.duration = 0.15
-            self.configRow.animator().alphaValue = 0
-        }, completionHandler: nil)
+        configRow.layer?.opacity = 0
 
         controller?.updateHeight(cellView: self, animated: true) {
             self.rowView?.isEditing = false
@@ -273,24 +288,18 @@ class TaskTitleTableCellView: EditableTableCellView {
         }
         
     }
+
+    func setEditingLayout() {
+//        configRow.animator().alphaValue = 1
+        configRow.layer?.opacity = 1
+
+    }
     
     func setRegularLayout() {
-        checkContainer.animator().alphaValue = 1
-        
-        fieldLeftConstraint?.constant = fieldLeftMargin
-        
-        animateLayoutChanges(duration: 0.35)
+
     }
     
-    func setEditingLayout() {
-        checkContainer.animator().alphaValue = 0
 
-        configRow.animator().alphaValue = 1
-        
-        fieldLeftConstraint?.constant = leftMargin
-        
-        animateLayoutChanges(duration: 0.15)
-    }
     
     func animateLayoutChanges(duration: Double) {
         NSAnimationContext.runAnimationGroup({ context in

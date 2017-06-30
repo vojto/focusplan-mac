@@ -27,11 +27,11 @@ class TasksRowView: CustomTableRowView {
     
     func setup() {
         
-        highlightLayer.cornerRadius = 2.0
-        highlightLayer.actions = [
-            "backgroundColor": NSNull()
-        ]
-        
+        highlightLayer.cornerRadius = 3.0
+//        highlightLayer.actions = [
+//            "backgroundColor": NSNull()
+//        ]
+
         highlightView.layer = highlightLayer
         highlightView.wantsLayer = true
         
