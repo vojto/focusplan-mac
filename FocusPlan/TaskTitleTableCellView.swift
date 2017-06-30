@@ -144,15 +144,7 @@ class TaskTitleTableCellView: EditableTableCellView {
             configEstimateField
         ], in: .leading)
 
-        configRow.wantsLayer = true
-        configRow.layer?.opacity = 0
-
-        let anim = CABasicAnimation(keyPath: "opacity")
-        anim.duration = 0.25
-
-        configRow.layer?.actions = [
-            "opacity": anim
-        ]
+        configRow.isHidden = true
 
         addSubview(configRow)
 
@@ -316,7 +308,7 @@ class TaskTitleTableCellView: EditableTableCellView {
 
         isEditing = false
 
-        configRow.layer?.opacity = 0
+        configRow.isHidden = true
 
         controller?.updateHeight(cellView: self, animated: true) {
             self.rowView?.isEditing = false
@@ -330,8 +322,7 @@ class TaskTitleTableCellView: EditableTableCellView {
     }
 
     func setEditingLayout() {
-//        configRow.animator().alphaValue = 1
-        configRow.layer?.opacity = 1
+        configRow.isHidden = false
 
     }
     
