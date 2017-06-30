@@ -145,50 +145,48 @@ class TaskTitleTableCellView: EditableTableCellView {
         let title = task.producer.pick({ $0.reactive.title.producer }).map { $0 ?? "" }
         
         let attributedTitle = SignalProducer.combineLatest(title.producer, project.producer, isFinished.producer).map { title, project, isFinished -> NSAttributedString in
-            let isFinished = isFinished ?? false
-            let projectName = project?.name ?? ""
-//            let projectColor = project?.color ?? Stylesheet.primaryColor
-            let projectColor = Palette.decode(colorName: project?.color) ?? NSColor(hexString: Stylesheet.primaryColor)!
             
-            
-            Swift.print("Resulting color: \(projectColor)")
-            
-            let resultAttr = NSMutableAttributedString()
-            
-            let titleAttr = NSMutableAttributedString(string: title)
-            
-            titleAttr.textColor = isFinished ? self.finishedTextColor : self.textColor
-            
-            resultAttr += titleAttr
-            
-            if projectName == "" {
-                return resultAttr
-            }
-            
-            let spacer = NSMutableAttributedString(string: "  –  ")
-            spacer.textColor = self.finishedTextColor
-            
-            resultAttr += spacer
-            
-            let projectAttr = NSMutableAttributedString(string: projectName)
-            
-            if isFinished {
-                projectAttr.textColor = self.finishedTextColor
-            } else {
-                projectAttr.textColor = projectColor
-            }
-            
-            projectAttr.font = NSFont.systemFont(ofSize: 12)
-            
-            resultAttr += projectAttr
-            
-            return resultAttr
-            
-//            return titleAttr
+            return self.createAttributedString(forTitle: title, project: project, isFinished: isFinished ?? false)
         }
         
         
         field.reactive.attributedStringValue <~ attributedTitle
+    }
+    
+    func createAttributedString(forTitle title: String, project: Project?, isFinished: Bool) -> NSAttributedString {
+        let projectName = project?.name ?? ""
+        let projectColor = Palette.decode(colorName: project?.color) ?? NSColor(hexString: Stylesheet.primaryColor)!
+        
+        let resultAttr = NSMutableAttributedString()
+        
+        let titleAttr = NSMutableAttributedString(string: title)
+        
+        titleAttr.textColor = isFinished ? self.finishedTextColor : self.textColor
+        
+        resultAttr += titleAttr
+        
+        if projectName == "" {
+            return resultAttr
+        }
+        
+        let spacer = NSMutableAttributedString(string: "  –  ")
+        spacer.textColor = self.finishedTextColor
+        
+        resultAttr += spacer
+        
+        let projectAttr = NSMutableAttributedString(string: projectName)
+        
+        if isFinished {
+            projectAttr.textColor = self.finishedTextColor
+        } else {
+            projectAttr.textColor = projectColor
+        }
+        
+        projectAttr.font = NSFont.systemFont(ofSize: 12)
+        
+        resultAttr += projectAttr
+        
+        return resultAttr
     }
     
     
