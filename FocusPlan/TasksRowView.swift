@@ -24,16 +24,34 @@ class TasksRowView: CustomTableRowView {
     
     let highlightView = NSView()
     let highlightLayer = CALayer()
+
+    var wantsAnimateBackground = false {
+        didSet {
+            if wantsAnimateBackground {
+                let anim = CABasicAnimation(keyPath: "backgroundColor")
+                anim.duration = 0.25
+
+                highlightLayer.actions = [
+                    "backgroundColor": anim
+                ]
+
+            } else {
+                highlightLayer.actions = [
+                    "backgroundColor": NSNull()
+                ]
+            }
+
+        }
+    }
     
     func setup() {
-        
-        highlightLayer.cornerRadius = 3.0
-//        highlightLayer.actions = [
-//            "backgroundColor": NSNull()
-//        ]
 
+        highlightLayer.cornerRadius = 3.0
+        
         highlightView.layer = highlightLayer
         highlightView.wantsLayer = true
+
+        self.wantsAnimateBackground = false
         
         self.include(highlightView, insets: EdgeInsets(top: 4.0, left: 8.0, bottom: 4.0, right: 8.0))
         

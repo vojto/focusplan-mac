@@ -67,6 +67,7 @@ class TaskTitleTableCellView: EditableTableCellView {
         field.drawsBackground = false
         field.backgroundColor = NSColor.clear
         field.focusRingType = .none
+        field.wantsLayer = true
         addSubview(field)
         
         constrain(field) { field in
@@ -265,6 +266,22 @@ class TaskTitleTableCellView: EditableTableCellView {
             }
         }
     }
+
+    override func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
+
+        if commandSelector == #selector(NSResponder.cancelOperation(_:)) {
+            self.forceFinishEditing()
+        } else if commandSelector == #selector(NSResponder.insertNewline(_:)) {
+            self.forceFinishEditing()
+        } else if commandSelector == #selector(NSResponder.insertTab(_:)) {
+            self.forceFinishEditing()
+        } else {
+            return super.control(control, textView: textView, doCommandBy: commandSelector)
+        }
+
+        return true
+
+    }
     
     /*
     override func controlTextDidChange(_ obj: Notification) {
@@ -283,7 +300,7 @@ class TaskTitleTableCellView: EditableTableCellView {
         isEditing = true
 
         rowView?.isEditing = true
-        
+
         controller?.updateHeight(cellView: self, animated: true) {
             self.textField?.stringValue = task?.title ?? ""
 
@@ -303,22 +320,27 @@ class TaskTitleTableCellView: EditableTableCellView {
         guard let field = textField else { assertionFailure(); return }
         let task = self.task.value
 
+        let newTitle = field.stringValue
+
         field.resignFirstResponder()
         field.isEditable = false
+        field.isSelectable = false
+//        field.attributedStringValue = self.createAttributedString(forTitle: newTitle, project: task?.project, isFinished: task?.isFinished ?? false)
 
         isEditing = false
 
         configRow.isHidden = true
 
-        controller?.updateHeight(cellView: self, animated: true) {
+//        controller?.updateHeight(cellView: self, animated: true) {
+            Swift.print("🍄 Animation callback called!")
+
             self.rowView?.isEditing = false
             (self.outlineView as? EditableOutlineView)?.editedCellView = nil
 
             self.setRegularLayout()
 
-            let value = field.stringValue
-            task?.title = value
-        }
+            task?.title = newTitle
+//        }
     }
 
     func setEditingLayout() {
