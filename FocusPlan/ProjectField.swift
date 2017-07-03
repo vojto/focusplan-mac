@@ -58,7 +58,7 @@ class ProjectField: NiceField {
     
 
     
-    func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
+    override open func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
         
         guard let menuTable = tipsController.tableView as? NiceMenuTableView else { assertionFailure(); return false }
         

@@ -10,6 +10,7 @@ import Cocoa
 import NiceData
 import ReactiveSwift
 import Cartography
+import NiceKit
 
 class ProjectFieldTipsController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
     
@@ -36,7 +37,7 @@ class ProjectFieldTipsController: NSViewController, NSTableViewDataSource, NSTab
             
             
             if term != "" {
-                return (project.title ?? "").lowercased().contains(term.lowercased())
+                return (project.name ?? "").lowercased().contains(term.lowercased())
             } else {
                 return true
             }
@@ -86,7 +87,7 @@ class ProjectFieldTipsController: NSViewController, NSTableViewDataSource, NSTab
     }
     
     func setupProjectsObserver() {
-        guard let context = AppDelegate.context else { return assertionFailure() }
+        let context = AppDelegate.viewContext
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Project")
         
@@ -111,7 +112,9 @@ class ProjectFieldTipsController: NSViewController, NSTableViewDataSource, NSTab
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        guard let view = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier("Row"), owner: self) as? ProjectFieldTipCell else { assertionFailure(); return nil }
+//        guard let view = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier("Row"), owner: self) as? ProjectFieldTipCell else { assertionFailure(); return nil }
+
+        guard let view = tableView.make(withIdentifier: "Row", owner: self) as? ProjectFieldTipCell else { return nil }
         
         let item = items[row]
         
@@ -120,7 +123,7 @@ class ProjectFieldTipsController: NSViewController, NSTableViewDataSource, NSTab
             let term = searchTerm.value
             view.field.stringValue = (term != "") ? "Create '\(term)'" : "Create new"
         case .project(project: let project):
-            view.field.stringValue = project.title ?? ""
+            view.field.stringValue = project.name ?? ""
         }
         
         return view
