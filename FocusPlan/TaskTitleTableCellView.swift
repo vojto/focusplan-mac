@@ -199,6 +199,17 @@ class TaskTitleTableCellView: EditableTableCellView {
         project.producer.startWithValues { project in
             self.configProjectField.stringValue = project?.name ?? "None"
         }
+
+        configProjectField.onSelect = { selection in
+            Swift.print("💥 Project was selected: \(selection)")
+
+            switch selection {
+            case .new(let title):
+                break
+            case .existing(let project):
+                self.task.value?.project = project
+            }
+        }
     }
     
     func setUnfinished() {
@@ -247,9 +258,14 @@ class TaskTitleTableCellView: EditableTableCellView {
             
             return self.createAttributedString(forTitle: title, project: project, isFinished: isFinished ?? false)
         }
+
+        attributedTitle.producer.startWithValues { str in
+            if !self.isEditing {
+                field.attributedStringValue = str
+            }
+        }
         
-        
-        field.reactive.attributedStringValue <~ attributedTitle
+
     }
     
     func createAttributedString(forTitle title: String, project: Project?, isFinished: Bool) -> NSAttributedString {

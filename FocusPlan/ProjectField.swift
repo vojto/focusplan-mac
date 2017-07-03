@@ -24,13 +24,15 @@ class ProjectField: NiceField {
         case existing(Project)
         case new(String)
     }
-    var onSelect: ((ProjectSelection) -> ())?
 
+    var onSelect: ((ProjectSelection) -> ())?
     
     override func setup() {
         super.setup()
 
         tipsController.searchTerm <~ field.reactive.continuousStringValues
+
+        tipsController.onClickSelected = self.handleClickSelectedInController
     }
 
     override func startEditing() {
@@ -67,16 +69,7 @@ class ProjectField: NiceField {
         guard let menuTable = tipsController.tableView as? NiceMenuTableView else { assertionFailure(); return false }
         
         if commandSelector == #selector(NSResponder.insertNewline(_:)) {
-            if let item = tipsController.selectedItem {
-                switch item {
-                case .project(project: let project):
-                    onSelect?(.existing(project))
-                case .createProject:
-                    let title = field.stringValue
-                    onSelect?(.new(title))
-                }
-            }
-            
+            self.confirmSelection()
         } else if commandSelector == #selector(NSResponder.moveUp(_:)) {
             menuTable.moveSelectionUp()
         } else if commandSelector == #selector(NSResponder.moveDown(_:)) {
@@ -95,6 +88,8 @@ class ProjectField: NiceField {
     override func finishEditing() {
         Swift.print("specific class finishing editing")
 
+        window?.makeFirstResponder(nil)
+
         optionsPopover?.hide()
 
         if field.stringValue == "" {
@@ -102,10 +97,24 @@ class ProjectField: NiceField {
         }
 
         super.finishEditing()
+    }
 
+    func handleClickSelectedInController() {
+        confirmSelection()
+    }
 
+    func confirmSelection() {
+        if let item = tipsController.selectedItem {
+            switch item {
+            case .project(project: let project):
+                onSelect?(.existing(project))
+            case .createProject:
+                let title = field.stringValue
+                onSelect?(.new(title))
+            }
+        }
 
-
+        finishEditing()
     }
     
 }

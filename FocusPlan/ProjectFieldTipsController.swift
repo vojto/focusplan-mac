@@ -18,6 +18,10 @@ class ProjectFieldTipsController: NSViewController, NSTableViewDataSource, NSTab
     
     let rowHeight: CGFloat = 26.0
     let verticalMargin: CGFloat = 5.0
+
+    // Called when current selection was clicked thus confirming the selection
+    // (normally selections come from mouse move)
+    var onClickSelected: (() -> ())?
     
     let searchTerm = MutableProperty<String>("")
     
@@ -77,8 +81,9 @@ class ProjectFieldTipsController: NSViewController, NSTableViewDataSource, NSTab
             self.heightConstraint = (view.height == 100)
         }
         
-        tableView.onDismiss = self.handleDismiss
-        
+//        tableView.onDismiss = self.handleDismiss
+        tableView.onClickSelected = self.handleClickSelected
+
         reloadTable()
     }
     
@@ -144,8 +149,7 @@ class ProjectFieldTipsController: NSViewController, NSTableViewDataSource, NSTab
         return rowHeight
     }
     
-    func handleDismiss() {
-        Swift.print("going to dismiss this thing...")
-        
+    func handleClickSelected() {
+        onClickSelected?()
     }
 }
