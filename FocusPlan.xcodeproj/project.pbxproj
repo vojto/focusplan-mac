@@ -69,6 +69,8 @@
 		998156101EB7761F0057ECD0 /* TimerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9981560F1EB7761F0057ECD0 /* TimerState.swift */; };
 		998156131EB778020057ECD0 /* NSButton+Reactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998156121EB778020057ECD0 /* NSButton+Reactive.swift */; };
 		998156171EB77DAE0057ECD0 /* ProjectColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998156161EB77DAE0057ECD0 /* ProjectColorView.swift */; };
+		9981EB371F0A41040044F9F5 /* NiceKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99EF84B21F06362300B24058 /* NiceKit.framework */; };
+		9981EB381F0A41040044F9F5 /* NiceKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 99EF84B21F06362300B24058 /* NiceKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		998352D51EC4597300303E7D /* ClickableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998352D41EC4597300303E7D /* ClickableLabel.swift */; };
 		998352E01EC4A28200303E7D /* CustomTableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998352DF1EC4A28200303E7D /* CustomTableRowView.swift */; };
 		998352E21EC4BAEF00303E7D /* TaskPlanTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998352E11EC4BAEF00303E7D /* TaskPlanTableCellView.swift */; };
@@ -128,12 +130,17 @@
 		99EEDE391EAF855400662DED /* NiceData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99EEDE371EAF854200662DED /* NiceData.framework */; };
 		99EEDE3A1EAF855400662DED /* NiceData.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 99EEDE371EAF854200662DED /* NiceData.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		99EEDE5D1EAF931500662DED /* ProjectsOutlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99EEDE5C1EAF931500662DED /* ProjectsOutlineView.swift */; };
-		99EF84B31F06363D00B24058 /* NiceKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99EF84B21F06362300B24058 /* NiceKit.framework */; };
-		99EF84B41F06363D00B24058 /* NiceKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 99EF84B21F06362300B24058 /* NiceKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		99FE0A8F1F0623F5008C69A5 /* Stylesheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FE0A8E1F0623F5008C69A5 /* Stylesheet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		9981EB391F0A41040044F9F5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 99EF84AD1F06362300B24058 /* NiceKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 990A22EE1EAF406200DCE839;
+			remoteInfo = NiceKit;
+		};
 		99D972281F04023500A18BC4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 99078BE91EAF1CD000C3B789 /* Project object */;
@@ -146,13 +153,6 @@
 			containerPortal = 99EF84AD1F06362300B24058 /* NiceKit.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 990A22EF1EAF406200DCE839;
-			remoteInfo = NiceKit;
-		};
-		99EF84B51F06363D00B24058 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 99EF84AD1F06362300B24058 /* NiceKit.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 990A22EE1EAF406200DCE839;
 			remoteInfo = NiceKit;
 		};
 /* End PBXContainerItemProxy section */
@@ -168,7 +168,7 @@
 				991E7B1F1EB06A380086A9D9 /* NiceReactive.framework in Embed Frameworks */,
 				997FFBD71EAF7DB200ABEA01 /* Cartography.framework in Embed Frameworks */,
 				997FFBCF1EAF7DB200ABEA01 /* ReactiveCocoa.framework in Embed Frameworks */,
-				99EF84B41F06363D00B24058 /* NiceKit.framework in Embed Frameworks */,
+				9981EB381F0A41040044F9F5 /* NiceKit.framework in Embed Frameworks */,
 				99EEDE3A1EAF855400662DED /* NiceData.framework in Embed Frameworks */,
 				99169FE51ED5DF5E00BFB4F2 /* KeychainAccess.framework in Embed Frameworks */,
 				99B610121EB05D570098F69C /* Hue.framework in Embed Frameworks */,
@@ -311,7 +311,7 @@
 				991E7B1E1EB06A340086A9D9 /* NiceReactive.framework in Frameworks */,
 				99169FE41ED5DF5E00BFB4F2 /* KeychainAccess.framework in Frameworks */,
 				99B610101EB05D550098F69C /* Hue.framework in Frameworks */,
-				99EF84B31F06363D00B24058 /* NiceKit.framework in Frameworks */,
+				9981EB371F0A41040044F9F5 /* NiceKit.framework in Frameworks */,
 				99C9A4251EC988D600AFF489 /* SwiftCSV.framework in Frameworks */,
 				99A762691EB1C2D000A90AE9 /* NiceUI.framework in Frameworks */,
 				994063C61EB7028500E09165 /* SwiftDate.framework in Frameworks */,
@@ -725,7 +725,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				99EF84B61F06363D00B24058 /* PBXTargetDependency */,
+				9981EB3A1F0A41040044F9F5 /* PBXTargetDependency */,
 			);
 			name = FocusPlan;
 			productName = FocusPlan;
@@ -1003,15 +1003,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		9981EB3A1F0A41040044F9F5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = NiceKit;
+			targetProxy = 9981EB391F0A41040044F9F5 /* PBXContainerItemProxy */;
+		};
 		99D972291F04023500A18BC4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 99078BF01EAF1CD000C3B789 /* FocusPlan */;
 			targetProxy = 99D972281F04023500A18BC4 /* PBXContainerItemProxy */;
-		};
-		99EF84B61F06363D00B24058 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = NiceKit;
-			targetProxy = 99EF84B51F06363D00B24058 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
