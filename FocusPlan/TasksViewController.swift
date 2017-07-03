@@ -10,6 +10,7 @@ import Cocoa
 import NiceData
 import ReactiveSwift
 import Cartography
+import NiceKit
 
 class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineViewDelegate, NSTextFieldDelegate, NSMenuDelegate {
     
@@ -261,11 +262,9 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
         
         guard let columnIndex = outlineView.tableColumns.index(of: taskColumn) else { return assertionFailure() }
         guard let view = outlineView.view(atColumn: columnIndex, row: row, makeIfNecessary: false) as? NSTableCellView else { return assertionFailure() }
-        guard let textField = view.textField else { return assertionFailure() }
+        guard let editableView = view as? TaskTitleTableCellView else { return assertionFailure() }
         
-        textField.isEditable = true
-        
-        outlineView.window!.makeFirstResponder(textField)
+        editableView.startEditing(animated: false)
     }
     
     // MARK: - Removing

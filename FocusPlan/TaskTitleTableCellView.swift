@@ -81,7 +81,7 @@ class TaskTitleTableCellView: EditableTableCellView {
             self.fieldEditingBottomConstraint = ((field.bottom == field.superview!.bottom - 35) ~ LayoutPriority(1000))
 
             field.left == field.superview!.left + fieldLeftMargin
-            field.right == field.superview!.right - 8
+            field.right == field.superview!.right - 40
         }
 
         fieldEditingBottomConstraint?.isActive = false
@@ -90,15 +90,13 @@ class TaskTitleTableCellView: EditableTableCellView {
     }
     
     func setupEstimateField() {
-        guard let field = self.textField else { assertionFailure(); return }
-        
         estimateField.font = NSFont.systemFont(ofSize: 13, weight: NSFontWeightRegular)
         estimateField.textColor = NSColor(hexString: "9099A3")!
         
         addSubview(estimateField)
-        constrain(estimateField, field) { estimate, title in
+        constrain(estimateField) { estimate in
             estimate.right == estimate.superview!.right - 8
-            estimate.baseline == title.baseline
+            estimate.centerY == estimate.superview!.centerY
         }
         
         
@@ -246,8 +244,6 @@ class TaskTitleTableCellView: EditableTableCellView {
     }
     
     func createAttributedString(forTitle title: String, project: Project?, isFinished: Bool) -> NSAttributedString {
-        Swift.print("Creating attributed string for project: \(project)")
-        
         let projectName = project?.name ?? ""
         let projectColor = Palette.decode(colorName: project?.color) ?? NSColor(hexString: Stylesheet.primaryColor)!
         
@@ -320,8 +316,10 @@ class TaskTitleTableCellView: EditableTableCellView {
      */
     
     override func startEditing() {
-        Swift.print("🔥 Starting editing!")
-
+        startEditing(animated: true)
+    }
+    
+    func startEditing(animated: Bool) {
         if isEditing {
             return
         }
