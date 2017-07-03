@@ -34,12 +34,14 @@ class ProjectFieldTipsController: NSViewController, NSTableViewDataSource, NSTab
     
     var items: [TipItem] {
         let term = searchTerm.value
-        
-        let actionItems: [TipItem] = [.createProject]
-        
+
+        var actionItems = [TipItem]()
+
+        if term != "" {
+            actionItems.append(.createProject)
+        }
+
         let projectItems = projects.filter({ project in
-            
-            
             if term != "" {
                 return (project.name ?? "").lowercased().contains(term.lowercased())
             } else {

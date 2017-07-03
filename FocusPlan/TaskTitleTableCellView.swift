@@ -192,25 +192,9 @@ class TaskTitleTableCellView: EditableTableCellView {
             task?.setEstimate(fromString: value)
         }
 
-        // Bind project
-
-        let project = task.producer.pick { $0.reactive.project }
-
-        project.producer.startWithValues { project in
-            self.configProjectField.stringValue = project?.name ?? "None"
-        }
-
-        configProjectField.onSelect = { selection in
-            Swift.print("💥 Project was selected: \(selection)")
-
-            switch selection {
-            case .new(let title):
-                break
-            case .existing(let project):
-                self.task.value?.project = project
-            }
-        }
+        setupConfigRowProjectFieldBindings()
     }
+
     
     func setUnfinished() {
         checkAnim.animationProgress = 0
@@ -423,5 +407,41 @@ class TaskTitleTableCellView: EditableTableCellView {
             context.allowsImplicitAnimation = true
             self.layoutSubtreeIfNeeded()
         }, completionHandler: nil)
+    }
+
+    // MARK: - Changing projects
+
+    func setupConfigRowProjectFieldBindings() {
+        // Bind project
+
+        let project = task.producer.pick { $0.reactive.project }
+
+        project.producer.startWithValues { project in
+            self.configProjectField.stringValue = project?.name ?? "None"
+        }
+
+        configProjectField.onSelect = { selection in
+            Swift.print("💥 Project was selected: \(selection)")
+
+            switch selection {
+            case .new(let title):
+                let project = self.createProject(title: title)
+                self.task.value?.project = project
+                break
+            case .existing(let project):
+                self.task.value?.project = project
+            }
+        }
+    }
+
+    func createProject(title: String) -> Project? {
+        let context = AppDelegate.viewContext
+
+        guard let project = NSEntityDescription.insertNewObject(forEntityName: "Project", into: context) as? Project else { return nil }
+
+        project.name = title
+        project.moveToEndOfList(in: context)
+
+        return project
     }
 }

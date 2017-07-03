@@ -37,15 +37,7 @@ extension Task {
     }
     
     static func create(in context: NSManagedObjectContext, plannedFor: Date? = nil) -> Task {
-        var project: Project? = context.findFirst()
-        
-        if project == nil {
-            project = Project.create(in: context)
-            project?.name = "New project"
-        }
-        
         let task = Task(entity: Task.entity(), insertInto: context)
-        task.project = project
         task.plannedFor = (plannedFor ?? Date()) as NSDate
         
         task.moveToEndInPlannedList(in: context)
