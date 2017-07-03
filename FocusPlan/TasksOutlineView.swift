@@ -17,6 +17,10 @@ class TasksOutlineView: EditableOutlineView {
         self.columnAutoresizingStyle = .firstColumnOnlyAutoresizingStyle
 
         self.monitor = NSEvent.addLocalMonitorForEvents(matching: [.leftMouseDown]) { event in
+            if event.window != self.window {
+                return event
+            }
+
             if let view = self.editedCellView {
                 let loc = view.convert(event.locationInWindow, from: nil)
                 let result = view.hitTest(loc)
@@ -30,7 +34,6 @@ class TasksOutlineView: EditableOutlineView {
 
             return event
         }
-
     }
 
     override func mouseDown(with event: NSEvent) {

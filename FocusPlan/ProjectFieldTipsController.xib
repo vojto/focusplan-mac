@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13122.17" systemVersion="16F2073" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13122.19" systemVersion="16F2073" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13122.17"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13122.19"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="ProjectFieldTipsController" customModule="Timelist" customModuleProvider="target">
+        <customObject id="-2" userLabel="File's Owner" customClass="ProjectFieldTipsController" customModule="FocusPlan" customModuleProvider="target">
             <connections>
                 <outlet property="tableView" destination="b6a-Ag-1gZ" id="2Y4-UR-hzl"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
@@ -24,7 +24,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="222" height="290"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="96" rowSizeStyle="automatic" viewBased="YES" id="b6a-Ag-1gZ" customClass="NiceMenuTableView" customModule="Timelist" customModuleProvider="target">
+                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="96" rowSizeStyle="automatic" viewBased="YES" id="b6a-Ag-1gZ" customClass="NiceMenuTableView" customModule="NiceKit">
                                 <rect key="frame" x="0.0" y="0.0" width="222" height="280"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
@@ -44,11 +44,11 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView identifier="Row" id="rCf-t9-BPS" customClass="ProjectFieldTipCell" customModule="Timelist" customModuleProvider="target">
+                                            <tableCellView identifier="Row" id="rCf-t9-BPS" customClass="ProjectFieldTipCell" customModule="FocusPlan" customModuleProvider="target">
                                                 <rect key="frame" x="1" y="1" width="219" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             </tableCellView>
-                                            <customView identifier="NSTableViewRowViewKey" id="XeU-Nc-kwl" customClass="NiceMenuTableRowView" customModule="Timelist" customModuleProvider="target">
+                                            <customView identifier="NSTableViewRowViewKey" id="XeU-Nc-kwl" customClass="NiceMenuTableRowView" customModule="NiceKit">
                                                 <rect key="frame" x="1" y="20" width="219" height="96"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             </customView>

@@ -15,7 +15,11 @@ class ProjectField: NiceField {
 
     var optionsPopover: NicePopover?
     var tipsController = ProjectFieldTipsController()
-    
+
+    override open var width: CGFloat {
+        return 120.0
+    }
+
     enum ProjectSelection {
         case existing(Project)
         case new(String)

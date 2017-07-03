@@ -20,6 +20,10 @@ class TaskTitleTableCellView: EditableTableCellView {
     let checkAnim = LOTAnimationView(name: "check_fixed")!
     
     let estimateField = NSTextField.label()
+
+    let configRow = NSStackView()
+    let configProjectField = ProjectField()
+    let configEstimateField = NiceField()
     
     var wantsHighlightPlanned = true
     
@@ -129,8 +133,7 @@ class TaskTitleTableCellView: EditableTableCellView {
         }
         
         setUnfinished()
-        
-        
+
         // 03 Gesture recognizer
         
         let recog = NiceClickGestureRecognizer(target: self, action: #selector(TaskTitleTableCellView.toggleFinished(_:)))
@@ -138,10 +141,6 @@ class TaskTitleTableCellView: EditableTableCellView {
         checkContainer.addGestureRecognizer(recog)
     }
 
-    let configRow = NSStackView()
-
-    let configProjectField = NiceField()
-    let configEstimateField = NiceField()
 
     func setupConfigRow() {
         let labelColor = NSColor(hexString: "ABB5C0")!
@@ -180,6 +179,8 @@ class TaskTitleTableCellView: EditableTableCellView {
     }
 
     func setupConfigRowBindings() {
+        // Bind estimate
+
         let estimate = task.producer.pick { $0.reactive.estimatedMinutesFormatted }
 
         estimate.producer.startWithValues { estimate in
@@ -189,6 +190,14 @@ class TaskTitleTableCellView: EditableTableCellView {
         configEstimateField.onChange = { value in
             let task = self.task.value
             task?.setEstimate(fromString: value)
+        }
+
+        // Bind project
+
+        let project = task.producer.pick { $0.reactive.project }
+
+        project.producer.startWithValues { project in
+            self.configProjectField.stringValue = project?.name ?? "None"
         }
     }
     

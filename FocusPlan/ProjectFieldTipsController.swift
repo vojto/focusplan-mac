@@ -90,6 +90,8 @@ class ProjectFieldTipsController: NSViewController, NSTableViewDataSource, NSTab
         let context = AppDelegate.viewContext
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Project")
+
+        request.predicate = NSPredicate(format: "isFolder = 0")
         
         projectsObserver = ReactiveObserver<Project>(context: context, request: request)
     }
