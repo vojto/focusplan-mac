@@ -50,7 +50,7 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
         
         let context = AppDelegate.viewContext
         
-        tasksObserver = TasksObserver(wantsPlannedOnly: true, in: context)
+        tasksObserver = TasksObserver(wantsPlannedOnly: true, wantsUnfinishedOnly: false, in: context, includeProperties: false)
         let sortedTasks = tasksObserver.sortedTasksForPlan
         
         timerEntriesObserver = ReactiveObserver<TimerEntry>(context: context, request: nil)
