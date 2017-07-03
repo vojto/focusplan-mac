@@ -35,6 +35,10 @@
 		991E7B361EB0B9660086A9D9 /* TaskEstimateTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991E7B351EB0B9660086A9D9 /* TaskEstimateTableCellView.swift */; };
 		991E7B381EB0BEF00086A9D9 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991E7B371EB0BEF00086A9D9 /* String+Extensions.swift */; };
 		991E7B3C1EB0E80A0086A9D9 /* EditableTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991E7B3B1EB0E80A0086A9D9 /* EditableTableCellView.swift */; };
+		9932F5901F0A5A82002844F1 /* ProjectFieldTipsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9932F58C1F0A5A81002844F1 /* ProjectFieldTipsController.xib */; };
+		9932F5911F0A5A82002844F1 /* ProjectFieldTipsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9932F58D1F0A5A81002844F1 /* ProjectFieldTipsController.swift */; };
+		9932F5921F0A5A82002844F1 /* ProjectField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9932F58E1F0A5A81002844F1 /* ProjectField.swift */; };
+		9932F5931F0A5A82002844F1 /* ProjectFieldTipCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9932F58F1F0A5A82002844F1 /* ProjectFieldTipCell.swift */; };
 		9933E31E1EC047CE00774BD4 /* YellowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9933E31D1EC047CE00774BD4 /* YellowView.swift */; };
 		9933E49C1EB9BC6200B1CE85 /* PomodoroType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9933E49B1EB9BC6200B1CE85 /* PomodoroType.swift */; };
 		9933E49E1EB9C84600B1CE85 /* CalendarCollectionItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9933E49D1EB9C84600B1CE85 /* CalendarCollectionItemView.swift */; };
@@ -212,6 +216,10 @@
 		991E7B371EB0BEF00086A9D9 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		991E7B3B1EB0E80A0086A9D9 /* EditableTableCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditableTableCellView.swift; sourceTree = "<group>"; };
 		9922F1191EAF656000BFA01F /* Cartography.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cartography.framework; path = Carthage/Build/Mac/Cartography.framework; sourceTree = "<group>"; };
+		9932F58C1F0A5A81002844F1 /* ProjectFieldTipsController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProjectFieldTipsController.xib; sourceTree = "<group>"; };
+		9932F58D1F0A5A81002844F1 /* ProjectFieldTipsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectFieldTipsController.swift; sourceTree = "<group>"; };
+		9932F58E1F0A5A81002844F1 /* ProjectField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectField.swift; sourceTree = "<group>"; };
+		9932F58F1F0A5A82002844F1 /* ProjectFieldTipCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectFieldTipCell.swift; sourceTree = "<group>"; };
 		9933E31D1EC047CE00774BD4 /* YellowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YellowView.swift; sourceTree = "<group>"; };
 		9933E49B1EB9BC6200B1CE85 /* PomodoroType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PomodoroType.swift; sourceTree = "<group>"; };
 		9933E49D1EB9C84600B1CE85 /* CalendarCollectionItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarCollectionItemView.swift; sourceTree = "<group>"; };
@@ -480,6 +488,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		9932F58B1F0A5A72002844F1 /* ProjectField */ = {
+			isa = PBXGroup;
+			children = (
+				9932F58E1F0A5A81002844F1 /* ProjectField.swift */,
+				9932F58D1F0A5A81002844F1 /* ProjectFieldTipsController.swift */,
+				9932F58C1F0A5A81002844F1 /* ProjectFieldTipsController.xib */,
+				9932F58F1F0A5A82002844F1 /* ProjectFieldTipCell.swift */,
+			);
+			name = ProjectField;
+			sourceTree = "<group>";
+		};
 		994063D21EB75E4A00E09165 /* Timer */ = {
 			isa = PBXGroup;
 			children = (
@@ -616,6 +635,7 @@
 		99BBB0281EB8C505002C603F /* User Interface */ = {
 			isa = PBXGroup;
 			children = (
+				9932F58B1F0A5A72002844F1 /* ProjectField */,
 				99169FE61ED5EBED00BFB4F2 /* TrialButton */,
 				994F0A221EC588C900562B7A /* Preferences */,
 				994208361EC2FF4800CB4D4E /* Menubar */,
@@ -834,6 +854,7 @@
 				990A18061EAF3C5A00DCE839 /* MainMenu.xib in Resources */,
 				99D8C8111EB3B51800EA5001 /* CalendarViewController.xib in Resources */,
 				99DA93591EC317B500817AF5 /* chime_reveal.aif in Resources */,
+				9932F5901F0A5A82002844F1 /* ProjectFieldTipsController.xib in Resources */,
 				9983F90A1EC0B5B0005E624A /* EditTimerEntryController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -921,6 +942,7 @@
 				9933E49C1EB9BC6200B1CE85 /* PomodoroType.swift in Sources */,
 				999E650D1EB362780001AAB7 /* PlanViewController.swift in Sources */,
 				998156131EB778020057ECD0 /* NSButton+Reactive.swift in Sources */,
+				9932F5921F0A5A82002844F1 /* ProjectField.swift in Sources */,
 				998352E01EC4A28200303E7D /* CustomTableRowView.swift in Sources */,
 				99EEDE5D1EAF931500662DED /* ProjectsOutlineView.swift in Sources */,
 				9983F9091EC0B5B0005E624A /* EditTimerEntryController.swift in Sources */,
@@ -935,6 +957,7 @@
 				994F0A2C1EC5957200562B7A /* UserDefaults+Extensions.swift in Sources */,
 				99A24EA71EB3591300C3F229 /* Palette.swift in Sources */,
 				991E7B231EB071C20086A9D9 /* TasksViewController.swift in Sources */,
+				9932F5931F0A5A82002844F1 /* ProjectFieldTipCell.swift in Sources */,
 				99D8C80C1EB3A16D00EA5001 /* NSManagedObjectModel+Extensions.swift in Sources */,
 				994208381EC2FF5600CB4D4E /* MenubarController.swift in Sources */,
 				99D122ED1EB8729A00D495DC /* TimerEntry+Extensions.swift in Sources */,
@@ -952,6 +975,7 @@
 				991E7AFA1EB064FE0086A9D9 /* Project+Reactive.swift in Sources */,
 				99B026D61EBC7E9300533FE3 /* Sequence+Extensions.swift in Sources */,
 				994063D61EB761D000E09165 /* TimerViewController.swift in Sources */,
+				9932F5911F0A5A82002844F1 /* ProjectFieldTipsController.swift in Sources */,
 				997BAE151F0290D70072681B /* NiceSplitView.swift in Sources */,
 				991E7B301EB0865F0086A9D9 /* NSOutlineView+Extensions.swift in Sources */,
 				998156101EB7761F0057ECD0 /* TimerState.swift in Sources */,
