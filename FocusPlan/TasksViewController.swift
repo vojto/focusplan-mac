@@ -416,7 +416,7 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
             var height = dummyContainer.fittingSize.height
             
             if let view = titleCellViews[task], view.isEditing {
-                height += 40
+                return 100.0
             }
             
             return height

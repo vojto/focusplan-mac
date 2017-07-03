@@ -34,6 +34,7 @@ class TaskTitleTableCellView: EditableTableCellView {
     let configRowHeight: CGFloat = 24.0
     
     var fieldLeftConstraint: NSLayoutConstraint?
+    var fieldEditingBottomConstraint: NSLayoutConstraint?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -72,10 +73,14 @@ class TaskTitleTableCellView: EditableTableCellView {
         
         constrain(field) { field in
             field.top == field.superview!.top + 8
-            field.bottom == field.superview!.bottom - 8
+            (field.bottom == field.superview!.bottom - 8) ~ LayoutPriority(750)
+            self.fieldEditingBottomConstraint = ((field.bottom == field.superview!.bottom - 35) ~ LayoutPriority(1000))
+
             field.left == field.superview!.left + fieldLeftMargin
             field.right == field.superview!.right - 8
         }
+
+        fieldEditingBottomConstraint?.isActive = false
         
         self.textField = field
     }
@@ -321,11 +326,12 @@ class TaskTitleTableCellView: EditableTableCellView {
         let task = self.task.value
 
         let newTitle = field.stringValue
+        field.stringValue = ""
 
         field.resignFirstResponder()
         field.isEditable = false
         field.isSelectable = false
-//        field.attributedStringValue = self.createAttributedString(forTitle: newTitle, project: task?.project, isFinished: task?.isFinished ?? false)
+        field.attributedStringValue = self.createAttributedString(forTitle: newTitle, project: task?.project, isFinished: task?.isFinished ?? false)
 
         isEditing = false
 
@@ -345,11 +351,12 @@ class TaskTitleTableCellView: EditableTableCellView {
 
     func setEditingLayout() {
         configRow.isHidden = false
+        fieldEditingBottomConstraint?.isActive = true
 
     }
     
     func setRegularLayout() {
-
+        fieldEditingBottomConstraint?.isActive = false
     }
     
 
