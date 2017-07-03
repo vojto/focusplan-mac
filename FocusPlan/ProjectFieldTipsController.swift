@@ -85,7 +85,9 @@ class ProjectFieldTipsController: NSViewController, NSTableViewDataSource, NSTab
         
 //        tableView.onDismiss = self.handleDismiss
         tableView.onClickSelected = self.handleClickSelected
+    }
 
+    override func viewDidAppear() {
         reloadTable()
     }
     
@@ -111,6 +113,16 @@ class ProjectFieldTipsController: NSViewController, NSTableViewDataSource, NSTab
         let rows = CGFloat(tableView.numberOfRows)
         let height = rows * rowHeight + verticalMargin * 2 + spaceBetween * (rows)
         heightConstraint?.constant = height
+
+        Swift.print("table reloaded with \(projects.count) projects")
+
+//        if projects.count == 0 {
+//            self.view.window?.orderOut(self)
+//        } else {
+//            self.view.window?.makeKeyAndOrderFront(self)
+//        }
+
+        self.view.window?.alphaValue = (projects.count == 0) ? 0 : 1
     }
     
     // MARK: - Table data source
