@@ -33,7 +33,7 @@ class BacklogViewController: NSViewController {
         let context = AppDelegate.viewContext
         
         // Creating the observer
-        tasksObserver = TasksObserver(wantsPlannedOnly: false, in: context)
+        tasksObserver = TasksObserver(wantsPlannedOnly: false, wantsUnfinishedOnly: false, in: context, includeProperties: false)
         tasksObserver.skipsArchived = true
         
         tasksObserver.sortedForProject.producer.startWithValues { tasks in

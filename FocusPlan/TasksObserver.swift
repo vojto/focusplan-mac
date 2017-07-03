@@ -25,12 +25,12 @@ class TasksObserver: ReactiveObserver<Task> {
         }
     }
     
-    init(wantsPlannedOnly: Bool, wantsUnfinishedOnly: Bool = false, in context: NSManagedObjectContext) {
+    init(wantsPlannedOnly: Bool, wantsUnfinishedOnly: Bool = false, in context: NSManagedObjectContext, includeProperties: Bool = true) {
         self.wantsPlannedOnly = wantsPlannedOnly
         self.wantsUnfinishedOnly = wantsUnfinishedOnly
         self.context = context
-        
-        super.init(context: context, request: nil)
+
+        super.init(context: context, request: nil, includeChanges: includeProperties ? .all : .none, callback: nil)
     }
     
     func createRequest() -> NSFetchRequest<NSFetchRequestResult> {

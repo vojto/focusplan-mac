@@ -133,14 +133,12 @@ class TaskTitleTableCellView: EditableTableCellView {
         projectLabel.textColor = labelColor
         projectLabel.font = labelFont
 
-        let configProjectField = NiceField()
-
         let estimateLabel = NSTextField.label()
         estimateLabel.stringValue = "Estimate:"
         estimateLabel.textColor = labelColor
         estimateLabel.font = labelFont
 
-        let configEstimateField = NiceField()
+        configEstimateField.stringValue = "None"
 
         configRow.orientation = .horizontal
         configRow.setViews([
@@ -163,12 +161,15 @@ class TaskTitleTableCellView: EditableTableCellView {
     }
 
     func setupConfigRowBindings() {
-        Swift.print("🌿 Setting up config row bindings!")
-
         let estimate = task.producer.pick { $0.reactive.estimatedMinutesFormatted }
 
         estimate.producer.startWithValues { estimate in
             self.configEstimateField.stringValue = estimate ?? "None"
+        }
+
+        configEstimateField.onChange = { value in
+            let task = self.task.value
+            task?.setEstimate(fromString: value)
         }
     }
     
@@ -296,6 +297,8 @@ class TaskTitleTableCellView: EditableTableCellView {
      */
     
     override func startEditing() {
+        Swift.print("🔥 Starting editing!")
+
         if isEditing {
             return
         }
@@ -326,9 +329,10 @@ class TaskTitleTableCellView: EditableTableCellView {
         let task = self.task.value
 
         let newTitle = field.stringValue
-        field.stringValue = ""
+//        field.stringValue = ""
 
-        field.resignFirstResponder()
+//        field.resignFirstResponder()
+        window?.makeFirstResponder(nil)
         field.isEditable = false
         field.isSelectable = false
         field.attributedStringValue = self.createAttributedString(forTitle: newTitle, project: task?.project, isFinished: task?.isFinished ?? false)
@@ -338,7 +342,6 @@ class TaskTitleTableCellView: EditableTableCellView {
         configRow.isHidden = true
 
 //        controller?.updateHeight(cellView: self, animated: true) {
-            Swift.print("🍄 Animation callback called!")
 
             self.rowView?.isEditing = false
             (self.outlineView as? EditableOutlineView)?.editedCellView = nil
@@ -347,6 +350,8 @@ class TaskTitleTableCellView: EditableTableCellView {
 
             task?.title = newTitle
 //        }
+
+        controller?.updateHeight(cellView: self, animated: false)
     }
 
     func setEditingLayout() {

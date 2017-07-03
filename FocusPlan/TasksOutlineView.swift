@@ -23,6 +23,7 @@ class TasksOutlineView: EditableOutlineView {
 
                 if result == nil {
                     (view as? TaskTitleTableCellView)?.forceFinishEditing()
+                    return nil
                 }
 
             }
