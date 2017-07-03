@@ -19,6 +19,8 @@ class TaskTitleTableCellView: EditableTableCellView {
     let checkContainer = NSView()
     let checkAnim = LOTAnimationView(name: "check_fixed")!
     
+    let estimateField = NSTextField.label()
+    
     var wantsHighlightPlanned = true
     
     var controller: TasksViewController?
@@ -42,6 +44,8 @@ class TaskTitleTableCellView: EditableTableCellView {
         wantsLayer = true
         
         setupTextField()
+        
+        setupEstimateField()
 
         setupConfigRow()
         setupConfigRowBindings()
@@ -85,6 +89,23 @@ class TaskTitleTableCellView: EditableTableCellView {
         self.textField = field
     }
     
+    func setupEstimateField() {
+        guard let field = self.textField else { assertionFailure(); return }
+        
+        estimateField.font = NSFont.systemFont(ofSize: 13, weight: NSFontWeightRegular)
+        estimateField.textColor = NSColor(hexString: "9099A3")!
+        
+        addSubview(estimateField)
+        constrain(estimateField, field) { estimate, title in
+            estimate.right == estimate.superview!.right - 8
+            estimate.baseline == title.baseline
+        }
+        
+        
+        let estimate = task.producer.pick { $0.reactive.estimatedMinutesFormatted }
+        
+        estimateField.reactive.stringValue <~ estimate.map({ $0 ?? "None" })
+    }
     
     func setupCheck() {
         
@@ -225,6 +246,8 @@ class TaskTitleTableCellView: EditableTableCellView {
     }
     
     func createAttributedString(forTitle title: String, project: Project?, isFinished: Bool) -> NSAttributedString {
+        Swift.print("Creating attributed string for project: \(project)")
+        
         let projectName = project?.name ?? ""
         let projectColor = Palette.decode(colorName: project?.color) ?? NSColor(hexString: Stylesheet.primaryColor)!
         
@@ -308,6 +331,8 @@ class TaskTitleTableCellView: EditableTableCellView {
         isEditing = true
 
         rowView?.isEditing = true
+        
+        estimateField.isHidden = true
 
         controller?.updateHeight(cellView: self, animated: true) {
             self.textField?.stringValue = task?.title ?? ""
@@ -327,6 +352,8 @@ class TaskTitleTableCellView: EditableTableCellView {
     func forceFinishEditing() {
         guard let field = textField else { assertionFailure(); return }
         let task = self.task.value
+        
+        Swift.print("Here's the project: \(task?.project)")
 
         let newTitle = field.stringValue
 //        field.stringValue = ""
@@ -362,6 +389,7 @@ class TaskTitleTableCellView: EditableTableCellView {
     
     func setRegularLayout() {
         fieldEditingBottomConstraint?.isActive = false
+        estimateField.isHidden = false
     }
     
 
