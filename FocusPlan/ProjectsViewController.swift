@@ -42,7 +42,9 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
             let paths = treeController.selectionIndexPaths
             treeController.content = rootItem.children
             treeController.setSelectionIndexPaths(paths)
-            
+
+            expandBacklog()
+
             DispatchQueue.main.async {
                 self.reflectCollapseStatus()
             }
@@ -71,9 +73,11 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
         
         selectedItem <~ selected.map { ($0 as? [Item])?.first }
     }
+
     
     override func viewDidAppear() {
         disposable += observer.objects.producer.startWithValues { projects in
+            Swift.print("🍁 Projects changed to \(projects.count) projects in the sidebar!")
             self.projects = projects
         }
         
@@ -289,19 +293,33 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
             }
         }
     }
-    
+
+    // TODO: Refactor this so it uses node(matching) method
     func indexPath(forProject project: Project) -> IndexPath? {
+        let node = self.node(matching: {
+            if let projectItem = $0 as? ProjectItem {
+                if projectItem.project == project {
+                    return true
+                }
+            }
+
+            return false
+        })
+
+        return node?.indexPath
+    }
+
+    func node(matching: ((Item) -> (Bool))) -> NSTreeNode? {
         for i in 0...(outlineView.numberOfRows-1) {
             guard let node = outlineView.item(atRow: i) as? NSTreeNode else { continue }
-            let item = node.representedObject
-            
-            if let projectItem = item as? ProjectItem {
-                if projectItem.project == project {
-                    return node.indexPath
+
+            if let item = node.representedObject as? Item {
+                if matching(item) {
+                    return node
                 }
             }
         }
-        
+
         return nil
     }
     
@@ -573,7 +591,14 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
         }
     }
     
-    // MARK: - Passing expand/collapse status to view
+    // MARK: - Expanding/collapsing helpers
+    // ----------------------------------------------------------------------
+
+    func expandBacklog() {
+        if let node = self.node(matching: { $0 == backlogHeaderItem }) {
+            outlineView.expandItem(node, expandChildren: false)
+        }
+    }
     
     func reflectCollapseStatus() {
         for i in 0...(outlineView.numberOfRows-1) {

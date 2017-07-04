@@ -114,8 +114,6 @@ class ProjectFieldTipsController: NSViewController, NSTableViewDataSource, NSTab
         let height = rows * rowHeight + verticalMargin * 2 + spaceBetween * (rows)
         heightConstraint?.constant = height
 
-        Swift.print("table reloaded with \(projects.count) projects")
-
 //        if projects.count == 0 {
 //            self.view.window?.orderOut(self)
 //        } else {

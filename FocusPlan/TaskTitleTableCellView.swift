@@ -431,11 +431,12 @@ class TaskTitleTableCellView: EditableTableCellView {
         }
 
         configProjectField.onSelect = { selection in
-            Swift.print("💥 Project was selected: \(selection)")
-
             switch selection {
             case .new(let title):
                 let project = self.createProject(title: title)
+
+                Swift.print("💧 Created a new project: \(project)")
+
                 self.task.value?.project = project
                 break
             case .existing(let project):
