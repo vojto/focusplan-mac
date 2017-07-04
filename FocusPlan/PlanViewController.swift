@@ -59,7 +59,7 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
 
         tasksObserverForCalendar = TasksObserver(wantsPlannedOnly: true, wantsUnfinishedOnly: false, in: context, includeProperties: true)
         tasksForCalendar <~ tasksObserverForCalendar.sortedTasksForPlan
-        
+
         timerEntriesObserver = ReactiveObserver<TimerEntry>(context: context, request: nil)
         timerEntries <~ timerEntriesObserver.objects
         
@@ -75,12 +75,10 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
         }
         
         SignalProducer.combineLatest(
-            tasksForList.producer,
+            tasksForCalendar.producer,
             timerEntries.producer
-            ).startWithValues { tasks, timerEntries in
-
-//                self.lastTimerEntries = timerEntries
-                self.updateCalendar(tasks: tasks, timerEntries: timerEntries)
+        ).startWithValues { tasks, timerEntries in
+            self.updateCalendar(tasks: tasks, timerEntries: timerEntries)
         }
 
         
@@ -122,6 +120,7 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
     
     func updateTasksObserver() {
         tasksObserverForList.range = config.queryRange
+        tasksObserverForCalendar.range = config.queryRange
     }
     
     func updateLayout() {
