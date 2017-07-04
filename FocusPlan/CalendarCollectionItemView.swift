@@ -20,6 +20,8 @@ class CalendarCollectionItemView: NSView {
     var border = NSColor.blue { didSet { needsDisplay = true } }
     var isDashed = false { didSet { needsDisplay = true } }
     var isHighlighted = false { didSet { needsDisplay = true } }
+
+    var isFromTopResizingEnabled = false
     
     var backgroundProgress = 1.0
     
@@ -85,8 +87,8 @@ class CalendarCollectionItemView: NSView {
             onDoubleClick?()
         } else {
             let point = convert(event.locationInWindow, from: nil)
-            
-            if topResizeFrame.contains(point) {
+
+            if isFromTopResizingEnabled && topResizeFrame.contains(point) {
                 resize(event: event, handle: .top)
             } else if bottomResizeFrame.contains(point) {
                 resize(event: event, handle: .bottom)
@@ -136,13 +138,16 @@ class CalendarCollectionItemView: NSView {
     
     override func resetCursorRects() {
         super.resetCursorRects()
-        
-        let topCursor = NSCursor.resizeDown()
-        var topFrame = self.bounds
-        topFrame.origin.y = topFrame.size.height - 5
-        topFrame.size.height = 5
-        addCursorRect(topFrame, cursor: topCursor)
-        topResizeFrame = topFrame
+
+        if isFromTopResizingEnabled {
+            let topCursor = NSCursor.resizeDown()
+            var topFrame = self.bounds
+            topFrame.origin.y = topFrame.size.height - 5
+            topFrame.size.height = 5
+            addCursorRect(topFrame, cursor: topCursor) // Resizing from the top disabled
+            topResizeFrame = topFrame
+        }
+
         
         let bottomCursor = NSCursor.resizeUp()
         var bottomFrame = self.bounds

@@ -178,9 +178,22 @@ class CalendarCollectionItem: NSCollectionViewItem {
             event.value!.startsAt = initialStartTime + durationDelta
             event.value!.plannedDuration = initialDuration - durationDelta
         case .bottom:
-            event.value!.plannedDuration = initialDuration + durationDelta
+            let duration = initialDuration + durationDelta
+            let roundingInterval = Double(5 * 60) // 5 minutes
+
+            let intervalsCount = duration / roundingInterval
+
+            var durationRounded = round(intervalsCount) * roundingInterval
+
+            let minIntervalCount = 6
+            let minDuration = roundingInterval * Double(minIntervalCount)
+
+            if durationRounded < minDuration {
+                durationRounded = minDuration
+            }
+
+            event.value!.plannedDuration = durationRounded
         }
-        
 
         layout.invalidateLayout()
         
@@ -191,7 +204,8 @@ class CalendarCollectionItem: NSCollectionViewItem {
         case .project:
             break
         case .task:
-            field.stringValue = formattedMinutes
+            configEstimateField.stringValue = formattedMinutes
+
         case .timerEntry:
             if let event = self.event.value,
                 let from = event.startDate?.string(custom: "h:mm"),

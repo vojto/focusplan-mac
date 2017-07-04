@@ -64,7 +64,7 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
     // MARK: - Getting content frame
     // ------------------------------------------------------------------------
     
-    let hourHeight = Double(80)
+    let hourHeight = Double(100)
     
     override var collectionViewContentSize: NSSize {
         guard let collectionView = self.collectionView else { return NSZeroSize }
