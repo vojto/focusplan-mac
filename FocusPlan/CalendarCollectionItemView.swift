@@ -31,7 +31,7 @@ class CalendarCollectionItemView: NSView {
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
         
-        let cornerRadius: CGFloat = 3.0
+        let cornerRadius: CGFloat = 4.0
         let bounds = self.bounds.insetBy(dx: 0.5, dy: 0.5)
         
         let path = NSBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
@@ -53,6 +53,30 @@ class CalendarCollectionItemView: NSView {
         let gradientHeight: CGFloat = 200.0
         let gradientRect = NSRect(x: 0, y: bounds.size.height - gradientHeight, width: bounds.size.width, height: gradientHeight)
         gradient?.draw(in: gradientRect, angle: -85)
+
+
+        // Draw the handle
+        for i in 0...1 {
+            let handleColor = NSColor.black.alpha(0.2)
+            let handleWidth: CGFloat = 40.0
+            let handleHeight: CGFloat = 1.0
+            let handleSpace: CGFloat = 1.0
+            let handleFrame = NSRect(
+                x: (bounds.size.width - handleWidth)/2,
+                y: 3 + CGFloat(i) * (handleHeight + handleSpace),
+                width: handleWidth,
+                height: handleHeight
+            )
+
+            handleColor.setFill()
+            NSRectFillUsingOperation(handleFrame, .sourceOver)
+//            NSRectFill(handleFrame)
+        }
+
+
+
+
+
 
     }
     

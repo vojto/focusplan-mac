@@ -249,6 +249,10 @@ class CalendarCollectionItem: NSCollectionViewItem {
             self.configProjectField.stringValue = project?.name ?? "None"
         }
 
+        configProjectField.onSelect = { selection in
+            self.task.value?.setProjectFromSelection(selection)
+        }
+
         // Bind estimate
         let estimate = task.producer.pick { $0.reactive.estimatedMinutesFormatted }
         estimate.producer.startWithValues { value in

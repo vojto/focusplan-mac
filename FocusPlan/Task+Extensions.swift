@@ -116,4 +116,27 @@ extension Task {
         
         return result
     }
+
+    func setProjectFromSelection(_ selection: ProjectField.ProjectSelection) {
+        switch selection {
+        case .new(let title):
+            let project = self.createProject(title: title)
+
+            self.project = project
+            break
+        case .existing(let project):
+            self.project = project
+        }
+    }
+
+    func createProject(title: String) -> Project? {
+        let context = AppDelegate.viewContext
+
+        guard let project = NSEntityDescription.insertNewObject(forEntityName: "Project", into: context) as? Project else { return nil }
+
+        project.name = title
+        project.moveToEndOfList(in: context)
+
+        return project
+    }
 }

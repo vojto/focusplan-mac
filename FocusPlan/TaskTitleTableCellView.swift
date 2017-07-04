@@ -431,28 +431,8 @@ class TaskTitleTableCellView: EditableTableCellView {
         }
 
         configProjectField.onSelect = { selection in
-            switch selection {
-            case .new(let title):
-                let project = self.createProject(title: title)
-
-                Swift.print("💧 Created a new project: \(project)")
-
-                self.task.value?.project = project
-                break
-            case .existing(let project):
-                self.task.value?.project = project
-            }
+            self.task.value?.setProjectFromSelection(selection)
         }
     }
 
-    func createProject(title: String) -> Project? {
-        let context = AppDelegate.viewContext
-
-        guard let project = NSEntityDescription.insertNewObject(forEntityName: "Project", into: context) as? Project else { return nil }
-
-        project.name = title
-        project.moveToEndOfList(in: context)
-
-        return project
-    }
 }
