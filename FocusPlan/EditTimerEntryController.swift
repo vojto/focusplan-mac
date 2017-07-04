@@ -57,7 +57,7 @@ class EditTimerEntryController: NSViewController {
         let selectedTask = entry.producer.pick({ $0.reactive.task.producer })
         
         let availableTasks = SignalProducer.combineLatest(
-            controller.tasksObserver.sortedTasksForPlan,
+            controller.tasksObserverForList.sortedTasksForPlan,
             selectedTask
         ).map { tasks, selectedTask -> [Task] in
             guard let task = selectedTask else { return tasks }

@@ -31,11 +31,14 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
         }
     }
     
-    var tasksObserver: TasksObserver!
+    var tasksObserverForList: TasksObserver!
+    let tasksForList = MutableProperty<[Task]>([])
+
+    var tasksObserverForCalendar: TasksObserver!
+    let tasksForCalendar = MutableProperty<[Task]>([])
+
     var timerEntriesObserver: ReactiveObserver<TimerEntry>!
-    
-    var lastTasks = [Task]()
-    var lastTimerEntries = [TimerEntry]()
+    let timerEntries = MutableProperty<[TimerEntry]>([])
     
     static var instance: PlanViewController?
     
@@ -50,29 +53,33 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
         
         let context = AppDelegate.viewContext
         
-        tasksObserver = TasksObserver(wantsPlannedOnly: true, wantsUnfinishedOnly: false, in: context, includeProperties: false)
-        let sortedTasks = tasksObserver.sortedTasksForPlan
+        tasksObserverForList = TasksObserver(wantsPlannedOnly: true, wantsUnfinishedOnly: false, in: context, includeProperties: false)
+        tasksForList <~ tasksObserverForList.sortedTasksForPlan
+
+
+        tasksObserverForCalendar = TasksObserver(wantsPlannedOnly: true, wantsUnfinishedOnly: false, in: context, includeProperties: true)
+        tasksForCalendar <~ tasksObserverForCalendar.sortedTasksForPlan
         
         timerEntriesObserver = ReactiveObserver<TimerEntry>(context: context, request: nil)
+        timerEntries <~ timerEntriesObserver.objects
         
         updateObservers()
         
         primaryView.include(tasksController.view)
         secondaryView.include(calendarController.view)
         
-        sortedTasks.startWithValues { tasks in
+        tasksForList.producer.startWithValues { tasks in
             self.tasksController.tasks = tasks.filter { !$0.isArchived } // <- TODO: Move this filter to observer
             self.tasksController.heading = "Today"
             self.tasksController.reloadData()
         }
         
         SignalProducer.combineLatest(
-            sortedTasks,
-            timerEntriesObserver.objects.producer
+            tasksForList.producer,
+            timerEntries.producer
             ).startWithValues { tasks, timerEntries in
 
-                self.lastTasks = tasks
-                self.lastTimerEntries = timerEntries
+//                self.lastTimerEntries = timerEntries
                 self.updateCalendar(tasks: tasks, timerEntries: timerEntries)
         }
 
@@ -114,7 +121,7 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
     }
     
     func updateTasksObserver() {
-        tasksObserver.range = config.queryRange
+        tasksObserverForList.range = config.queryRange
     }
     
     func updateLayout() {
@@ -185,7 +192,7 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
     }
     
     func updateCalendarWithLastValues() {
-        self.updateCalendar(tasks: lastTasks, timerEntries: lastTimerEntries)
+        self.updateCalendar(tasks: tasksForCalendar.value, timerEntries: timerEntries.value)
     }
     
     func updateCalendar(tasks: [Task], timerEntries: [TimerEntry]) {
