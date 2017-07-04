@@ -82,6 +82,7 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
     let leftMargin: CGFloat = 50.0
     let rightMargin: CGFloat = 30.0
     let topMargin: CGFloat = 20.0
+
     
     var innerFrame: NSRect {
         let size = collectionViewContentSize
@@ -271,7 +272,8 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
             let yTime = labelEvery * Double(indexPath.item)
             let y = innerFrame.origin.y + CGFloat(yTime / dayDuration) * contentSize.height
             
-            attributes.frame = NSRect(x: 0, y: y, width: 50, height: 40)
+            attributes.frame = NSRect(x: 0, y: y, width: contentSize.width, height: 40)
+            attributes.zIndex = -2
             
             return attributes
         }
@@ -287,7 +289,7 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
             let now = Date().timeIntervalSince(Date().startOf(component: .day)) - dayStart
             let y = innerFrame.origin.y + CGFloat(now / dayDuration) * innerFrame.size.height
             
-            attributes.frame = NSRect(x: innerFrame.origin.x - 10, y: y - 3, width: innerFrame.size.width + 10, height: 7)
+            attributes.frame = NSRect(x: 0, y: y - 4, width: innerFrame.size.width + 10, height: 7)
             attributes.zIndex = -1
             
             return attributes

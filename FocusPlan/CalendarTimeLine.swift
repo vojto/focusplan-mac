@@ -34,7 +34,7 @@ class CalendarTimeLine: NSView, NSCollectionViewElement {
         //        NSColor.black.setStroke()
         
         bezierPath.lineWidth = 1
-        bezierPath.setLineDash([1, 1], count: 2, phase: 0)
-        bezierPath.stroke()
+//        bezierPath.setLineDash([1, 1], count: 2, phase: 0)
+//        bezierPath.stroke()
     }
 }
