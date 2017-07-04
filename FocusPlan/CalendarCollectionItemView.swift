@@ -57,8 +57,8 @@ class CalendarCollectionItemView: NSView {
 
         // Draw the handle
         for i in 0...1 {
-            let handleColor = NSColor.black.alpha(0.2)
-            let handleWidth: CGFloat = 40.0
+            let handleColor = NSColor.black.alpha(0.35)
+            let handleWidth: CGFloat = 32.0
             let handleHeight: CGFloat = 1.0
             let handleSpace: CGFloat = 1.0
             let handleFrame = NSRect(
@@ -147,7 +147,7 @@ class CalendarCollectionItemView: NSView {
         let bottomCursor = NSCursor.resizeUp()
         var bottomFrame = self.bounds
         bottomFrame.origin.y = 0
-        bottomFrame.size.height = 5
+        bottomFrame.size.height = 10
         addCursorRect(bottomFrame, cursor: bottomCursor)
         bottomResizeFrame = bottomFrame
     }
