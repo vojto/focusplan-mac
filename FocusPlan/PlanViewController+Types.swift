@@ -52,7 +52,7 @@ struct PlanConfig {
     var lanes: [PlanLane] {
         switch detail {
         case .daily:
-            return [.task, .pomodoro]
+            return [.task]
         case .weekly:
             return [.task]
         }

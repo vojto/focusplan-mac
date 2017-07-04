@@ -66,19 +66,23 @@ class ProjectField: NiceField {
     
     override open func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
         
-        guard let menuTable = tipsController.tableView as? NiceMenuTableView else { assertionFailure(); return false }
+        guard let menuTable = tipsController.tableView else { assertionFailure(); return false }
         
         if commandSelector == #selector(NSResponder.insertNewline(_:)) {
             self.confirmSelection()
+            return true
         } else if commandSelector == #selector(NSResponder.moveUp(_:)) {
             menuTable.moveSelectionUp()
+            return true
         } else if commandSelector == #selector(NSResponder.moveDown(_:)) {
             menuTable.moveSelectionDown()
+            return true
         } else if commandSelector == #selector(NSResponder.cancelOperation(_:)) {
             self.finishEditing()
+            return true
         }
         
-        return true
+        return false
     }
 
     override func controlTextDidEndEditing(_ obj: Notification) {

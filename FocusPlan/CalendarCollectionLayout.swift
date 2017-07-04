@@ -64,7 +64,7 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
     // MARK: - Getting content frame
     // ------------------------------------------------------------------------
     
-    let hourHeight = Double(75)
+    let hourHeight = Double(80)
     
     override var collectionViewContentSize: NSSize {
         guard let collectionView = self.collectionView else { return NSZeroSize }
@@ -80,13 +80,14 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
 
     
     let leftMargin: CGFloat = 50.0
+    let rightMargin: CGFloat = 30.0
     let topMargin: CGFloat = 20.0
     
     var innerFrame: NSRect {
         let size = collectionViewContentSize
         var frame = NSRect(x: 0, y: 0, width: size.width, height: size.height)
         
-        frame.size.width -= leftMargin
+        frame.size.width -= (leftMargin + rightMargin)
         frame.origin.x += leftMargin
         
         frame.size.height -= topMargin
