@@ -22,28 +22,16 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fAt-W5-w47">
-                    <rect key="frame" x="6" y="232" width="468" height="14"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="2h 30m, 40%" id="ove-nR-zJu">
-                        <font key="font" metaFont="systemMedium" size="11"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
             </subviews>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="fAt-W5-w47" secondAttribute="trailing" constant="8" id="2Z4-ax-dZW"/>
                 <constraint firstItem="5Ov-Rg-UwN" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="12" id="5k5-YL-p6v"/>
                 <constraint firstItem="5Ov-Rg-UwN" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="8" id="It9-f5-izb"/>
-                <constraint firstItem="fAt-W5-w47" firstAttribute="top" secondItem="5Ov-Rg-UwN" secondAttribute="bottom" constant="4" id="YxL-mf-qv6"/>
-                <constraint firstItem="fAt-W5-w47" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="8" id="x4D-Cg-2iM"/>
                 <constraint firstAttribute="trailing" secondItem="5Ov-Rg-UwN" secondAttribute="trailing" constant="8" id="zgi-nq-iM2"/>
             </constraints>
         </customView>
         <collectionViewItem id="gSF-4s-C4q" customClass="CalendarCollectionItem" customModule="FocusPlan" customModuleProvider="target">
             <connections>
                 <outlet property="field" destination="5Ov-Rg-UwN" id="mkA-es-wKX"/>
-                <outlet property="secondaryField" destination="fAt-W5-w47" id="5vI-CB-uqV"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="bAs-8l-CKA"/>
             </connections>
         </collectionViewItem>

@@ -10,13 +10,16 @@ import Cocoa
 import ReactiveSwift
 import enum Result.NoError
 import Hue
+import Cartography
+import NiceKit
 
 class CalendarCollectionItem: NSCollectionViewItem {
     
     let event = MutableProperty<CalendarEvent?>(nil)
+    var task = MutableProperty<Task?>(nil)
+    var project: SignalProducer<Project?, NoError>!
     @IBOutlet weak var field: NSTextField!
-    @IBOutlet weak var secondaryField: NSTextField!
-    
+
     
     var onEdit: ((CalendarCollectionItem) -> ())?
     
@@ -37,7 +40,7 @@ class CalendarCollectionItem: NSCollectionViewItem {
         
         let view = self.view as! CalendarCollectionItemView
         
-        let task = event.producer.pick { event -> SignalProducer<Task?, NoError> in
+        self.task <~ event.producer.pick { event -> SignalProducer<Task?, NoError> in
             switch event.type {
             case .project:
                 return SignalProducer(value: nil)
@@ -47,15 +50,17 @@ class CalendarCollectionItem: NSCollectionViewItem {
                 return event.timerEntry!.reactive.task
             }
         }
+
+        self.project = self.task.producer.pick { $0.reactive.project.producer }
+
+        setupConfigRow()
         
-        let project = task.pick { $0.reactive.project.producer }
         let projectColor = project.pick { $0.reactive.color.producer }
         
         SignalProducer.combineLatest(event.producer, projectColor.producer).startWithValues { event, colorName in
             guard let event = event else { return }
             
             self.field.alpha = 1
-            self.secondaryField.isHidden = true
             view.isDashed = false
             
             view.backgroundProgress = event.spentDuration / event.duration
@@ -75,13 +80,6 @@ class CalendarCollectionItem: NSCollectionViewItem {
 
                 self.field.textColor = NSColor.white
                 self.field.stringValue = self.event.value?.task?.title ?? ""
-                
-                let total = Formatting.longFormat(timeInterval: event.plannedDuration)
-                let spent = Formatting.longFormat(timeInterval: event.spentDuration)
-                
-//                self.secondaryField.isHidden = false
-//                self.secondaryField.textColor = NSColor.white
-//                self.secondaryField.stringValue = "\(spent)/\(total)"
 
                 break
             case .timerEntry:
@@ -221,5 +219,54 @@ class CalendarCollectionItem: NSCollectionViewItem {
             
 //            entry.endedAt = start.addingTimeInterval(event.duration)
         }
+    }
+
+    // MARK: - Config row (project and estimate)
+    // ------------------------------------------------------------------------
+
+    let configProjectField = ProjectField()
+    let configEstimateField = NiceField()
+
+    func setupConfigRow() {
+        let row = NSStackView()
+
+        view.addSubview(row)
+
+        // Layout the row
+        constrain(row) { row in
+            row.left == row.superview!.left + 6
+            row.right == row.superview!.right - 8
+            row.bottom == row.superview!.bottom - 6
+//            row.height == 32
+        }
+
+        // Style the fields
+        styleConfigField(field: configProjectField)
+        styleConfigField(field: configEstimateField)
+
+        // Bind the project field
+        project.producer.startWithValues { project in
+            self.configProjectField.stringValue = project?.name ?? "None"
+        }
+
+        // Bind estimate
+        let estimate = task.producer.pick { $0.reactive.estimatedMinutesFormatted }
+        estimate.producer.startWithValues { value in
+            self.configEstimateField.stringValue = value ?? ""
+        }
+
+        configEstimateField.onChange = { value in
+            self.task.value?.setEstimate(fromString: value)
+        }
+
+        // Set up views in the row
+        row.orientation = .horizontal
+        row.setViews([configProjectField, configEstimateField], in: .leading)
+    }
+
+    func styleConfigField(field: NiceField) {
+        field.textColor = NSColor.white
+        field.borderColor = NSColor.white.alpha(0.2)
+        field.editingBackgroundColor = NSColor.black.alpha(0.1)
     }
 }
