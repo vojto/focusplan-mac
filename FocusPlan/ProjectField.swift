@@ -78,7 +78,7 @@ class ProjectField: NiceField {
             self.finishEditing()
         }
         
-        return false
+        return true
     }
 
     override func controlTextDidEndEditing(_ obj: Notification) {
