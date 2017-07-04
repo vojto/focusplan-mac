@@ -24,7 +24,7 @@ class Palette {
     typealias Color = (name: ColorName, area0: String, area1: String, area2: String, line1: String, line0: String)
     
     static let colors: [Color] = [
-        (name: .blue, area0: "2067CA", area1: "5085E5", area2: "93B0FC", line1: "2081FE", line0: "1C4F91"),
+        (name: .blue, area0: "5696EE", area1: "5085E5", area2: "93B0FC", line1: "2081FE", line0: "1C4F91"),
         (name: .purple, area0: "9060D5", area1: "B091F0", area2: "CFBDF5", line1: "9A59F7", line0: "6F38BE"),
         (name: .steel, area0: "5B6F87", area1: "7289A4", area2: "97AEC9", line1: "556D8B", line0: "384B63"),
         (name: .magenta, area0: "D265CF", area1: "E691F0", area2: "F5BDF4", line1: "F732CC", line0: "DB16B0"),
@@ -46,5 +46,9 @@ class Palette {
         
         guard let color = Palette.colors.filter({ $0.name.rawValue == colorName }).first else { return nil }
         return NSColor(hexString: color.area0)
+    }
+
+    static var standard: NSColor {
+        return decode(colorName: "blue")!
     }
 }

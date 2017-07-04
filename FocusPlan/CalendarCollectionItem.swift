@@ -27,6 +27,8 @@ class CalendarCollectionItem: NSCollectionViewItem {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        field.font = NSFont.systemFont(ofSize: 13)
         
         customView.onDoubleClick = self.handleDoubleClick
         customView.onBeforeResize = self.handleBeforeResize
@@ -67,25 +69,20 @@ class CalendarCollectionItem: NSCollectionViewItem {
                 view.border = NSColor.clear
                 self.field.stringValue = ""
             case .task:
-                guard let color = Palette.decode(colorName: colorName) else { return }
-                let color1 = color.addHue(0, saturation: -0.3, brightness: 0.2, alpha: -0.9)
-                let borderColor = color.addHue(0, saturation: -0.3, brightness: 0.2, alpha: -0.2)
-                
-                let textColor = color.addHue(0, saturation: -0.2, brightness: -0.2, alpha: 0)
-                
-                view.background = color1
-                view.border = borderColor
-                
-                self.field.textColor = textColor
+                let color = Palette.decode(colorName: colorName) ?? Palette.standard
+
+                view.background = color
+
+                self.field.textColor = NSColor.white
                 self.field.stringValue = self.event.value?.task?.title ?? ""
                 
                 let total = Formatting.longFormat(timeInterval: event.plannedDuration)
                 let spent = Formatting.longFormat(timeInterval: event.spentDuration)
                 
-                self.secondaryField.isHidden = false
-                self.secondaryField.textColor = textColor.withAlphaComponent(0.5)
-                self.secondaryField.stringValue = "\(spent)/\(total)"
-                
+//                self.secondaryField.isHidden = false
+//                self.secondaryField.textColor = NSColor.white
+//                self.secondaryField.stringValue = "\(spent)/\(total)"
+
                 break
             case .timerEntry:
                 guard let entry = self.event.value?.timerEntry else { return }

@@ -16,7 +16,7 @@ class CalendarCollectionItemView: NSView {
         case bottom
     }
     
-    var background = NSColor.yellow { didSet { needsDisplay = true } }
+    var background = Palette.standard { didSet { needsDisplay = true } }
     var border = NSColor.blue { didSet { needsDisplay = true } }
     var isDashed = false { didSet { needsDisplay = true } }
     var isHighlighted = false { didSet { needsDisplay = true } }
@@ -31,7 +31,7 @@ class CalendarCollectionItemView: NSView {
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
         
-        let cornerRadius: CGFloat = 2.0
+        let cornerRadius: CGFloat = 3.0
         let bounds = self.bounds.insetBy(dx: 0.5, dy: 0.5)
         
         let path = NSBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
@@ -48,16 +48,12 @@ class CalendarCollectionItemView: NSView {
         let darkerPath = NSBezierPath(roundedRect: darkerBounds, cornerRadius: cornerRadius)
         darkerBackground.setFill()
         darkerPath.fill()
-        
-        if isDashed {
-            let dashes: [CGFloat] = [4.0, 2.0]
-            path.setLineDash(dashes, count: dashes.count, phase: 0)
-        }
-        
-        path.lineWidth = 0.5
-        
-        border.setStroke()
-        path.stroke()
+
+        let gradient = NSGradient(colors: [NSColor.white.alpha(0.15), NSColor.white.alpha(0), NSColor.white.alpha(0)])
+        let gradientHeight: CGFloat = 200.0
+        let gradientRect = NSRect(x: 0, y: bounds.size.height - gradientHeight, width: bounds.size.width, height: gradientHeight)
+        gradient?.draw(in: gradientRect, angle: -85)
+
     }
     
     override func mouseDown(with event: NSEvent) {
