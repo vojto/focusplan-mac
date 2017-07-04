@@ -10,7 +10,7 @@ import Foundation
 import AppKit
 import NiceKit
 
-class ProjectsOutlineView: NiceOutlineView {
+class ProjectsOutlineView: EditableOutlineView {
     
     override func frameOfCell(atColumn column: Int, row: Int) -> NSRect {
         var frame = super.frameOfCell(atColumn: column, row: row)

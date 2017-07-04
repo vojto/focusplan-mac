@@ -385,6 +385,8 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
         let task = createTask()
         
         DispatchQueue.main.async {
+            Swift.print("telling tasks controller to edit")
+
             self.tasksController.edit(task: task)
         }
     }

@@ -329,19 +329,29 @@ class TaskTitleTableCellView: EditableTableCellView {
     }
     
     func startEditing(animated: Bool) {
+        Swift.print("🔥 Going to start editing")
+
         if isEditing {
             return
         }
 
+        guard let outlineView = self.outlineView as? TasksOutlineView else { assertionFailure(); return }
+
+        outlineView.finishEditingAndExecute {
+            self.forceStartEditing(animated: animated)
+        }
+    }
+
+    func forceStartEditing(animated: Bool) {
         let task = self.task.value
 
-        isEditing = true
+        self.isEditing = true
 
-        rowView?.isEditing = true
-        
-        estimateField.isHidden = true
+        self.rowView?.isEditing = true
 
-        controller?.updateHeight(cellView: self, animated: true) {
+        self.estimateField.isHidden = true
+
+        self.controller?.updateHeight(cellView: self, animated: true) {
             self.textField?.stringValue = task?.title ?? ""
 
             super.startEditing()
@@ -356,12 +366,10 @@ class TaskTitleTableCellView: EditableTableCellView {
 
     }
 
-    func forceFinishEditing() {
+    func forceFinishEditing(callback: (() -> ())? = nil) {
         guard let field = textField else { assertionFailure(); return }
         let task = self.task.value
         
-        Swift.print("Here's the project: \(task?.project)")
-
         let newTitle = field.stringValue
 //        field.stringValue = ""
 
@@ -378,14 +386,16 @@ class TaskTitleTableCellView: EditableTableCellView {
 //        controller?.updateHeight(cellView: self, animated: true) {
 
             self.rowView?.isEditing = false
-            (self.outlineView as? EditableOutlineView)?.editedCellView = nil
+            self.outlineView?.editedCellView = nil
 
             self.setRegularLayout()
 
             task?.title = newTitle
 //        }
 
-        controller?.updateHeight(cellView: self, animated: false)
+        controller?.updateHeight(cellView: self, animated: false) {
+            callback?()
+        }
     }
 
     func setEditingLayout() {

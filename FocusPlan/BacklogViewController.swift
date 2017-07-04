@@ -37,8 +37,6 @@ class BacklogViewController: NSViewController {
         tasksObserver.skipsArchived = true
         
         tasksObserver.sortedForProject.producer.startWithValues { tasks in
-            Swift.print("🦋 Looks like tasks changed!")
-            
             if self.selectedProject.value == nil {
                 return
             }

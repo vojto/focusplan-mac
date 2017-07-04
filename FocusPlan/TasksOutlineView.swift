@@ -83,5 +83,15 @@ class TasksOutlineView: EditableOutlineView {
             titleView.startEditing()
         }
     }
+
+    func finishEditingAndExecute(callback: @escaping (() -> ())) {
+        if let editedCell = editedCellView as? TaskTitleTableCellView {
+            editedCell.forceFinishEditing() {
+                callback()
+            }
+        } else {
+            callback()
+        }
+    }
     
 }

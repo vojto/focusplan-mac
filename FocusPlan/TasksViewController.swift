@@ -64,26 +64,24 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
     }
     
     func reloadData() {
-
-        Swift.print("🌈 Reloading all tasks!")
+        Swift.print("🌹 Reloading data!")
 
         let items = outlineView.selectedRowIndexes.map {
             self.outlineView.item(atRow: $0)
         }
-        
+
         outlineView.reloadData()
-        
+
         var indexes = IndexSet()
-        
+
         for item in items {
             let index = outlineView.row(forItem: item)
             if index != -1 {
                 indexes.insert(index)
             }
         }
-        
+
         outlineView.selectRowIndexes(indexes, byExtendingSelection: false)
-        
     }
     
     override func viewDidAppear() {
@@ -252,8 +250,16 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
     @IBAction func create(_ sender: Any) {
         onCreate?()
     }
-    
+
     func edit(task: Task) {
+        if outlineView.isEditing {
+            return
+        }
+
+        self.forceEdit(task: task)
+    }
+    
+    func forceEdit(task: Task) {
         let row = outlineView.row(forItem: task)
         
         if row == -1 {
