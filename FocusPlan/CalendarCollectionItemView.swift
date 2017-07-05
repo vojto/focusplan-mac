@@ -9,6 +9,7 @@
 import Cocoa
 import Hue
 import Cartography
+import NiceKit
 
 class CalendarCollectionItemView: NSView {
     
@@ -42,6 +43,9 @@ class CalendarCollectionItemView: NSView {
     }
 
     func setup() {
+
+        wantsLayer = true
+
         let timer = CalendarTimerView()
         addSubview(timer)
 
@@ -49,6 +53,7 @@ class CalendarCollectionItemView: NSView {
             timer.right == timer.superview!.right - 8
             timer.bottom == timer.superview!.bottom - 8
         }
+
     }
 
     override func draw(_ dirtyRect: NSRect) {
