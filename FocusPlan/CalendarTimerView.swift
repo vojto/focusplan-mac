@@ -34,16 +34,21 @@ class CalendarTimerView: NSView {
         self.layer = layer
         self.wantsLayer = true
 
-
-        let stack = NSStackView()
-        stack.orientation = .horizontal
+        let image = #imageLiteral(resourceName: "TimerPlayButton")
+        imageView.image = image.tintedImageWithColor(color: NSColor.white)
+        imageView.imageScaling = .scaleNone
 
         label.textColor = NSColor.white
         label.font = NSFont.systemFont(ofSize: 13).monospaced()
         label.stringValue = "0:00"
 
+        let stack = NSStackView()
+        stack.orientation = .horizontal
         stack.setViews([imageView, label], in: .leading)
+        stack.spacing = 5.0
 
-        include(stack, inset: 4.0)
+        include(stack, insets: EdgeInsets(top: 4.0, left: 6.0, bottom: 4.0, right: 6.0))
     }
 }
+
+
