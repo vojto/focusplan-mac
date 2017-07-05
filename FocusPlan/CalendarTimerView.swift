@@ -25,7 +25,26 @@ class CalendarTimerView: NSView {
     let imageView = NSImageView()
     let label = NSTextField.label()
 
+    let background = NSColor(calibratedWhite: 0, alpha: 0.1)
+    let activeBackground = NSColor(calibratedWhite: 0, alpha: 0.15)
+
     func setup() {
+        setupViews()
+    }
+
+    func setupViews() {
+        self.wantsLayer = true
+        self.layer = CALayer()
+
+        layer?.backgroundColor = background.cgColor
+        layer?.cornerRadius = 3.0
+        layer?.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+
+        let anim = CABasicAnimation(keyPath: "transform")
+        anim.duration = 0.1
+        layer?.actions = [
+            "transform": anim
+        ]
 
 
         let image = #imageLiteral(resourceName: "TimerPlayButton")
@@ -42,19 +61,6 @@ class CalendarTimerView: NSView {
         stack.spacing = 5.0
 
         include(stack, insets: EdgeInsets(top: 4.0, left: 6.0, bottom: 4.0, right: 6.0))
-
-        //        layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-
-        self.wantsLayer = true
-        self.layer = CALayer()
-
-        layer?.backgroundColor = NSColor(calibratedWhite: 0, alpha: 0.1).cgColor
-        layer?.cornerRadius = 3.0
-
-
-        layer?.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-//        layer?.position = CGPoint(x: 20, y: 20)
-
     }
 
     override var frame: NSRect {
@@ -75,6 +81,7 @@ class CalendarTimerView: NSView {
     override func mouseDown(with event: NSEvent) {
 //        super.mouseDown(with: event)
 
+        layer?.backgroundColor = activeBackground.cgColor
         layer?.transform = CATransform3DMakeScale(0.92, 0.92, 1)
 
     }
@@ -82,6 +89,7 @@ class CalendarTimerView: NSView {
     override func mouseUp(with event: NSEvent) {
 //        super.mouseUp(with: event)
 
+        layer?.backgroundColor = background.cgColor
         layer?.transform = CATransform3DIdentity
     }
 }
