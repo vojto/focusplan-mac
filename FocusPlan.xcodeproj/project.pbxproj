@@ -62,6 +62,7 @@
 		994F0A2C1EC5957200562B7A /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994F0A2B1EC5957200562B7A /* UserDefaults+Extensions.swift */; };
 		997BAE151F0290D70072681B /* NiceSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997BAE141F0290D70072681B /* NiceSplitView.swift */; };
 		997F5D561F0BA7F800F0EBC1 /* CalendarResizeHandleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997F5D551F0BA7F800F0EBC1 /* CalendarResizeHandleView.swift */; };
+		997F5D581F0BFED800F0EBC1 /* CalendarTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997F5D571F0BFED800F0EBC1 /* CalendarTimerView.swift */; };
 		997FFBCE1EAF7DB200ABEA01 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 997FFBC61EAF7DA900ABEA01 /* ReactiveCocoa.framework */; };
 		997FFBCF1EAF7DB200ABEA01 /* ReactiveCocoa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 997FFBC61EAF7DA900ABEA01 /* ReactiveCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		997FFBD01EAF7DB200ABEA01 /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 997FFBC71EAF7DA900ABEA01 /* ReactiveSwift.framework */; };
@@ -244,6 +245,7 @@
 		994F0A2B1EC5957200562B7A /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
 		997BAE141F0290D70072681B /* NiceSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NiceSplitView.swift; sourceTree = "<group>"; };
 		997F5D551F0BA7F800F0EBC1 /* CalendarResizeHandleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarResizeHandleView.swift; sourceTree = "<group>"; };
+		997F5D571F0BFED800F0EBC1 /* CalendarTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTimerView.swift; sourceTree = "<group>"; };
 		997FFBC61EAF7DA900ABEA01 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/Mac/ReactiveCocoa.framework; sourceTree = "<group>"; };
 		997FFBC71EAF7DA900ABEA01 /* ReactiveSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveSwift.framework; path = Carthage/Build/Mac/ReactiveSwift.framework; sourceTree = "<group>"; };
 		997FFBC81EAF7DA900ABEA01 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/Mac/Result.framework; sourceTree = "<group>"; };
@@ -680,6 +682,7 @@
 				9933E49F1EBA13CF00B1CE85 /* CalendarSectionLine.swift */,
 				9933E4A11EBA176500B1CE85 /* CalendarSectionLabel.swift */,
 				997F5D551F0BA7F800F0EBC1 /* CalendarResizeHandleView.swift */,
+				997F5D571F0BFED800F0EBC1 /* CalendarTimerView.swift */,
 			);
 			name = Calendar;
 			sourceTree = "<group>";
@@ -992,6 +995,7 @@
 				994063D11EB72B2A00E09165 /* TaskProjectTableCellView.swift in Sources */,
 				99B610161EB0602A0098F69C /* ProjectTableCellView.swift in Sources */,
 				994063CD1EB70F6400E09165 /* CalendarHourHeader.swift in Sources */,
+				997F5D581F0BFED800F0EBC1 /* CalendarTimerView.swift in Sources */,
 				99B026DA1EBC941100533FE3 /* EditTaskViewController.swift in Sources */,
 				99DA935D1EC32E5900817AF5 /* SummaryRowViewController.swift in Sources */,
 				998156171EB77DAE0057ECD0 /* ProjectColorView.swift in Sources */,

@@ -8,6 +8,7 @@
 
 import Cocoa
 import Hue
+import Cartography
 
 class CalendarCollectionItemView: NSView {
     
@@ -29,6 +30,26 @@ class CalendarCollectionItemView: NSView {
     var onBeforeResize: (() -> ())?
     var onResize: ((CGFloat, HandleType) -> ())?
     var onFinishResize: ((HandleType) -> ())?
+
+    override init(frame frameRect: NSRect) {
+        super.init(frame: frameRect)
+        setup()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setup()
+    }
+
+    func setup() {
+        let timer = CalendarTimerView()
+        addSubview(timer)
+
+        constrain(timer) { timer in
+            timer.right == timer.superview!.right - 8
+            timer.bottom == timer.superview!.bottom - 8
+        }
+    }
 
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
