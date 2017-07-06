@@ -51,6 +51,8 @@ class CalendarCollectionItem: NSCollectionViewItem {
             }
         }
 
+        customView.timerView.task <~ self.task
+
         self.project = self.task.producer.pick { $0.reactive.project.producer }
 
         setupConfigRow()

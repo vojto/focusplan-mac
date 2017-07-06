@@ -22,7 +22,7 @@ class Formatting {
         
         let seconds = Int((time - Double(minutes * 60)))
         
-        return NSString(format: "%02d:%02d", minutes, seconds) as String
+        return NSString(format: "%01d:%02d", minutes, seconds) as String
     }
     
     public static func format(estimate minutes: Int?) -> String {

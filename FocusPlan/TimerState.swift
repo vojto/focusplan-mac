@@ -10,6 +10,7 @@ import Foundation
 import ReactiveSwift
 import NiceData
 import AppKit
+import enum Result.NoError
 
 enum TimerRunningStatus {
     case stopped
@@ -30,6 +31,11 @@ class TimerState: NSObject, NSUserNotificationCenterDelegate {
     let isRunning = MutableProperty<Bool>(false)
     
     var runningStatus = MutableProperty<TimerRunningStatus>(.stopped)
+
+    var timer: Timer?
+    var currentTime = MutableProperty<Date>(Date())
+
+    var textStatus: SignalProducer<String, NoError>!
     
     override init() {
         super.init()
@@ -71,12 +77,33 @@ class TimerState: NSObject, NSUserNotificationCenterDelegate {
                 }
             }
         }
+
+        self.textStatus = SignalProducer.combineLatest(
+            runningStatus.producer,
+            currentTime.producer
+            ).map { status, date -> String in
+                switch status {
+
+                case .pomodoro(type: let type, since: let since, duration: let duration):
+                    return Formatting.formatPomodoro(type: type, since: since, duration: duration)
+
+                case .general(since: let since):
+                    return Formatting.format(timeInterval: date.timeIntervalSince(since))
+
+                case .stopped:
+                    return "No timer running."
+                }
+        }
+
+        startUIRefreshTimer()
     }
     
     func start() {
         let task = selectedTask.value
         
         generalLane.start(task: task)
+
+        startUIRefreshTimer()
     }
     
     func restartChangingTo(task: Task?) {
@@ -90,6 +117,8 @@ class TimerState: NSObject, NSUserNotificationCenterDelegate {
         
         generalLane.stop()
         generalLane.start(task: task)
+
+        startUIRefreshTimer()
     }
     
     func startPomodoro(type: PomodoroType, task: Task? = nil) {
@@ -119,6 +148,8 @@ class TimerState: NSObject, NSUserNotificationCenterDelegate {
         generalLane.stop()
         
         pomodoroLane.stop()
+
+        startUIRefreshTimer()
     }
     
     func handleProjectedEndChanged(_ projectedEnd: Date?) {
@@ -202,6 +233,23 @@ class TimerState: NSObject, NSUserNotificationCenterDelegate {
         
         startPomodoro(type: nextType)
     }
+
+    // MARK: - UI Refresh timer
+
+    func startUIRefreshTimer() {
+        self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
+            self.currentTime.value = Date()
+        })
+    }
+
+    func resetUIRefreshTimer() {
+        timer?.invalidate()
+        timer = nil
+
+        startUIRefreshTimer()
+    }
+
+
     
 
 }

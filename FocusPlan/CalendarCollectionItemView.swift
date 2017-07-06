@@ -17,7 +17,9 @@ class CalendarCollectionItemView: NSView {
         case top
         case bottom
     }
-    
+
+    let timerView = CalendarTimerView()
+
     var background = Palette.standard { didSet { needsDisplay = true } }
     var border = NSColor.blue { didSet { needsDisplay = true } }
     var isDashed = false { didSet { needsDisplay = true } }
@@ -43,13 +45,9 @@ class CalendarCollectionItemView: NSView {
     }
 
     func setup() {
+        addSubview(timerView)
 
-        wantsLayer = true
-
-        let timer = CalendarTimerView()
-        addSubview(timer)
-
-        constrain(timer) { timer in
+        constrain(timerView) { timer in
             timer.right == timer.superview!.right - 8
             timer.bottom == timer.superview!.bottom - 8
         }
@@ -100,11 +98,6 @@ class CalendarCollectionItemView: NSView {
             NSRectFillUsingOperation(handleFrame, .sourceOver)
 //            NSRectFill(handleFrame)
         }
-
-
-
-
-
 
     }
     

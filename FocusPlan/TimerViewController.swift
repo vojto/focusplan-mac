@@ -30,15 +30,15 @@ class TimerViewController: NSViewController {
     @IBOutlet weak var taskPopup: NSPopUpButton!
     
     
-    var timer: Timer?
-    var currentTime = MutableProperty<Date>(Date())
+
+
     
     override func awakeFromNib() {
         statusLabel.font = NSFont.systemFont(ofSize: 11, weight: NSFontWeightMedium).monospaced()
         
         setupTaskPopup()
         
-        startUIRefreshTimer()
+
         
         let isTaskSelected = state.selectedTask.producer.map { $0 != nil }
         let isRunning = state.isRunning.producer
@@ -59,23 +59,7 @@ class TimerViewController: NSViewController {
         }
 
         
-        let textStatus = SignalProducer.combineLatest(
-            state.runningStatus.producer,
-            currentTime.producer
-        ).map { status, date -> String in
-            switch status {
-                
-            case .pomodoro(type: let type, since: let since, duration: let duration):
-                return Formatting.formatPomodoro(type: type, since: since, duration: duration)
-                
-            case .general(since: let since):
-                return Formatting.format(timeInterval: date.timeIntervalSince(since))
-                
-            case .stopped:
-                return "No timer running."
-        
-            }
-        }
+        let textStatus =
         
         /*
         let status = SignalProducer.combineLatest(state.isRunning.producer, currentTime.producer).map { running, date -> String in
@@ -96,7 +80,7 @@ class TimerViewController: NSViewController {
         }
         */
         
-        statusLabel.reactive.stringValue <~ textStatus
+        statusLabel.reactive.stringValue <~ state.textStatus
         
         projectSection.reactive.isHidden <~ state.isRunning.map({ !$0 })
         projectLabel.reactive.stringValue <~ state.runningProject.producer.pick({ $0.reactive.name.producer }).map({ $0 ?? "" })
@@ -186,36 +170,21 @@ class TimerViewController: NSViewController {
     
     @IBAction func startSimple(_ sender: Any) {
         state.start()
-        startUIRefreshTimer()
     }
     
     @IBAction func startPomodoro(_ sender: Any) {
         state.startPomodoro(type: .pomodoro)
-        resetUIRefreshTimer()
     }
     
     @IBAction func startShortBreak(_ sender: Any) {
         state.startPomodoro(type: .shortBreak)
-        resetUIRefreshTimer()
     }
     
     @IBAction func startLongBreak(_ sender: Any) {
         state.startPomodoro(type: .longBreak)
-        resetUIRefreshTimer()
     }
     
     
-    func startUIRefreshTimer() {
-        self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
-            self.currentTime.value = Date()
-        })
-    }
-    
-    func resetUIRefreshTimer() {
-        timer?.invalidate()
-        timer = nil
-        
-        startUIRefreshTimer()
-    }
+
     
 }

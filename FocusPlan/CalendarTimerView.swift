@@ -8,6 +8,7 @@
 
 import Foundation
 import AppKit
+import ReactiveSwift
 
 class CalendarTimerView: NSView {
     override init(frame frameRect: NSRect) {
@@ -22,14 +23,34 @@ class CalendarTimerView: NSView {
         setup()
     }
 
+    let task = MutableProperty<Task?>(nil)
+
     let imageView = NSImageView()
     let label = NSTextField.label()
 
     let background = NSColor(calibratedWhite: 0, alpha: 0.1)
     let activeBackground = NSColor(calibratedWhite: 0, alpha: 0.15)
 
+    let playImage = #imageLiteral(resourceName: "TimerPlayButton").tintedImageWithColor(color: NSColor.white)
+    let pauseImage = #imageLiteral(resourceName: "TimePauseIcon").tintedImageWithColor(color: NSColor.white)
+
+    override var frame: NSRect {
+        didSet {
+            let origin = frame.origin
+            let size = frame.size
+
+            layer?.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            layer?.position = CGPoint(
+                x: origin.x + size.width / 2,
+                y: origin.y + size.height / 2
+            )
+        }
+    }
+
     func setup() {
         setupViews()
+
+        setupBinding()
     }
 
     func setupViews() {
@@ -47,8 +68,7 @@ class CalendarTimerView: NSView {
         ]
 
 
-        let image = #imageLiteral(resourceName: "TimerPlayButton")
-        imageView.image = image.tintedImageWithColor(color: NSColor.white)
+        imageView.image = playImage
         imageView.imageScaling = .scaleNone
 
         label.textColor = NSColor.white
@@ -63,34 +83,59 @@ class CalendarTimerView: NSView {
         include(stack, insets: EdgeInsets(top: 4.0, left: 6.0, bottom: 4.0, right: 6.0))
     }
 
-    override var frame: NSRect {
-        didSet {
-            let origin = frame.origin
-            let size = frame.size
+    // MARK: - Binding
+    // -------------------------------------------------------
 
-            layer?.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-            layer?.position = CGPoint(
-                x: origin.x + size.width / 2,
-                y: origin.y + size.height / 2
-            )
+    let isRunning = MutableProperty<Bool>(false)
+
+    func setupBinding() {
+        let timer = TimerState.instance
+
+        isRunning <~ SignalProducer.combineLatest(
+            timer.runningTask.producer,
+            task.producer
+        ).map { runningTask, task -> Bool in
+            return runningTask == task
+        }
+
+        imageView.reactive.image <~ isRunning.map { $0 ? self.pauseImage : self.playImage }
+
+        label.reactive.stringValue <~ SignalProducer.combineLatest(
+            isRunning.producer,
+            timer.textStatus
+            ).map { isRunning, status -> String in
+                return isRunning ? status : "0:00"
         }
     }
 
 
+    // MARK: - Events
+    // -------------------------------------------------------
 
     override func mouseDown(with event: NSEvent) {
-//        super.mouseDown(with: event)
-
         layer?.backgroundColor = activeBackground.cgColor
         layer?.transform = CATransform3DMakeScale(0.92, 0.92, 1)
 
+        toggleTimer()
     }
 
     override func mouseUp(with event: NSEvent) {
-//        super.mouseUp(with: event)
-
         layer?.backgroundColor = background.cgColor
         layer?.transform = CATransform3DIdentity
+    }
+
+    // MARK: - Actions
+    // -------------------------------------------------------
+
+    func toggleTimer() {
+        guard let task = self.task.value else { return }
+        let timer = TimerState.instance
+
+        if isRunning.value {
+            timer.stop()
+        } else {
+            timer.restartChangingTo(task: task)
+        }
     }
 }
 
