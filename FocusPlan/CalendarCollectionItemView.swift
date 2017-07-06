@@ -76,10 +76,6 @@ class CalendarCollectionItemView: NSView {
 
     override func prepareForReuse() {
         super.prepareForReuse()
-
-        Swift.print("[CalendarCollectionItemView] Preparing for reuse!")
-
-//        updateTrackingAreas()
     }
 
     override func draw(_ dirtyRect: NSRect) {
@@ -213,8 +209,6 @@ class CalendarCollectionItemView: NSView {
     override open func updateTrackingAreas() {
         super.updateTrackingAreas()
 
-        Swift.print("☂️ Updating tracking areas!")
-
         if let area = trackingArea {
             removeTrackingArea(area)
         }
@@ -224,8 +218,6 @@ class CalendarCollectionItemView: NSView {
     }
 
     override func mouseEntered(with event: NSEvent) {
-        Swift.print("Mouse entered!")
-
         isHovered.value = true
     }
 
