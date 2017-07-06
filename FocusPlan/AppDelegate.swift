@@ -84,7 +84,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
-        
+        TimerState.instance.stop()
+        try? viewContext.save()
     }
     
     func showMainWindow() {

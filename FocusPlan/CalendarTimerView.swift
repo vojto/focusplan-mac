@@ -24,6 +24,7 @@ class CalendarTimerView: NSView {
     }
 
     let task = MutableProperty<Task?>(nil)
+    let existingDuration = MutableProperty<TimeInterval>(0)
 
     let imageView = NSImageView()
     let label = NSTextField.label()
@@ -47,11 +48,15 @@ class CalendarTimerView: NSView {
         }
     }
 
+    // MARK: - Lifecycle
+    // -------------------------------------------------------------
+
     func setup() {
         setupViews()
 
         setupBinding()
     }
+    
 
     func setupViews() {
         self.wantsLayer = true
@@ -83,6 +88,12 @@ class CalendarTimerView: NSView {
         include(stack, insets: EdgeInsets(top: 4.0, left: 6.0, bottom: 4.0, right: 6.0))
     }
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+        updateLayerToRegular()
+    }
+
     // MARK: - Binding
     // -------------------------------------------------------
 
@@ -102,9 +113,22 @@ class CalendarTimerView: NSView {
 
         label.reactive.stringValue <~ SignalProducer.combineLatest(
             isRunning.producer,
-            timer.textStatus
-            ).map { isRunning, status -> String in
-                return isRunning ? status : "0:00"
+            timer.runningStatus.producer,
+            timer.currentTime.producer,
+            existingDuration.producer
+            ).map { isRunning, status, date, existingDuration -> String in
+                var duration = existingDuration
+
+                if isRunning {
+                    switch status {
+                    case .general(since: let since):
+                        duration += date.timeIntervalSince(since)
+                    default: break
+                    }
+                }
+
+
+                return Formatting.format(timeInterval: duration)
         }
     }
 
@@ -113,13 +137,21 @@ class CalendarTimerView: NSView {
     // -------------------------------------------------------
 
     override func mouseDown(with event: NSEvent) {
-        layer?.backgroundColor = activeBackground.cgColor
-        layer?.transform = CATransform3DMakeScale(0.92, 0.92, 1)
-
-        toggleTimer()
+        updateLayerToActive()
     }
 
     override func mouseUp(with event: NSEvent) {
+        updateLayerToRegular()
+
+        self.toggleTimer()
+    }
+
+    func updateLayerToActive() {
+        layer?.backgroundColor = activeBackground.cgColor
+        layer?.transform = CATransform3DMakeScale(0.92, 0.92, 1)
+    }
+
+    func updateLayerToRegular() {
         layer?.backgroundColor = background.cgColor
         layer?.transform = CATransform3DIdentity
     }

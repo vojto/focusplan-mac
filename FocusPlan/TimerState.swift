@@ -107,14 +107,6 @@ class TimerState: NSObject, NSUserNotificationCenterDelegate {
     }
     
     func restartChangingTo(task: Task?) {
-        if let entry = generalLane.runningEntry.value,
-            entry.elapsed < 60 {
-            
-            entry.task = task
-            return
-        }
-        
-        
         generalLane.stop()
         generalLane.start(task: task)
 

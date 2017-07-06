@@ -37,13 +37,13 @@ extension TimerEntry {
         }
     }
     
-    static func sumDurationsIncludingCurrent(timerEntries: [TimerEntry]) -> TimeInterval {
+    static func sumDurations(timerEntries: [TimerEntry], includeCurrent: Bool) -> TimeInterval {
         var total: TimeInterval = 0
         
         for entry in timerEntries {
             if let duration = entry.duration {
                 total += duration
-            } else if let startedAt = entry.startedAt, entry.endedAt == nil {
+            } else if let startedAt = entry.startedAt, entry.endedAt == nil, includeCurrent {
                 let durationSoFar = Date().timeIntervalSince(startedAt as Date)
                 total += durationSoFar
             }

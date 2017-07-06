@@ -27,6 +27,11 @@ class CalendarCollectionItem: NSCollectionViewItem {
         return self.view as! CalendarCollectionItemView
     }
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+        customView.timerView.prepareForReuse()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,8 +69,10 @@ class CalendarCollectionItem: NSCollectionViewItem {
             
             self.field.alpha = 1
             view.isDashed = false
-            
-            view.backgroundProgress = event.spentDuration / event.duration
+
+            view.timerView.existingDuration.value = event.spentDuration
+
+            view.backgroundProgress = 0
             
             switch event.type {
             case .project:
