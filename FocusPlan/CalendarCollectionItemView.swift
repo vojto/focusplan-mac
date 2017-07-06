@@ -10,6 +10,7 @@ import Cocoa
 import Hue
 import Cartography
 import NiceKit
+import ReactiveSwift
 
 class CalendarCollectionItemView: NSView {
     
@@ -52,6 +53,33 @@ class CalendarCollectionItemView: NSView {
             timer.bottom == timer.superview!.bottom - 8
         }
 
+        let isTimerVisible = SignalProducer.combineLatest(
+            timerView.isRunning.producer,
+            isHovered.producer
+        ).map { running, hovered in
+            return running || hovered
+        }
+
+        timerView.reactive.isHidden <~ isTimerVisible.map { !$0 }
+
+//        isHovered.producer.startWithValues { hovered in
+//            self.alphaValue = hovered ? 0.8 : 1
+//        }
+    }
+
+    override var frame: NSRect {
+        didSet {
+            isHovered.value = false
+            self.updateTrackingAreas()
+        }
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+        Swift.print("[CalendarCollectionItemView] Preparing for reuse!")
+
+//        updateTrackingAreas()
     }
 
     override func draw(_ dirtyRect: NSRect) {
@@ -174,6 +202,35 @@ class CalendarCollectionItemView: NSView {
         bottomFrame.size.height = 10
         addCursorRect(bottomFrame, cursor: bottomCursor)
         bottomResizeFrame = bottomFrame
+    }
+
+    // MARK: - Mouse enter/leave events
+    // -----------------------------------------------------------------------
+
+    var trackingArea: NSTrackingArea?
+    let isHovered = MutableProperty<Bool>(false)
+
+    override open func updateTrackingAreas() {
+        super.updateTrackingAreas()
+
+        Swift.print("☂️ Updating tracking areas!")
+
+        if let area = trackingArea {
+            removeTrackingArea(area)
+        }
+
+        trackingArea = NSTrackingArea(rect: bounds, options: [.mouseEnteredAndExited, .activeInKeyWindow], owner: self, userInfo: nil)
+        self.addTrackingArea(trackingArea!)
+    }
+
+    override func mouseEntered(with event: NSEvent) {
+        Swift.print("Mouse entered!")
+
+        isHovered.value = true
+    }
+
+    override func mouseExited(with event: NSEvent) {
+        isHovered.value = false
     }
     
     
