@@ -79,13 +79,8 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
     }
 
     
-//    let leftMargin: CGFloat = 50.0
-    var leftMargin: CGFloat {
-        return config.detail == .daily ? 50.0 : 0
-    }
-    var rightMargin: CGFloat {
-        return config.detail == .daily ? 30.0 : 0
-    }
+    let leftMargin: CGFloat = 50.0
+    let rightMargin: CGFloat = 30.0
     let topMargin: CGFloat = 20.0
 
     
@@ -209,18 +204,12 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
     override func layoutAttributesForItem(at indexPath: IndexPath) -> NSCollectionViewLayoutAttributes? {
 
         let attributes = NSCollectionViewLayoutAttributes(forItemWith: indexPath)
-
-        guard let event = controller.event(atIndexPath: indexPath) else { return nil }
+        
         guard let frame = frameFor(eventAt: indexPath) else {
             return nil
         }
 
         attributes.frame = frame
-
-        let edited = controller.editedEvent
-        if edited != nil {
-            attributes.alpha = (edited == event) ? 1 : 0.5
-        }
         
         return attributes
     }
@@ -268,13 +257,6 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
         if frame.size.height < 0 {
             return nil
         }
-
-        if controller.editedEvent == event {
-//            frame.size.width += 50
-//            frame.size.height += 200
-//            frame.origin.y += 20
-        }
-
         
         return frame
     }
