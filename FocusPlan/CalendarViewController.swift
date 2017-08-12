@@ -110,6 +110,8 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     }
     
     func reloadData() {
+        Swift.print("🍄 Reloading the whole damn thing!")
+
         // TODO: Temporary hack to avoid reloading collection when popover
         // makes changes to data...
         if (editTaskPopover?.isShown ?? false) {
@@ -120,7 +122,7 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
             return
         }
         
-        NSAnimationContext.current().duration = 0
+//        NSAnimationContext.current().duration = 0
         self.collectionView.reloadData()
     }
     
@@ -281,11 +283,101 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
             edit(timerEntry: entry)
         }
     }
-    
+
+
+    var editedEvent: CalendarEvent?
+
     func edit(task: Task) {
         // Find the item
         guard let item = collectionItem(forTask: task) else { return }
-        
+
+//        Swift.print("Editing task: \(task)")
+//        Swift.print("Item: \(item)")
+//        Swift.print("Event: \(item.event.value)")
+
+        guard let event = item.event.value else { return }
+
+
+        Swift.print("Updated edited event to: \(event)")
+
+        guard let path = events.indexPath(forEvent: event) else { return }
+
+        Swift.print("Path: \(path)")
+
+        self.editedEvent = event
+
+        NSAnimationContext.current().duration = 0.5
+        let set = IndexSet([path.section])
+        self.collectionView.animator().reloadSections(set)
+
+        /*
+        NSAnimationContext.runAnimationGroup({ (ctx) in
+            ctx.duration = 1.0
+
+
+            self.collectionView.animator().collectionViewLayout = CalendarCollectionLayout()
+
+        }, completionHandler: nil)
+         */
+
+//        collectionView.performBatchUpdates({
+
+
+
+
+
+//        }, completionHandler: nil)
+
+
+        /*
+        NSAnimationContext.runAnimationGroup({ ctx in
+            ctx.duration = 2
+            self.editedEvent = event
+            let set = Set([path])
+            self.collectionView.animator().reloadItems(at: set)
+        }, completionHandler: nil)
+         */
+
+
+//        collectionView.performBatchUpdates({
+//
+//        }, completionHandler: nil)
+
+//        collectionView.collectionViewLayout = CalendarCollectionLayout()
+
+        /*
+
+        self.collectionView.performBatchUpdates({
+//            context.duration = 2
+
+
+            //            let set = Set([path])
+            self.collectionView.animator().collectionViewLayout?.invalidateLayout()
+        }, completionHandler: nil)
+
+*/
+
+
+//        self.collectionView.performBatchUpdates({
+//
+//
+//        }, completionHandler: nil)
+
+
+
+
+//        NSAnimationContext.runAnimationGroup({ (context) in
+//            context.duration = 2
+//            let set = Set([path])
+//            self.collectionView.animator().reloadItems(at: set)
+//        }, completionHandler: nil)
+//
+
+
+
+
+
+        /*
         let view = item.view
         
         if editTaskController == nil {
@@ -307,6 +399,7 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
         editTaskController?.task.value = task
         
         editTaskPopover?.show(relativeTo: view.bounds, of: view, preferredEdge: .minY)
+         */
     }
     
     func edit(timerEntry: TimerEntry) {
