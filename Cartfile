@@ -1,8 +1,8 @@
 github "vojto/NiceData" "master"
 github "vojto/NiceUI" "master"
 github "vojto/NiceReactive" "master"
-github "ReactiveCocoa/ReactiveSwift" "master"
-github "ReactiveCocoa/ReactiveCocoa" "master"
+github "ReactiveCocoa/ReactiveSwift" ~> 1.1
+github "ReactiveCocoa/ReactiveCocoa" ~> 5.0
 github "vojto/SwiftDate" "master"
 github "radex/SwiftyUserDefaults" ~> 3.0.1
 github "naoty/SwiftCSV" "develop"
