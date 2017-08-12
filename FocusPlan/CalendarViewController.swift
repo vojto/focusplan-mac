@@ -301,6 +301,7 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
 
         if editTaskPopover == nil {
             editTaskPopover = NicePopover()
+            editTaskPopover?.style = .normal
         }
 
         editTaskController?.task.value = task
@@ -309,7 +310,7 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
             viewController: editTaskController!,
             parentWindow: self.view.window!,
             view: self.view,
-            side: .below,
+            side: .center,
             size: NSSize(width: 500, height: 100.0)
         )
     }
