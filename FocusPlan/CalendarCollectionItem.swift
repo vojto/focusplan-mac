@@ -28,8 +28,6 @@ class CalendarCollectionItem: NSCollectionViewItem {
     }
 
     override func prepareForReuse() {
-        Swift.print("[CalendarCollectionItem] Preparing for reuse!")
-
         super.prepareForReuse()
 
         customView.timerView.prepareForReuse()
