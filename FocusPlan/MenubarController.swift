@@ -34,7 +34,7 @@ class MenubarController: NSObject {
     
     let projectColorView = ProjectColorView(frame: NSRect(x: 0, y: 0, width: 10, height: 10))
     
-    lazy var now = timer(interval: .seconds(1), on: QueueScheduler.main)
+    lazy var now = SignalProducer.timer(interval: .seconds(1), on: QueueScheduler.main)
     
     lazy var state = {
         return TimerState.instance

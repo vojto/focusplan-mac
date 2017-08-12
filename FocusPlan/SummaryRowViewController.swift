@@ -82,13 +82,13 @@ class SummaryRowViewController: NSViewController {
     }
     
     func createItemView() -> SummaryRowItem {
-        var views: NSArray? = NSMutableArray()
+        var views: NSArray = NSMutableArray()
         let nib = NSNib(nibNamed: "SummaryRowItem", bundle: nil)!
 //        nib.instantiate(withOwner: self, topLevelObjects: &views)
         
         nib.instantiate(withOwner: self, topLevelObjects: &views)
-        
-        return views!.filter({ $0 is NSView }).first as! SummaryRowItem
+
+        return views.filter({ $0 is NSView }).first as! SummaryRowItem
 
     }
     

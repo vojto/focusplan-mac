@@ -13,7 +13,7 @@ import enum Result.NoError
 class CalendarCollectionView: NSCollectionView {
     
     var scrollSignal: Signal<(), NoError>!
-    var scrollObserver: Observer<(), NoError>!
+    var scrollObserver: Signal<(), NoError>.Observer!
     
     var onDoubleClick: ((NSEvent) -> ())?
     
