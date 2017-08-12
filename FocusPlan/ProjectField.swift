@@ -46,7 +46,7 @@ class ProjectField: NiceField {
             viewController: tipsController,
             parentWindow: self.window!,
             view: self,
-            edge: .minY,
+            side: .below,
             size: NSSize(width: width, height: 150.0)
         )
         

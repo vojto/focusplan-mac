@@ -9,6 +9,7 @@
 import Cocoa
 import ReactiveSwift
 import SwiftDate
+import NiceKit
 
 enum CalendarDecorationSection: Int {
     case hourLine = 0
@@ -25,8 +26,8 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     let summaryRowController = SummaryRowViewController()
     
     var editTaskController: EditTaskViewController?
-    var editTaskPopover: NSPopover?
-    
+    var editTaskPopover: NicePopover?
+
     var editTimerEntryController: EditTimerEntryController?
     var editTimerEntryPopover: NSPopover?
     
@@ -112,10 +113,12 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     func reloadData() {
         // TODO: Temporary hack to avoid reloading collection when popover
         // makes changes to data...
-        if (editTaskPopover?.isShown ?? false) {
-            return
-        }
-        
+
+        // TODO: Bring this back somehow
+//        if (editTaskPopover?.isShown ?? false) {
+//            return
+//        }
+
         if (editTimerEntryPopover?.isShown ?? false) {
             return
         }
@@ -292,21 +295,23 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
             editTaskController = EditTaskViewController()
             
             editTaskController?.onFinishEditing = {
-                self.editTaskPopover?.close()
                 self.reloadData()
             }
         }
-        
+
         if editTaskPopover == nil {
-            editTaskPopover = NSPopover()
-            editTaskPopover?.contentViewController = editTaskController
-            editTaskPopover?.behavior = .transient
-            editTaskPopover?.animates = false
+            editTaskPopover = NicePopover()
         }
-        
+
         editTaskController?.task.value = task
-        
-        editTaskPopover?.show(relativeTo: view.bounds, of: view, preferredEdge: .minY)
+
+        editTaskPopover!.show(
+            viewController: editTaskController!,
+            parentWindow: self.view.window!,
+            view: self.view,
+            side: .below,
+            size: NSSize(width: 500, height: 100.0)
+        )
     }
     
     func edit(timerEntry: TimerEntry) {
