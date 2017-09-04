@@ -14,22 +14,30 @@ import Cartography
 import NiceKit
 
 class CalendarCollectionItem: NSCollectionViewItem {
-    
+
+    // Properties
+    var style = CalendarCollectionItemStyle.regular { didSet { applyStyle() } }
+    override var isSelected: Bool { didSet { applySelected() } }
+    override var highlightState: NSCollectionViewItemHighlightState { didSet { applyHighlightState() } }
+
+    // Models
     let event = MutableProperty<CalendarEvent?>(nil)
     var task = MutableProperty<Task?>(nil)
     var project: SignalProducer<Project?, NoError>!
-    @IBOutlet weak var field: NSTextField!
 
+    // Views
+    @IBOutlet weak var field: NSTextField!
+    var customView: CalendarCollectionItemView { return self.view as! CalendarCollectionItemView }
     
+
+    // Callbacks
     var onEdit: ((CalendarCollectionItem) -> ())?
-    
-    var customView: CalendarCollectionItemView {
-        return self.view as! CalendarCollectionItemView
-    }
+
+
+    // MARK: - Lifecycle
+    // -------------------------------------------------------------------------
 
     override func prepareForReuse() {
-        Swift.print("[CalendarCollectionItem] Preparing for reuse!")
-
         super.prepareForReuse()
 
         customView.timerView.prepareForReuse()
@@ -38,14 +46,12 @@ class CalendarCollectionItem: NSCollectionViewItem {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        field.font = NSFont.systemFont(ofSize: 13)
+        applyStyle()
         
         customView.onDoubleClick = self.handleDoubleClick
         customView.onBeforeResize = self.handleBeforeResize
         customView.onResize = self.handleResize
         customView.onFinishResize = self.handleFinishResize
-        
-        let view = self.view as! CalendarCollectionItemView
         
         self.task <~ event.producer.pick { event -> SignalProducer<Task?, NoError> in
             switch event.type {
@@ -70,24 +76,24 @@ class CalendarCollectionItem: NSCollectionViewItem {
             guard let event = event else { return }
             
             self.field.alpha = 1
-            view.isDashed = false
+            self.customView.isDashed = false
 
-            view.timerView.existingDuration.value = event.spentDuration
+            self.customView.timerView.existingDuration.value = event.spentDuration
 
-            view.backgroundProgress = 0
+            self.customView.backgroundProgress = 0
             
             switch event.type {
             case .project:
                 let colorName = event.project?.color
                 guard let color = Palette.decode(colorName: colorName) else { return }
                 let color1 = color.addHue(0, saturation: -0.3, brightness: 0.2, alpha: -0.9)
-                view.background = color1
-                view.border = NSColor.clear
+                self.customView.background = color1
+                self.customView.border = NSColor.clear
                 self.field.stringValue = ""
             case .task:
                 let color = Palette.decode(colorName: colorName) ?? Palette.standard
 
-                view.background = color
+                self.customView.background = color
 
                 self.field.textColor = NSColor.white
                 self.field.stringValue = self.event.value?.task?.title ?? ""
@@ -95,76 +101,94 @@ class CalendarCollectionItem: NSCollectionViewItem {
                 break
             case .timerEntry:
                 guard let entry = self.event.value?.timerEntry else { return }
-                guard let lane = LaneId(rawValue: entry.lane ?? "") else { return }
-                
-                switch lane {
-                case .pomodoro:
-                    guard let type = PomodoroType(rawValue: entry.type ?? "") else { return }
-                    
-                    switch type {
-                    case .pomodoro:
-                        let red = NSColor(hexString: "FE9097")!
-                        view.background = red
-                        view.border = red
-                        self.field.textColor = NSColor.white
-                        self.field.stringValue = "Pomodoro"
-                        self.field.alpha = 0.85
-                    case .shortBreak, .longBreak:
-                        let green = NSColor(hexString: "9BDDB6")!
-                        view.background = green
-                        view.border = green
-                        self.field.textColor = NSColor.white
-                        self.field.stringValue = "Break"
-                        self.field.alpha = 0.85
-                    }
-                case .general:
-                    self.field.stringValue = self.event.value?.timerEntry?.task?.title ?? "(no task)"
-                    
-                    if let color = Palette.decode(colorName: colorName) {
-                        let color1 = color.addHue(0, saturation: -0.3, brightness: 0.2, alpha: -0.2)
-                        view.background = color1
-                        view.border = color1
-                        self.field.textColor = color
-                    } else {
-                        view.background = NSColor(hexString: "E0E7F0")!
-                        view.border = NSColor(hexString: "97A9BE")!
-                        self.field.textColor = NSColor(hexString: "69798B")
-                    }
-                }
-                
-                break
-            }
-        }
-    }
-    
 
-    override var isSelected: Bool {
-        didSet {
-            if isSelected {
-                customView.isHighlighted = true
+                self.setTimerEntry(entry, colorName: colorName)
+
+            }
+        }
+    }
+
+    func setTimerEntry(_ entry: TimerEntry, colorName: String?) {
+        guard let lane = LaneId(rawValue: entry.lane ?? "") else { return }
+
+        switch lane {
+        case .pomodoro:
+            guard let type = PomodoroType(rawValue: entry.type ?? "") else { return }
+
+            switch type {
+            case .pomodoro:
+                let red = NSColor(hexString: "FE9097")!
+                self.customView.background = red
+                self.customView.border = red
+                self.field.textColor = NSColor.white
+                self.field.stringValue = "Pomodoro"
+                self.field.alpha = 0.85
+            case .shortBreak, .longBreak:
+                let green = NSColor(hexString: "9BDDB6")!
+                self.customView.background = green
+                self.customView.border = green
+                self.field.textColor = NSColor.white
+                self.field.stringValue = "Break"
+                self.field.alpha = 0.85
+            }
+        case .general:
+            self.field.stringValue = self.event.value?.timerEntry?.task?.title ?? "(no task)"
+
+            if let color = Palette.decode(colorName: colorName) {
+                let color1 = color.addHue(0, saturation: -0.3, brightness: 0.2, alpha: -0.2)
+                self.customView.background = color1
+                self.customView.border = color1
+                self.field.textColor = color
             } else {
-                customView.isHighlighted = false
+                self.customView.background = NSColor(hexString: "E0E7F0")!
+                self.customView.border = NSColor(hexString: "97A9BE")!
+                self.field.textColor = NSColor(hexString: "69798B")
             }
         }
     }
-    
-    override var highlightState: NSCollectionViewItemHighlightState {
-        didSet {
-            switch highlightState {
-            case .forSelection:
-                customView.isHighlighted = true
-            case .forDeselection:
-                customView.isHighlighted = false
-            default:
-                break
-//                customView.isHighlighted = false
-            }
-        }
-    }
+
     
     func handleDoubleClick() {
         onEdit?(self)
     }
+
+    // MARK: - Applying properties
+    // -----------------------------------------------------------------------
+
+    func applySelected() {
+        if isSelected {
+            customView.isHighlighted = true
+        } else {
+            customView.isHighlighted = false
+        }
+    }
+
+    func applyHighlightState() {
+        switch highlightState {
+        case .forSelection:
+            customView.isHighlighted = true
+        case .forDeselection:
+            customView.isHighlighted = false
+        default:
+            break
+            //                customView.isHighlighted = false
+        }
+    }
+
+    func applyStyle() {
+
+        switch style {
+        case .regular:
+            field.font = NSFont.systemFont(ofSize: 13)
+        case .small:
+            field.font = NSFont.systemFont(ofSize: 12)
+        }
+
+        customView.style = style
+    }
+
+    // MARK: - Resizing
+    // ------------------------------------------------------------------------
     
     var initialDuration: TimeInterval = 0
     var initialStartTime: TimeInterval = 0
@@ -224,8 +248,6 @@ class CalendarCollectionItem: NSCollectionViewItem {
                 field.stringValue = "\(from) - \(to) (\(formattedMinutes))"
             }
         }
-        
-        
     }
     
     func handleFinishResize(handle: CalendarCollectionItemView.HandleType) {
@@ -253,6 +275,8 @@ class CalendarCollectionItem: NSCollectionViewItem {
     let configEstimateField = NiceField()
 
     func setupConfigRow() {
+        return
+
         let row = NSStackView()
 
         view.addSubview(row)

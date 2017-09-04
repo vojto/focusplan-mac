@@ -149,8 +149,6 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
         if let scrollView = collectionView.enclosingScrollView {
             let position = scrollingPositions[config.scrollingPositionIdentifier] ?? initialPosition
             
-//            Swift.print("🏀 set config, so scrolling down to \(position)")
-            
             scrollView.contentView.scroll(to: NSPoint(x: 0, y: position))
             
         }
@@ -174,7 +172,12 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
         let item = collectionView.makeItem(withIdentifier: "CalendarCollectionItem", for: indexPath) as! CalendarCollectionItem
-        
+
+        switch config.detail {
+        case .daily: item.style = .regular
+        case .weekly: item.style = .small
+        }
+
         item.onEdit = self.handleEdit
         
         item.event.value = events.at(indexPath: indexPath)

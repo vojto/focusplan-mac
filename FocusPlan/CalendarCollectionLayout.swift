@@ -137,9 +137,9 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
             }
         }
         
-        
+
+        // For weekly views, we add section lines & labels
         if config.detail == .weekly {
-            // Section lines & labels
             for i in 0...config.dayCount {
                 if let attribute = layoutAttributesForDecorationView(ofKind: kSectionLine, at: IndexPath(item: i, section: CalendarDecorationSection.sectionLine.rawValue)) {
                     attributes.append(attribute)
