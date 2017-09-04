@@ -26,11 +26,10 @@ class CalendarCollectionItem: NSCollectionViewItem {
     var project: SignalProducer<Project?, NoError>!
 
     // Views
-    @IBOutlet weak var field: NSTextField!
+    let field = NSTextField(labelWithString: "")
+    let configProjectField = ProjectField()
+    let configEstimateField = NiceField()
     var customView: CalendarCollectionItemView { return self.view as! CalendarCollectionItemView }
-    @IBOutlet weak var titleTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var titleLeadingConstraint: NSLayoutConstraint!
-    @IBOutlet weak var titleTrailingContraint: NSLayoutConstraint!
 
     // Callbacks
     var onEdit: ((CalendarCollectionItem) -> ())?
@@ -48,30 +47,13 @@ class CalendarCollectionItem: NSCollectionViewItem {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        connectProducers()
+
+        setup()
+
         applyStyle()
-        
-        customView.onDoubleClick = self.handleDoubleClick
-        customView.onBeforeResize = self.handleBeforeResize
-        customView.onResize = self.handleResize
-        customView.onFinishResize = self.handleFinishResize
-        
-        self.task <~ event.producer.pick { event -> SignalProducer<Task?, NoError> in
-            switch event.type {
-            case .project:
-                return SignalProducer(value: nil)
-            case .task:
-                return SignalProducer(value: event.task!)
-            case .timerEntry:
-                return event.timerEntry!.reactive.task
-            }
-        }
 
-        customView.timerView.task <~ self.task
 
-        self.project = self.task.producer.pick { $0.reactive.project.producer }
-
-        setupConfigRow()
-        
         let projectColor = project.pick { $0.reactive.color.producer }
         
         SignalProducer.combineLatest(event.producer, projectColor.producer).startWithValues { event, colorName in
@@ -104,13 +86,105 @@ class CalendarCollectionItem: NSCollectionViewItem {
             case .timerEntry:
                 guard let entry = self.event.value?.timerEntry else { return }
 
-                self.setTimerEntry(entry, colorName: colorName)
+                self.setPresentedTimerEntry(entry, colorName: colorName)
 
             }
         }
     }
 
-    func setTimerEntry(_ entry: TimerEntry, colorName: String?) {
+    func connectProducers() {
+        self.project = self.task.producer.pick { $0.reactive.project.producer }
+
+        self.task <~ event.producer.pick { event -> SignalProducer<Task?, NoError> in
+            switch event.type {
+            case .project:
+                return SignalProducer(value: nil)
+            case .task:
+                return SignalProducer(value: event.task!)
+            case .timerEntry:
+                return event.timerEntry!.reactive.task
+            }
+        }
+
+        customView.timerView.task <~ self.task
+    }
+
+    // MARK: - Setting up the views
+    // ------------------------------------------------------------------------
+
+    func setup() {
+        field.setContentHuggingPriority(1, for: .vertical)
+        field.lineBreakMode = .byWordWrapping
+
+        let configRow = setupConfigRow()
+        let spacer = NSView()
+        spacer.setContentHuggingPriority(1, for: .vertical)
+
+        let stack = NSStackView(views: [field, spacer, configRow])
+        stack.setClippingResistancePriority(250, for: .vertical)
+        stack.orientation = .vertical
+        stack.alignment = .leading
+
+        stack.setVisibilityPriority(1, for: spacer)
+        stack.setVisibilityPriority(999, for: field)
+        stack.setVisibilityPriority(500, for: configRow)
+
+        customView.addSubview(stack)
+        constrain(stack) { stack in
+            stack.left == stack.superview!.left + 8.0
+            stack.right == stack.superview!.right - 8.0
+            stack.top == stack.superview!.top + 8.0
+            stack.bottom == stack.superview!.bottom - 8.0
+        }
+
+        setupCustomView()
+    }
+
+    func setupConfigRow() -> NSView {
+
+
+        // Style the fields
+        styleConfigField(field: configProjectField)
+        styleConfigField(field: configEstimateField)
+
+        // Bind the project field
+        project.producer.startWithValues { project in
+            self.configProjectField.stringValue = project?.name ?? "None"
+        }
+
+        configProjectField.onSelect = { selection in
+            self.task.value?.setProjectFromSelection(selection)
+        }
+
+        // Bind estimate
+        let estimate = task.producer.pick { $0.reactive.estimatedMinutesFormatted }
+        estimate.producer.startWithValues { value in
+            self.configEstimateField.stringValue = value ?? ""
+        }
+
+        configEstimateField.onChange = { value in
+            self.task.value?.setEstimate(fromString: value)
+        }
+
+        // Set up views in the row
+        let row = NSStackView()
+        row.orientation = .horizontal
+        row.setViews([configProjectField, configEstimateField], in: .leading)
+        row.setClippingResistancePriority(100, for: .horizontal)
+        row.setVisibilityPriority(1, for: configProjectField)
+        row.setVisibilityPriority(1000, for: configEstimateField)
+
+        return row
+    }
+
+    func setupCustomView() {
+        customView.onDoubleClick = self.handleDoubleClick
+        customView.onBeforeResize = self.handleBeforeResize
+        customView.onResize = self.handleResize
+        customView.onFinishResize = self.handleFinishResize
+    }
+
+    func setPresentedTimerEntry(_ entry: TimerEntry, colorName: String?) {
         guard let lane = LaneId(rawValue: entry.lane ?? "") else { return }
 
         switch lane {
@@ -152,47 +226,6 @@ class CalendarCollectionItem: NSCollectionViewItem {
     
     func handleDoubleClick() {
         onEdit?(self)
-    }
-
-    // MARK: - Applying properties
-    // -----------------------------------------------------------------------
-
-    func applySelected() {
-        if isSelected {
-            customView.isHighlighted = true
-        } else {
-            customView.isHighlighted = false
-        }
-    }
-
-    func applyHighlightState() {
-        switch highlightState {
-        case .forSelection:
-            customView.isHighlighted = true
-        case .forDeselection:
-            customView.isHighlighted = false
-        default:
-            break
-            //                customView.isHighlighted = false
-        }
-    }
-
-    func applyStyle() {
-
-        switch style {
-        case .regular:
-            field.font = NSFont.systemFont(ofSize: 13)
-            titleTopConstraint.constant = 10.0
-            titleLeadingConstraint.constant = 10.0
-            titleTrailingContraint.constant = 10.0
-        case .small:
-            field.font = NSFont.systemFont(ofSize: 12)
-            titleTopConstraint.constant = 4.0
-            titleLeadingConstraint.constant = 6.0
-            titleTrailingContraint.constant = 6.0
-        }
-
-        customView.style.value = style
     }
 
     // MARK: - Resizing
@@ -276,58 +309,51 @@ class CalendarCollectionItem: NSCollectionViewItem {
         }
     }
 
-    // MARK: - Config row (project and estimate)
-    // ------------------------------------------------------------------------
 
-    let configProjectField = ProjectField()
-    let configEstimateField = NiceField()
-
-    func setupConfigRow() {
-        return
-
-        let row = NSStackView()
-
-        view.addSubview(row)
-
-        // Layout the row
-        constrain(row) { row in
-            row.left == row.superview!.left + 6
-            row.right == row.superview!.right - 8
-            row.bottom == row.superview!.bottom - 6
-//            row.height == 32
-        }
-
-        // Style the fields
-        styleConfigField(field: configProjectField)
-        styleConfigField(field: configEstimateField)
-
-        // Bind the project field
-        project.producer.startWithValues { project in
-            self.configProjectField.stringValue = project?.name ?? "None"
-        }
-
-        configProjectField.onSelect = { selection in
-            self.task.value?.setProjectFromSelection(selection)
-        }
-
-        // Bind estimate
-        let estimate = task.producer.pick { $0.reactive.estimatedMinutesFormatted }
-        estimate.producer.startWithValues { value in
-            self.configEstimateField.stringValue = value ?? ""
-        }
-
-        configEstimateField.onChange = { value in
-            self.task.value?.setEstimate(fromString: value)
-        }
-
-        // Set up views in the row
-        row.orientation = .horizontal
-        row.setViews([configProjectField, configEstimateField], in: .leading)
-    }
 
     func styleConfigField(field: NiceField) {
         field.textColor = NSColor.white
         field.borderColor = NSColor.white.alpha(0.2)
         field.editingBackgroundColor = NSColor.black.alpha(0.1)
+    }
+
+    // MARK: - Applying properties
+    // -----------------------------------------------------------------------
+
+    func applySelected() {
+        if isSelected {
+            customView.isHighlighted = true
+        } else {
+            customView.isHighlighted = false
+        }
+    }
+
+    func applyHighlightState() {
+        switch highlightState {
+        case .forSelection:
+            customView.isHighlighted = true
+        case .forDeselection:
+            customView.isHighlighted = false
+        default:
+            break
+            //                customView.isHighlighted = false
+        }
+    }
+
+    func applyStyle() {
+        switch style {
+        case .regular:
+            field.font = NSFont.systemFont(ofSize: 13)
+//            titleTopConstraint.constant = 10.0
+//            titleLeadingConstraint.constant = 12.0
+//            titleTrailingContraint.constant = 12.0
+        case .small:
+            field.font = NSFont.systemFont(ofSize: 12)
+//            titleTopConstraint.constant = 4.0
+//            titleLeadingConstraint.constant = 6.0
+//            titleTrailingContraint.constant = 6.0
+        }
+
+        customView.style.value = style
     }
 }
