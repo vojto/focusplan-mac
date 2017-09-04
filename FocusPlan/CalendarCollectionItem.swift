@@ -113,26 +113,25 @@ class CalendarCollectionItem: NSCollectionViewItem {
     // ------------------------------------------------------------------------
 
     func setup() {
-        field.setContentHuggingPriority(1, for: .vertical)
-        field.lineBreakMode = .byWordWrapping
-
+        let fieldRow = setupFieldRow()
         let configRow = setupConfigRow()
+
         let spacer = NSView()
         spacer.setContentHuggingPriority(1, for: .vertical)
 
-        let stack = NSStackView(views: [field, spacer, configRow])
+        let stack = NSStackView(views: [fieldRow, spacer, configRow])
         stack.setClippingResistancePriority(250, for: .vertical)
         stack.orientation = .vertical
         stack.alignment = .leading
 
         stack.setVisibilityPriority(1, for: spacer)
-        stack.setVisibilityPriority(999, for: field)
+        stack.setVisibilityPriority(999, for: fieldRow)
         stack.setVisibilityPriority(500, for: configRow)
 
         customView.addSubview(stack)
         constrain(stack) { stack in
-            stack.left == stack.superview!.left + 8.0
-            stack.right == stack.superview!.right - 8.0
+            stack.left == stack.superview!.left + 6.0
+            stack.right == stack.superview!.right - 6.0
             stack.top == stack.superview!.top + 8.0
             stack.bottom == stack.superview!.bottom - 8.0
         }
@@ -140,9 +139,24 @@ class CalendarCollectionItem: NSCollectionViewItem {
         setupCustomView()
     }
 
+    func setupFieldRow() -> NSView {
+        field.setContentHuggingPriority(1, for: .vertical)
+        field.lineBreakMode = .byWordWrapping
+
+        let view = NSView()
+        view.addSubview(field)
+
+        constrain(field) { field in
+            field.left == field.superview!.left + 6.0
+            field.right == field.superview!.right - 6.0
+            field.top == field.superview!.top
+            field.bottom == field.superview!.bottom
+        }
+
+        return view
+    }
+
     func setupConfigRow() -> NSView {
-
-
         // Style the fields
         styleConfigField(field: configProjectField)
         styleConfigField(field: configEstimateField)
