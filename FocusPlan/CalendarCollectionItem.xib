@@ -32,6 +32,9 @@
         <collectionViewItem id="gSF-4s-C4q" customClass="CalendarCollectionItem" customModule="FocusPlan" customModuleProvider="target">
             <connections>
                 <outlet property="field" destination="5Ov-Rg-UwN" id="mkA-es-wKX"/>
+                <outlet property="titleLeadingConstraint" destination="5k5-YL-p6v" id="FBJ-4W-4zo"/>
+                <outlet property="titleTopConstraint" destination="It9-f5-izb" id="1mL-s7-nrg"/>
+                <outlet property="titleTrailingContraint" destination="zgi-nq-iM2" id="nqm-iy-GPr"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="bAs-8l-CKA"/>
             </connections>
         </collectionViewItem>

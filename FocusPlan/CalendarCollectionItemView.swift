@@ -12,15 +12,13 @@ import Cartography
 import NiceKit
 import ReactiveSwift
 
-
-
 class CalendarCollectionItemView: NSView {
 
     // Other views
     let timerView = CalendarTimerView()
 
     // Properties
-    var style = CalendarCollectionItemStyle.regular { didSet { applyStyle() } }
+    let style = MutableProperty<CalendarCollectionItemStyle>(.regular)
     var background = Palette.standard { didSet { needsDisplay = true } }
     var border = NSColor.blue { didSet { needsDisplay = true } }
     var isDashed = false { didSet { needsDisplay = true } }
@@ -55,12 +53,22 @@ class CalendarCollectionItemView: NSView {
 
         let isTimerVisible = SignalProducer.combineLatest(
             timerView.isRunning.producer,
-            isHovered.producer
-        ).map { running, hovered in
-            return running || hovered
+            isHovered.producer,
+            style.producer
+            ).map { (running, hovered, style) -> Bool in
+                switch style {
+                case .regular:
+                    return running || hovered
+                case .small:
+                    return false
+                }
         }
 
         timerView.reactive.isHidden <~ isTimerVisible.map { !$0 }
+
+        style.producer.startWithValues { _ in
+            self.applyStyle()
+        }
 
 //        isHovered.producer.startWithValues { hovered in
 //            self.alphaValue = hovered ? 0.8 : 1
@@ -90,7 +98,6 @@ class CalendarCollectionItemView: NSView {
     // ------------------------------------------------------------------------
 
     func applyStyle() {
-        Swift.print("🔥 applying style to: \(self.style)")
     }
 
     // MARK: - Drag and drop for resizing

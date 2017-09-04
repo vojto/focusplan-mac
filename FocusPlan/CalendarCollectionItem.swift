@@ -28,7 +28,9 @@ class CalendarCollectionItem: NSCollectionViewItem {
     // Views
     @IBOutlet weak var field: NSTextField!
     var customView: CalendarCollectionItemView { return self.view as! CalendarCollectionItemView }
-    
+    @IBOutlet weak var titleTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var titleLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var titleTrailingContraint: NSLayoutConstraint!
 
     // Callbacks
     var onEdit: ((CalendarCollectionItem) -> ())?
@@ -180,11 +182,17 @@ class CalendarCollectionItem: NSCollectionViewItem {
         switch style {
         case .regular:
             field.font = NSFont.systemFont(ofSize: 13)
+            titleTopConstraint.constant = 10.0
+            titleLeadingConstraint.constant = 10.0
+            titleTrailingContraint.constant = 10.0
         case .small:
             field.font = NSFont.systemFont(ofSize: 12)
+            titleTopConstraint.constant = 4.0
+            titleLeadingConstraint.constant = 6.0
+            titleTrailingContraint.constant = 6.0
         }
 
-        customView.style = style
+        customView.style.value = style
     }
 
     // MARK: - Resizing
