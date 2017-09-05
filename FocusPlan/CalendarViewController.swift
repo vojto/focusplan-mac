@@ -26,7 +26,7 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     let summaryRowController = SummaryRowViewController()
     
     var editTaskController: EditTaskViewController?
-    var editTaskPopover: NicePopover?
+    var editTaskPopover: NSPopover?
 
     var editTimerEntryController: EditTimerEntryController?
     var editTimerEntryPopover: NSPopover?
@@ -114,10 +114,9 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
         // TODO: Temporary hack to avoid reloading collection when popover
         // makes changes to data...
 
-        // TODO: Bring this back somehow
-//        if (editTaskPopover?.isShown ?? false) {
-//            return
-//        }
+        if (editTaskPopover?.isShown ?? false) {
+            return
+        }
 
         if (editTimerEntryPopover?.isShown ?? false) {
             return
@@ -298,24 +297,23 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
             editTaskController = EditTaskViewController()
             
             editTaskController?.onFinishEditing = {
+                self.editTaskPopover?.close()
+
                 self.reloadData()
             }
         }
 
         if editTaskPopover == nil {
-            editTaskPopover = NicePopover()
-            editTaskPopover?.style = .normal
+            editTaskPopover = NSPopover()
+            editTaskPopover?.contentViewController = editTaskController
+            editTaskPopover?.behavior = .transient
+            editTaskPopover?.animates = false
+            editTaskPopover?.delegate = self
         }
 
         editTaskController?.task.value = task
 
-        editTaskPopover!.show(
-            viewController: editTaskController!,
-            parentWindow: self.view.window!,
-            view: self.view,
-            side: .center,
-            size: NSSize(width: 500, height: 100.0)
-        )
+        editTaskPopover?.show(relativeTo: view.bounds, of: view, preferredEdge: .maxX)
     }
     
     func edit(timerEntry: TimerEntry) {
@@ -328,7 +326,6 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
             
             editTimerEntryController?.onFinishEditing = {
                 self.editTimerEntryPopover?.close()
-                self.reloadData()
             }
         }
         
@@ -344,11 +341,11 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
         
         editTimerEntryPopover?.show(relativeTo: view.bounds, of: view, preferredEdge: .minY)
     }
-    
-//    func popoverWillClose(_ notification: Notification) {
-//        reloadData()
-//    }
-    
+
+    func popoverDidClose(_ notification: Notification) {
+        reloadData()
+    }
+
     func collectionItem(forTask task: Task) -> CalendarCollectionItem? {
         for item in collectionView.visibleItems() {
             if let item = item as? CalendarCollectionItem,

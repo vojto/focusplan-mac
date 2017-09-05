@@ -69,6 +69,8 @@ class EditTaskViewController: NSViewController, NSTextFieldDelegate {
     }
     
     func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
+        Swift.print("Text field doing command: \(commandSelector)")
+
         if commandSelector == #selector(NSResponder.insertNewline(_:)) {
             onFinishEditing?()
             

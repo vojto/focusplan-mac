@@ -31,6 +31,10 @@ class CalendarCollectionItem: NSCollectionViewItem {
     let configEstimateField = NiceField()
     var customView: CalendarCollectionItemView { return self.view as! CalendarCollectionItemView }
 
+    // Constraints
+    var leftConstraint: NSLayoutConstraint?
+    var rightConstraint: NSLayoutConstraint?
+
     // Callbacks
     var onEdit: ((CalendarCollectionItem) -> ())?
 
@@ -130,8 +134,8 @@ class CalendarCollectionItem: NSCollectionViewItem {
 
         customView.addSubview(stack)
         constrain(stack) { stack in
-            stack.left == stack.superview!.left + 6.0
-            stack.right == stack.superview!.right - 6.0
+            self.leftConstraint = (stack.left == stack.superview!.left + 6.0)
+            self.rightConstraint = (stack.right == stack.superview!.right - 6.0)
             stack.top == stack.superview!.top + 8.0
             stack.bottom == stack.superview!.bottom - 8.0
         }
@@ -358,14 +362,16 @@ class CalendarCollectionItem: NSCollectionViewItem {
         switch style {
         case .regular:
             field.font = NSFont.systemFont(ofSize: 13)
-//            titleTopConstraint.constant = 10.0
-//            titleLeadingConstraint.constant = 12.0
-//            titleTrailingContraint.constant = 12.0
+            leftConstraint?.constant = 6.0
+            rightConstraint?.constant = 6.0
+            configProjectField.isHidden = false
+
         case .small:
             field.font = NSFont.systemFont(ofSize: 12)
-//            titleTopConstraint.constant = 4.0
-//            titleLeadingConstraint.constant = 6.0
-//            titleTrailingContraint.constant = 6.0
+            leftConstraint?.constant = 4.0
+            rightConstraint?.constant = 4.0
+            configProjectField.isHidden = true
+
         }
 
         customView.style.value = style
