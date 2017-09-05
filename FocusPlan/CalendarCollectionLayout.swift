@@ -79,9 +79,26 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
     }
 
     
-    let leftMargin: CGFloat = 50.0
-    let rightMargin: CGFloat = 30.0
-    let topMargin: CGFloat = 20.0
+    var leftMargin: CGFloat {
+        switch config.detail {
+        case .daily: return 50.0
+        case .weekly: return 20.0
+        }
+    }
+
+    var rightMargin: CGFloat {
+        switch config.detail {
+        case .daily: return 30.0
+        case .weekly: return 20.0
+        }
+    }
+
+    var topMargin: CGFloat {
+        switch config.detail {
+        case .daily: return 20.0
+        case .weekly: return 110.0
+        }
+    }
 
     
     var innerFrame: NSRect {
@@ -144,12 +161,14 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
                 if let attribute = layoutAttributesForDecorationView(ofKind: kSectionLine, at: IndexPath(item: i, section: CalendarDecorationSection.sectionLine.rawValue)) {
                     attributes.append(attribute)
                 }
-                
+
+                /* Day labels
                 if config.dayCount > 1 {
                     if let attribute = layoutAttributesForDecorationView(ofKind: kSectionLabel, at: IndexPath(item: i, section: CalendarDecorationSection.sectionLabel.rawValue)) {
                         attributes.append(attribute)
                     }
                 }
+                 */
             }
         }
         

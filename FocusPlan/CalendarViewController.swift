@@ -21,7 +21,7 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
 
     @IBOutlet var collectionView: CalendarCollectionView!
     let collectionLayout = CalendarCollectionLayout()
-    
+
     @IBOutlet weak var summaryContainer: NSView!
     let summaryRowController = SummaryRowViewController()
     
@@ -46,8 +46,8 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
         }
         
         didSet {
+            updateLayout()
             reloadData()
-            
             restoreScrollPosition()
         }
     }
@@ -82,6 +82,8 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        updateLayout()
         
         collectionView.collectionViewLayout = collectionLayout
         collectionView.onDoubleClick = handleDoubleClick
@@ -124,6 +126,13 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
         
         NSAnimationContext.current().duration = 0
         self.collectionView.reloadData()
+    }
+
+    // MARK: - Managing layout of the calendar view
+    // ------------------------------------------------------------------------
+
+    func updateLayout() {
+        
     }
     
     // MARK: - Scrolling

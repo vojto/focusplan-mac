@@ -416,7 +416,7 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
             
             dummyContainer.layoutSubtreeIfNeeded()
             
-            var height = dummyContainer.fittingSize.height
+            let height = dummyContainer.fittingSize.height
             
             if let view = titleCellViews[task], view.isEditing {
                 return 100.0
@@ -424,7 +424,7 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
             
             return height
         } else if item is RootItem {
-            return 90
+            return Stylesheet.headerRowHeight
         }
         
         return 32

@@ -24,24 +24,9 @@ class TasksHeaderTableCellView: NSTableCellView {
     }
     
     func setup() {
-        
-        Swift.print("🌈 Setting up TasksHeaderTableCellView!")
-        
-        let title = NSTextField()
-        title.isBordered = false
-        title.isEditable = false
-        title.isSelectable = false
-        title.stringValue = "bazinga"
-        title.drawsBackground = false
-        title.font = NSFont.systemFont(ofSize: 24, weight: NSFontWeightMedium)
-        title.textColor = NSColor(hexString: "38393A")!
-        addSubview(title)
-        
-        constrain(title) { title in
-            title.left == title.superview!.left + 20
-            title.bottom == title.superview!.bottom - 20
-        }
-        
+        let title = HeaderLabel()
+        title.addToHeaderRow(view: self)
+
         self.textField = title
     }
 }

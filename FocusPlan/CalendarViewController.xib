@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13189.4" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12118"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13189.4"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,18 +15,18 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView wantsLayer="YES" id="Hz6-mo-xeY" customClass="BackgroundView" customModule="FocusPlan" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+        <customView wantsLayer="YES" id="Hz6-mo-xeY" customClass="SecondaryBackgroundView" customModule="FocusPlan" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="532" height="334"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <scrollView wantsLayer="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GfK-j7-Vvf">
-                    <rect key="frame" x="0.0" y="25" width="480" height="247"/>
+                    <rect key="frame" x="0.0" y="25" width="532" height="309"/>
                     <clipView key="contentView" wantsLayer="YES" drawsBackground="NO" id="2Vs-hR-9fS">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="247"/>
+                        <rect key="frame" x="0.0" y="0.0" width="532" height="309"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView wantsLayer="YES" selectable="YES" id="gkq-od-ez8" customClass="CalendarCollectionView" customModule="FocusPlan" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="480" height="247"/>
+                                <rect key="frame" x="0.0" y="0.0" width="532" height="309"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" scrollDirection="horizontal" id="Pyr-w2-dQd">
                                     <size key="itemSize" width="200" height="50"/>
@@ -51,7 +51,7 @@
                     </scroller>
                 </scrollView>
                 <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="TRo-xk-II9">
-                    <rect key="frame" x="0.0" y="22" width="480" height="5"/>
+                    <rect key="frame" x="0.0" y="22" width="532" height="5"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="6ND-Gn-JCL"/>
                     </constraints>
@@ -73,7 +73,7 @@
                     </connections>
                 </button>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="SEb-Z5-6VO">
-                    <rect key="frame" x="32" y="0.0" width="448" height="25"/>
+                    <rect key="frame" x="32" y="0.0" width="500" height="25"/>
                 </customView>
             </subviews>
             <constraints>
@@ -86,13 +86,14 @@
                 <constraint firstAttribute="bottom" secondItem="SEb-Z5-6VO" secondAttribute="bottom" id="Qd5-vd-I9G"/>
                 <constraint firstItem="TRo-xk-II9" firstAttribute="top" secondItem="GfK-j7-Vvf" secondAttribute="bottom" id="QzD-jS-lIv"/>
                 <constraint firstAttribute="trailing" secondItem="SEb-Z5-6VO" secondAttribute="trailing" id="SIQ-mi-OSL"/>
+                <constraint firstItem="GfK-j7-Vvf" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="YH5-G3-zr9"/>
                 <constraint firstAttribute="trailing" secondItem="GfK-j7-Vvf" secondAttribute="trailing" id="fEX-yh-gsE"/>
                 <constraint firstItem="TRo-xk-II9" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="iRt-Rf-UTJ"/>
-                <constraint firstItem="GfK-j7-Vvf" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="ueO-RH-pMh"/>
                 <constraint firstItem="Qwh-zb-LwX" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="8" id="voy-Z0-3lb"/>
             </constraints>
+            <point key="canvasLocation" x="158" y="200"/>
         </customView>
-        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" id="6s9-rL-Viu">
+        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="6s9-rL-Viu">
             <rect key="frame" x="0.0" y="0.0" width="38" height="17"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="7H9-ps-gGB">

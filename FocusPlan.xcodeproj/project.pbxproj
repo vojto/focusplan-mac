@@ -59,6 +59,8 @@
 		994063D61EB761D000E09165 /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994063D51EB761D000E09165 /* TimerViewController.swift */; };
 		994208351EC2EE4800CB4D4E /* PlanViewController+Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994208341EC2EE4800CB4D4E /* PlanViewController+Types.swift */; };
 		994208381EC2FF5600CB4D4E /* MenubarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994208371EC2FF5600CB4D4E /* MenubarController.swift */; };
+		9946F6281F5E7E41009F914D /* CalendarHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9946F6271F5E7E41009F914D /* CalendarHeaderView.swift */; };
+		9946F62A1F5E7EDB009F914D /* HeaderLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9946F6291F5E7EDB009F914D /* HeaderLabel.swift */; };
 		994F0A211EC5750B00562B7A /* ProjectsViewController+Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994F0A201EC5750B00562B7A /* ProjectsViewController+Types.swift */; };
 		994F0A251EC588DE00562B7A /* PreferencesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994F0A231EC588DE00562B7A /* PreferencesController.swift */; };
 		994F0A261EC588DE00562B7A /* PreferencesController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 994F0A241EC588DE00562B7A /* PreferencesController.xib */; };
@@ -244,6 +246,8 @@
 		994063D51EB761D000E09165 /* TimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
 		994208341EC2EE4800CB4D4E /* PlanViewController+Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PlanViewController+Types.swift"; sourceTree = "<group>"; };
 		994208371EC2FF5600CB4D4E /* MenubarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenubarController.swift; sourceTree = "<group>"; };
+		9946F6271F5E7E41009F914D /* CalendarHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHeaderView.swift; sourceTree = "<group>"; };
+		9946F6291F5E7EDB009F914D /* HeaderLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderLabel.swift; sourceTree = "<group>"; };
 		994999E71ED861D7008044C6 /* FocusPlan 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "FocusPlan 2.xcdatamodel"; sourceTree = "<group>"; };
 		994F0A201EC5750B00562B7A /* ProjectsViewController+Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ProjectsViewController+Types.swift"; sourceTree = "<group>"; };
 		994F0A231EC588DE00562B7A /* PreferencesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesController.swift; sourceTree = "<group>"; };
@@ -475,6 +479,7 @@
 				9933E31D1EC047CE00774BD4 /* YellowView.swift */,
 				998352D41EC4597300303E7D /* ClickableLabel.swift */,
 				998352DF1EC4A28200303E7D /* CustomTableRowView.swift */,
+				9946F6291F5E7EDB009F914D /* HeaderLabel.swift */,
 			);
 			name = "Shared Views";
 			sourceTree = "<group>";
@@ -677,6 +682,7 @@
 			children = (
 				99D8C80E1EB3B51800EA5001 /* CalendarViewController.swift */,
 				99D8C80F1EB3B51800EA5001 /* CalendarViewController.xib */,
+				9946F6271F5E7E41009F914D /* CalendarHeaderView.swift */,
 				998A0C3B1EC05712006CC99E /* CalendarCollectionView.swift */,
 				99D8C8121EB3B6B600EA5001 /* CalendarCollectionItem.swift */,
 				991AEBF11F5D209C00A7ECE2 /* CalendarCollectionItemStyle.swift */,
@@ -967,6 +973,7 @@
 				99169FE91ED5EBFF00BFB4F2 /* TrialButtonViewController.swift in Sources */,
 				993550321EC99D33004B6D23 /* AlertHelper.swift in Sources */,
 				9981560D1EB76ECB0057ECD0 /* TimerEntry+Reactive.swift in Sources */,
+				9946F6281F5E7E41009F914D /* CalendarHeaderView.swift in Sources */,
 				991AEBEE1F5D1DD000A7ECE2 /* CalendarCollectionItemView+Types.swift in Sources */,
 				994F0A251EC588DE00562B7A /* PreferencesController.swift in Sources */,
 				99D7ED7E1F03D80C00E1512C /* ProjectsTableRowView.swift in Sources */,
@@ -1021,6 +1028,7 @@
 				99B026DD1EBCA13200533FE3 /* SelectingTextField.swift in Sources */,
 				991AEBF21F5D209C00A7ECE2 /* CalendarCollectionItemStyle.swift in Sources */,
 				99B026E11EBCBA4D00533FE3 /* BackgroundView.swift in Sources */,
+				9946F62A1F5E7EDB009F914D /* HeaderLabel.swift in Sources */,
 				9933E4A21EBA176500B1CE85 /* CalendarSectionLabel.swift in Sources */,
 				994208351EC2EE4800CB4D4E /* PlanViewController+Types.swift in Sources */,
 				99B026D41EBC675F00533FE3 /* CalendarEventsCollection.swift in Sources */,
