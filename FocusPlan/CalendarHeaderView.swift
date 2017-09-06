@@ -41,8 +41,7 @@ class CalendarHeaderView: NSView {
         constrain(daysStack) { view in
             view.left == view.superview!.left + CalendarCollectionLayout.kWeeklySideMargin
             view.right == view.superview!.right - CalendarCollectionLayout.kWeeklySideMargin
-            view.bottom == view.superview!.bottom
-            view.height == 40.0
+            view.bottom == view.superview!.bottom - 8.0
         }
 
         daysStack.orientation = .horizontal
@@ -55,6 +54,7 @@ class CalendarHeaderView: NSView {
 
         for day in config!.days {
             let view = DayHeaderView()
+            view.date = day
             views.append(view)
         }
 

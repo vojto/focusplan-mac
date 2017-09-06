@@ -11,6 +11,8 @@ import Cartography
 
 class DayHeaderView: NSView {
 
+    var date = Date() { didSet { update() } }
+
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         setup()
@@ -21,19 +23,28 @@ class DayHeaderView: NSView {
         setup()
     }
 
+    let primaryLabel = NSTextField(labelWithString: "")
+    let secondaryLabel = NSTextField(labelWithString: "")
+
     func setup() {
-        let label = NSTextField(labelWithString: "day label")
-        addSubview(label)
+        primaryLabel.font = NSFont.systemFont(ofSize: 14.0, weight: NSFontWeightRegular)
+        primaryLabel.textColor = NSColor(hex: "b1b3b8")
 
-        constrain(label) { label in
-            label.center == label.superview!.center
-        }
+        secondaryLabel.font = NSFont.systemFont(ofSize: 14.0, weight: NSFontWeightRegular)
+        secondaryLabel.textColor = NSColor(hex: "d3d4d7")
 
+
+        let spacer = NSView()
+
+        let stack = NSStackView(views: [primaryLabel, spacer, secondaryLabel])
+        stack.orientation = .horizontal
+
+        include(stack)
     }
 
-    override func draw(_ dirtyRect: NSRect) {
-        NSColor.yellow.set()
-        NSRectFill(bounds.insetBy(dx: 5.0, dy: 5.0))
+    func update() {
+        primaryLabel.stringValue = date.string(custom: "E")
+        secondaryLabel.stringValue = date.string(custom: "d")
     }
     
 }

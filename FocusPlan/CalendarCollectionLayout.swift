@@ -99,7 +99,7 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
     var topMargin: CGFloat {
         switch config.detail {
         case .daily: return 20.0
-        case .weekly: return 20.0
+        case .weekly: return 8.0
         }
     }
 
