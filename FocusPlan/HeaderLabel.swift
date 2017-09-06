@@ -41,7 +41,8 @@ class HeaderLabel: NSTextField {
 
         constrain(self) { title in
             title.left == title.superview!.left + 20
-            title.bottom == title.superview!.bottom - 20
+//            title.bottom == title.superview!.bottom - 20
+            title.top == title.superview!.top + 50.0
         }
     }
     

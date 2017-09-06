@@ -74,29 +74,32 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
         let hours = (dayEnd - dayStart) / (60 * 60)
         
         let height = CGFloat(hours * hourHeight)
-        
+
+//        Swift.print("🔥 Content size: \(width) x \(height)")
+
         return NSSize(width: width, height: height)
     }
 
+    static let kWeeklySideMargin: CGFloat = 20.0
     
     var leftMargin: CGFloat {
         switch config.detail {
         case .daily: return 50.0
-        case .weekly: return 20.0
+        case .weekly: return CalendarCollectionLayout.kWeeklySideMargin
         }
     }
 
     var rightMargin: CGFloat {
         switch config.detail {
         case .daily: return 30.0
-        case .weekly: return 20.0
+        case .weekly: return CalendarCollectionLayout.kWeeklySideMargin
         }
     }
 
     var topMargin: CGFloat {
         switch config.detail {
         case .daily: return 20.0
-        case .weekly: return 110.0
+        case .weekly: return 20.0
         }
     }
 
@@ -344,7 +347,12 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
         
         return NSRect(x: x, y: 0, width: sectionWidth, height: innerFrame.size.height)
     }
-    
+
+    // MARK: - Header
+    // ------------------------------------------------------------------------
+
+
+
     // MARK: - Timestamps for events
     // ------------------------------------------------------------------------
     

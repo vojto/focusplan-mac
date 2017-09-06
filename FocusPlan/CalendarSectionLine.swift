@@ -11,7 +11,8 @@ import AppKit
 
 class CalendarSectionLine: NSView, NSCollectionViewElement {
     override func draw(_ dirtyRect: NSRect) {
-        NSColor.quaternaryLabelColor.set()
+        Stylesheet.secondaryBorder.set()
+
         
         let lineRect = NSRect(x: 0, y: 0, width: 1, height: bounds.size.height)
         

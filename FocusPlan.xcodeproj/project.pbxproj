@@ -114,6 +114,8 @@
 		99B610161EB0602A0098F69C /* ProjectTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B610151EB0602A0098F69C /* ProjectTableCellView.swift */; };
 		99BBB0241EB8BFB5002C603F /* TimerLane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BBB0231EB8BFB5002C603F /* TimerLane.swift */; };
 		99BBB0271EB8C270002C603F /* Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BBB0261EB8C270002C603F /* Formatting.swift */; };
+		99C26C271F5FC5DC00D649A9 /* DayHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C26C261F5FC5DC00D649A9 /* DayHeaderView.swift */; };
+		99C26C291F5FC62D00D649A9 /* BorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C26C281F5FC62D00D649A9 /* BorderView.swift */; };
 		99C9A4241EC988D200AFF489 /* SwiftCSV.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99C9A4231EC988D200AFF489 /* SwiftCSV.framework */; };
 		99C9A4251EC988D600AFF489 /* SwiftCSV.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99C9A4231EC988D200AFF489 /* SwiftCSV.framework */; };
 		99C9A4261EC988D600AFF489 /* SwiftCSV.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 99C9A4231EC988D200AFF489 /* SwiftCSV.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -292,6 +294,8 @@
 		99B610151EB0602A0098F69C /* ProjectTableCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectTableCellView.swift; sourceTree = "<group>"; };
 		99BBB0231EB8BFB5002C603F /* TimerLane.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerLane.swift; sourceTree = "<group>"; };
 		99BBB0261EB8C270002C603F /* Formatting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Formatting.swift; sourceTree = "<group>"; };
+		99C26C261F5FC5DC00D649A9 /* DayHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayHeaderView.swift; sourceTree = "<group>"; };
+		99C26C281F5FC62D00D649A9 /* BorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderView.swift; sourceTree = "<group>"; };
 		99C9A4231EC988D200AFF489 /* SwiftCSV.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftCSV.framework; path = Carthage/Build/Mac/SwiftCSV.framework; sourceTree = "<group>"; };
 		99D122EA1EB86D6C00D495DC /* CalendarEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarEvent.swift; sourceTree = "<group>"; };
 		99D122EC1EB8729A00D495DC /* TimerEntry+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TimerEntry+Extensions.swift"; sourceTree = "<group>"; };
@@ -480,6 +484,7 @@
 				998352D41EC4597300303E7D /* ClickableLabel.swift */,
 				998352DF1EC4A28200303E7D /* CustomTableRowView.swift */,
 				9946F6291F5E7EDB009F914D /* HeaderLabel.swift */,
+				99C26C281F5FC62D00D649A9 /* BorderView.swift */,
 			);
 			name = "Shared Views";
 			sourceTree = "<group>";
@@ -677,12 +682,21 @@
 			name = Extensions;
 			sourceTree = "<group>";
 		};
+		99C26C251F5FC5CA00D649A9 /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				9946F6271F5E7E41009F914D /* CalendarHeaderView.swift */,
+				99C26C261F5FC5DC00D649A9 /* DayHeaderView.swift */,
+			);
+			name = Header;
+			sourceTree = "<group>";
+		};
 		99D8C80D1EB3B50000EA5001 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
 				99D8C80E1EB3B51800EA5001 /* CalendarViewController.swift */,
 				99D8C80F1EB3B51800EA5001 /* CalendarViewController.xib */,
-				9946F6271F5E7E41009F914D /* CalendarHeaderView.swift */,
+				99C26C251F5FC5CA00D649A9 /* Header */,
 				998A0C3B1EC05712006CC99E /* CalendarCollectionView.swift */,
 				99D8C8121EB3B6B600EA5001 /* CalendarCollectionItem.swift */,
 				991AEBF11F5D209C00A7ECE2 /* CalendarCollectionItemStyle.swift */,
@@ -983,6 +997,7 @@
 				9932F5931F0A5A82002844F1 /* ProjectFieldTipCell.swift in Sources */,
 				991AEBEC1F5D1D3F00A7ECE2 /* CalendarCollectionItemView+Drawing.swift in Sources */,
 				99D8C80C1EB3A16D00EA5001 /* NSManagedObjectModel+Extensions.swift in Sources */,
+				99C26C291F5FC62D00D649A9 /* BorderView.swift in Sources */,
 				994208381EC2FF5600CB4D4E /* MenubarController.swift in Sources */,
 				99D122ED1EB8729A00D495DC /* TimerEntry+Extensions.swift in Sources */,
 				99D122EB1EB86D6C00D495DC /* CalendarEvent.swift in Sources */,
@@ -1026,6 +1041,7 @@
 				9933E49E1EB9C84600B1CE85 /* CalendarCollectionItemView.swift in Sources */,
 				99D122EF1EB8A6C500D495DC /* MainWindowDelegate.swift in Sources */,
 				99B026DD1EBCA13200533FE3 /* SelectingTextField.swift in Sources */,
+				99C26C271F5FC5DC00D649A9 /* DayHeaderView.swift in Sources */,
 				991AEBF21F5D209C00A7ECE2 /* CalendarCollectionItemStyle.swift in Sources */,
 				99B026E11EBCBA4D00533FE3 /* BackgroundView.swift in Sources */,
 				9946F62A1F5E7EDB009F914D /* HeaderLabel.swift in Sources */,

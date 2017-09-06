@@ -19,9 +19,14 @@ enum CalendarDecorationSection: Int {
 
 class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCollectionViewDelegate, NSPopoverDelegate {
 
+    let kHeaderHeight: CGFloat = 120.0
+
     @IBOutlet var collectionView: CalendarCollectionView!
     let collectionLayout = CalendarCollectionLayout()
 
+    @IBOutlet weak var headerContainer: NSView!
+    @IBOutlet weak var headerHeight: NSLayoutConstraint!
+    
     @IBOutlet weak var summaryContainer: NSView!
     let summaryRowController = SummaryRowViewController()
     
@@ -46,7 +51,8 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
         }
         
         didSet {
-            updateLayout()
+            updateViews()
+            updateHeaderView()
             reloadData()
             restoreScrollPosition()
         }
@@ -83,7 +89,8 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        updateLayout()
+        updateViews()
+
         
         collectionView.collectionViewLayout = collectionLayout
         collectionView.onDoubleClick = handleDoubleClick
@@ -109,6 +116,7 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
         
         DispatchQueue.main.async {
             self.restoreScrollPosition()
+            self.collectionView.enclosingScrollView?.scrollerStyle = .overlay
         }
     }
     
@@ -128,11 +136,24 @@ class CalendarViewController: NSViewController, NSCollectionViewDataSource, NSCo
         self.collectionView.reloadData()
     }
 
-    // MARK: - Managing layout of the calendar view
+    // MARK: - Managing views
     // ------------------------------------------------------------------------
 
-    func updateLayout() {
-        
+    let headerView = CalendarHeaderView()
+
+    func updateViews() {
+        switch config.detail {
+        case .daily:
+            headerView.removeFromSuperview()
+            headerHeight.constant = 0
+        case .weekly:
+            headerHeight.constant = kHeaderHeight
+            headerContainer.include(headerView)
+        }
+    }
+
+    func updateHeaderView() {
+        headerView.config = config
     }
     
     // MARK: - Scrolling
