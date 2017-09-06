@@ -52,13 +52,13 @@ class CalendarHeaderView: NSView {
 
     func update() {
         var views = [DayHeaderView]()
-//
-//        for day in config!.days {
-//            let view = DayHeaderView()
-//            views.append(view)
-//        }
-//
-//        daysStack.setViews(views, in: .leading)
+
+        for day in config!.days {
+            let view = DayHeaderView()
+            views.append(view)
+        }
+
+        daysStack.setViews(views, in: .leading)
 
     }
     
