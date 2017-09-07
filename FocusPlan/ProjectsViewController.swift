@@ -77,7 +77,6 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     
     override func viewDidAppear() {
         disposable += observer.objects.producer.startWithValues { projects in
-            Swift.print("🍁 Projects changed to \(projects.count) projects in the sidebar!")
             self.projects = projects
         }
         
