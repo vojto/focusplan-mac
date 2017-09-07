@@ -103,6 +103,7 @@
 		99A762681EB1C2CD00A90AE9 /* NiceUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99A762671EB1C2CD00A90AE9 /* NiceUI.framework */; };
 		99A762691EB1C2D000A90AE9 /* NiceUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99A762671EB1C2CD00A90AE9 /* NiceUI.framework */; };
 		99A7626A1EB1C2D000A90AE9 /* NiceUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 99A762671EB1C2CD00A90AE9 /* NiceUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		99A79AFC1F6111800008BDA8 /* Testing.xib in Resources */ = {isa = PBXBuildFile; fileRef = 99A79AFB1F6111800008BDA8 /* Testing.xib */; };
 		99B026D41EBC675F00533FE3 /* CalendarEventsCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B026D31EBC675F00533FE3 /* CalendarEventsCollection.swift */; };
 		99B026D61EBC7E9300533FE3 /* Sequence+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B026D51EBC7E9300533FE3 /* Sequence+Extensions.swift */; };
 		99B026DA1EBC941100533FE3 /* EditTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B026D81EBC941100533FE3 /* EditTaskViewController.swift */; };
@@ -284,6 +285,7 @@
 		999E650C1EB362780001AAB7 /* PlanViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlanViewController.xib; sourceTree = "<group>"; };
 		99A24EA61EB3591300C3F229 /* Palette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
 		99A762671EB1C2CD00A90AE9 /* NiceUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NiceUI.framework; path = Carthage/Build/Mac/NiceUI.framework; sourceTree = "<group>"; };
+		99A79AFB1F6111800008BDA8 /* Testing.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Testing.xib; sourceTree = "<group>"; };
 		99B026D31EBC675F00533FE3 /* CalendarEventsCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarEventsCollection.swift; sourceTree = "<group>"; };
 		99B026D51EBC7E9300533FE3 /* Sequence+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Sequence+Extensions.swift"; sourceTree = "<group>"; };
 		99B026D81EBC941100533FE3 /* EditTaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditTaskViewController.swift; sourceTree = "<group>"; };
@@ -686,6 +688,7 @@
 			isa = PBXGroup;
 			children = (
 				9946F6271F5E7E41009F914D /* CalendarHeaderView.swift */,
+				99A79AFB1F6111800008BDA8 /* Testing.xib */,
 				99C26C261F5FC5DC00D649A9 /* DayHeaderView.swift */,
 			);
 			name = Header;
@@ -885,6 +888,7 @@
 				990A180A1EAF3D2300DCE839 /* ProjectsViewController.xib in Resources */,
 				99169FEA1ED5EBFF00BFB4F2 /* TrialButtonViewController.xib in Resources */,
 				994F0A261EC588DE00562B7A /* PreferencesController.xib in Resources */,
+				99A79AFC1F6111800008BDA8 /* Testing.xib in Resources */,
 				99B026DB1EBC941100533FE3 /* EditTaskViewController.xib in Resources */,
 				990A18061EAF3C5A00DCE839 /* MainMenu.xib in Resources */,
 				99D8C8111EB3B51800EA5001 /* CalendarViewController.xib in Resources */,
