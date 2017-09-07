@@ -11,6 +11,8 @@ import Cartography
 
 class CalendarHeaderView: NSView {
 
+    let headerLabel = HeaderLabel(text: "This week")
+
     var config: PlanConfig? {
         didSet {
             update()
@@ -37,8 +39,7 @@ class CalendarHeaderView: NSView {
     }
 
     func setupHeader() {
-        let label = HeaderLabel(text: "This week")
-        label.addToHeaderRow(view: self)
+        headerLabel.addToHeaderRow(view: self)
     }
 
     func setupBorder() {
@@ -63,9 +64,9 @@ class CalendarHeaderView: NSView {
         let prevImage = NSImage(named: NSImageNameGoLeftTemplate)!
         let nextImage = NSImage(named: NSImageNameGoRightTemplate)!
 
-        let prevButton = NSButton(image: prevImage, target: nil, action: nil)
-        let todayButton = NSButton(title: "Today", target: nil, action: nil)
-        let nextButton = NSButton(image: nextImage, target: nil, action: nil)
+        let prevButton = NSButton(image: prevImage, target: nil, action: #selector(MainWindow.previousUnit))
+        let todayButton = NSButton(title: "Today", target: nil, action: #selector(MainWindow.resetUnit))
+        let nextButton = NSButton(image: nextImage, target: nil, action: #selector(MainWindow.nextUnit))
 
         let buttons = [prevButton, todayButton, nextButton]
 
@@ -91,7 +92,10 @@ class CalendarHeaderView: NSView {
         }
 
         daysStack.setViews(views, in: .leading)
+    }
 
+    func setTitle(_ title: String) {
+        headerLabel.text = title
     }
     
 }

@@ -87,6 +87,10 @@ class MainWindow: NSWindow, NSToolbarDelegate {
     @IBAction func previousUnit(_ sender: Any) {
         planController.updateRange(change: -1)
     }
+
+    @IBAction func resetUnit(_ sender: Any) {
+        planController.switchToToday()
+    }
     
     @IBAction func showProjects(_ sender: Any) {
     }

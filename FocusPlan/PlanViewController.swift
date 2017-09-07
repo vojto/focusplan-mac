@@ -173,11 +173,8 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
                 title = "Week of " + date.startOf(component: .weekOfYear).string(custom: "MMM d, YYYY")
             }
         }
-    }
-    
-    
-    func switchToToday() {
-        config.date = Date()
+
+        calendarController.headerView.setTitle(title)
     }
     
     
@@ -432,14 +429,6 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
     // MARK: - Changing the config
     // -----------------------------------------------------------------------
     
-    @IBAction func previousUnit(_ sender: Any) {
-        updateRange(change: -1)
-    }
-    
-    @IBAction func nextUnit(_ sender: Any) {
-        updateRange(change: 1)
-    }
-    
     func updateRange(change units: Int) {
         let date: Date
         
@@ -451,6 +440,10 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
         }
         
         config.date = date
+    }
+
+    func switchToToday() {
+        config.date = Date()
     }
     
 }
