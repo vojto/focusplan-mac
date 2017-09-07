@@ -23,11 +23,15 @@ class PlanViewController: NSViewController, NSSplitViewDelegate {
     
     var config = PlanConfig.defaultConfig {
         didSet {
-            updateObservers()
             updateLayout()
-            calendarController.config = config
-            calendarController.summaryRowController.config = config
-            updateCalendarWithLastValues()
+
+            self.calendarController.config = self.config
+            self.calendarController.summaryRowController.config = self.config
+            self.updateCalendarWithLastValues()
+
+            DispatchQueue.main.async {
+                self.updateObservers()
+            }
         }
     }
     
