@@ -142,17 +142,19 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
                 attributes.append(attribute)
             }
         }
+
+        // Hour labels
+        let countLabels = Int(dayDuration / labelEvery)
+        for i in 0...countLabels {
+            let path = IndexPath(item: i, section: 0)
+            if let attribute = layoutAttributesForSupplementaryView(ofKind: kHourHeader, at: path) {
+                attributes.append(attribute)
+            }
+        }
         
 
         if config.style != .plan {
-            // Hour labels
-            let countLabels = Int(dayDuration / labelEvery)
-            for i in 0...countLabels {
-                let path = IndexPath(item: i, section: 0)
-                if let attribute = layoutAttributesForSupplementaryView(ofKind: kHourHeader, at: path) {
-                    attributes.append(attribute)
-                }
-            }
+
             
             // Current hour label
             if let timeLine = layoutAttributesForDecorationView(ofKind: kTimeLine, at: IndexPath(item: 0, section: CalendarDecorationSection.hourLine.rawValue)) {

@@ -48,7 +48,6 @@ class DayHeaderView: NSView {
         let stack = NSStackView(views: [primaryStack, spacer, secondaryLabel])
         stack.orientation = .horizontal
 
-//        include(stack)
         include(stack, insets: EdgeInsets(top: 0, left: 2.0, bottom: 0, right: 2.0))
     }
 

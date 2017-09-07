@@ -31,8 +31,7 @@ class CalendarHourHeader: NSView, NSCollectionViewElement {
         let size = bounds.size
         let lineRect = NSRect(x: 0, y: size.height - 1, width: size.width, height: 1)
 
-        let color = NSColor(hexString: "F1F1F1")!
-        color.setFill()
+        Stylesheet.secondaryBorder.setFill()
 
         NSRectFill(lineRect)
     }
