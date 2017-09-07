@@ -10,7 +10,7 @@ import Foundation
 import AppKit
 
 class Stylesheet {
-    static let primaryColor = "3D4AC6"
+    static let primaryColor = NSColor(hex: "3d4ac6")
 
     static let headerRowHeight: CGFloat = 90.0
 

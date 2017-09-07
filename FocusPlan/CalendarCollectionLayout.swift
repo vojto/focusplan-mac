@@ -64,8 +64,13 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
     // MARK: - Getting content frame
     // ------------------------------------------------------------------------
     
-    let hourHeight = Double(100)
-    
+    var hourHeight: Double {
+        switch config.detail {
+        case .daily: return 100.0
+        case .weekly: return 75.0
+        }
+    }
+
     override var collectionViewContentSize: NSSize {
         guard let collectionView = self.collectionView else { return NSZeroSize }
         
@@ -74,8 +79,6 @@ class CalendarCollectionLayout: NSCollectionViewLayout {
         let hours = (dayEnd - dayStart) / (60 * 60)
         
         let height = CGFloat(hours * hourHeight)
-
-//        Swift.print("🔥 Content size: \(width) x \(height)")
 
         return NSSize(width: width, height: height)
     }

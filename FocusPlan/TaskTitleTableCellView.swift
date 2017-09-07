@@ -254,7 +254,7 @@ class TaskTitleTableCellView: EditableTableCellView {
     
     func createAttributedString(forTitle title: String, project: Project?, isFinished: Bool) -> NSAttributedString {
         let projectName = project?.name ?? ""
-        let projectColor = Palette.decode(colorName: project?.color) ?? NSColor(hexString: Stylesheet.primaryColor)!
+        let projectColor = Palette.decode(colorName: project?.color) ?? Stylesheet.primaryColor
         
         let resultAttr = NSMutableAttributedString()
         
