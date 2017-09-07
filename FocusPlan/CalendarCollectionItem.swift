@@ -137,7 +137,7 @@ class CalendarCollectionItem: NSCollectionViewItem {
             self.leftConstraint = (stack.left == stack.superview!.left + 6.0)
             self.rightConstraint = (stack.right == stack.superview!.right - 6.0)
             stack.top == stack.superview!.top + 8.0
-            stack.bottom == stack.superview!.bottom - 8.0 ~ 100
+            stack.bottom == stack.superview!.bottom - 8.0 ~ 750
         }
 
         setupCustomView()
