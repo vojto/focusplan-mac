@@ -39,7 +39,8 @@ class ProjectsOutlineView: EditableOutlineView {
         
         return super.make(withIdentifier: identifier, owner: owner)
     }
-    
+
+    /*
     override open func mouseDown(with event: NSEvent) {
         let point    = convert(event.locationInWindow, from: nil)
         let columnIndex = self.column(at: point)
@@ -65,11 +66,12 @@ class ProjectsOutlineView: EditableOutlineView {
         super.mouseDown(with: event)
      
         
-        if event.clickCount == 2 {
-            if rowIndex >= 1 {
-                edit(at: rowIndex, column: 0)
-            }
-        }
+//        if event.clickCount == 2 {
+//            if rowIndex >= 1 {
+//                edit(at: rowIndex, column: 0)
+//            }
+//        }
     }
+     */
  
 }

@@ -113,8 +113,6 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     }
     
     func outlineView(_ outlineView: NSOutlineView, shouldCollapseItem item: Any) -> Bool {
-        Swift.print("Should collapse item [\(item)]?")
-        
         return true
     }
     
@@ -164,13 +162,6 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
             view.project.value = project
             
             var name = project.name ?? ""
-            
-            if name == "" {
-                name = "untitled"
-                view.textField?.alpha = 0.5
-            } else {
-                view.textField?.alpha = 1
-            }
             
             view.textField?.stringValue = name
             
@@ -280,6 +271,8 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
         project.isFolder = true
         
         try! context.save()
+
+        selectAndEdit(project: project)
         
     }
     
@@ -293,24 +286,19 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
         }
     }
 
-    // TODO: Refactor this so it uses node(matching) method
     func indexPath(forProject project: Project) -> IndexPath? {
-        let node = self.node(matching: {
-            if let projectItem = $0 as? ProjectItem {
-                if projectItem.project == project {
-                    return true
-                }
-            }
+        return node(forProject: project)?.indexPath
+    }
 
-            return false
+    func node(forProject project: Project) -> NSTreeNode? {
+        return self.node(matching: {
+            ($0 as? ProjectItem)?.project == project
         })
-
-        return node?.indexPath
     }
 
     func node(matching: ((Item) -> (Bool))) -> NSTreeNode? {
-        for i in 0...(outlineView.numberOfRows-1) {
-            guard let node = outlineView.item(atRow: i) as? NSTreeNode else { continue }
+        for item in collectAllItems() {
+            guard let node = item as? NSTreeNode else { continue }
 
             if let item = node.representedObject as? Item {
                 if matching(item) {
@@ -320,6 +308,26 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
         }
 
         return nil
+    }
+
+    func collectAllItems() -> [Any] {
+        return collectAllItems(startingAt: nil)
+    }
+
+    func collectAllItems(startingAt item: Any?) -> [Any] {
+        let count = outlineView.numberOfChildren(ofItem: item)
+
+        var items = [Any]()
+
+        for i in 0..<count {
+
+            let childItem = outlineView.child(i, ofItem: item)
+            items.append(childItem)
+
+            items += self.collectAllItems(startingAt: childItem)
+        }
+
+        return items
     }
     
     func editSelected() {
@@ -498,14 +506,15 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     }
     
     func outlineView(_ outlineView: NSOutlineView, acceptDrop info: NSDraggingInfo, item: Any?, childIndex index: Int) -> Bool {
-        
+
         let draggedItem = self.draggedItem
         self.draggedItem = nil
-        
+
+
         guard let projectItem = draggedItem as? ProjectItem else { return false }
         guard let targetItem = (item as? NSTreeNode)?.representedObject as? Item else { return false }
-        
-        
+
+
         let context = AppDelegate.viewContext
         let undoManager = AppDelegate.undoManager
         
@@ -558,10 +567,11 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
         undoManager.endUndoGrouping()
         
         observer.fetch()
-        
+
         DispatchQueue.main.async {
-            if let indexPath = self.indexPath(forProject: project) {
-                self.treeController.setSelectionIndexPath(indexPath)
+            if let node = self.node(forProject: project) {
+                self.outlineView.expandItem(node)
+                self.treeController.setSelectionIndexPath(node.indexPath)
             }
         }
         
