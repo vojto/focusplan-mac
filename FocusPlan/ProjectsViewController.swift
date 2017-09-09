@@ -39,9 +39,8 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     var projects = [Project]() {
         didSet {
             backlogHeaderItem.children = projects.map { ProjectItem(project: $0) }
-            let paths = treeController.selectionIndexPaths
+
             treeController.content = rootItem.children
-            treeController.setSelectionIndexPaths(paths)
 
             expandBacklog()
 
@@ -75,8 +74,6 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
         let selected = treeController.reactive.producer(forKeyPath: #keyPath(NSTreeController.selectedObjects))
         
         selectedItem <~ selected.map { ($0 as? [Item])?.first }
-
-
     }
 
     override func viewDidAppear() {
