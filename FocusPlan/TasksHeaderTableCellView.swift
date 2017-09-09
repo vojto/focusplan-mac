@@ -8,6 +8,7 @@
 
 import Cocoa
 import Cartography
+import NiceUI
 
 class TasksHeaderTableCellView: NSTableCellView {
 
@@ -29,7 +30,6 @@ class TasksHeaderTableCellView: NSTableCellView {
 
         self.textField = title
 
-        /*
         let picker = ColorPicker()
         addSubview(picker)
 
@@ -41,6 +41,5 @@ class TasksHeaderTableCellView: NSTableCellView {
             view.centerY == title.centerY
 
         }
-         */
     }
 }
