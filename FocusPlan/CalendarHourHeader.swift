@@ -14,8 +14,6 @@ class CalendarHourHeader: NSView, NSCollectionViewElement {
     @IBOutlet weak var textField: NSTextField!
 
     override func awakeFromNib() {
-        Swift.print("setting up hour header!")
-
         textField.alignment = .right
 
         constrain(textField) { field in

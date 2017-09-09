@@ -9,6 +9,7 @@
 import Foundation
 import AppKit
 import ReactiveSwift
+import Cartography
 
 class BacklogViewController: NSViewController {
     lazy var tasksController = {
@@ -57,11 +58,48 @@ class BacklogViewController: NSViewController {
             self.createTask()
         }
 
-
+        tasksController.headerView.producer.skipRepeats({ $0 === $1 }).startWithValues { view in
+            if let view = view {
+                self.setupColorPicker(inView: view)
+            }
+        }
         
         
         // Setup the view
         mainView.include(tasksController.view)
+    }
+
+    let picker = ProjectColorPicker()
+
+    func setupColorPicker(inView view: TasksHeaderTableCellView) {
+
+        view.addSubview(picker)
+
+        picker.colors = Palette.colors.map { NSColor(hexString: $0.area0)! }
+        picker.selectedColor = picker.colors.first
+        picker.wantsAuto = false
+
+        picker.onChange = { nsColor in
+            Swift.print("Picker changed color!")
+
+            guard let colorName = Palette.encode(color: nsColor) else { assertionFailure(); return }
+            self.selectedProject.value?.color = colorName
+
+            Swift.print("Updating projects [\(self.selectedProject.value)] color to \(colorName)")
+        }
+
+        let color = selectedProject.producer.pick { $0.reactive.color }
+        color.startWithValues { colorName in
+            guard let nsColor = Palette.decode(colorName: colorName) else { return }
+            self.picker.selectedColor = nsColor
+        }
+
+        constrain(picker, view.titleLabel) { picker, title in
+            picker.width == 20.0
+            picker.height == 20.0
+            picker.left == title.right + 8.0
+            picker.centerY == title.centerY
+        }
     }
     
     func createTask() {

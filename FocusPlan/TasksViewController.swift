@@ -50,8 +50,9 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
     
     @IBOutlet var listMenu: NSMenu!
     @IBOutlet weak var listOptionsButton: NSButton!
-    
-    
+
+    let headerView = MutableProperty<TasksHeaderTableCellView?>(nil)
+
     var onCreate: (() -> ())?
     
     // MARK: - Lifecycle
@@ -175,6 +176,7 @@ class TasksViewController: NSViewController, NSOutlineViewDataSource, NSOutlineV
         if column === taskColumn {
             guard let view = outlineView.make(withIdentifier: "HeaderCell", owner: self) as? TasksHeaderTableCellView else { assertionFailure(); return nil }
             view.textField?.stringValue = self.heading
+            self.headerView.value = view
             return view
         }
         return nil // no header view for now

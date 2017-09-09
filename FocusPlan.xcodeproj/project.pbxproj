@@ -91,6 +91,7 @@
 		998746CA1EB360320079215B /* BacklogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998746C91EB360320079215B /* BacklogViewController.swift */; };
 		998939021F63AD1A003E0CD5 /* NiceUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 998939011F63AD0C003E0CD5 /* NiceUI.framework */; };
 		998939031F63AD1A003E0CD5 /* NiceUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 998939011F63AD0C003E0CD5 /* NiceUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		998939071F63AFE8003E0CD5 /* ProjectColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998939061F63AFE8003E0CD5 /* ProjectColorPicker.swift */; };
 		998A0C3C1EC05712006CC99E /* CalendarCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998A0C3B1EC05712006CC99E /* CalendarCollectionView.swift */; };
 		998AC3681EC61B1600559CB6 /* ReadOmnifocus.scpt in Resources */ = {isa = PBXBuildFile; fileRef = 998AC3671EC61B0A00559CB6 /* ReadOmnifocus.scpt */; };
 		998AC36A1EC61D7200559CB6 /* ScriptingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998AC3691EC61D7200559CB6 /* ScriptingManager.swift */; };
@@ -287,6 +288,7 @@
 		9983F9081EC0B5B0005E624A /* EditTimerEntryController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditTimerEntryController.xib; sourceTree = "<group>"; };
 		998746C91EB360320079215B /* BacklogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BacklogViewController.swift; sourceTree = "<group>"; };
 		998938FC1F63AD0C003E0CD5 /* NiceUI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = NiceUI.xcodeproj; path = ../NiceUI/NiceUI.xcodeproj; sourceTree = "<group>"; };
+		998939061F63AFE8003E0CD5 /* ProjectColorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectColorPicker.swift; sourceTree = "<group>"; };
 		998A0C3B1EC05712006CC99E /* CalendarCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarCollectionView.swift; sourceTree = "<group>"; };
 		998AC3671EC61B0A00559CB6 /* ReadOmnifocus.scpt */ = {isa = PBXFileReference; lastKnownFileType = file; path = ReadOmnifocus.scpt; sourceTree = "<group>"; };
 		998AC3691EC61D7200559CB6 /* ScriptingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScriptingManager.swift; sourceTree = "<group>"; };
@@ -625,6 +627,7 @@
 			children = (
 				998746C91EB360320079215B /* BacklogViewController.swift */,
 				999E65081EB361B20001AAB7 /* BacklogViewController.xib */,
+				998939061F63AFE8003E0CD5 /* ProjectColorPicker.swift */,
 			);
 			name = Backlog;
 			sourceTree = "<group>";
@@ -1093,6 +1096,7 @@
 				999576181F04F4FA00DBED9B /* NiceClickGestureRecognizer.swift in Sources */,
 				991E7B361EB0B9660086A9D9 /* TaskEstimateTableCellView.swift in Sources */,
 				9933E4A01EBA13CF00B1CE85 /* CalendarSectionLine.swift in Sources */,
+				998939071F63AFE8003E0CD5 /* ProjectColorPicker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

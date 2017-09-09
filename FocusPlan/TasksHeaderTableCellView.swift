@@ -8,9 +8,10 @@
 
 import Cocoa
 import Cartography
-import NiceUI
 
 class TasksHeaderTableCellView: NSTableCellView {
+
+    let titleLabel = HeaderLabel()
 
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
@@ -25,21 +26,8 @@ class TasksHeaderTableCellView: NSTableCellView {
     }
     
     func setup() {
-        let title = HeaderLabel()
-        title.addToHeaderRow(view: self)
+        titleLabel.addToHeaderRow(view: self)
 
-        self.textField = title
-
-        let picker = ColorPicker()
-        addSubview(picker)
-
-        constrain(picker, title) { view, title in
-            view.width == 20.0
-            view.height == 20.0
-
-            view.left == title.right + 8.0
-            view.centerY == title.centerY
-
-        }
+        self.textField = titleLabel
     }
 }
