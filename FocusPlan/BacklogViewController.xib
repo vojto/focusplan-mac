@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13189.4" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12120"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13189.4"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="BacklogViewController" customModule="FocusPlan" customModuleProvider="target">
             <connections>
                 <outlet property="mainView" destination="SDF-M7-2cw" id="cPM-SA-FUF"/>
-                <outlet property="sidebarView" destination="yAr-vP-AX9" id="P9t-rN-ecM"/>
                 <outlet property="view" destination="V2C-pB-lVt" id="Z5e-Rh-SqA"/>
             </connections>
         </customObject>
@@ -19,15 +18,8 @@
             <rect key="frame" x="0.0" y="0.0" width="611" height="469"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <customView id="yAr-vP-AX9">
-                    <rect key="frame" x="0.0" y="0.0" width="153" height="469"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                    <constraints>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="6qQ-dj-8Eh"/>
-                    </constraints>
-                </customView>
                 <customView id="SDF-M7-2cw">
-                    <rect key="frame" x="154" y="0.0" width="457" height="469"/>
+                    <rect key="frame" x="0.0" y="0.0" width="611" height="469"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="MzA-BR-Hon"/>
@@ -36,7 +28,6 @@
             </subviews>
             <holdingPriorities>
                 <real value="232"/>
-                <real value="85"/>
             </holdingPriorities>
             <point key="canvasLocation" x="160.5" y="201.5"/>
         </splitView>

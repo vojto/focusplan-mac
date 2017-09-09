@@ -16,7 +16,6 @@ class BacklogViewController: NSViewController {
     }()
     
     @IBOutlet weak var mainView: NSView!
-    @IBOutlet weak var sidebarView: NSView!
     
     let selectedProject = MutableProperty<Project?>(nil)
     
@@ -57,6 +56,9 @@ class BacklogViewController: NSViewController {
         tasksController.onCreate = {
             self.createTask()
         }
+
+
+        
         
         // Setup the view
         mainView.include(tasksController.view)

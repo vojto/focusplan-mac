@@ -329,8 +329,6 @@ class TaskTitleTableCellView: EditableTableCellView {
     }
     
     func startEditing(animated: Bool) {
-        Swift.print("🔥 Going to start editing")
-
         if isEditing {
             return
         }
