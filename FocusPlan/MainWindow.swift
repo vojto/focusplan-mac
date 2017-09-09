@@ -71,13 +71,12 @@ class MainWindow: NSWindow, NSToolbarDelegate {
         }
     }
 
-    
     @IBAction func showDailyPlan(_ sender: Any) {
-        showPlan(detail: .daily)
+        projectsController.selectHeader(type: .today)
     }
     
     @IBAction func showWeeklyPlan(_ sender: Any) {
-        showPlan(detail: .weekly)
+        projectsController.selectHeader(type: .next)
     }
     
     @IBAction func nextUnit(_ sender: Any) {
@@ -113,14 +112,13 @@ class MainWindow: NSWindow, NSToolbarDelegate {
             switch detail {
             case .daily:
                 planController.config.detail = .daily
-                
+
             case .weekly:
                 planController.config.detail = .weekly
             }
         }
     }
-    
-    
+
     @IBAction func createTask(_ sender: Any) {
         if !backlogController.view.isHidden {
             backlogController.createTask()

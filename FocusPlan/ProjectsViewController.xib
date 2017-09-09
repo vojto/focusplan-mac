@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13122.19" systemVersion="16F2073" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13189.4" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13122.19"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13189.4"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -28,7 +28,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="259" height="441"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" autosaveName="Projects" rowHeight="30" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" autosaveExpandedItems="YES" outlineTableColumn="xwc-hO-G0q" id="Tx9-BQ-pkP" customClass="ProjectsOutlineView" customModule="FocusPlan" customModuleProvider="target">
+                            <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" columnReordering="NO" columnResizing="NO" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" autosaveName="Projects" rowHeight="30" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" autosaveExpandedItems="YES" outlineTableColumn="xwc-hO-G0q" id="Tx9-BQ-pkP" customClass="ProjectsOutlineView" customModule="FocusPlan" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="259" height="386"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="2" height="3"/>
@@ -183,7 +183,7 @@
             </connections>
             <point key="canvasLocation" x="151" y="591"/>
         </menu>
-        <treeController childrenKeyPath="children" countKeyPath="childCount" leafKeyPath="isLeaf" avoidsEmptySelection="NO" id="MYY-at-32m"/>
+        <treeController childrenKeyPath="children" countKeyPath="childCount" leafKeyPath="isLeaf" id="MYY-at-32m"/>
         <menu id="riQ-aK-NLd">
             <items>
                 <menuItem title="New Project" id="hYw-dT-8T6">

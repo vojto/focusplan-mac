@@ -58,6 +58,9 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
     @IBOutlet weak var outlineView: ProjectsOutlineView!
     
     var disposable = CompositeDisposable()
+
+    // MARK: - Lifecycle
+    // ------------------------------------------------------------------------
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,9 +75,10 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
         let selected = treeController.reactive.producer(forKeyPath: #keyPath(NSTreeController.selectedObjects))
         
         selectedItem <~ selected.map { ($0 as? [Item])?.first }
+
+
     }
 
-    
     override func viewDidAppear() {
         disposable += observer.objects.producer.startWithValues { projects in
             self.projects = projects
@@ -90,6 +94,32 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
         menuNeedsUpdate(contextMenu)
         
         reflectCollapseStatus()
+
+        selectInitialHeader()
+    }
+
+    deinit {
+        disposable.dispose()
+    }
+
+    // MARK: - Selecting rows
+    // ------------------------------------------------------------------------
+
+    /** Selects header item that should be selected initially
+         when the controller loads. */
+    func selectInitialHeader() {
+        selectHeader(type: .today)
+    }
+
+    /** Selects header item matching `type` */
+    func selectHeader(type: HeaderItemType) {
+        let node = self.node { (item) -> (Bool) in
+            return (item as? HeaderItem)?.type == type
+        }
+
+        if let node = node {
+            treeController.setSelectionIndexPath(node.indexPath)
+        }
     }
     
     func ensureSelection() {
@@ -99,10 +129,7 @@ class ProjectsViewController: NSViewController, NSOutlineViewDataSource, NSOutli
             select(row: 1)
         }
     }
-    
-    deinit {
-        disposable.dispose()
-    }
+
     
     // MARK: - Outline view data source
     // ------------------------------------------------------------------------
