@@ -1,5 +1,4 @@
 github "vojto/NiceData" "master"
-github "vojto/NiceUI" "master"
 github "vojto/NiceReactive" "master"
 github "ReactiveCocoa/ReactiveSwift" "master"
 github "ReactiveCocoa/ReactiveCocoa" "master"

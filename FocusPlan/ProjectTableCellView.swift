@@ -9,7 +9,6 @@
 import Foundation
 import AppKit
 import NiceKit
-import NiceUI
 import ReactiveSwift
 import NiceReactive
 
@@ -20,7 +19,7 @@ class ProjectTableCellView: EditableTableCellView {
     
     let isExpanded = MutableProperty<Bool>(false)
     
-    @IBOutlet var colorPicker: ColorPicker?
+//    @IBOutlet var colorPicker: ColorPicker?
     @IBOutlet var iconButton: NSButton?
     
     override func awakeFromNib() {
@@ -55,6 +54,7 @@ class ProjectTableCellView: EditableTableCellView {
     }
     
     func setupColorPicker() {
+        /*
         guard let colorPicker = self.colorPicker else { return }
         
         colorPicker.colors = Palette.colors.map { NSColor(hexString: $0.area0)! }
@@ -70,6 +70,7 @@ class ProjectTableCellView: EditableTableCellView {
             guard let nsColor = Palette.decode(colorName: colorName) else { return }
             colorPicker.selectedColor = nsColor
         }
+         */
     }
     
     override func controlTextDidEndEditing(_ obj: Notification) {

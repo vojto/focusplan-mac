@@ -100,9 +100,6 @@
 		999E650D1EB362780001AAB7 /* PlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999E650B1EB362780001AAB7 /* PlanViewController.swift */; };
 		999E650E1EB362780001AAB7 /* PlanViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 999E650C1EB362780001AAB7 /* PlanViewController.xib */; };
 		99A24EA71EB3591300C3F229 /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A24EA61EB3591300C3F229 /* Palette.swift */; };
-		99A762681EB1C2CD00A90AE9 /* NiceUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99A762671EB1C2CD00A90AE9 /* NiceUI.framework */; };
-		99A762691EB1C2D000A90AE9 /* NiceUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99A762671EB1C2CD00A90AE9 /* NiceUI.framework */; };
-		99A7626A1EB1C2D000A90AE9 /* NiceUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 99A762671EB1C2CD00A90AE9 /* NiceUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		99A79AFC1F6111800008BDA8 /* Testing.xib in Resources */ = {isa = PBXBuildFile; fileRef = 99A79AFB1F6111800008BDA8 /* Testing.xib */; };
 		99B026D41EBC675F00533FE3 /* CalendarEventsCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B026D31EBC675F00533FE3 /* CalendarEventsCollection.swift */; };
 		99B026D61EBC7E9300533FE3 /* Sequence+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B026D51EBC7E9300533FE3 /* Sequence+Extensions.swift */; };
@@ -188,7 +185,6 @@
 				99B610121EB05D570098F69C /* Hue.framework in Embed Frameworks */,
 				994063C71EB7028A00E09165 /* SwiftDate.framework in Embed Frameworks */,
 				99C9A4261EC988D600AFF489 /* SwiftCSV.framework in Embed Frameworks */,
-				99A7626A1EB1C2D000A90AE9 /* NiceUI.framework in Embed Frameworks */,
 				997FFBD11EAF7DB200ABEA01 /* ReactiveSwift.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -284,7 +280,6 @@
 		999E650B1EB362780001AAB7 /* PlanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanViewController.swift; sourceTree = "<group>"; };
 		999E650C1EB362780001AAB7 /* PlanViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlanViewController.xib; sourceTree = "<group>"; };
 		99A24EA61EB3591300C3F229 /* Palette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
-		99A762671EB1C2CD00A90AE9 /* NiceUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NiceUI.framework; path = Carthage/Build/Mac/NiceUI.framework; sourceTree = "<group>"; };
 		99A79AFB1F6111800008BDA8 /* Testing.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Testing.xib; sourceTree = "<group>"; };
 		99B026D31EBC675F00533FE3 /* CalendarEventsCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarEventsCollection.swift; sourceTree = "<group>"; };
 		99B026D51EBC7E9300533FE3 /* Sequence+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Sequence+Extensions.swift"; sourceTree = "<group>"; };
@@ -341,14 +336,12 @@
 				99B610101EB05D550098F69C /* Hue.framework in Frameworks */,
 				9981EB371F0A41040044F9F5 /* NiceKit.framework in Frameworks */,
 				99C9A4251EC988D600AFF489 /* SwiftCSV.framework in Frameworks */,
-				99A762691EB1C2D000A90AE9 /* NiceUI.framework in Frameworks */,
 				994063C61EB7028500E09165 /* SwiftDate.framework in Frameworks */,
 				997FFBD61EAF7DB200ABEA01 /* Cartography.framework in Frameworks */,
 				997FFBCE1EAF7DB200ABEA01 /* ReactiveCocoa.framework in Frameworks */,
 				99C9A4241EC988D200AFF489 /* SwiftCSV.framework in Frameworks */,
 				99169FE31ED5DF5D00BFB4F2 /* KeychainAccess.framework in Frameworks */,
 				997FFBD01EAF7DB200ABEA01 /* ReactiveSwift.framework in Frameworks */,
-				99A762681EB1C2CD00A90AE9 /* NiceUI.framework in Frameworks */,
 				99EEDE391EAF855400662DED /* NiceData.framework in Frameworks */,
 				728EC0C6A600767FB2C10561 /* Pods_FocusPlan.framework in Frameworks */,
 			);
@@ -497,7 +490,6 @@
 				99169FE21ED5DF5D00BFB4F2 /* KeychainAccess.framework */,
 				99C9A4231EC988D200AFF489 /* SwiftCSV.framework */,
 				994063C51EB7028500E09165 /* SwiftDate.framework */,
-				99A762671EB1C2CD00A90AE9 /* NiceUI.framework */,
 				991E7B1D1EB06A340086A9D9 /* NiceReactive.framework */,
 				99B6100F1EB05D550098F69C /* Hue.framework */,
 				99EEDE371EAF854200662DED /* NiceData.framework */,
